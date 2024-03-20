@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, User, createUserWithEmailAndPassword, updateProfile, user } from '@angular/fire/auth';
+import { Auth, User, createUserWithEmailAndPassword, updateProfile, user, } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Subscription, from } from 'rxjs';
 import { UserType } from '../types/user.class';
