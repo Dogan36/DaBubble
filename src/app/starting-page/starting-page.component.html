@@ -1,0 +1,12 @@
+<header>
+   <h1>Hier der Header</h1>
+</header>
+<app-login *ngIf="authService.showLogin"></app-login>
+<app-signup *ngIf="authService.showSignUp"></app-signup>
+<app-signuppicture *ngIf="authService.showSignUpPicture"></app-signuppicture>
+<app-forgot-password *ngIf="authService.showResetPassword"></app-forgot-password>
+
+<footer>
+    <p routerLink='/imprint'>Impressum</p>
+    <p routerLink='/privacy-policy'>Datenschutz</p>
+</footer>

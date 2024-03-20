@@ -1,17 +1,36 @@
-import { Component } from '@angular/core';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+
+
+
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
 export class SignupComponent {
-  
-  email:string ='test';
-  password:string ='test'
- 
 
 
+  authService: AuthService = inject(AuthService);
+
+  email: string = '';
+  password: string = '';
+  name: string = '';
+
+  async saveVariables() {
+    this.authService.email = this.email;
+    this.authService.password = this.password;
+    this.authService.name = this.name;
+   ;
+  }
+
+  toggleToLogin() {
+    this.authService.showLogin = true;
+    this.authService.showLogin = false;
+  }
 }
+

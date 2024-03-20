@@ -1,20 +1,24 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { RouterModule, Router } from '@angular/router';
-
-import { getAuth, User, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-import { Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common';
+import { Component, inject} from '@angular/core';
+import { SignupComponent } from './signup/signup.component';
+import  { LoginComponent } from './login/login.component' ;
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { SignuppictureComponent } from './signuppicture/signuppicture.component';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
 
 
 @Component({
   selector: 'app-starting-page',
   standalone: true,
   imports: [
-    RouterModule,
-    FormsModule,
-    CommonModule,
-    
+  SignupComponent,
+  ForgotPasswordComponent,
+  LoginComponent,
+  SignuppictureComponent,
+  FormsModule,
+  NgIf
   ],
   templateUrl: './starting-page.component.html',
   styleUrl: './starting-page.component.scss'
@@ -22,20 +26,7 @@ import { FormsModule } from '@angular/forms';
 
 export class StartingPageComponent {
 
-  private router: Router = inject(Router);
- 
-  email: string = '';
-  password: string = '';
-
-  async login() {
-
-  }
-
-  async loginAsGuest() {
-   
-  }
-
-  toggleToResetPassword(){
-    
-  }
+  constructor() {}
+  authService: AuthService = inject(AuthService);
+  private router =inject(Router)
 }
