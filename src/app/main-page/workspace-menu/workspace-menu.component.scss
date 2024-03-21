@@ -1,0 +1,79 @@
+@import './../../../styles.scss';
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    div {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        h3 {
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 32.74px;
+        }
+    }
+
+    .edit-icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+            background-color: $cpt-bg;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    }
+}
+
+
+.channel-head-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .channel-head {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            h4 {
+                font-weight: 700;
+                font-size: 20px;
+                line-height: 27.28px;
+            }
+        }
+
+        &:hover {
+            cursor: pointer;
+            color: $cpt-purple-2; // Noch mal prüfen und eher mit Background image arbeiten
+        }
+    }
+
+    .channel-add-icon {
+        background-image: url('./../../../assets/img/icons/add.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        padding: 8px;
+
+        &:hover {
+            cursor: pointer;
+            background-color: $cpt-bg;
+        }
+    }
+}

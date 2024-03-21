@@ -12,6 +12,10 @@ header {
     .logo-container {
         display: flex;
         width: 366px;
+        
+        img {
+            padding-left: 30px;
+        }
     }
 
     .input-container {
@@ -77,6 +81,11 @@ header {
         background-color: white;
         border-radius: 30px;
         padding: 32px 30px;
+    }
+
+    app-chat-board, app-thread-board {
+        display: flex;
+        flex-direction: column;
     }
     
     app-workspace-menu{

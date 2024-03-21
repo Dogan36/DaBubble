@@ -1,0 +1,50 @@
+@import './../../../../styles.scss';
+
+.chat-input-container {
+    display: flex;
+    position: relative;
+    border: 1px solid $cpt-line;
+    border-radius: 20px;
+    padding-bottom: 56px;
+
+    textarea {
+        border-radius: 20px;
+        border: none;
+        font-family: $cpt-font;
+        font-size: 18px;
+        line-height: 24.55px;
+        padding: 20px;
+        resize: none;
+        width: 100%;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .chat-icons-container {
+        display: flex;
+        justify-content: space-between;
+        box-sizing: border-box;
+        position: absolute;
+        bottom: 0;
+        padding: 0 16px 16px 16px;
+        width: 100%;
+
+        .reaction-icons {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            img {
+                padding: 8px;
+            }
+
+            div {
+                width: 1px;
+                height: 40px;
+                background-color: $cpt-line;
+            }
+        }
+    }
+}
