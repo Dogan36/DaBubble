@@ -1,5 +1,6 @@
 @import './../../../styles.scss';
 
+// Workspace Menu header 
 header {
     display: flex;
     align-items: center;
@@ -21,13 +22,12 @@ header {
     .edit-icon {
         width: 40px;
         height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        background-image: url('./../../../assets/img/icons/edit_square.svg');
+        background-position: center;
+        background-repeat: no-repeat;
 
         &:hover {
-            background-color: $cpt-bg;
-            border-radius: 50%;
+            background-image: url('./../../../assets/img/icons/edit_square_pur.svg');
             cursor: pointer;
         }
     }
@@ -39,41 +39,122 @@ header {
     align-items: center;
     justify-content: space-between;
 
-    .channel-head {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-
-        div {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-
-            h4 {
-                font-weight: 700;
-                font-size: 20px;
-                line-height: 27.28px;
-            }
-        }
+    .channel-add-icon {
+        background-image: url('./../../../assets/img/icons/add_big.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 30px;
+        height: 30px;
 
         &:hover {
             cursor: pointer;
-            color: $cpt-purple-2; // Noch mal prüfen und eher mit Background image arbeiten
+            background-image: url('./../../../assets/img/icons/add_pur_hov.svg');
+        }
+    }
+}
+
+.workspace-subtitle-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    .drop-down-icon {
+        background-image: url('./../../../assets/img/icons/arrow_drop_down.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 30px;
+        width: 30px;
+    }
+
+    .workspace-subtitle {
+        background-position: 0% 50%;
+        background-repeat: no-repeat;
+        padding: 0 0 0 34px;
+    
+        h4 {
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 27.28px;
+            margin: 0;
         }
     }
 
-    .channel-add-icon {
-        background-image: url('./../../../assets/img/icons/add.svg');
-        background-position: center;
+    .workspace-subtitle-icon-ch {
+        background-image: url('./../../../assets/img/icons/workspaces.svg');
+    }
+    .workspace-subtitle-icon-mes {
+        background-image: url('./../../../assets/img/icons/account_circle.svg');
+    }
+
+    &:hover {
+        cursor: pointer;
+        color: $cpt-purple-3;
+        .drop-down-icon {
+            background-image: url('./../../../assets/img/icons/arrow_drop_down_pur.svg');
+            // transform: rotate(90deg); // bei click und nicht nur bei hover
+        }
+        .workspace-subtitle-icon-ch {
+            background-image: url('./../../../assets/img/icons/workspaces_pur.svg');
+        }
+        .workspace-subtitle-icon-mes {
+            background-image: url('./../../../assets/img/icons/account_circle_pur.svg');
+        }
+    }
+}
+
+
+.channels-list {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    padding: 0 30px;
+
+    .add-channel, .channel {
         background-repeat: no-repeat;
-        border-radius: 50%;
-        width: 24px;
-        height: 24px;
-        padding: 8px;
+
+        h4 {
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 24.55px;
+                margin: 0;
+            }
 
         &:hover {
+            color: $cpt-purple-3;
             cursor: pointer;
+        }
+    }
+
+    .channel {
+        display: flex;
+        align-items: center;
+        background-image: url('./../../../assets/img/icons/tag.svg');
+        background-position: 15px 50%;
+        height: 33px;
+        padding: 0 0 0 49px;
+        
+        &:hover {
+            background-image: url('./../../../assets/img/icons/tag_pur.svg');
+            border-radius: 20px;
             background-color: $cpt-bg;
         }
     }
+
+    .add-channel {
+        background-image: url('./../../../assets/img/icons/add_circle.svg');
+        background-position: 0% 50%;
+        padding: 0 0 0 34px;
+        margin-left: 15px;
+        margin-top: 12px;
+        
+        &:hover {
+            background-image: url('./../../../assets/img/icons/add_circle_pur.svg');
+        }
+    }
+}
+
+.message-list {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    padding: 0 30px;
 }

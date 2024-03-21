@@ -1,0 +1,21 @@
+@import './../../../../styles.scss';
+
+.workspace-user-container {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    border-radius: 35px;
+    padding: 4px 15px;
+
+    img {
+
+    }
+
+    h4 {
+        margin: 0;
+    }
+
+    &:hover {
+        background-color: $cpt-bg;
+    }
+}

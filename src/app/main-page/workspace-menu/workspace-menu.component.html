@@ -3,20 +3,39 @@
     <img src="assets/img/Workspace-logo.svg" alt="" />
     <h3>Devspace</h3>
   </div>
-  <div class="edit-icon">
-    <img src="assets/img/icons/edit_square.svg" alt="" />
-  </div>
+  <div class="edit-icon"></div>
 </header>
 <div class="channel-head-container">
-  <div class="channel-head">
-    <img src="assets/img/icons/arrow_drop_down.svg" alt="" />
-    <div>
-      <img src="assets/img/icons/workspaces.svg" alt="" />
+  <div class="workspace-subtitle-container">
+    <div class="drop-down-icon"></div>
+    <div class="workspace-subtitle workspace-subtitle-icon-ch">
       <h4>Channels</h4>
     </div>
   </div>
   <div class="channel-add-icon"></div>
 </div>
-<div class="channels-list"></div>
-<div class="message-list-head"></div>
-<div class="message-list"></div>
+
+<div class="channels-list">
+  <!-- Hier alle channels über eine for Schleife rendern (und index vergeben) -->
+  <div class="channel"><h4>Entwicklerteam</h4></div>
+  <div class="channel"><h4>Office-team</h4></div>
+  <div class="add-channel">
+    <h4>Channels</h4>
+  </div>
+</div>
+
+<div class="workspace-subtitle-container">
+  <div class="drop-down-icon"></div>
+  <div class="workspace-subtitle workspace-subtitle-icon-mes">
+    <h4>Direktnachrichten</h4>
+  </div>
+</div>
+
+<div class="message-list">
+  <!-- Hier alle user über eine for Schleife rendern (und index vergeben) -->
+  <app-workspace-user-profil></app-workspace-user-profil>
+  <app-workspace-user-profil></app-workspace-user-profil>
+  <app-workspace-user-profil></app-workspace-user-profil>
+</div>
+
+<!-- Struktur noch mal anpassen + Overflow: scroll -->
