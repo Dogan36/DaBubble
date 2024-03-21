@@ -18,10 +18,10 @@ export class AuthService {
   password: string = '';
   name: string = '';
   selectedProfilePic: string = '';
-  showLogin = true;
-  showSignUpPicture: boolean = true;
-  showResetPassword: boolean = true;
-  showSignUp: boolean = true;
+  showLogin:boolean = true;
+  showSignUpPicture: boolean = false;
+  showResetPassword: boolean = false;
+  showSignUp: boolean = false;
  
 
   user$ = user(this.auth);

@@ -1,13 +1,21 @@
-
 <form>
     <h1>Anmeldung</h1>
-    <p>Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</p>
-    <input type="text" placeholder="beispielname@email.com">
-    <input type="password" placeholder="Passwort">
-<span>Passwort vergessen?</span>
+    <p class="formDescription">Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</p>
 
-<div>ODER</div>
-<button>Anmeldung mit Google</button>
-<button type="submit">Anmelden</button>
-<button>Gäste-login</button>
+
+    <label for="email" class="inputField email">
+        <div class="icon"></div>
+        <input class="input" id="email" type="text" placeholder="beispielname@email.com">
+    </label>
+
+    <label for="password" class="inputField password">
+        <div class="icon"></div>
+        <input id="password" type="text" placeholder="password">
+    </label>
+    <span>Passwort vergessen?</span>
+
+    <div>ODER</div>
+    <button>Anmeldung mit Google</button>
+    <button type="submit">Anmelden</button>
+    <button>Gäste-login</button>
 </form>
