@@ -1,6 +1,93 @@
 @import './../../styles.scss';
 
-.main {
-    color: $cpt-purple-1;
-    font-family: $cpt-font;
+
+header {
+    display: flex;
+    align-items: center;
+    // justify-content: space-between;
+    gap: 20px;
+    box-sizing: border-box;
+    padding: 25px 20px;
+
+    .logo-container {
+        display: flex;
+        width: 366px;
+    }
+
+    .input-container {
+        position: relative;
+        flex: 1;
+
+        input {
+            border: none;
+            border-radius: 42px;
+            box-sizing: border-box;
+            height: 75px;
+            padding: 0 35px 0 35px;
+            width: 100%;
+            &:focus {
+                outline: none;
+            }
+        }
+
+        img {
+            height: 35px;
+            position: absolute;
+            right: 35px;
+            top: 20px;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .user-menu {
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        gap: 20px;
+        width: 485px;
+    
+        h2 {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 43.65px;
+            margin: 0;
+        }
+
+        .user-menu-drop-down-icon {
+            &:hover {
+                background-color: white;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.main-section {
+    display: flex;
+    gap: 20px;
+    box-sizing: border-box;
+    height: calc(100vh - 120px);
+    padding: 0 20px 25px 20px;
+
+    app-workspace-menu, app-chat-board, app-thread-board {
+        background-color: white;
+        border-radius: 30px;
+        padding: 32px 30px;
+    }
+    
+    app-workspace-menu{
+        width: 306px;
+    }
+
+    app-chat-board {
+        flex: 1;
+    }
+
+    app-thread-board {
+        width: 425px;
+    }
 }

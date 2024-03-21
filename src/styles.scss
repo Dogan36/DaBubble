@@ -8,6 +8,12 @@ $cpt-bg: #ECEEFE;
 $cpt-font: 'Nunito';
 
 
+body {
+    margin: 0;
+    background-color: $cpt-bg;
+    font-family: $cpt-font;
+}
+
 
 
 // Fonts 
