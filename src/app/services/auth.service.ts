@@ -28,7 +28,7 @@ export class AuthService {
  
   user$ = user(this.auth);
   userSubscription: Subscription = new Subscription();
-
+  userUid:string=''
   constructor() {
     this.userSubscription = this.user$.subscribe((aUser: User | null) => {
       //handle user state changes here. Note, that user will be null if there is no currently logged in user.
@@ -63,7 +63,7 @@ export class AuthService {
   async login(){
     await signInWithEmailAndPassword(this.auth, this.email, this.password)
     .then((userCredential) => {
-      const user = userCredential.user;
+      this.userUid = userCredential.user.uid;
       this.router.navigate(['']);
     })
     .catch((error) => {

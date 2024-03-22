@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { WorkspaceMenuComponent } from './workspace-menu/workspace-menu.component'; 
+import { Component, inject } from '@angular/core';
+import { WorkspaceMenuComponent } from './workspace-menu/workspace-menu.component';
 import { ChatBoardComponent } from './chat-board/chat-board.component';
 import { ThreadBoardComponent } from './thread-board/thread-board.component';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatButtonModule} from '@angular/material/button';
-
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-main-page',
   standalone: true,
@@ -13,11 +13,15 @@ import {MatButtonModule} from '@angular/material/button';
   styleUrl: './main-page.component.scss'
 })
 export class MainPageComponent {
-
+  authService: AuthService = inject(AuthService);
   threadOpen = true;
 
   closeThread() {
     this.threadOpen = false;
     console.log('thread is now', this.threadOpen);
+  }
+
+  ngOnInit() {
+    console.log(this.authService.userUid)
   }
 }
