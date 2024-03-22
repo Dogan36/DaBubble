@@ -18,7 +18,8 @@ import { NgIf } from '@angular/common';
   LoginComponent,
   SignuppictureComponent,
   FormsModule,
-  NgIf
+  NgIf,
+  RouterLink
   ],
   templateUrl: './starting-page.component.html',
   styleUrl: './starting-page.component.scss'
@@ -26,7 +27,7 @@ import { NgIf } from '@angular/common';
 
 export class StartingPageComponent {
 
-  constructor() {}
+  constructor(public router:Router) {}
   authService: AuthService = inject(AuthService);
-  private router =inject(Router)
+ 
 }
