@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { TextareaMainPageComponent } from '../shared/textarea-main-page/textarea-main-page.component';
 
 @Component({
@@ -10,4 +10,9 @@ import { TextareaMainPageComponent } from '../shared/textarea-main-page/textarea
 })
 export class ThreadBoardComponent {
 
+  @Output() closeThread = new EventEmitter<void>();
+
+  onCloseThread() {
+    this.closeThread.emit();
+  }
 }

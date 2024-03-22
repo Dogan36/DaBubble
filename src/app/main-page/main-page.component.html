@@ -16,7 +16,20 @@
   </div>
 </header>
 <div class="main-section">
-  <app-workspace-menu></app-workspace-menu>
+  <mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+      <app-workspace-menu></app-workspace-menu>
+    </mat-drawer>
+    <div class="example-sidenav-content workspace-menu-btn">
+      <button type="button" mat-button (click)="drawer.toggle()">
+        Toggle sidenav
+      </button>
+    </div>
+  </mat-drawer-container>
+
   <app-chat-board></app-chat-board>
-  <app-thread-board></app-thread-board>
+  @if(threadOpen) {<app-thread-board
+    (closeThread)="closeThread()"
+  ></app-thread-board
+  >}
 </div>

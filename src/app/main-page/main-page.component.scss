@@ -1,18 +1,26 @@
 @import './../../styles.scss';
 
 
+$wdth-left: 366px;
+$wdth-right: 485px;
+
+h3 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32.74px;
+}
+
 header {
     display: flex;
     align-items: center;
-    // justify-content: space-between;
     gap: 20px;
-    box-sizing: border-box;
+    // box-sizing: border-box;
     padding: 25px 20px;
 
     .logo-container {
         display: flex;
-        width: 366px;
-        
+        width: $wdth-left;
+
         img {
             padding-left: 30px;
         }
@@ -25,12 +33,12 @@ header {
         input {
             border: none;
             border-radius: 42px;
-            box-sizing: border-box;
+            // box-sizing: border-box;
             height: 75px;
             padding: 0 35px 0 35px;
             width: 100%;
             outline: none;
-            
+
         }
 
         img {
@@ -50,8 +58,8 @@ header {
         align-items: center;
         justify-content: end;
         gap: 20px;
-        width: 485px;
-    
+        width: $wdth-right;
+
         h2 {
             font-size: 32px;
             font-weight: 700;
@@ -72,20 +80,23 @@ header {
 .main-section {
     display: flex;
     gap: 20px;
-    box-sizing: border-box;
+    // box-sizing: border-box;
     height: calc(100vh - 120px);
     padding: 0 20px 25px 20px;
+    // position: relative;
 
-    app-workspace-menu, app-chat-board, app-thread-board {
+    app-workspace-menu,
+    app-chat-board,
+    app-thread-board {
         display: flex;
         flex-direction: column;
         background-color: white;
         border-radius: 30px;
         padding: 32px 30px;
     }
-    
-    app-workspace-menu{
-        width: 306px;
+
+    app-workspace-menu {
+        width: $wdth-left;
         gap: 25px;
     }
 
@@ -94,6 +105,19 @@ header {
     }
 
     app-thread-board {
-        width: 425px;
+        width: $wdth-right;
     }
+
+    // .workspace-menu-btn {
+    //     position: absolute;
+    //     z-index: 99;
+    // }
+}
+
+
+.hr-line {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 0%, rgba(255, 255, 255, 0.8) 90%, rgba(255, 255, 255, 1) 100%);
+    height: 8px;
+    margin-left: -30px;
+    width: calc(100% + 60px);
 }

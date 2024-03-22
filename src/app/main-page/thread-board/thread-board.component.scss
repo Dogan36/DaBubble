@@ -1,5 +1,46 @@
-header {
-    height: 96px; // später noch ändern!
+@import './../main-page.component.scss';
+
+.title-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 10px 32px 10px;
+    // box-shadow: 0 2px 10px 0px rgba(0, 0, 0, 0.08);
+
+    .thread-title {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        h3 {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 32.74px;
+        }
+
+        span {
+            background-image: url('./../../../assets/img/icons/tag_thin_pur.svg');
+            background-position: 0px 50%;
+            background-repeat: no-repeat;
+            color: $cpt-purple-2;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 19.1px;
+            padding-left: 21px;
+        }
+    }
+
+    .close-icon {
+        height: 40px;
+        width: 40px;
+        background-image: url('./../../../assets/img/icons/close.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+
+        &:hover {
+            background-image: url('./../../../assets/img/icons/close_pur.svg');
+        }
+    }
 }
 
 .thread-field {

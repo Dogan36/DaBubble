@@ -1,3 +1,24 @@
-<header></header>
-<div class="chat-field"><p>chat-board works!</p></div>
+<div class="title-container">
+  <!-- Font-size muss noch angepasst werden, und width nicht 100%! -->
+  @if(singleChat) {
+  <div class="title-sgl-user-chat">
+    <app-workspace-user-profil></app-workspace-user-profil>
+  </div>
+  }
+</div>
+<div class="hr-line"></div>
+<div class="chat-field">
+  @if(newSglChat) {
+  <div class="new-chat-container">
+    <div class="new-chat-user">
+      <img src="assets/img/profils/Foto.svg" alt="" />
+      <h3>Sofia Müller</h3>
+    </div>
+    <p>
+      Diese Unterhaltung findet nur zwischen <span>&#64;Sofia Müller </span>und
+      dir statt.
+    </p>
+  </div>
+  }
+</div>
 <app-textarea-main-page></app-textarea-main-page>
