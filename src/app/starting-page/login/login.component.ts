@@ -23,14 +23,14 @@ export class LoginComponent {
   }
 
   async onSubmit() {
-await this.saveVariables();
-    this.authService.login();
+    this.saveVariables();
+    await this.authService.login();
   }
 
   async saveVariables() {
     this.authService.email = this.myForm.value['email'];
     this.authService.password = this.myForm.value['password'];
-       ;
+    ;
   }
   get emailError() {
     const emailControl = this.myForm.get('email');

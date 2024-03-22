@@ -21,10 +21,10 @@ export class AuthService {
   name: string = '';
   selectedProfilePic: string = '';
 
-  showLogin:boolean = true;
+  showLogin:boolean = false;
   showSignUpPicture: boolean = false;
   showResetPassword: boolean = false;
-  showSignUp: boolean = false;
+  showSignUp: boolean = true;
  
   user$ = user(this.auth);
   userSubscription: Subscription = new Subscription();
@@ -44,10 +44,6 @@ export class AuthService {
     };
   }
 
-  async toggleToChooseProfilePicture() {
-    this.showSignUpPicture = true;
-    this.showSignUp = false;
-  }
 
   async register() {
       const userCredential = await createUserWithEmailAndPassword(this.auth, this.email, this.password);

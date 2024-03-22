@@ -1,19 +1,36 @@
 
-<div class="d-flex">
-    <div class="create-container">
-        <div class="flex-box">
-          <img (click)="toggleToLogin()" src="" alt="pfeil">
-            <h1>Konto erstellen</h1>
-        </div>
-        <p class="info-text">Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DaBubble-Konto.</p>
-        <form (ngSubmit)="saveVariables()" ngNativeValidate>
-            <input required type="text" class="name" placeholder="Name und Nachname" autocomplete="username" [(ngModel)]="name" name="name">
-            <input required type="email" class="email" placeholder="beispielname@email.com" autocomplete="email" [(ngModel)]="email" name="email">
-            <input required type="password" class="password" placeholder="Passwort" autocomplete="current-password" [(ngModel)]="password" name="password" minlength="8">
-            <div class="center-box"><div class="style-checkbox"><input required type="checkbox" id="privacy-policy"></div>
-                <label>Ich stimme der <span>Datenschutzerklärung</span> zu</label>
-            </div>
-            <button class="next-button">Weiter</button>
-        </form>
+
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()" false>
+    <h1>Konto erstellen</h1>
+    <p class="info-text">Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</p>
+
+    <label for="name" class="inputField name" [class.borderPur]="myForm.get('name')?.touched && nameError">
+        <div class="icon"></div>
+        <input formControlName="name" class="input" id="name" type="text" placeholder="Name und Nachname">
+    </label>
+    <div class="error-container">
+        <span class="error-message" *ngIf="myForm.get('name')?.touched && nameError">{{ nameError }}</span>
     </div>
-</div>
+
+    <label for="email" class="inputField email" [class.borderPur]="myForm.get('email')?.touched && emailError">
+        <div class="icon"></div>
+        <input formControlName="email" class="input" id="email" type="text" placeholder="beispielname@email.com">
+    </label>
+    <div class="error-container">
+        <span class="error-message" *ngIf="myForm.get('email')?.touched && emailError">{{ emailError }}</span>
+    </div>
+
+    <label for="password" class="inputField password"
+        [class.borderPur]="myForm.get('password')?.touched && passwordError">
+        <div class="icon"></div>
+        <input formControlName="password" id="password" type="text" placeholder="password">
+    </label>
+    <div class="error-container">
+        <span class="error-message" *ngIf="myForm.get('password')?.touched && passwordError">{{ passwordError }}</span>
+    </div>
+
+    <div class="buttons-container">
+        <button class="primaryButton" type="submit" [disabled]="myForm.invalid">Anmelden</button>
+    </div>
+
+</form>
