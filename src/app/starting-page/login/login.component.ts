@@ -1,7 +1,8 @@
 import { NgClass, NgIf } from '@angular/common';
-import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Renderer2, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -10,11 +11,9 @@ import { RouterLink } from '@angular/router';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-onSubmit() {
-throw new Error('Method not implemented.');
-}
-  myForm: FormGroup;
 
+  myForm: FormGroup;
+  authService: AuthService = inject(AuthService);
   constructor(private fb: FormBuilder, private renderer: Renderer2,
     private el: ElementRef,) {
     this.myForm = this.fb.group({
@@ -23,25 +22,34 @@ throw new Error('Method not implemented.');
     });
   }
 
-
-get emailError() {
-  const emailControl = this.myForm.get('email');
-
-  if (emailControl?.hasError('required')) {
-    return '*Bitte geben Sie Ihre E-Mail-Adresse ein';
+  async onSubmit() {
+await this.saveVariables();
+    this.authService.login();
   }
-  if (emailControl?.hasError('email')) {
-    return '*Diese E-Mail-Adresse ist leider ungültig';
-  }
-  return '';
-}
 
-get passwordError() {
-  const passwordControl = this.myForm.get('password');
-
-  if (passwordControl?.hasError('required')) {
-    return '*Bitte geben Sie Ihr Password ein';
+  async saveVariables() {
+    this.authService.email = this.myForm.value['email'];
+    this.authService.password = this.myForm.value['password'];
+       ;
   }
-  return '';
-}
+  get emailError() {
+    const emailControl = this.myForm.get('email');
+
+    if (emailControl?.hasError('required')) {
+      return '*Bitte geben Sie Ihre E-Mail-Adresse ein';
+    }
+    if (emailControl?.hasError('email')) {
+      return '*Diese E-Mail-Adresse ist leider ungültig';
+    }
+    return '';
+  }
+
+  get passwordError() {
+    const passwordControl = this.myForm.get('password');
+
+    if (passwordControl?.hasError('required')) {
+      return '*Bitte geben Sie Ihr Password ein';
+    }
+    return '';
+  }
 }

@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, User, createUserWithEmailAndPassword, updateProfile, user, } from '@angular/fire/auth';
+import { Auth, User, createUserWithEmailAndPassword, updateProfile, user, onAuthStateChanged, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Subscription, from } from 'rxjs';
 import { UserType } from '../types/user.class';
@@ -14,16 +14,18 @@ export class AuthService {
   private firestore: Firestore = inject(Firestore);
   private router: Router = inject(Router);
 
+
+
   email: string = '';
   password: string = '';
   name: string = '';
   selectedProfilePic: string = '';
+
   showLogin:boolean = true;
   showSignUpPicture: boolean = false;
   showResetPassword: boolean = false;
   showSignUp: boolean = false;
  
-
   user$ = user(this.auth);
   userSubscription: Subscription = new Subscription();
 
@@ -57,6 +59,19 @@ export class AuthService {
       const userDocRef = doc(this.firestore, 'users', user.uid);
       await setDoc(userDocRef, userObject);
   }
+
+  async login(){
+    await signInWithEmailAndPassword(this.auth, this.email, this.password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      this.router.navigate(['']);
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
+  }
+
 
   ngOnDestroy() {
     // when manually subscribing to an observable remember to unsubscribe in ngOnDestroy
