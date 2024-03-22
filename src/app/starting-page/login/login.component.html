@@ -1,21 +1,34 @@
-<form>
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()" false>
     <h1>Anmeldung</h1>
     <p class="formDescription">Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</p>
 
-
-    <label for="email" class="inputField email">
+    <label for="email" class="inputField email" [class.borderPur]="myForm.get('email')?.touched && emailError">
         <div class="icon"></div>
-        <input class="input" id="email" type="text" placeholder="beispielname@email.com">
+        <input formControlName="email" class="input" id="email" type="text" placeholder="beispielname@email.com">
     </label>
+    <div class="error-container">
+        <span class="error-message" *ngIf="myForm.get('email')?.touched && emailError">{{ emailError }}</span>
+    </div>
 
-    <label for="password" class="inputField password">
+    <label for="password" class="inputField password"
+        [class.borderPur]="myForm.get('password')?.touched && passwordError">
         <div class="icon"></div>
-        <input id="password" type="text" placeholder="password">
+        <input formControlName="password" id="password" type="text" placeholder="password">
     </label>
-    <span>Passwort vergessen?</span>
+    <div class="error-container">
+        <span class="error-message" *ngIf="myForm.get('password')?.touched && passwordError">{{ passwordError }}</span>
+    </div>
 
-    <div>ODER</div>
-    <button>Anmeldung mit Google</button>
-    <button type="submit">Anmelden</button>
-    <button>Gäste-login</button>
+    <div class="forgotPassword">Passwort vergessen?</div>
+
+    <div class="seperator">
+        <div class="line"></div>
+        <div class="oder">ODER</div>
+    </div>
+    <div class="google"><img src="./assets/img/icons/google.svg">Anmeldung mit Google</div>
+    <div class="buttons-container">
+        <button class="primaryButton" type="submit" [disabled]="myForm.invalid">Anmelden</button>
+        <button class="secondaryButton">Gäste-Login</button>
+    </div>
+
 </form>

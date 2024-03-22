@@ -69,10 +69,11 @@ h1 {
     width: 100%;
     margin-bottom: 46px;
     line-height: 24px;
+    text-align: center;
 }
 
 .inputField {
-    margin-bottom: 40px;
+   
     display: flex;
     align-items: center;
     gap: 30px;
@@ -82,13 +83,20 @@ h1 {
     background-color: $cpt-bg;
     border-radius: 100px;
     cursor: pointer;
+transition: all 10000ms ease-in;
+    &:hover {
+        border: 1px solid #686868;
+    }
+
+    &:focus-within {
+        border: 1px solid #9747FF;
+    }
 
     .icon {
         height: 24px;
         width: 24px;
         background-position: center;
         background-repeat: no-repeat;
-
     }
 
     input {
@@ -103,8 +111,11 @@ h1 {
             line-height: 21.6px;
             font-size: 18px;
         }
-    }
 
+        &:hover {
+            border: 1px solid $cpt-bg;
+        }
+    }
 }
 
 .email {
@@ -112,43 +123,53 @@ h1 {
         background-image: url('./../../assets/img/icons/mail.svg');
     }
 
-    &:hover .icon {
+    &:focus-within .icon {
         background-image: url('./../../assets/img/icons/mail_black.svg');
     }
-    &:focus-within .icon{
-        background-image: url('./../../assets/img/icons/mail_black.svg')
-    }
+
+
 }
 
 .password {
     .icon {
-        background-image: url('./../../assets/img/icons/mail.svg');
+        background-image: url('./../../assets/img/icons/lock.svg');
     }
 
-    &:hover .icon {
-        background-image: url('./../../assets/img/icons/mail_black.svg');
+
+    &:focus-within .icon {
+        background-image: url('./../../assets/img/icons/lock_black.svg');
     }
 }
 
 .name {
     .icon {
-        background-image: url('./../../assets/img/icons/mail.svg');
+        background-image: url('./../../assets/img/icons/person.svg');
     }
 
-    &:hover, .icon {
-        background-image: url('./../../assets/img/icons/mail_black.svg');
+    &:focus-within .icon {
+        background-image: url('./../../assets/img/icons/person_black.svg');
     }
 }
 
-.passwortVergessen {
-    margin-bottom: 43px;
+.borderPur{
+    border: 1px solid #535AF1;
 }
 
-.googleAnmeldung {
-    width: 100%;
-    margin-bottom: 55px;
-}
 
 .submitButtons {
     gap: 30px
+}
+
+.error-container{
+    height: 40px;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    padding-top: 6px;
+}
+
+.error-message{
+    font-size: 14px;
+    color: #ED1E79;
+
 }

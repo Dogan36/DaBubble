@@ -8,7 +8,7 @@ $cpt-line: #ADB0D9;
 
 $cpt-font: 'Nunito';
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -20,7 +20,60 @@ body {
     font-family: $cpt-font;
 }
 
+.primaryButton {
+    height: 49px;
+    background-color: $cpt-purple-1;
+    border-radius: 25px;
+    padding: 12px 25px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    transition: all 100ms ease-out;
+    border: 1px solid transparent;
+    cursor: pointer;
 
+    &:hover {
+        background-color: $cpt-purple-2
+    }
+
+    &:active {
+        background-color: $cpt-purple-1;
+    }
+
+    &:disabled {
+        background-color: #686868;
+    }
+}
+
+.secondaryButton {
+    height: 49px;
+    background-color: white;
+    border-radius: 25px;
+    padding: 12px 25px;
+    color: $cpt-purple-1;
+    font-size: 18px;
+    font-weight: 700;
+    transition: all 100ms ease-out;
+    border: 1px solid #9747FF;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $cpt-purple-3;
+        color: white;
+        border: 1px solid transparent
+    }
+
+    &:active {
+        background-color: $cpt-purple-1;
+        color: white;
+        border: 1px solid transparent;
+    }
+
+    &:disabled {
+        color: #686868;
+        border-color: #686868;
+    }
+}
 
 // Fonts 
 
