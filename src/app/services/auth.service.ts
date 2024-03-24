@@ -21,10 +21,10 @@ export class AuthService {
   name: string = '';
   selectedProfilePic: string = '';
 
-  showLogin:boolean = false;
+  showLogin:boolean = true;
   showSignUpPicture: boolean = false;
   showResetPassword: boolean = false;
-  showSignUp: boolean = true;
+  showSignUp: boolean = false;
  
   user$ = user(this.auth);
   userSubscription: Subscription = new Subscription();

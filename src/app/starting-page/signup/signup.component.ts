@@ -33,7 +33,7 @@ export class SignupComponent {
     this.authService.email = this.email;
     this.authService.password = this.password;
     this.authService.name = this.name;
-    ;
+    
   }
   onSubmit() {
     this.saveVariables();
@@ -41,13 +41,13 @@ export class SignupComponent {
   }
 
   toggleToPicture(){
-    this.authService.showSignUp = false;
-    this.authService.showSignUpPicture = true;
+    this.authService.showSignUp = !this.authService.showSignUp;
+    this.authService.showSignUpPicture = !this.authService.showSignUpPicture;
   }
 
-  toggleToLogin() {
-    this.authService.showLogin = true;
-    this.authService.showSignUp = false;
+  toggleSignUp() {
+    this.authService.showLogin = !this.authService.showLogin;
+    this.authService.showSignUp = !this.authService.showSignUp;
   }
 
   get emailError() {

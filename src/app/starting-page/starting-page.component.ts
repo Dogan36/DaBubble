@@ -30,4 +30,9 @@ export class StartingPageComponent {
   constructor(public router:Router) {}
   authService: AuthService = inject(AuthService);
  
+
+  toggleSignUp() {
+    this.authService.showLogin = !this.authService.showLogin;
+    this.authService.showSignUp = !this.authService.showSignUp;
+  }
 }

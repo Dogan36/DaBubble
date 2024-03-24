@@ -1,6 +1,12 @@
 <div class="main-section">
-    <div class="logo"></div>
-    <div class="neuHier"></div>
+    <header>
+        <div class="logo"><img src="./assets/img/Logo_full.svg" alt=""></div>
+        <div class="neuHier">
+            <p>Neu be DABubble?</p>
+            <p (click)="toggleSignUp()">Konto erstellen</p>
+        </div>
+    </header>
+
     <app-login *ngIf="authService.showLogin"></app-login>
     <app-signup *ngIf="authService.showSignUp"></app-signup>
     <app-signuppicture *ngIf="authService.showSignUpPicture"></app-signuppicture>
