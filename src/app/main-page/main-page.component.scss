@@ -1,5 +1,6 @@
 @import './../../styles.scss';
 
+// general elements
 
 $wdth-left: 366px;
 $wdth-right: 485px;
@@ -8,7 +9,18 @@ h3 {
     font-size: 24px;
     font-weight: 700;
     line-height: 32.74px;
+    margin: 0;
 }
+
+p {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24.55px;
+    margin: 0;
+}
+
+
+// Main page component
 
 header {
     display: flex;
@@ -65,14 +77,24 @@ header {
             font-weight: 700;
             line-height: 43.65px;
             margin: 0;
+
+            &:hover {
+                color: $cpt-purple-1;
+            }
         }
 
-        .user-menu-drop-down-icon {
+        .drop-down-icon {
+            background-image: url('./../../assets/img/icons/keyboard_arrow_down.svg');
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 30px;
+            width: 30px;
+
             &:hover {
-                background-color: white;
-                border-radius: 50%;
-                cursor: pointer;
+                
+                background-image: url('./../../assets/img/icons/keyboard_arrow_down_pur.svg');
             }
+
         }
     }
 }
@@ -83,7 +105,7 @@ header {
     // box-sizing: border-box;
     height: calc(100vh - 120px);
     padding: 0 20px 25px 20px;
-    // position: relative;
+    position: relative;
 
     app-workspace-menu,
     app-chat-board,
@@ -92,12 +114,12 @@ header {
         flex-direction: column;
         background-color: white;
         border-radius: 30px;
-        padding: 32px 30px;
     }
-
+    
     app-workspace-menu {
-        width: $wdth-left;
         gap: 25px;
+        padding: 32px 30px;
+        width: $wdth-left;
     }
 
     app-chat-board {
@@ -112,12 +134,20 @@ header {
     //     position: absolute;
     //     z-index: 99;
     // }
+
+    .menu-btn-container {
+        position: absolute;
+        transform: rotate(90deg) scale(-1);
+        left: -72px;
+        top: 50%;
+
+    }
 }
 
 
 .hr-line {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 0%, rgba(255, 255, 255, 0.8) 90%, rgba(255, 255, 255, 1) 100%);
     height: 8px;
-    margin-left: -30px;
-    width: calc(100% + 60px);
+    margin-bottom: 8px;
+    width: 100%;
 }

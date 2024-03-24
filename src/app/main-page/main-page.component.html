@@ -8,15 +8,11 @@
   <div class="user-menu">
     <h2>Frederik Beck</h2>
     <img src="assets/img/Profile_bild.svg" alt="" />
-    <img
-      class="user-menu-drop-down-icon"
-      src="assets/img/icons/keyboard_arrow_down.svg"
-      alt=""
-    />
+    <div class="drop-down-icon"></div>
   </div>
 </header>
 <div class="main-section">
-  <mat-drawer-container class="example-container" autosize>
+  <!-- <mat-drawer-container class="example-container" autosize>
     <mat-drawer #drawer class="example-sidenav" mode="side">
       <app-workspace-menu></app-workspace-menu>
     </mat-drawer>
@@ -25,8 +21,11 @@
         Toggle sidenav
       </button>
     </div>
-  </mat-drawer-container>
-
+  </mat-drawer-container> -->
+  <div class="menu-btn-container" (click)="toggleSideNav()">
+    Workspace-Menu schließen
+  </div>
+  <app-workspace-menu></app-workspace-menu>
   <app-chat-board></app-chat-board>
   @if(threadOpen) {<app-thread-board
     (closeThread)="closeThread()"

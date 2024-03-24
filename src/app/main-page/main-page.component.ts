@@ -18,10 +18,13 @@ export class MainPageComponent {
 
   closeThread() {
     this.threadOpen = false;
-    console.log('thread is now', this.threadOpen);
   }
 
   ngOnInit() {
     console.log(this.authService.userUid)
+  }
+
+  toggleSideNav() {
+    
   }
 }

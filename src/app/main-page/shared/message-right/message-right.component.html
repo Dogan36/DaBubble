@@ -1,0 +1,19 @@
+<div
+  class="message-right"
+  (mouseenter)="onMouseOver()"
+  (mouseleave)="onMouseOver()"
+>
+  <div>
+    <div class="user-name-time">
+      <span>14:25 Uhr</span>
+      <h5>Noah Braun</h5>
+    </div>
+    <div class="user-msg">
+      <p>Welche Version ist aktuell von Angular?</p>
+    </div>
+  </div>
+  <div><img src="assets/img/profils/avatar_2.svg" alt="" /></div>
+  @if (containerHovered) {
+  <div class="add-reaction-container">works</div>
+  }
+</div>
