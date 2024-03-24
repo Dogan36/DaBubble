@@ -14,6 +14,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class MainPageComponent {
   authService: AuthService = inject(AuthService);
+  workspaceOpen = true;
   threadOpen = true;
 
   closeThread() {
@@ -25,6 +26,6 @@ export class MainPageComponent {
   }
 
   toggleSideNav() {
-    
+    this.workspaceOpen = !this.workspaceOpen;
   }
 }
