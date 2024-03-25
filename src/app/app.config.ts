@@ -13,7 +13,7 @@ export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes), 
     provideClientHydration(), 
     importProvidersFrom(provideFirebaseApp(() => initializeApp({"projectId":"dabubble-9fc3f","appId":"1:417516174579:web:e3fefddc3232d2519d4b86","databaseURL":"https://dabubble-9fc3f-default-rtdb.europe-west1.firebasedatabase.app","storageBucket":"dabubble-9fc3f.appspot.com","apiKey":"AIzaSyD65N1jufoX_0t7XwM4NXR-pd2sxRfhs8k","authDomain":"dabubble-9fc3f.firebaseapp.com","messagingSenderId":"417516174579"}))), 
-    importProvidersFrom(provideAuth(() => getAuth())), 
     importProvidersFrom(provideFirestore(() => getFirestore())), 
-    importProvidersFrom(provideDatabase(() => getDatabase())), provideAnimationsAsync()]
+    importProvidersFrom(provideDatabase(() => getDatabase())), provideAnimationsAsync(),
+    importProvidersFrom(provideAuth(() => getAuth())) ]
 };

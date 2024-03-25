@@ -36,6 +36,9 @@ export class SignupComponent {
     
   }
   onSubmit() {
+    this.email =  this.myForm.value['email'];
+    this.password = this.myForm.value['password'];
+    this.name = this.myForm.value['name'];
     this.saveVariables();
     this.toggleToPicture();
   }

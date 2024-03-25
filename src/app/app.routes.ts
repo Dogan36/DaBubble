@@ -9,4 +9,4 @@ export const routes: Routes = [
     { path: 'start', component: StartingPageComponent, data: { title: 'Da Bubble | Start' } },
     { path: 'imprint', component: ImprintComponent, data: { title: 'Da Bubble | Imprint' } },
     { path: 'privacy-policy', component: PrivacyPolicyComponent, data: { title: 'Da Bubble | Privacy Policy' } },
-    ];
+];

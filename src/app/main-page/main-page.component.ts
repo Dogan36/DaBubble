@@ -24,6 +24,9 @@ export class MainPageComponent {
   ngOnInit() {
     console.log(this.authService.userUid)
   }
+  test(){
+    console.log(this.authService.userUid)
+  }
 
   toggleSideNav() {
     this.workspaceOpen = !this.workspaceOpen;

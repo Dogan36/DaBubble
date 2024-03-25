@@ -52,4 +52,8 @@ export class LoginComponent {
     }
     return '';
   }
+
+  loginWithGoogle(){
+    this.authService.loginWithGoogle()
+  }
 }
