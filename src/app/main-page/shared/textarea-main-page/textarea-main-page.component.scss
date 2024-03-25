@@ -37,15 +37,52 @@
             align-items: center;
             gap: 5px;
 
-            img {
-                padding: 8px;
+            .reaction-icon-plus, .reaction-icon-emoji, .reaction-icon-at {
+                background-position: center;
+                background-repeat: no-repeat;
+                height: 40px;
+                width: 40px;
             }
 
-            div {
+            .reaction-icon-plus {
+                background-image: url('./../../../../assets/img/icons/add.svg');
+
+                &:hover {
+                    background-image: url('./../../../../assets/img/icons/add_pur_hov.svg');
+                }
+            }
+            .reaction-icon-emoji {
+                background-image: url('./../../../../assets/img/icons/sentiment_satisfied.svg');
+
+                &:hover {
+                    background-image: url('./../../../../assets/img/icons/sentiment_satisfied_hov.svg');
+                }
+            }
+            .reaction-icon-at {
+                background-image: url('./../../../../assets/img/icons/alternate_email.svg');
+
+                &:hover {
+                    background-image: url('./../../../../assets/img/icons/alternate_email_hov.svg');
+                }
+            }
+
+            .sep-line {
                 width: 1px;
                 height: 40px;
                 background-color: $cpt-line;
             }
         }
+
+        .icon-send {
+            background-image: url('./../../../../assets/img/icons/send.svg');
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 40px;
+            width: 40px;
+
+            &:hover {
+                background-image: url('./../../../../assets/img/icons/send_hov.svg');
+            }
+        }
     }
-}
+} 

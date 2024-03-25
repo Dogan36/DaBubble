@@ -5,37 +5,52 @@
   </div>
   <div class="edit-icon"></div>
 </div>
-<div class="channel-head-container">
-  <div class="workspace-subtitle-container">
-    <div class="drop-down-icon"></div>
-    <div class="workspace-subtitle workspace-subtitle-icon-ch">
-      <h4>Channels</h4>
+
+<!-- Channels -->
+<div class="workspace-content">
+  <div class="channel-head-container">
+    <div (click)="toggleChannelList()" class="workspace-subtitle-container">
+      <div
+        [class.transfrom-icon]="!channelListOpen"
+        class="drop-down-icon"
+      ></div>
+      <div class="workspace-subtitle workspace-subtitle-icon-ch">
+        <h4>Channels</h4>
+      </div>
+    </div>
+    <div class="channel-add-icon"></div>
+  </div>
+
+  @if(channelListOpen) {
+  <div class="channels-list">
+    <!-- Hier alle channels über eine for Schleife rendern (und index vergeben) -->
+    <div class="channel"><h5>Entwicklerteam</h5></div>
+    <div class="channel"><h5>Office-team</h5></div>
+    <div class="add-channel">
+      <h5>Channel hinzufügen</h5>
     </div>
   </div>
-  <div class="channel-add-icon"></div>
-</div>
+  }
 
-<div class="channels-list">
-  <!-- Hier alle channels über eine for Schleife rendern (und index vergeben) -->
-  <div class="channel"><h4>Entwicklerteam</h4></div>
-  <div class="channel"><h4>Office-team</h4></div>
-  <div class="add-channel">
-    <h4>Channels</h4>
+  <!-- Direktnachrichten -->
+  <div (click)="toggleMessageList()" class="workspace-subtitle-container">
+    <div [class.transfrom-icon]="!messageListOpen" class="drop-down-icon"></div>
+    <div class="workspace-subtitle workspace-subtitle-icon-mes">
+      <h4>Direktnachrichten</h4>
+    </div>
   </div>
-</div>
 
-<div class="workspace-subtitle-container">
-  <div class="drop-down-icon"></div>
-  <div class="workspace-subtitle workspace-subtitle-icon-mes">
-    <h4>Direktnachrichten</h4>
+  @if(messageListOpen) {
+  <div class="message-list">
+    <!-- Hier alle user über eine for Schleife rendern (und index vergeben) -->
+    <app-workspace-user-profil></app-workspace-user-profil>
+    <app-workspace-user-profil></app-workspace-user-profil>
+    <app-workspace-user-profil></app-workspace-user-profil>
+    <app-workspace-user-profil></app-workspace-user-profil>
+    <app-workspace-user-profil></app-workspace-user-profil>
+    <app-workspace-user-profil></app-workspace-user-profil>
   </div>
-</div>
-
-<div class="message-list">
-  <!-- Hier alle user über eine for Schleife rendern (und index vergeben) -->
-  <app-workspace-user-profil></app-workspace-user-profil>
-  <app-workspace-user-profil></app-workspace-user-profil>
-  <app-workspace-user-profil></app-workspace-user-profil>
+  }
 </div>
 
 <!-- Struktur noch mal anpassen + Overflow: scroll -->

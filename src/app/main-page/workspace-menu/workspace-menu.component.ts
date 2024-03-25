@@ -10,4 +10,15 @@ import { WorkspaceUserProfilComponent } from '../shared/workspace-user-profil/wo
 })
 export class WorkspaceMenuComponent {
 
+  channelListOpen = true;
+  messageListOpen = true;
+
+  toggleChannelList() {
+    this.channelListOpen = !this.channelListOpen;
+  }
+
+  toggleMessageList() {
+    this.messageListOpen = !this.messageListOpen;
+  }
+
 }

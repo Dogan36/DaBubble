@@ -34,13 +34,10 @@
             background-color: $cpt-bg;
             border-radius: 0px 20px 20px 20px;
             padding: 15px;
-
-            &:hover {
-                background-color: white;
-            }
         }
 
         .add-reaction-container { 
+            animation: transformIcon 250ms forwards;
             background-color: white;
             background-image: url('./../../../../assets/img/icons/add_reaction.svg');
             background-repeat: no-repeat;
@@ -61,5 +58,13 @@
 
         &:hover {
             background-color: $cpt-bg;
+            .user-msg {
+                background-color: white;
+            }
         }
+    }
+
+    @keyframes transformIcon {
+        from {transform: translateX(20px); opacity: 0;}
+        to {transform: translateX(0px); opacity: 1;}
     }

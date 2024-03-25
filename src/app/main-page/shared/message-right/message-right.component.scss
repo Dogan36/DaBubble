@@ -40,13 +40,46 @@
         }
 
         .add-reaction-container { 
+            animation: transformIcon 250ms forwards;
+            background-color: white;
+            border: 1px solid $cpt-line;
+            border-radius: 25px 25px 0 25px;
+            display: flex;
+            padding: 3px 13px;
             position: absolute;
             top: -10px;
             left: 20px;
             z-index: 10;
+            
+            .add-reaction, .edit-msg {
+                background-repeat: no-repeat;
+                background-position: center;
+                width: 40px;
+                height: 40px;
+            }
+            .add-reaction {
+                background-image: url('./../../../../assets/img/icons/add_reaction.svg');
+
+                &:hover {
+                    background-image: url('./../../../../assets/img/icons/add_reaction_pur.svg');
+                }
+            }
+
+            .edit-msg {
+                background-image: url('./../../../../assets/img/icons/option.svg');
+
+                &:hover {
+                    background-image: url('./../../../../assets/img/icons/option_pur.svg');
+                }
+            }
         }
 
         &:hover {
             background-color: $cpt-bg;
         }
+    }
+
+    @keyframes transformIcon {
+        from {transform: translateX(-20px); opacity: 0;}
+        to {transform: translateX(0px); opacity: 1;}
     }

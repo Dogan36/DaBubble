@@ -1,4 +1,5 @@
 @import './../../../../styles.scss';
+@import './../../main-page.component.scss';
 
 .workspace-user-container {
     display: flex;
@@ -7,8 +8,8 @@
     border-radius: 35px;
     padding: 4px 15px;
 
-    h4 {
-        margin: 0;
+    h5 {
+        font-weight: 400;
     }
 
     &:hover {
