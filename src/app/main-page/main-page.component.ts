@@ -22,10 +22,10 @@ export class MainPageComponent {
   }
 
   ngOnInit() {
-    console.log(this.authService.userUid)
+    console.log(this.authService.currentUser?.uid)
   }
-  test(){
-    console.log(this.authService.userUid)
+  test() {
+    console.log(this.authService.currentUser?.uid)
   }
 
   toggleSideNav() {

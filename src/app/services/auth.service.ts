@@ -13,7 +13,7 @@ export class AuthService {
   private auth: Auth = inject(Auth);
   private firestore: Firestore = inject(Firestore);
   private router: Router = inject(Router);
-
+  currentUser: User | null = null; // Variable, um den aktuellen Benutzer zu speichern
 
 
   email: string = '';
@@ -32,9 +32,10 @@ export class AuthService {
   userUid: string = ''
   provider = new GoogleAuthProvider();
   constructor() {
-    this.userSubscription = this.user$.subscribe((aUser: User | null) => {
-      //handle user state changes here. Note, that user will be null if there is no currently logged in user.
-    })
+    this.userSubscription = this.user$.subscribe((user: User | null) => {
+      // Aktualisieren Sie die currentUser Variable, wenn sich der Authentifizierungsstatus ändert
+      this.currentUser = user;
+    });
   }
 
 
@@ -43,31 +44,23 @@ export class AuthService {
     return {
       name: this.name,
       email: this.email,
-      password: this.password,
       photoURL: this.photoURL
     };
   }
 
-
-
-
-  async login() {
-    await signInWithEmailAndPassword(this.auth, this.email, this.password)
-      .then((userCredential) => {
-        this.userUid = userCredential.user.uid;
-        console.log(this.userUid)
-
+  async login(): Promise<void> {
+    try {
+        const userCredential = await signInWithEmailAndPassword(this.auth, this.email, this.password);
+        this.currentUser = userCredential.user;
+        this.userUid = this.currentUser.uid;
         this.router.navigate(['']);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
-  }
+    } catch (error) {
+        throw error; // Fehler weitergeben
+    }
+}
 
   async register() {
     const userCredential = await createUserWithEmailAndPassword(this.auth, this.email, this.password);
-    console.log(userCredential)
     const user = userCredential.user;
     await updateProfile(user, { displayName: this.name });
     await updateProfile(user, { photoURL: this.photoURL });
@@ -84,7 +77,7 @@ export class AuthService {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         if (credential) {
           const token = credential.accessToken;
-          const user = result.user;
+          this.currentUser = result.user;
           const profile = getAdditionalUserInfo(result)?.profile
           if (profile !== null && profile !== undefined) {
             if (typeof profile['name'] === 'string') {
@@ -98,9 +91,8 @@ export class AuthService {
             }
           }
           const userObject: UserType = this.createUserObject()
-          const userDocRef = doc(this.firestore, 'users', user.uid);
+          const userDocRef = doc(this.firestore, 'users', this.currentUser.uid);
           setDoc(userDocRef, userObject);
-          this.userUid = user.uid;
           this.router.navigate(['']);
         }
       }).catch((error) => {

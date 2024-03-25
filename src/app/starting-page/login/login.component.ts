@@ -14,6 +14,7 @@ export class LoginComponent {
 
   myForm: FormGroup;
   authService: AuthService = inject(AuthService);
+  loginError: string | null = null;
   constructor(private fb: FormBuilder, private renderer: Renderer2,
     private el: ElementRef,) {
     this.myForm = this.fb.group({
@@ -24,8 +25,13 @@ export class LoginComponent {
 
   async onSubmit() {
     this.saveVariables();
-    await this.authService.login();
+    try {
+      await this.authService.login();
+  } catch (error) {
+    this.loginError = '*Email oder Password falsch.';
   }
+  }
+
 
   async saveVariables() {
     this.authService.email = this.myForm.value['email'];
@@ -34,11 +40,11 @@ export class LoginComponent {
   }
   get emailError() {
     const emailControl = this.myForm.get('email');
-
+    const value = emailControl?.value as string;
     if (emailControl?.hasError('required')) {
       return '*Bitte geben Sie Ihre E-Mail-Adresse ein';
     }
-    if (emailControl?.hasError('email')) {
+    if (value && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)) {
       return '*Diese E-Mail-Adresse ist leider ungültig';
     }
     return '';
@@ -46,7 +52,6 @@ export class LoginComponent {
 
   get passwordError() {
     const passwordControl = this.myForm.get('password');
-
     if (passwordControl?.hasError('required')) {
       return '*Bitte geben Sie Ihr Password ein';
     }

@@ -15,8 +15,11 @@
         <div class="icon"></div>
         <input formControlName="password" id="password" type="text" placeholder="password">
     </label>
-    <div class="error-container">
+    <div class="error-container" *ngIf="!loginError">
         <span class="error-message" *ngIf="myForm.get('password')?.touched && passwordError">{{ passwordError }}</span>
+    </div>
+    <div class="error-container" *ngIf="loginError">
+        <span class="error-message">{{ loginError }}</span>
     </div>
 
     <div class="forgotPassword">Passwort vergessen?</div>
