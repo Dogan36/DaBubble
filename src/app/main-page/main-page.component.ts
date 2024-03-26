@@ -5,16 +5,20 @@ import { ThreadBoardComponent } from './thread-board/thread-board.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../services/auth.service';
+import { ChannelBoardComponent } from './channel-board/channel-board.component';
+
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [WorkspaceMenuComponent, ChatBoardComponent, ThreadBoardComponent, MatSidenavModule, MatButtonModule],
+  imports: [WorkspaceMenuComponent, ChatBoardComponent, ThreadBoardComponent, MatSidenavModule, MatButtonModule, ChannelBoardComponent],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss'
 })
 export class MainPageComponent {
   authService: AuthService = inject(AuthService);
   workspaceOpen = true;
+  privateChatOpen = true;
+  channelChatOpen = false;
   threadOpen = true;
 
   closeThread() {

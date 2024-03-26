@@ -11,6 +11,7 @@
     <div class="drop-down-icon"></div>
   </div>
 </header>
+
 <div class="main-section">
   @if(workspaceOpen){
   <div class="menu-btn-container" (click)="toggleSideNav()">
@@ -22,10 +23,13 @@
     Workspace-Menü öffnen
     <div class="menu-btn-op"></div>
   </div>
-  } @if(workspaceOpen) {<app-workspace-menu></app-workspace-menu>}
+  } @if(workspaceOpen) {
+  <app-workspace-menu></app-workspace-menu>
+  } @if(!channelChatOpen) {
+  <app-channel-board></app-channel-board>
+  } @if(!privateChatOpen) {
   <app-chat-board></app-chat-board>
-  @if(threadOpen) {<app-thread-board
-    (closeThread)="closeThread()"
-  ></app-thread-board
-  >}
+  } @if(threadOpen) {
+  <app-thread-board (closeThread)="closeThread()"></app-thread-board>
+  }
 </div>

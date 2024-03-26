@@ -11,7 +11,5 @@ import { WorkspaceUserProfilComponent } from '../shared/workspace-user-profil/wo
 })
 export class ChatBoardComponent {
 
-  singleChat = true;
-  newSglChat = true;
 
 }
