@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { TextareaMainPageComponent } from '../shared/textarea-main-page/textarea-main-page.component';
 import { MessageLeftComponent } from '../shared/message-left/message-left.component';
 import { MessageRightComponent } from '../shared/message-right/message-right.component';
+import { EventService } from '../../services/event.service';
 
 @Component({
   selector: 'app-thread-board',
@@ -12,10 +13,11 @@ import { MessageRightComponent } from '../shared/message-right/message-right.com
 })
 export class ThreadBoardComponent {
 
-  @Output() closeThread = new EventEmitter<void>();
   channelBoard = false;
 
+  constructor(private evtSvc: EventService) {}
+
   onCloseThread() {
-    this.closeThread.emit();
+    this.evtSvc.closeThread();
   }
 }

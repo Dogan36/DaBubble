@@ -16,6 +16,7 @@ export class WorkspaceMenuComponent {
     // So muss die Funktion mit Parameter aussehen!
     // @Output() openChannel = new EventEmitter<any>();
   @Output() openPrivateChat = new EventEmitter<void>();
+  @Output() openNewChat = new EventEmitter<void>();
 
   toggleChannelList() {
     this.channelListOpen = !this.channelListOpen;
@@ -23,6 +24,11 @@ export class WorkspaceMenuComponent {
 
   toggleMessageList() {
     this.messageListOpen = !this.messageListOpen;
+  }
+
+
+  onOpenNewChat() {
+    this.openNewChat.emit();
   }
 
   onOpenChannel() {

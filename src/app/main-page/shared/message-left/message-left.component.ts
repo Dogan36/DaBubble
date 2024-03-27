@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ChannelBoardComponent } from '../../channel-board/channel-board.component';
+import { EventService } from '../../../services/event.service';
 
 @Component({
   selector: 'app-message-left',
@@ -14,8 +15,17 @@ export class MessageLeftComponent {
 
   containerHovered: boolean = false;
 
+
+  constructor(private evtSvc: EventService) {}
+
+
   onMouseOver() {
     this.containerHovered = !this.containerHovered;
+  }
+
+
+  onOpenThread() {
+    this.evtSvc.openThread();
   }
 }
 

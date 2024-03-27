@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { TextareaMainPageComponent } from '../shared/textarea-main-page/textarea-main-page.component';
 import { MessageLeftComponent } from '../shared/message-left/message-left.component';
 import { MessageRightComponent } from '../shared/message-right/message-right.component';
@@ -14,4 +14,5 @@ import { MessageRightComponent } from '../shared/message-right/message-right.com
 export class ChannelBoardComponent {
 
     channelBoard = true;
+
 }

@@ -128,6 +128,7 @@ header {
     position: relative;
 
     app-workspace-menu,
+    app-new-msg-board,
     app-channel-board,
     app-chat-board,
     app-thread-board {
@@ -143,7 +144,7 @@ header {
         width: $wdth-left;
     }
 
-    app-chat-board, app-channel-board {
+    app-new-msg-board, app-chat-board, app-channel-board {
         flex: 1;
     }
 

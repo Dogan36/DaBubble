@@ -26,14 +26,16 @@
   } @if(workspaceOpen) {
   <!-- Es muss noch ein Index als Parameter hinzugefügt werden! -->
   <app-workspace-menu
+    (openNewChat)="openNewChat()"
     (openChannel)="openChanel()"
     (openPrivateChat)="openPrivateChat()"
   ></app-workspace-menu>
-  } @if(!privateChatOpen) {
+  } @if(!channelChatOpen && !privateChatOpen) {<app-new-msg-board
+  ></app-new-msg-board>} @if(channelChatOpen) {
   <app-channel-board></app-channel-board>
   } @if(privateChatOpen) {
   <app-chat-board></app-chat-board>
   } @if(threadOpen) {
-  <app-thread-board (closeThread)="closeThread()"></app-thread-board>
+  <app-thread-board></app-thread-board>
   }
 </div>
