@@ -24,22 +24,7 @@
     <p class="thread-sep-time">Dienstag, 14 Januar</p>
     <div class="thread-sep-line"></div>
   </div>
-  <div class="new-thread-msg">
-    <app-message-left></app-message-left>
-    <div class="answer-info-container">
-      <p>2 Antworten</p>
-      <span>Letzte Antwort 14:56</span>
-      <!-- evtl dirket in die Komponente selber und dort abfragen, ob es sich im Channel Chat, Thread Chat oder Direktnachrichten Chat befindet -->
-    </div>
-  </div>
-
-  <div class="new-thread-msg">
-    <app-message-left></app-message-left>
-    <div class="answer-info-container">
-      <p>2 Antworten</p>
-      <span>Letzte Antwort 14:56</span>
-      <!-- evtl dirket in die Komponente selber und dort abfragen, ob es sich im Channel Chat, Thread Chat oder Direktnachrichten Chat befindet -->
-    </div>
-  </div>
+  <app-message-left [onChannelBoard]="channelBoard"></app-message-left>
+  <app-message-left [onChannelBoard]="channelBoard"></app-message-left>
 </div>
 <app-textarea-main-page></app-textarea-main-page>

@@ -13,6 +13,7 @@ import { MessageRightComponent } from '../shared/message-right/message-right.com
 export class ThreadBoardComponent {
 
   @Output() closeThread = new EventEmitter<void>();
+  channelBoard = false;
 
   onCloseThread() {
     this.closeThread.emit();

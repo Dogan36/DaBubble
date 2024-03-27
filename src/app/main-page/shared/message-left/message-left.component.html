@@ -12,8 +12,13 @@
     <div class="user-msg">
       <p>Welche Version ist aktuell von Angular?</p>
     </div>
+    @if(onChannelBoard) {
+    <div class="answer-info-container">
+      <p>2 Antworten</p>
+      <span>Letzte Antwort 14:56</span>
+    </div>
+    } @if (containerHovered) {
+    <div class="add-reaction-container"></div>
+    }
   </div>
-  @if (containerHovered) {
-  <div class="add-reaction-container"></div>
-  }
 </div>

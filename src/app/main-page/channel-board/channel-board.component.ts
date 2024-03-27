@@ -13,4 +13,5 @@ import { MessageRightComponent } from '../shared/message-right/message-right.com
 })
 export class ChannelBoardComponent {
 
+    channelBoard = true;
 }

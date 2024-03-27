@@ -10,6 +10,6 @@ import { WorkspaceUserProfilComponent } from '../shared/workspace-user-profil/wo
   styleUrl: './chat-board.component.scss'
 })
 export class ChatBoardComponent {
-
+  channelBoard = false;
 
 }

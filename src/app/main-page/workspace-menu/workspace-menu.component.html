@@ -11,7 +11,7 @@
   <div class="channel-head-container">
     <div (click)="toggleChannelList()" class="workspace-subtitle-container">
       <div
-        [class.transfrom-icon]="!channelListOpen"
+        [class.transform-icon]="!channelListOpen"
         class="drop-down-icon"
       ></div>
       <div class="workspace-subtitle workspace-subtitle-icon-ch">
@@ -23,9 +23,9 @@
 
   @if(channelListOpen) {
   <div class="channels-list">
-    <!-- Hier alle channels über eine for Schleife rendern (und index vergeben) -->
-    <div class="channel"><h5>Entwicklerteam</h5></div>
-    <div class="channel"><h5>Office-team</h5></div>
+    <!-- Hier alle channels über eine for Schleife rendern und index vergeben! -->
+    <div class="channel" (click)="onOpenChannel()"><h5>Entwicklerteam</h5></div>
+    <div class="channel" (click)="onOpenChannel()"><h5>Office-team</h5></div>
     <div class="add-channel">
       <h5>Channel hinzufügen</h5>
     </div>
@@ -42,13 +42,25 @@
 
   @if(messageListOpen) {
   <div class="message-list">
-    <!-- Hier alle user über eine for Schleife rendern (und index vergeben) -->
-    <app-workspace-user-profil></app-workspace-user-profil>
-    <app-workspace-user-profil></app-workspace-user-profil>
-    <app-workspace-user-profil></app-workspace-user-profil>
-    <app-workspace-user-profil></app-workspace-user-profil>
-    <app-workspace-user-profil></app-workspace-user-profil>
-    <app-workspace-user-profil></app-workspace-user-profil>
+    <!-- Hier alle user über eine for Schleife rendern und index vergeben! -->
+    <app-workspace-user-profil
+      (click)="onOpenPrivateChat()"
+    ></app-workspace-user-profil>
+    <app-workspace-user-profil
+      (click)="onOpenPrivateChat()"
+    ></app-workspace-user-profil>
+    <app-workspace-user-profil
+      (click)="onOpenPrivateChat()"
+    ></app-workspace-user-profil>
+    <app-workspace-user-profil
+      (click)="onOpenPrivateChat()"
+    ></app-workspace-user-profil>
+    <app-workspace-user-profil
+      (click)="onOpenPrivateChat()"
+    ></app-workspace-user-profil>
+    <app-workspace-user-profil
+      (click)="onOpenPrivateChat()"
+    ></app-workspace-user-profil>
   </div>
   }
 </div>

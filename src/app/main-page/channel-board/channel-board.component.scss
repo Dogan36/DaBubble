@@ -94,27 +94,7 @@
     &:first-child {
         margin-top: auto !important;
     }
-    // noch nicht bester Lösung!
-
-    .new-thread-msg {
-        // display: flex;
-        // flex-direction: column;
-
-        .answer-info-container {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            padding-left: 130px;
-
-            p {
-                color: $cpt-purple-3;
-            }
-
-            span {
-                color: $cpt-font-gray;
-            }
-        }
-    }
+    // noch nicht beste Lösung!
 }
 
 .thread-sep-container {

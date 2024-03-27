@@ -24,10 +24,14 @@
     <div class="menu-btn-op"></div>
   </div>
   } @if(workspaceOpen) {
-  <app-workspace-menu></app-workspace-menu>
-  } @if(!channelChatOpen) {
-  <app-channel-board></app-channel-board>
+  <!-- Es muss noch ein Index als Parameter hinzugefügt werden! -->
+  <app-workspace-menu
+    (openChannel)="openChanel()"
+    (openPrivateChat)="openPrivateChat()"
+  ></app-workspace-menu>
   } @if(!privateChatOpen) {
+  <app-channel-board></app-channel-board>
+  } @if(privateChatOpen) {
   <app-chat-board></app-chat-board>
   } @if(threadOpen) {
   <app-thread-board (closeThread)="closeThread()"></app-thread-board>

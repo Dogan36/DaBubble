@@ -35,6 +35,27 @@
             background-color: $cpt-bg;
             border-radius: 0px 20px 20px 20px;
             padding: 15px;
+            margin-bottom: 8px;
+        }
+
+        .answer-info-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+
+            p {
+                color: $cpt-purple-3;
+                width: 106px;
+                text-align: center;
+
+                &:hover {
+                    font-weight: 600;
+                }
+            }
+
+            span {
+                color: $cpt-font-gray;
+            }
         }
 
         .add-reaction-container { 
