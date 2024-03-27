@@ -16,7 +16,7 @@
     </div>
     <div (click)="authService.toggleToPicture()" class="arrow_back"></div>
     <div class="buttonContainer">
-        <button class="primaryButton" (click)="register()">Weiter</button>
+        <button [disabled]="this.signingIn" class="primaryButton" (click)="register()">Weiter</button>
     </div>
 </div>
 

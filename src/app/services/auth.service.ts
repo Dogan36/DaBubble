@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, User, createUserWithEmailAndPassword, updateProfile, user, onAuthStateChanged, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, getAdditionalUserInfo } from '@angular/fire/auth';
+import { Auth, User, createUserWithEmailAndPassword, updateProfile, user, onAuthStateChanged, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, getAdditionalUserInfo, sendPasswordResetEmail } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Subscription, from } from 'rxjs';
 import { UserType } from '../types/user.class';
@@ -20,14 +20,14 @@ export class AuthService {
   password: string = '';
   name: string = '';
   photoURL = './assets/img/profils/standardPic.svg';
-  
 
-  showLogin: boolean = false;
+
+  showLogin: boolean = true;
   showSignUp: boolean = false;
   showSignUpPicture: boolean = false;
-  showSignUpPictureUpload = true;
+  showSignUpPictureUpload = false;
   showResetPassword: boolean = false;
-registerError:string =""
+  registerError: string = ""
   user$ = user(this.auth);
   userSubscription: Subscription = new Subscription();
   userUid: string = ''
@@ -61,8 +61,7 @@ registerError:string =""
   }
 
 
-  async register(): Promise<void>
-   {
+  async register(): Promise<void> {
     try {
       const userCredential = await createUserWithEmailAndPassword(this.auth, this.email, this.password);
       const user = userCredential.user;
@@ -114,19 +113,35 @@ registerError:string =""
       });
   }
 
+  toggleSignUp() {
+    this.showLogin = !this.showLogin;
+    this.showSignUp = !this.showSignUp;
+  }
+  toggleToPicture() {
+    this.showSignUp = !this.showSignUp;
+    this.showSignUpPicture = !this.showSignUpPicture;
+  }
+  toggleOwnPicture() {
+    this.showSignUpPictureUpload = !this.showSignUpPictureUpload
+    this.showSignUpPicture = !this.showSignUpPicture;
+  }
 
-toggleToPicture(){
-  this.showSignUp = !this.showSignUp;
-  this.showSignUpPicture = !this.showSignUpPicture;
+  toggleResetPasswort() {
+    this.showLogin = !this.showLogin;
+    this.showResetPassword = !this.showResetPassword;
+  }
+  sendPasswortReset(email: string) {
+    sendPasswordResetEmail(this.auth, email)
+      .then(() => {
+        // Password reset email sent!
+        // ..
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
+  }
 }
 
-toggleSignUp() {
-  this.showLogin = !this.showLogin;
-  this.showSignUp = !this.showSignUp;
-}
 
-toggleOwnPicture(){
-  this.showSignUpPictureUpload = !this.showSignUpPictureUpload
-  this.showSignUpPicture = !this.showSignUpPicture;
-}
-}

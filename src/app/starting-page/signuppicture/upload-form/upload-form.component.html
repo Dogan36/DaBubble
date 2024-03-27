@@ -2,12 +2,14 @@
 <div class="form">
     <div (click)="authService.toggleOwnPicture()" class="arrow_back"></div>
     <h1>Profilfoto</h1>
+    <div class="imageContainer">
     <img width="120" height="120" [src]="croppedImage || authService.photoURL" />
-    <div (click)="inputfield.click()" class="edit"></div>
+    <div (click)="inputfield.click(); this.isUploaded=false" class="edit"></div>
+</div>
     <input type="file" #inputfield hidden (change)="fileChangeEvent($event)">
-    <button *ngIf="!(croppedImage == '')" (click)="upload()" class="primaryButton">Hochladen</button>
-    <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1/1" format="png"
+    <button [disabled]="isUploading" *ngIf="!(croppedImage == '' || isUploaded)" (click)="upload()" class="primaryButton">Hochladen</button>
+    
+<image-cropper *ngIf="!(isUploaded)"  [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1/1" format="png"
         (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded($event)" (cropperReady)="cropperReady()"
         (loadImageFailed)="loadImageFailed()"></image-cropper>
-
 </div>

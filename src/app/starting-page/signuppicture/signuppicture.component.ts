@@ -13,7 +13,7 @@ import { NgFor } from '@angular/common';
   styleUrls: ['./signuppicture.component.scss'] // 'styleUrls' anstatt 'styleUrl'
 })
 export class SignuppictureComponent {
-
+  signingIn = false;
   signupForm: FormGroup; // Formulargruppe deklarieren
   pictures = [
     "./../../../assets/img/profils/avatar_1.svg",
@@ -32,13 +32,16 @@ export class SignuppictureComponent {
 
   async register() {
     try {
+      this.signingIn = true;
       await this.authService.register();
+      this.signingIn = false
     } catch (error: any) {
       if (error.code === 'auth/email-already-in-use') {
         console.log("email bereits in verwendung")
         setTimeout(() => {
           this.authService.toggleToPicture()
         }, 3000);
+        this.signingIn = false;
       }
     }
   }

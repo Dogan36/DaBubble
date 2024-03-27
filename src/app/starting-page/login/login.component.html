@@ -22,7 +22,7 @@
         <span class="error-message">{{ loginError }}</span>
     </div>
 
-    <div class="forgotPassword">Passwort vergessen?</div>
+    <div (click)="this.authService.toggleResetPasswort()" class="forgotPassword">Passwort vergessen?</div>
 
     <div class="seperator">
         <div class="line"></div>

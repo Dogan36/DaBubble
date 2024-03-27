@@ -27,7 +27,11 @@ export class UploadFormComponent {
   ) {
   }
 
+  setUploadedToFalse(){
+    this.isUploaded=false
+  }
   fileChangeEvent(event: any): void {
+   
     this.imageChangedEvent = event;
   }
   imageCropped(event: ImageCroppedEvent) {
@@ -48,28 +52,31 @@ export class UploadFormComponent {
   }
 
   storage = getStorage();
-  storageRef = ref(this.storage, "images");
+  randomPath = Math.random().toString(36).substring(2);
+  storageRef = ref(this.storage, this.randomPath);
   isUploading: boolean = false;
+  isUploaded:boolean = false;
 
 
 
   upload() {
-    console.log(this.croppedImage)
-    console.log("Type of this.croppedImage:", typeof this.croppedImage);
     fetch(this.croppedImage.changingThisBreaksApplicationSecurity)
       .then(response => response.blob())
       .then(blob => {
         this.isUploading = true;
         uploadBytes(this.storageRef, blob).then((snapshot) => {
-          this.isUploading=false;;
+          this.isUploading=false;
+          this.isUploaded=true;
         }).catch((error) => {
           console.error("Fehler beim Hochladen des Bildes:", error);
           this.isUploading=false;
+          this.isUploaded=true;
         });
       })
       .catch(error => {
         console.error("Fehler beim Extrahieren des Blobs:", error);
         this.isUploading=false;
+        this.isUploaded=true;
       });
 
     const uploadTask = uploadBytesResumable(this.storageRef, this.croppedImage);

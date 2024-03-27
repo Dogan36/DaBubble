@@ -109,10 +109,19 @@ h2{
 }
 
 .formDescription {
+    font-size: 20px;
     width: 100%;
     margin-bottom: clamp(23px, 3vh, 46px);
     line-height: clamp(18px, 2vw, 24px);
     text-align: center;
+}
+
+.formDescriptionSub{
+    font-size: 20px;
+    margin-bottom: clamp(23px, 3vh, 46px);
+    line-height: clamp(18px, 2vw, 24px);
+    text-align: center;
+color: $cpt-font-gray
 }
 
 .inputField {

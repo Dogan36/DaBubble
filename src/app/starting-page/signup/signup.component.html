@@ -2,7 +2,7 @@
 
 <form class="form" [formGroup]="myForm" (ngSubmit)="onSubmit($event)">
     <h1>Konto erstellen</h1>
-    <p class="info-text">Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</p>
+    <p class="formDescription">Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto.</p>
 
     <label for="name" class="inputField name" [class.borderPur]="myForm.get('name')?.touched && nameError">
         <div class="icon"></div>
