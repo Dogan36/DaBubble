@@ -20,13 +20,13 @@ export class AuthService {
   password: string = '';
   name: string = '';
   photoURL = './assets/img/profils/standardPic.svg';
-  selectedProfilePic: string = '';
+  
 
-  showLogin: boolean = true;
-  showSignUpPicture: boolean = false;
+  showLogin: boolean = false;
+  showSignUpPicture: boolean = true;
   showResetPassword: boolean = false;
   showSignUp: boolean = false;
-
+registerError:string =""
   user$ = user(this.auth);
   userSubscription: Subscription = new Subscription();
   userUid: string = ''
@@ -50,25 +50,30 @@ export class AuthService {
 
   async login(): Promise<void> {
     try {
-        const userCredential = await signInWithEmailAndPassword(this.auth, this.email, this.password);
-        this.currentUser = userCredential.user;
-        this.userUid = this.currentUser.uid;
-        this.router.navigate(['']);
+      const userCredential = await signInWithEmailAndPassword(this.auth, this.email, this.password);
+      this.currentUser = userCredential.user;
+      this.userUid = this.currentUser.uid;
+      this.router.navigate(['']);
     } catch (error) {
-        throw error; // Fehler weitergeben
+      throw error;
     }
-}
-
-  async register() {
-    const userCredential = await createUserWithEmailAndPassword(this.auth, this.email, this.password);
-    const user = userCredential.user;
-    await updateProfile(user, { displayName: this.name });
-    await updateProfile(user, { photoURL: this.photoURL });
-    const userObject: UserType = this.createUserObject();
-    const userDocRef = doc(this.firestore, 'users', user.uid);
-    await setDoc(userDocRef, userObject);
   }
 
+  async register(): Promise<void>
+   {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(this.auth, this.email, this.password);
+      const user = userCredential.user;
+      await updateProfile(user, { displayName: this.name });
+      await updateProfile(user, { photoURL: this.photoURL });
+      const userObject: UserType = this.createUserObject();
+      const userDocRef = doc(this.firestore, 'users', user.uid);
+      await setDoc(userDocRef, userObject);
+    }
+    catch (error) {
+      throw error;
+    }
+  }
 
 
   loginWithGoogle() {
@@ -106,4 +111,15 @@ export class AuthService {
         // ...
       });
   }
+
+
+toggleToPicture(){
+  this.showSignUp = !this.showSignUp;
+  this.showSignUpPicture = !this.showSignUpPicture;
+}
+
+toggleSignUp() {
+  this.showLogin = !this.showLogin;
+  this.showSignUp = !this.showSignUp;
+}
 }

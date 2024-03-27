@@ -27,9 +27,9 @@ export class LoginComponent {
     this.saveVariables();
     try {
       await this.authService.login();
-  } catch (error) {
-    this.loginError = '*Email oder Password falsch.';
-  }
+    } catch (error) {
+      this.loginError = '*Email oder Password falsch.';
+    }
   }
 
 
@@ -58,7 +58,7 @@ export class LoginComponent {
     return '';
   }
 
-  loginWithGoogle(){
+  loginWithGoogle() {
     this.authService.loginWithGoogle()
   }
 }

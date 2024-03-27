@@ -1,6 +1,6 @@
 
 
-<form [formGroup]="myForm" (ngSubmit)="onSubmit()" false>
+<form class="form" [formGroup]="myForm" (ngSubmit)="onSubmit($event)">
     <h1>Konto erstellen</h1>
     <p class="info-text">Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</p>
 
@@ -16,8 +16,11 @@
         <div class="icon"></div>
         <input formControlName="email" class="input" id="email" type="text" placeholder="beispielname@email.com">
     </label>
-    <div class="error-container">
+    <div class="error-container" *ngIf="!authService.registerError">
         <span class="error-message" *ngIf="myForm.get('email')?.touched && emailError">{{ emailError }}</span>
+    </div>
+    <div class="error-container" *ngIf="authService.registerError">
+        <span class="error-message">{{ authService.registerError }}</span>
     </div>
 
     <label for="password" class="inputField password"
@@ -33,5 +36,5 @@
         <button class="primaryButton" type="submit" [disabled]="myForm.invalid">Anmelden</button>
     </div>
 
-    <div (click)="toggleSignUp()" class="arrow_back"></div>
+    <div (click)="authService.toggleSignUp()" class="arrow_back"></div>
 </form>

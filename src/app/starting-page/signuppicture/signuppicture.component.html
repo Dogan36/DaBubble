@@ -1,5 +1,21 @@
-<div>
-<h1>Hier die 2te Seite vom SignUp wo man das foto auswählt</h1>
-<button (click)="register()">register</button>
+<div class="form">
+    <h1>Wähle deinen Avatar</h1>
+    <div class="choosenPicture">
+        <img [src]="this.authService.photoURL">
+    </div>
+    <h2>{{this.authService.name}}</h2>
+    <p class="formDescription">Aus der Liste wählen</p>
+    <div class="standardPictures">
+        <div (click)="selectPicture(picture)" *ngFor="let picture of pictures, let i=index">
+            <img [src]="picture">
+        </div>
+    </div>
+    <div class="ownPicture">
+        <p>eigenes Bild verwenden</p>
+        <button class="secondaryButton">Datei hochladen</button>
+    </div>
+    <div (click)="authService.toggleToPicture()" class="arrow_back"></div>
+    <div class="buttonContainer">
+        <button class="primaryButton" (click)="register()">Weiter</button>
+    </div>
 </div>
-

@@ -78,7 +78,7 @@ app-forgot-password {
 
 
 
-form {
+.form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -93,6 +93,15 @@ h1 {
     padding: 0;
     margin-bottom: clamp(15px, 2vh, 30px);
     line-height: clamp(49.68px, 5.2vh, 55.2px);
+}
+
+h2{
+    font-weight: 700;
+    font-size: 32px;
+    margin: 0;
+    padding: 0;
+    margin-bottom: clamp(15px, 2vh, 30px);
+    line-height: clamp(49.68px, 5.2vh, 55.2px); 
 }
 
 .formDescription {
@@ -219,7 +228,7 @@ footer {
 .arrow_back {
     position: absolute;
     top: 0;
-    left: 0;
+    left: -20px;
     height: clamp(30px, 5vh, 40px);
     width: clamp(30px, 5vh, 40px);
     background-image: url('./../../assets/img/icons/arrow_back.svg');

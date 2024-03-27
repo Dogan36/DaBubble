@@ -1,6 +1,6 @@
 import { Component, ElementRef, Renderer2, inject } from '@angular/core';
 import { NgClass, NgIf } from '@angular/common';
-import { FormBuilder, FormGroup,  ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { RouterLink } from '@angular/router';
 
@@ -19,7 +19,7 @@ export class SignupComponent {
   constructor(private fb: FormBuilder, private renderer: Renderer2,
     private el: ElementRef,) {
     this.myForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
       password: ['', [Validators.required, Validators.minLength(7)]],
       name: ['', Validators.required]
     });
@@ -33,55 +33,47 @@ export class SignupComponent {
     this.authService.email = this.email;
     this.authService.password = this.password;
     this.authService.name = this.name;
-    
+
   }
-  onSubmit() {
-    this.email =  this.myForm.value['email'];
-    this.password = this.myForm.value['password'];
-    this.name = this.myForm.value['name'];
-    this.saveVariables();
-    this.toggleToPicture();
+  onSubmit(event: Event) {
+   
+    if (this.myForm.valid) {
+      this.email = this.myForm.value['email'];
+      this.password = this.myForm.value['password'];
+      this.name = this.myForm.value['name'];
+      this.saveVariables();
+      this.authService.toggleToPicture();
+    }
   }
 
-  toggleToPicture(){
-    this.authService.showSignUp = !this.authService.showSignUp;
-    this.authService.showSignUpPicture = !this.authService.showSignUpPicture;
-  }
 
-  toggleSignUp() {
-    this.authService.showLogin = !this.authService.showLogin;
-    this.authService.showSignUp = !this.authService.showSignUp;
-  }
+
 
   get emailError() {
     const emailControl = this.myForm.get('email');
-
+    const value = emailControl?.value as string;
     if (emailControl?.hasError('required')) {
       return '*Bitte geben Sie Ihre E-Mail-Adresse ein';
     }
-    if (emailControl?.hasError('email')) {
+    if (emailControl?.hasError('pattern')) {
       return '*Diese E-Mail-Adresse ist leider ungültig';
-     
     }
     return '';
   }
 
   get passwordError() {
     const passwordControl = this.myForm.get('password');
-    console.log(passwordControl)
     if (passwordControl?.hasError('required')) {
       return '*Bitte geben Sie ein Password ein';
     }
     if (passwordControl?.hasError('minlength')) {
       return '*Das Passwort muss mindestens 7 Zeichen enthalten';
-    
     }
     return '';
   }
 
   get nameError() {
     const nameControl = this.myForm.get('name');
-
     if (nameControl?.hasError('required')) {
       return '*Bitte geben Sie Ihren Namen ein';
     }
