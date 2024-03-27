@@ -44,7 +44,8 @@ header {
 app-forgot-password,
 app-login,
 app-signup,
-app-signuppicture {
+app-signuppicture,
+app-upload-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -91,8 +92,11 @@ h1 {
     color: $cpt-purple-1;
     margin: 0;
     padding: 0;
-    margin-bottom: clamp(15px, 2vh, 30px);
+    margin: clamp(15px, 2vh, 30px);
+    margin-top:0;
+    
     line-height: clamp(49.68px, 5.2vh, 55.2px);
+    
 }
 
 h2{

@@ -10,6 +10,7 @@
     <app-login *ngIf="authService.showLogin"></app-login>
     <app-signup *ngIf="authService.showSignUp"></app-signup>
     <app-signuppicture *ngIf="authService.showSignUpPicture"></app-signuppicture>
+    <app-upload-form *ngIf="authService.showSignUpPictureUpload"></app-upload-form>
     <app-forgot-password *ngIf="authService.showResetPassword"></app-forgot-password>
     <footer>
         <a routerLink='/imprint/'>Impressum</a>

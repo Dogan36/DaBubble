@@ -23,9 +23,10 @@ export class AuthService {
   
 
   showLogin: boolean = false;
-  showSignUpPicture: boolean = true;
-  showResetPassword: boolean = false;
   showSignUp: boolean = false;
+  showSignUpPicture: boolean = false;
+  showSignUpPictureUpload = true;
+  showResetPassword: boolean = false;
 registerError:string =""
   user$ = user(this.auth);
   userSubscription: Subscription = new Subscription();
@@ -58,6 +59,7 @@ registerError:string =""
       throw error;
     }
   }
+
 
   async register(): Promise<void>
    {
@@ -121,5 +123,10 @@ toggleToPicture(){
 toggleSignUp() {
   this.showLogin = !this.showLogin;
   this.showSignUp = !this.showSignUp;
+}
+
+toggleOwnPicture(){
+  this.showSignUpPictureUpload = !this.showSignUpPictureUpload
+  this.showSignUpPicture = !this.showSignUpPicture;
 }
 }

@@ -3,6 +3,7 @@ import { SignupComponent } from './signup/signup.component';
 import  { LoginComponent } from './login/login.component' ;
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { SignuppictureComponent } from './signuppicture/signuppicture.component';
+import { UploadFormComponent } from './signuppicture/upload-form/upload-form.component';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { FormsModule } from '@angular/forms';
@@ -17,6 +18,7 @@ import { NgIf } from '@angular/common';
   ForgotPasswordComponent,
   LoginComponent,
   SignuppictureComponent,
+  UploadFormComponent,
   FormsModule,
   NgIf,
   RouterLink

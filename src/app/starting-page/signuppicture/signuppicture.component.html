@@ -10,7 +10,7 @@
             <img [src]="picture">
         </div>
     </div>
-    <div class="ownPicture">
+    <div (click)="this.authService.toggleOwnPicture()" class="ownPicture">
         <p>eigenes Bild verwenden</p>
         <button class="secondaryButton">Datei hochladen</button>
     </div>
@@ -19,3 +19,5 @@
         <button class="primaryButton" (click)="register()">Weiter</button>
     </div>
 </div>
+
+

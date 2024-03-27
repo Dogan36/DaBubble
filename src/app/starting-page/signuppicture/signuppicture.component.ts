@@ -3,6 +3,8 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms'; // Nur die benötigten Teile aus dem @angular/forms importieren
 import { NgFor } from '@angular/common';
+
+
 @Component({
   selector: 'app-signuppicture',
   imports: [NgFor],

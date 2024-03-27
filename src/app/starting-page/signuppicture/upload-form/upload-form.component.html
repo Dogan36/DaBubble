@@ -1,0 +1,7 @@
+<div class="form">
+    <h1>Profilfoto</h1>
+    <img width="120" height="120" [src]="this.authService.currentUser?.photoURL" />
+    <button (click)="inputfield.click()" class="primaryButton">Wähle Foto</button>
+    <input type="file" #inputfield hidden (change)="uploadImage($event)">
+    <div (click)="authService.toggleOwnPicture()" class="arrow_back"></div>
+</div>
