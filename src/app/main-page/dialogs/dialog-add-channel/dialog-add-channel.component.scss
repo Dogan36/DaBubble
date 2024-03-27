@@ -1,0 +1,55 @@
+@import './../../main-page.component.scss';
+@import './../../../../styles.scss';
+
+
+.dialog-content {
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    gap: 20px;
+
+    .dialog-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .close-icon {
+            background-image: url('./../../../../assets/img/icons/close.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 40px;
+            width: 40px;
+
+            &:hover {
+                background-image: url('./../../../../assets/img/icons/close_pur.svg');
+            }
+        }
+    }
+
+    mat-dialog-content {
+        padding: 0;
+
+        label {
+            @include font18Thick(700);
+            color: black;
+        }
+    }
+
+    mat-dialog-actions {
+        display: flex;
+        justify-content: end;
+        button {
+            background-color: $cpt-purple-1;
+            border: none;
+            border-radius: 25px;
+            color: white;
+            @include font18Thick(700);
+            padding: 12px 25px;
+            outline: none;
+
+            &:hover {
+                background-color: $cpt-purple-2;
+            }
+        }
+    }
+}

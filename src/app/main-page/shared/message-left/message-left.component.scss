@@ -24,6 +24,10 @@
                 font-weight: 700;
                 line-height: 24.55px;
                 margin: 0;
+
+                &:hover {
+                    color: $cpt-purple-3;
+                }
             }
 
             span {

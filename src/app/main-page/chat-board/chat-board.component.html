@@ -1,7 +1,9 @@
 <div class="title-container">
   <!-- Font-size muss noch angepasst werden, und width nicht 100%! -->
   <div class="title-sgl-user-chat">
-    <app-workspace-user-profil></app-workspace-user-profil>
+    <app-workspace-user-profil
+      (click)="openShowProfilDialog()"
+    ></app-workspace-user-profil>
   </div>
 </div>
 
@@ -11,7 +13,7 @@
   <div class="new-chat-container">
     <div class="new-chat-user">
       <img src="assets/img/profils/Foto.svg" alt="" />
-      <h3>Sofia Müller</h3>
+      <h3 (click)="openShowProfilDialog()">Sofia Müller</h3>
     </div>
     <p>
       Diese Unterhaltung findet nur zwischen <span>&#64;Sofia Müller </span>und

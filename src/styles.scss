@@ -20,6 +20,7 @@ body {
     font-family: $cpt-font;
 }
 
+
 .primaryButton {
     height: 49px;
     background-color: $cpt-purple-1;
@@ -72,6 +73,12 @@ body {
     &:disabled {
         color: #686868;
         border-color: #686868;
+    }
+}
+
+mat-dialog-container {
+    .mdc-dialog__surface {
+        border-radius: 30px !important;
     }
 }
 

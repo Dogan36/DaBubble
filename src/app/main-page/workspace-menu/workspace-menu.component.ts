@@ -1,10 +1,21 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { WorkspaceUserProfilComponent } from '../shared/workspace-user-profil/workspace-user-profil.component';
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
+} from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material/dialog';
+import { DialogAddChannelComponent } from '../dialogs/dialog-add-channel/dialog-add-channel.component';
 
 @Component({
   selector: 'app-workspace-menu',
   standalone: true,
-  imports: [WorkspaceUserProfilComponent],
+  imports: [WorkspaceUserProfilComponent, MatDialogModule],
   templateUrl: './workspace-menu.component.html',
   styleUrl: './workspace-menu.component.scss'
 })
@@ -17,6 +28,9 @@ export class WorkspaceMenuComponent {
     // @Output() openChannel = new EventEmitter<any>();
   @Output() openPrivateChat = new EventEmitter<void>();
   @Output() openNewChat = new EventEmitter<void>();
+
+  constructor(public dialog: MatDialog) {}
+
 
   toggleChannelList() {
     this.channelListOpen = !this.channelListOpen;
@@ -41,5 +55,11 @@ export class WorkspaceMenuComponent {
 
   onOpenPrivateChat() {
     this.openPrivateChat.emit();
+  }
+
+
+  openAddChannelDialog() {
+    console.log('dialog works');
+    this.dialog.open(DialogAddChannelComponent);
   }
 }

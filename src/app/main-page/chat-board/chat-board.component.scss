@@ -28,6 +28,12 @@
                 width: 100px;
                 height: 100px;
             }
+
+            h3 {
+                &:hover {
+                    color: $cpt-purple-3;
+                }
+            }
         }
 
         p {

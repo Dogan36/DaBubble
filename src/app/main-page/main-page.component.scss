@@ -5,7 +5,13 @@
 $wdth-left: 366px;
 $wdth-right: 485px;
 
-h3, h4, h5 {
+@mixin font18Thick($fontWeight) {
+    font-size: 18px;
+    line-height: 24.55px;
+    font-weight: $fontWeight;
+}
+
+h3, h4 {
     font-weight: 700;
     margin: 0;
 }
@@ -21,8 +27,7 @@ h4 {
 }
 
 h5 {
-    font-size: 18px;
-    line-height: 24.55px;
+    @include font18Thick(700);
 }
 
 p {
