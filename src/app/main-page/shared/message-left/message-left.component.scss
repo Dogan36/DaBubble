@@ -11,6 +11,10 @@
         img {
             width: 70px;
             height: 70px;
+
+            &:hover {
+                cursor: pointer;
+            }
         }
 
         .user-name-time {
@@ -27,6 +31,7 @@
 
                 &:hover {
                     color: $cpt-purple-3;
+                    cursor: pointer;
                 }
             }
 
@@ -49,10 +54,11 @@
 
             p {
                 color: $cpt-purple-3;
-                width: 106px;
+                width: 110px;
                 text-align: center;
 
                 &:hover {
+                    cursor: pointer;
                     font-weight: 600;
                 }
             }
@@ -79,6 +85,7 @@
 
             &:hover {
                 background-image: url('./../../../../assets/img/icons/add_reaction_pur.svg');
+                cursor: pointer;
             }
         }
 

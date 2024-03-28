@@ -25,6 +25,7 @@
             background-color: $cpt-bg;
             background-image: url('./../../../assets/img/icons/tag_big_pur.svg');
             color: $cpt-purple-3;
+            cursor: pointer;
             .drop-down-icon {
                 background-image: url('./../../../assets/img/icons/keyboard_arrow_down_pur.svg');
             }
@@ -62,6 +63,7 @@
 
             &:hover {
                 background-color: $cpt-bg;
+                cursor: pointer;
                 h4 {
                     color: $cpt-purple-3;
                 }
@@ -77,6 +79,7 @@
 
             &:hover {
                 background-image: url('./../../../assets/img/icons/add_members_btn_hov.svg');
+                cursor: pointer;
             }
         }
     }

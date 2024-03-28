@@ -115,9 +115,14 @@ header {
         &:hover {
             h2 {
                 color: $cpt-purple-1;
+                cursor: pointer;
+            }
+            img {
+                cursor: pointer;
             }
             .drop-down-icon {
                 background-image: url('./../../assets/img/icons/keyboard_arrow_down_pur.svg');
+                cursor: pointer;
             }
         }
     }
@@ -206,6 +211,7 @@ header {
         
         &:hover {
             color: $cpt-purple-3;
+            cursor: pointer;
             .menu-btn-cl {
                 background-image: url('./../../assets/img/icons/hide_pur.svg');
             }

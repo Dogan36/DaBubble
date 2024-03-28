@@ -1,11 +1,14 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ChannelBoardComponent } from '../../channel-board/channel-board.component';
 import { EventService } from '../../../services/event.service';
+import { MatDialog } from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material/dialog';
+import { DialogShowProfilComponent } from '../../dialogs/dialog-show-profil/dialog-show-profil.component';
 
 @Component({
   selector: 'app-message-left',
   standalone: true,
-  imports: [ChannelBoardComponent],
+  imports: [ChannelBoardComponent, MatDialogModule],
   templateUrl: './message-left.component.html',
   styleUrl: './message-left.component.scss'
 })
@@ -16,7 +19,7 @@ export class MessageLeftComponent {
   containerHovered: boolean = false;
 
 
-  constructor(private evtSvc: EventService) {}
+  constructor(private evtSvc: EventService, public dialog: MatDialog) {}
 
 
   onMouseOver() {
@@ -26,6 +29,11 @@ export class MessageLeftComponent {
 
   onOpenThread() {
     this.evtSvc.openThread();
+  }
+
+
+  openShowProfilDialog() {
+    this.dialog.open(DialogShowProfilComponent, {panelClass: 'dialog-bor-rad-round'});
   }
 }
 

@@ -12,6 +12,10 @@
         img {
             width: 70px;
             height: 70px;
+
+            &:hover {
+                cursor: pointer;
+            }
         }
 
         .user-name-time {
@@ -26,6 +30,10 @@
                 font-weight: 700;
                 line-height: 24.55px;
                 margin: 0;
+
+                &:hover {
+                    cursor: pointer;
+                }
             }
 
             span {
@@ -63,6 +71,10 @@
 
                 &:hover {
                     background-image: url('./../../../../assets/img/icons/add_reaction_pur.svg');
+
+                    &:hover {
+                        cursor: pointer;
+                    }
                 }
             }
 

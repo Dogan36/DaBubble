@@ -5,10 +5,14 @@
   <div class="input-container">
     <input type="text" /><img src="assets/img/icons/search.svg" alt="" />
   </div>
-  <div class="user-menu" (click)="openUserMenuDialog()">
-    <h2>Frederik Beck</h2>
-    <img src="assets/img/Profile_bild.svg" alt="" />
-    <div class="drop-down-icon"></div>
+  <div class="user-menu">
+    <h2 (click)="openUserMenuDialog()">Frederik Beck</h2>
+    <img
+      src="assets/img/Profile_bild.svg"
+      alt=""
+      (click)="openUserMenuDialog()"
+    />
+    <div class="drop-down-icon" (click)="openUserMenuDialog()"></div>
   </div>
 </header>
 
