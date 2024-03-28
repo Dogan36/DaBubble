@@ -19,7 +19,7 @@ export class ChatBoardComponent {
 
 
   openShowProfilDialog() {
-    this.dialog.open(DialogShowProfilComponent);
+    this.dialog.open(DialogShowProfilComponent, {panelClass: 'dialog-bor-rad-round'});
   }
 
 }

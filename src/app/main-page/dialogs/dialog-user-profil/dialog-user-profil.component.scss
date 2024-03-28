@@ -1,0 +1,88 @@
+@import './../../../../styles.scss';
+@import './../../main-page.component.scss';
+@import './../dialog-show-profil/dialog-show-profil.component.scss';
+
+
+.profil-name-container {
+    div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .edit-user {
+            background-image: url('./../../../../assets/img/icons/edit_round.svg');
+            background-repeat: no-repeat;
+            background-position: 0 50%;
+            color: $cpt-purple-3;
+            height: 30px;
+            padding-left: 50px;
+            padding-top: 3px;
+            padding-bottom: 3px;
+            text-align: center;
+            width: 148px;
+            @include font18(600);
+        
+            &:hover {
+                background-image: url('./../../../../assets/img/icons/edit_round_hov.svg');
+                cursor: pointer;
+                @include font18(700);
+            }
+        }
+    }
+}
+
+.edit-user-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .edit-user-name-icon, .edit-user-email-icon {
+        background-repeat: no-repeat;
+        background-position: 2.5px 50%;
+        padding-left: 50px;
+    }
+
+    .edit-user-name-icon {
+        background-image: url('./../../../../assets/img/icons/account_circle.svg');
+    }
+
+    .edit-user-email-icon {
+        background-image: url('./../../../../assets/img/icons/mail_black.svg');
+    }
+}
+
+label {
+    @include font18(700);
+    color: black;
+}
+
+input {
+    border: 1px solid $cpt-line;
+    border-radius: 30px;
+    color: $cpt-font-gray;
+    outline: none;
+    padding: 15px 20px;
+    @include font18(500);
+    &:hover {
+        border: 1px solid $cpt-purple-1;
+    }
+    &:focus {
+        border: 1px solid $cpt-purple-1;
+    }
+}
+
+mat-dialog-actions {
+    display: flex;
+    gap: 32px;
+    justify-content: center !important;
+
+    .btn-white {
+        background-color: white !important;
+        border: 1px solid $cpt-purple-1 !important;
+        color: $cpt-purple-1 !important;
+
+        &:hover {
+            background-color: $cpt-purple-1 !important;
+            color: white !important;
+        }
+    }
+}

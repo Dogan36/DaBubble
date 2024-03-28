@@ -1,0 +1,44 @@
+<div class="dialog-content">
+  <div class="dialog-title">
+    @if(!editProfilOpen) {
+    <h3>Profil</h3>
+    } @if(editProfilOpen) {
+    <h3>Dein Profil bearbeiten</h3>
+    }
+    <div class="close-icon" mat-dialog-close (click)="closeEditProfil()"></div>
+  </div>
+  <mat-dialog-content class="dialog-content">
+    <div class="profil-img">
+      <img src="assets/img/profils/avatar_2.svg" alt="" />
+    </div>
+    @if(!editProfilOpen) {
+    <div class="profil-name-container">
+      <div>
+        <h2>Noah Braun</h2>
+        <span class="edit-user" (click)="editProfil()">Bearbeiten</span>
+      </div>
+      <h4>Aktiv</h4>
+    </div>
+    <div class="profil-email-container">
+      <h4>E-Mail-Adresse</h4>
+      <p>noahbra&#64;beispiel.com</p>
+    </div>
+    } @if(editProfilOpen) {
+    <div class="edit-user-info-container">
+      <div class="edit-user-name-icon">
+        <label for="">Vollständiger Name</label>
+      </div>
+      <input type="text" name="" id="" value="Noah Braun" />
+      <div class="edit-user-email-icon">
+        <label for="">E-Mail-Adresse</label>
+      </div>
+      <input type="text" name="" id="" value="noahbra&#64;beispiel.com" />
+    </div>
+    }
+  </mat-dialog-content>
+  @if(editProfilOpen) {<mat-dialog-actions>
+    <button class="btn-white" mat-dialog-close (click)="closeEditProfil()">
+      Abbrechen</button
+    ><button>Speichern</button> </mat-dialog-actions
+  >}
+</div>

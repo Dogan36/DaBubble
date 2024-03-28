@@ -5,36 +5,46 @@
 $wdth-left: 366px;
 $wdth-right: 485px;
 
-@mixin font18Thick($fontWeight) {
+@mixin font18($fontWeight) {
     font-size: 18px;
     line-height: 24.55px;
     font-weight: $fontWeight;
 }
+@mixin font20($fontWeight) {
+    font-size: 20px;
+    line-height: 27.28px;
+    font-weight: $fontWeight;
+}
+@mixin font24($fontWeight) {
+    font-size: 24px;
+    line-height: 32.74px;
+    font-weight: $fontWeight;
+}
+@mixin font32($fontWeight) {
+    font-size: 32px;
+    line-height: 43.65px;
+    font-weight: $fontWeight;
+}
 
-h3, h4 {
-    font-weight: 700;
+
+h2, h3, h4, h5, p {
     margin: 0;
 }
 
 h3 {
-    font-size: 24px;
-    line-height: 32.74px;
+    @include font24(700);
 }
 
 h4 {
-    font-size: 20px;
-    line-height: 27.28px;
+    @include font20(700);
 }
 
 h5 {
-    @include font18Thick(700);
+    @include font18(700);
 }
 
 p {
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 24.55px;
-    margin: 0;
+    @include font18(400);
 }
 
 span {
@@ -101,12 +111,15 @@ header {
             font-weight: 700;
             line-height: 43.65px;
             margin: 0;
-
-            &:hover {
+        }
+        &:hover {
+            h2 {
                 color: $cpt-purple-1;
             }
+            .drop-down-icon {
+                background-image: url('./../../assets/img/icons/keyboard_arrow_down_pur.svg');
+            }
         }
-
     }
 }
 
@@ -118,7 +131,6 @@ header {
     width: 30px;
 
     &:hover {
-        
         background-image: url('./../../assets/img/icons/keyboard_arrow_down_pur.svg');
     }
 
@@ -173,7 +185,7 @@ header {
         left: -148px;
         top: 50%;
         transform: rotate(90deg) scale(-1);
-        width: 336px;
+        width: 340px;
         z-index: 10;
 
         div {
@@ -211,3 +223,52 @@ header {
     margin-bottom: 8px;
     width: 100%;
 }
+
+
+.dialog-content {
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+
+    .dialog-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .close-icon {
+            background-image: url('./../../assets/img/icons/close.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 40px;
+            width: 40px;
+
+            &:hover {
+                background-image: url('./../../assets/img/icons/close_pur.svg');
+            }
+        }
+    }
+
+    mat-dialog-content {
+        padding: 0;
+    }
+
+    mat-dialog-actions {
+        display: flex;
+        justify-content: end;
+
+        button {
+            background-color: $cpt-purple-1;
+            border: none;
+            border-radius: 25px;
+            color: white;
+            @include font18(700);
+            padding: 12px 25px;
+            outline: none;
+
+            &:hover {
+                background-color: $cpt-purple-2;
+            }
+        }
+    }
+}
+

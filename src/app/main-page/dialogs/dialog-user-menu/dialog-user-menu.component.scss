@@ -1,0 +1,30 @@
+@import './../../../../styles.scss';
+@import './../../main-page.component.scss';
+
+
+mat-dialog-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 30px;
+
+    button {
+        background-color: white;
+        border: none;
+        border-radius: 100px;
+        padding: 10px 45px;
+        outline: none;
+        min-width: 180px;
+        text-align: center;
+        width: 100%;
+        @include font24(600);
+
+        
+        &:hover {
+            background-color: $cpt-bg;
+            cursor: pointer;
+            color: $cpt-purple-3;
+            @include font24(700);
+        }
+}
+}

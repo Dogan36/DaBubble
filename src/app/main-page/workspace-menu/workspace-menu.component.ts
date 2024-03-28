@@ -1,14 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { WorkspaceUserProfilComponent } from '../shared/workspace-user-profil/workspace-user-profil.component';
-import {
-  MatDialog,
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-  MatDialogTitle,
-  MatDialogContent,
-  MatDialogActions,
-  MatDialogClose,
-} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogAddChannelComponent } from '../dialogs/dialog-add-channel/dialog-add-channel.component';
 
@@ -23,9 +15,10 @@ export class WorkspaceMenuComponent {
 
   channelListOpen = true;
   messageListOpen = true;
+  // So muss die Funktion mit Parameter aussehen!
+  // @Output() openChannel = new EventEmitter<any>();
+  // evtl doch mit Service arbeiten
   @Output() openChannel = new EventEmitter<void>();
-    // So muss die Funktion mit Parameter aussehen!
-    // @Output() openChannel = new EventEmitter<any>();
   @Output() openPrivateChat = new EventEmitter<void>();
   @Output() openNewChat = new EventEmitter<void>();
 
@@ -58,8 +51,10 @@ export class WorkspaceMenuComponent {
   }
 
 
+  /**
+   * Opens AddChannelDialog by click
+   */
   openAddChannelDialog() {
-    console.log('dialog works');
-    this.dialog.open(DialogAddChannelComponent);
+    this.dialog.open(DialogAddChannelComponent, {panelClass: 'dialog-bor-rad-round'});
   }
 }

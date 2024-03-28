@@ -8,12 +8,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../services/auth.service';
 import { EventService } from '../services/event.service';
 import { NewMsgBoardComponent } from './new-msg-board/new-msg-board.component';
+import { MatDialog } from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material/dialog';
+import { DialogUserMenuComponent } from './dialogs/dialog-user-menu/dialog-user-menu.component';
 
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [WorkspaceMenuComponent, ChatBoardComponent, ThreadBoardComponent, MatSidenavModule, MatButtonModule, ChannelBoardComponent, NewMsgBoardComponent],
+  imports: [WorkspaceMenuComponent, ChatBoardComponent, ThreadBoardComponent, MatSidenavModule, MatButtonModule, ChannelBoardComponent, NewMsgBoardComponent, MatDialogModule],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss'
 })
@@ -26,7 +29,7 @@ export class MainPageComponent {
   threadOpen = true;
 
 
-  constructor(private evtSvc: EventService) {
+  constructor(private evtSvc: EventService, public dialog: MatDialog) {
     this.evtSvc.getThreadOpenStatus().subscribe(status => {
       this.threadOpen = status;
     });
@@ -67,5 +70,13 @@ export class MainPageComponent {
   openPrivateChat() {
       this.channelChatOpen = false;
       this.privateChatOpen = true;
+  }
+
+
+  /**
+   * Opens UserMenuDialog by click
+   */
+  openUserMenuDialog() {
+    this.dialog.open(DialogUserMenuComponent, {position: {right:'24px', top: '80px'}, panelClass: 'dialog-bor-rad-corner'});
   }
 }

@@ -1,0 +1,54 @@
+@import './../../../../styles.scss';
+@import './../../main-page.component.scss';
+
+
+.dialog-content {
+    gap: 40px;
+
+    mat-dialog-content {
+        width: 420px;
+
+        .profil-img {
+            display: flex;
+            justify-content: center;
+            img {
+                width: 200px;
+                height: 200px;
+            }
+        }
+
+        .profil-name-container, .profil-email-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .profil-name-container {
+            h2 {
+                @include font32(700);
+                color: black;
+            }
+            h4 {
+                color: $cpt-green;
+                @include font20(400);
+            }
+        }
+
+        .profil-email-container {
+            h4, p {
+                padding-left: 50px;
+            }
+            h4 {
+                color: black;
+                background-image: url('./../../../../assets/img/icons/mail_black.svg');
+                background-repeat: no-repeat;
+                background-position: 0 50%;
+            }
+            p {
+                color: $cpt-blue;
+            }
+        }
+
+    }
+}
+
