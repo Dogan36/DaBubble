@@ -4,12 +4,12 @@ import { Router } from '@angular/router';
 import { Subscription, from } from 'rxjs';
 import { UserType } from '../types/user.class';
 import { Firestore, doc, setDoc, } from '@angular/fire/firestore';
-
+import { OverlayService } from './overlay.service';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
+private overlayService:OverlayService = inject(OverlayService)
   private auth: Auth = inject(Auth);
   private firestore: Firestore = inject(Firestore);
   private router: Router = inject(Router);
@@ -51,6 +51,7 @@ export class AuthService {
 
   async login(): Promise<void> {
     try {
+      this.overlayService.showOverlay('Anmelden');
       const userCredential = await signInWithEmailAndPassword(this.auth, this.email, this.password);
       this.currentUser = userCredential.user;
       this.userUid = this.currentUser.uid;
@@ -70,6 +71,11 @@ export class AuthService {
       const userObject: UserType = this.createUserObject();
       const userDocRef = doc(this.firestore, 'users', user.uid);
       await setDoc(userDocRef, userObject);
+      this.overlayService.showOverlay('Konto erfolgreich erstellt!')
+      setTimeout(() => {
+        this.overlayService.hideOverlay();
+        this.toggleSignUp
+      }, 3000);
     }
     catch (error) {
       throw error;
@@ -99,7 +105,12 @@ export class AuthService {
           const userObject: UserType = this.createUserObject()
           const userDocRef = doc(this.firestore, 'users', this.currentUser.uid);
           setDoc(userDocRef, userObject);
-          this.router.navigate(['']);
+          this.overlayService.showOverlay('Anmelden')
+          setTimeout(() => {
+            this.overlayService.hideOverlay();
+            this.router.navigate(['']);
+          }, 3000);
+         
         }
       }).catch((error) => {
         // Handle Errors here.
@@ -131,10 +142,15 @@ export class AuthService {
     this.showResetPassword = !this.showResetPassword;
   }
   sendPasswortReset(email: string) {
+   
     sendPasswordResetEmail(this.auth, email)
       .then(() => {
-        // Password reset email sent!
-        // ..
+        this.overlayService.showOverlay('<img src="./../assets/img/icons/send_white.svg"> E-Mail gesendet');
+     
+        setTimeout(() => {
+          this.overlayService.hideOverlay();
+          this.toggleResetPasswort()
+        }, 3000);
       })
       .catch((error) => {
         const errorCode = error.code;

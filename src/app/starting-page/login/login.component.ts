@@ -3,6 +3,7 @@ import { Component, ElementRef, Renderer2, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { OverlayService } from '../../services/overlay.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -16,7 +17,7 @@ export class LoginComponent {
   authService: AuthService = inject(AuthService);
   loginError: string | null = null;
   constructor(private fb: FormBuilder, private renderer: Renderer2,
-    private el: ElementRef,) {
+    private el: ElementRef, private overlayService:OverlayService) {
     this.myForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -27,6 +28,7 @@ export class LoginComponent {
     this.saveVariables();
     try {
       await this.authService.login();
+   
     } catch (error) {
       this.loginError = '*Email oder Password falsch.';
     }

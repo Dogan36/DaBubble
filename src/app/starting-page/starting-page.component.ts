@@ -8,7 +8,8 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
-
+import { ConfirmationOverlayComponent } from './confirmation-overlay/confirmation-overlay.component';
+import { OverlayService } from '../services/overlay.service';
 
 @Component({
   selector: 'app-starting-page',
@@ -21,7 +22,9 @@ import { NgIf } from '@angular/common';
   UploadFormComponent,
   FormsModule,
   NgIf,
-  RouterLink
+  RouterLink,
+  ConfirmationOverlayComponent,
+  
   ],
   templateUrl: './starting-page.component.html',
   styleUrl: './starting-page.component.scss'
@@ -31,7 +34,6 @@ export class StartingPageComponent {
 
   constructor(public router:Router) {}
   authService: AuthService = inject(AuthService);
+  overlayService: OverlayService = inject(OverlayService)
  
-
-
 }
