@@ -1,30 +1,73 @@
 <div class="dialog-content">
   <div class="dialog-title">
+    @if(!addMembersOpen) {
     <h3>Channel erstellen</h3>
+    } @if(addMembersOpen) {
+    <h3>Leute hinzufügen</h3>
+    }
     <div class="close-icon" mat-dialog-close></div>
   </div>
   <mat-dialog-content class="dialog-content">
+    @if(!addMembersOpen) {
     <p>
       Channels dienen deinem Team zur Kommunikation. Am besten sollten sie
       themenbezogen sein #marketing zum Beispiel.
     </p>
-    <label for="channelName">Channel-Name</label
-    ><input
-      type="text"
-      name=""
-      id="channelName"
-      placeholder="# z.B. Kooperationsprojekte"
-    />
+    <label for="channelName">Channel-Name</label>
+    <div class="input-name-container">
+      <input
+        #channelName="ngModel"
+        [(ngModel)]="channel.name"
+        type="text"
+        name=""
+        id="channelName"
+        placeholder="# z.B. Kooperationsprojekte"
+        required
+      />
+      @if(channelName.invalid && channelName.touched) {
+      <span class="input-hint">Bitte vergebe einen Channel Namen</span>
+      }
+    </div>
     <label for="description">Beschreibung <span>(optional)</span></label
     ><input
+      [(ngModel)]="channel.description"
       type="text"
       name=""
       id="description"
       placeholder="Dein Text hier"
-      required
-    />
+    />} @if(addMembersOpen) {
+    <div>
+      <input
+        type="radio"
+        id="all-members"
+        name="members"
+        value=""
+        checked
+        (change)="toggleInput(selectedMembersCheck.checked)"
+      />
+      <label class="add-members" for="all-members"
+        >Alle Mitglieder von Office Team hinzufügen</label
+      >
+    </div>
+    <div>
+      <input
+        #selectedMembersCheck
+        type="radio"
+        id="selected-members"
+        name="members"
+        value=""
+        (change)="toggleInput(selectedMembersCheck.checked)"
+      />
+      <label class="add-members" for="selected-members"
+        >Bestimmte Leute hinzufügen</label
+      >
+    </div>
+    @if(selectMerbersOpen) {
+    <input type="text" placeholder="Name eingeben" />
+    } }
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button>Erstellen</button>
+    @if(!addMembersOpen) { <button (click)="openAddMembers()">Weiter</button>}
+    @if(addMembersOpen) {<button (click)="saveChannel()">Erstellen</button>}
   </mat-dialog-actions>
 </div>
