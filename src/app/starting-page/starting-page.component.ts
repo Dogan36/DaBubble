@@ -8,7 +8,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { ConfirmationOverlayComponent } from './confirmation-overlay/confirmation-overlay.component';
+import { ConfirmationOverlayComponent } from '../confirmation-overlay/confirmation-overlay.component';
 import { OverlayService } from '../services/overlay.service';
 
 @Component({

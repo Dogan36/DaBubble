@@ -8,8 +8,9 @@ import {
   MatDialogActions,
   MatDialogClose,
 } from '@angular/material/dialog';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { DialogUserProfilComponent } from '../dialog-user-profil/dialog-user-profil.component';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-dialog-user-menu',
@@ -19,10 +20,13 @@ import { DialogUserProfilComponent } from '../dialog-user-profil/dialog-user-pro
   styleUrl: './dialog-user-menu.component.scss'
 })
 export class DialogUserMenuComponent {
-
-  constructor(public dialog: MatDialog) {}
+  dialogRef: MatDialogRef<DialogUserMenuComponent> | undefined;
+  constructor(public dialog: MatDialog, public authService: AuthService) { }
 
   openUserProfilDialog() {
-        this.dialog.open(DialogUserProfilComponent, {position: {right:'24px', top: '80px'}, panelClass: 'dialog-bor-rad-corner'});
+    this.dialog.open(DialogUserProfilComponent, { position: { right: '24px', top: '80px' }, panelClass: 'dialog-bor-rad-corner' });
+  }
+  closeDialog(){
+    this.dialog.closeAll(); 
   }
 }

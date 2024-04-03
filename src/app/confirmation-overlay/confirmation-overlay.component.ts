@@ -1,5 +1,5 @@
 import { Component, inject, Input  } from '@angular/core';
-import { OverlayService } from '../../services/overlay.service';
+import { OverlayService } from '../services/overlay.service';
 import { NgClass } from '@angular/common';
 
 @Component({

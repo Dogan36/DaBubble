@@ -168,6 +168,10 @@ color: $cpt-font-gray
         &:hover {
             border: 1px solid $cpt-bg;
         }
+
+        &[type="text"]{
+            font-size: 18px;
+        }
     }
 }
 

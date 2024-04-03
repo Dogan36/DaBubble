@@ -26,7 +26,7 @@
     <label for="password" class="inputField password"
         [class.borderPur]="myForm.get('password')?.touched && passwordError">
         <div class="icon"></div>
-        <input formControlName="password" id="password" type="text" placeholder="password">
+        <input formControlName="password" id="password" type="password" placeholder="Password">
     </label>
     <div class="error-container">
         <span class="error-message" *ngIf="myForm.get('password')?.touched && passwordError">{{ passwordError }}</span>
