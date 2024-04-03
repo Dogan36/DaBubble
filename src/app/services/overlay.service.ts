@@ -6,7 +6,7 @@ import { ConfirmationOverlayComponent } from '../confirmation-overlay/confirmati
 })
 export class OverlayService {
 
-overlayShow:boolean = true;
+overlayShow:boolean = false;
 overlayContent:any = null;
 overlayStyle:string = '';
 
