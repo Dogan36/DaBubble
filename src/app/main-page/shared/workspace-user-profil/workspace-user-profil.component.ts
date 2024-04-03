@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-workspace-user-profil',
@@ -8,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './workspace-user-profil.component.scss'
 })
 export class WorkspaceUserProfilComponent {
+
+  @Input() userName: string = '';
+  @Input() userimage: string = '';
 
 }

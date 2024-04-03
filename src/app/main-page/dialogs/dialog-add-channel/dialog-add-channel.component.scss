@@ -4,6 +4,7 @@
 
 .dialog-content {
     gap: 20px;
+    min-width: 872px;
 
     mat-dialog-content {
 
@@ -30,5 +31,30 @@
                 border: 1px solid $cpt-purple-1;
             }
         }
+
+        .input-name-container {
+            position: relative;
+            width: 100%;
+
+            input {
+                width: 100%;
+            }
+
+            .input-hint {
+                position: absolute;
+                left: 32px;
+                bottom: 56px;
+                background-color: white;
+                padding-left: 4px;
+                padding-right: 4px;
+                color: $cpt-error;
+            }
+        }
+
+
+        .add-members {
+            @include font18(400);
+            padding-left: 24px;
+        }
     }
-} 
+}

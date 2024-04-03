@@ -42,27 +42,16 @@
 
   @if(messageListOpen) {
   <div class="message-list">
-    <!-- Hier alle user über eine for Schleife rendern und index vergeben! -->
+    <!-- Noch mal prüfen, was sinnvoller ist. Index oder user.id? -->
+    @for (user of usersService.users; track user.id; let index = $index) {
     <app-workspace-user-profil
-      (click)="onOpenPrivateChat()"
-    ></app-workspace-user-profil>
-    <app-workspace-user-profil
-      (click)="onOpenPrivateChat()"
-    ></app-workspace-user-profil>
-    <app-workspace-user-profil
-      (click)="onOpenPrivateChat()"
-    ></app-workspace-user-profil>
-    <app-workspace-user-profil
-      (click)="onOpenPrivateChat()"
-    ></app-workspace-user-profil>
-    <app-workspace-user-profil
-      (click)="onOpenPrivateChat()"
-    ></app-workspace-user-profil>
-    <app-workspace-user-profil
-      (click)="onOpenPrivateChat()"
-    ></app-workspace-user-profil>
+      [userName]="user.name"
+      [userimage]="user.photoURL"
+      (click)="onOpenPrivateChat(index)"
+    ></app-workspace-user-profil
+    >}
   </div>
   }
-</div>
 
-<!-- Struktur noch mal anpassen + Overflow: scroll -->
+  <!-- Struktur noch mal anpassen + Overflow: scroll -->
+</div>

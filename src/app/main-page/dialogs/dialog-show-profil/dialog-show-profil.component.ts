@@ -8,6 +8,7 @@ import {
   MatDialogActions,
   MatDialogClose,
 } from '@angular/material/dialog';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-dialog-show-profil',
@@ -17,5 +18,7 @@ import {
   styleUrl: './dialog-show-profil.component.scss'
 })
 export class DialogShowProfilComponent {
+
+  constructor(public usersService: UserService) { }
 
 }

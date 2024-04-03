@@ -3,6 +3,7 @@ import { WorkspaceUserProfilComponent } from '../shared/workspace-user-profil/wo
 import { MatDialog } from '@angular/material/dialog';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogAddChannelComponent } from '../dialogs/dialog-add-channel/dialog-add-channel.component';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-workspace-menu',
@@ -22,7 +23,7 @@ export class WorkspaceMenuComponent {
   @Output() openPrivateChat = new EventEmitter<void>();
   @Output() openNewChat = new EventEmitter<void>();
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, public usersService: UserService) {}
 
 
   toggleChannelList() {
@@ -46,8 +47,10 @@ export class WorkspaceMenuComponent {
   //   this.openChannel.emit(index);
   // }
 
-  onOpenPrivateChat() {
+  onOpenPrivateChat(i:number) {
     this.openPrivateChat.emit();
+    console.log('index is', i);
+    this.usersService.selectedUser = i;
   }
 
 
