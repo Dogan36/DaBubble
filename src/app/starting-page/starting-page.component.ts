@@ -1,6 +1,6 @@
-import { Component, inject} from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SignupComponent } from './signup/signup.component';
-import  { LoginComponent } from './login/login.component' ;
+import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { SignuppictureComponent } from './signuppicture/signuppicture.component';
 import { UploadFormComponent } from './signuppicture/upload-form/upload-form.component';
@@ -8,23 +8,21 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { ConfirmationOverlayComponent } from '../confirmation-overlay/confirmation-overlay.component';
-import { OverlayService } from '../services/overlay.service';
+
+
 
 @Component({
   selector: 'app-starting-page',
   standalone: true,
   imports: [
-  SignupComponent,
-  ForgotPasswordComponent,
-  LoginComponent,
-  SignuppictureComponent,
-  UploadFormComponent,
-  FormsModule,
-  NgIf,
-  RouterLink,
-  ConfirmationOverlayComponent,
-  
+    SignupComponent,
+    ForgotPasswordComponent,
+    LoginComponent,
+    SignuppictureComponent,
+    UploadFormComponent,
+    FormsModule,
+    NgIf,
+    RouterLink,
   ],
   templateUrl: './starting-page.component.html',
   styleUrl: './starting-page.component.scss'
@@ -32,8 +30,7 @@ import { OverlayService } from '../services/overlay.service';
 
 export class StartingPageComponent {
 
-  constructor(public router:Router) {}
+  constructor(public router: Router) { }
   authService: AuthService = inject(AuthService);
-  overlayService: OverlayService = inject(OverlayService)
  
 }

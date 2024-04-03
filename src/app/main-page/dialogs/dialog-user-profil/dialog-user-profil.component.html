@@ -9,19 +9,19 @@
   </div>
   <mat-dialog-content class="dialog-content">
     <div class="profil-img">
-      <img src="assets/img/profils/avatar_2.svg" alt="" />
+      <img [src]="this.authService.photoURL">
     </div>
     @if(!editProfilOpen) {
     <div class="profil-name-container">
       <div>
-        <h2>Noah Braun</h2>
+        <h2> {{this.authService.currentUser?.displayName}}</h2>
         <span class="edit-user" (click)="editProfil()">Bearbeiten</span>
       </div>
       <h4>Aktiv</h4>
     </div>
     <div class="profil-email-container">
       <h4>E-Mail-Adresse</h4>
-      <p>noahbra&#64;beispiel.com</p>
+      <p>{{this.authService.currentUser?.email}}</p>
     </div>
     } @if(editProfilOpen) {
     <div class="edit-user-info-container">

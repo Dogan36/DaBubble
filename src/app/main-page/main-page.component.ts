@@ -38,14 +38,12 @@ export class MainPageComponent {
   }
 
   ngOnInit() {
-    this.currentUser = this.authService.currentUser;
-    console.log(this.authService.currentUser)
-    console.log(this.currentUser)
+   
   }
 
 
   test() {
-    console.log(this.authService.currentUser?.uid)
+    console.log(this.authService.userUid)
   }
 
 

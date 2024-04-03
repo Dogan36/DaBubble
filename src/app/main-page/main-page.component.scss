@@ -92,6 +92,7 @@ header {
             position: absolute;
             right: 35px;
             top: 20px;
+            
 
             &:hover {
                 cursor: pointer;
@@ -106,6 +107,13 @@ header {
         gap: 20px;
         width: $wdth-right;
 
+        img {
+            cursor: pointer;
+            height: 70px;
+        width: 70px;
+        border-radius: 100%;
+        }
+
         h2 {
             font-size: 32px;
             font-weight: 700;
@@ -117,9 +125,7 @@ header {
                 color: $cpt-purple-1;
                 cursor: pointer;
             }
-            img {
-                cursor: pointer;
-            }
+            
             .drop-down-icon {
                 background-image: url('./../../assets/img/icons/keyboard_arrow_down_pur.svg');
                 cursor: pointer;

@@ -3,7 +3,7 @@ import { Auth, User, createUserWithEmailAndPassword, updateProfile, user, browse
 import { Router } from '@angular/router';
 import { Subscription, from } from 'rxjs';
 import { UserType } from '../types/user.class';
-import { Firestore, doc, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, doc, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
 import { OverlayService } from './overlay.service';
 import { setPersistence } from '@firebase/auth';
 
@@ -37,6 +37,11 @@ export class AuthService {
       this.currentUser = user;
       if (this.currentUser != null) {
         this.userUid = this.currentUser.uid;
+        this.getUserPhotoURL(this.currentUser.uid)
+        .then(photoURL => {
+          console.log(photoURL)
+          this.photoURL = photoURL;
+        })
         this.router.navigate(['/start']);
       } else {
         this.router.navigate(['']);
@@ -57,12 +62,11 @@ export class AuthService {
       await setPersistence(this.auth, browserSessionPersistence);
       const userCredential = await signInWithEmailAndPassword(this.auth, this.email, this.password);
       this.overlayService.showOverlay('Anmelden')
-      this.currentUser = userCredential.user;
-     
-      console.log("User UID:", this.userUid);
       setTimeout(() => {
         this.overlayService.hideOverlay();
-      }, 3000);
+      }, 1500);
+      this.currentUser = userCredential.user;
+      
     } catch (error) {
       console.log(error)
       throw error;
@@ -82,16 +86,16 @@ export class AuthService {
       setTimeout(() => {
         this.overlayService.hideOverlay();
         this.toggleLogin()
-      }, 3000);
+      }, 1500);
     } catch (error) {
       throw error;
     }
   }
 
   async updateInfo(name: string, email: string) {
-    console.log("User UID:", this.userUid);
+   
     const userDocRef = doc(this.firestore, 'users', this.userUid);
-    console.log(userDocRef)
+    
     if (this.currentUser) {
       await updateEmail(this.currentUser, email);
       await updateProfile(this.currentUser, { displayName: name });
@@ -127,7 +131,7 @@ export class AuthService {
           setTimeout(() => {
             this.overlayService.hideOverlay();
 
-          }, 3000);
+          }, 1500);
         }
       }).catch((error) => {
         // Handle Errors here.
@@ -173,7 +177,7 @@ export class AuthService {
         setTimeout(() => {
           this.overlayService.hideOverlay();
           this.toggleResetPasswort()
-        }, 3000);
+        }, 1500);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -183,18 +187,32 @@ export class AuthService {
   }
 
 
-
-
-
   async logout(): Promise<void> {
     try {
       this.overlayService.showOverlay('Abmelden')
       await signOut(this.auth);
       setTimeout(() => {
         this.overlayService.hideOverlay();
-      }, 3000);
+      }, 1500);
     } catch (error) {
       console.error('Error logging out:', error);
     }
   }
+
+  async getUserPhotoURL(userId: string): Promise<string> {
+    try {
+      const userDocRef = doc(this.firestore, 'users', userId);
+      const userSnapshot = await getDoc(userDocRef);
+      if (userSnapshot.exists()) {
+        const userData = userSnapshot.data();
+        return userData['photoURL'] || "./assets/img/profils/standardPic.svg";
+      } else {
+        return "./assets/img/profils/standardPic.svg";
+      }
+    } catch (error) {
+      console.error('Error getting user photo URL:', error);
+      throw error;
+    }
+  }
+
 }
