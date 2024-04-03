@@ -1,5 +1,5 @@
-@import "./../starting-page.component.scss";
-
+@import "./../starting-page/starting-page.component.scss";
+:root{position: relative;}
 .overlay{
     position:absolute;
     top: 0;
@@ -24,7 +24,6 @@
     box-shadow: 0px 6px 10px 0px #00000033;
     color:white;
     font-size: 36px;
-   
     animation: slideIn 0.5s ease forwards; /* Hier wird die Animation definiert */
 }
 

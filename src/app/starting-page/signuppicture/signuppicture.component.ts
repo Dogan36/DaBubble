@@ -36,7 +36,7 @@ export class SignuppictureComponent {
       this.signingIn = true;
       await this.authService.register();
       this.signingIn = false;
-      this.overlayService.showOverlay('Konto erfolgreich erstellt');
+
     } catch (error: any) {
       if (error.code === 'auth/email-already-in-use') {
         this.overlayService.showOverlayError('E-Mail bereits vergeben');

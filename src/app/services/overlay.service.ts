@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ConfirmationOverlayComponent } from '../starting-page/confirmation-overlay/confirmation-overlay.component';
+import { ConfirmationOverlayComponent } from '../confirmation-overlay/confirmation-overlay.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OverlayService {
 
-overlayShow:boolean = false
+overlayShow:boolean = true;
 overlayContent:any = null;
 overlayStyle:string = '';
 

@@ -1,6 +1,6 @@
 <mat-dialog-actions>
   <button (click)="openUserProfilDialog()">Profil</button>
-  <button>Log out</button>
+  <button (click)="this.authService.logout(); this.closeDialog()">Log out</button>
 </mat-dialog-actions>
 
 <!--  <button (click)="openUserProfilDialog()" mat-dialog-close>Profil</button> vorigen Dialog schließen? -->

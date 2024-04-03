@@ -5,8 +5,8 @@ import { ImprintComponent } from './imprint/imprint.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 export const routes: Routes = [
-    { path: '', component: MainPageComponent, data: { title: 'Da Bubble | Home' } },
-    { path: 'start', component: StartingPageComponent, data: { title: 'Da Bubble | Start' } },
+    { path: 'start', component: MainPageComponent, data: { title: 'Da Bubble | Home' } },
+    { path: '', component: StartingPageComponent, data: { title: 'Da Bubble | Start' } },
     { path: 'imprint', component: ImprintComponent, data: { title: 'Da Bubble | Imprint' } },
     { path: 'privacy-policy', component: PrivacyPolicyComponent, data: { title: 'Da Bubble | Privacy Policy' } },
 ];

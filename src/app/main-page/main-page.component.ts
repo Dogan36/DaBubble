@@ -27,6 +27,7 @@ export class MainPageComponent {
   channelChatOpen = true;
   privateChatOpen = false;
   threadOpen = true;
+  currentUser:any
 
 
   constructor(private evtSvc: EventService, public dialog: MatDialog) {
@@ -36,7 +37,9 @@ export class MainPageComponent {
   }
 
   ngOnInit() {
-    console.log(this.authService.currentUser?.uid)
+    this.currentUser = this.authService.currentUser;
+    console.log(this.authService.currentUser)
+    console.log(this.currentUser)
   }
 
 

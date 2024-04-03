@@ -67,6 +67,11 @@ export class UploadFormComponent {
         uploadBytes(this.storageRef, blob).then((snapshot) => {
           this.isUploading=false;
           this.isUploaded=true;
+          // Zuweisung der photoURL-Eigenschaft nach Abschluss des Uploads
+          getDownloadURL(snapshot.ref).then((downloadURL) => {
+            this.authService.photoURL = downloadURL;
+          });
+  
         }).catch((error) => {
           console.error("Fehler beim Hochladen des Bildes:", error);
           this.isUploading=false;
@@ -78,11 +83,5 @@ export class UploadFormComponent {
         this.isUploading=false;
         this.isUploaded=true;
       });
-
-    const uploadTask = uploadBytesResumable(this.storageRef, this.croppedImage);
-    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-      this.authService.photoURL = downloadURL
-    }); 
-
   }
 }
