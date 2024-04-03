@@ -5,6 +5,7 @@ import { MessageRightComponent } from '../shared/message-right/message-right.com
 import { MatDialog } from '@angular/material/dialog';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogEditChannelComponent } from '../dialogs/dialog-edit-channel/dialog-edit-channel.component';
+import { ChannelService } from '../../services/channel.service';
 
 
 @Component({
@@ -18,7 +19,9 @@ export class ChannelBoardComponent {
 
     channelBoard = true;
 
-    constructor(public dialog: MatDialog) {}
+    constructor(public dialog: MatDialog, public channelService: ChannelService) {
+      
+    }
 
 
     openEditChannelDialog() {

@@ -1,7 +1,9 @@
 <div class="dialog-content">
   <div class="dialog-title">
     <div class="title-channel-chat">
-      <h3>Entwicklerteam</h3>
+      <h3>
+        {{ channelService.channels[channelService.selectedChannel].name }}
+      </h3>
     </div>
     <div class="close-icon" mat-dialog-close></div>
   </div>
@@ -23,7 +25,9 @@
     />
     <hr />
     <h5>Erstellt von</h5>
-    <h3>Noah Braun</h3>
+    <h3>
+      {{ channelService.channels[channelService.selectedChannel].creator }}
+    </h3>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button>Channel verlassen</button>

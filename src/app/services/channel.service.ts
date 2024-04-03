@@ -11,6 +11,7 @@ export class ChannelService {
   firestore: Firestore = inject(Firestore);
 
   channels: Channel[] = [];
+  selectedChannel: number = 0;
 
   unsubChannels;
 
@@ -34,6 +35,7 @@ export class ChannelService {
     return {
       channelRef: id,
       name: obj.name,
+      creator: obj.creator,
       members: obj.members || '',
       threads: obj.threads || '',
       description: obj.description || ''
@@ -61,6 +63,7 @@ export class ChannelService {
   toJSON(obj:any) {
     return {
         name: obj.name,
+        creator: obj.creator,
         members: obj.members,
         threads: obj.threads || [''],
         description: obj.description || ''
@@ -75,7 +78,7 @@ export class ChannelService {
     )
   }
 
-  
+
   ngonDestroy() {
     this.unsubChannels();
   }

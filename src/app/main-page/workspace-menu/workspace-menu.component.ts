@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogAddChannelComponent } from '../dialogs/dialog-add-channel/dialog-add-channel.component';
 import { UserService } from '../../services/user.service';
+import { ChannelService } from '../../services/channel.service';
 
 @Component({
   selector: 'app-workspace-menu',
@@ -23,7 +24,7 @@ export class WorkspaceMenuComponent {
   @Output() openPrivateChat = new EventEmitter<void>();
   @Output() openNewChat = new EventEmitter<void>();
 
-  constructor(public dialog: MatDialog, public usersService: UserService) {}
+  constructor(public dialog: MatDialog, public usersService: UserService, public channelService: ChannelService) {}
 
 
   toggleChannelList() {
@@ -39,7 +40,8 @@ export class WorkspaceMenuComponent {
     this.openNewChat.emit();
   }
 
-  onOpenChannel() {
+  onOpenChannel(i:number) {
+    this.channelService.selectedChannel = i;
     this.openChannel.emit();
   }
   // So muss die Funktion mit Parameter aussehen!
@@ -48,9 +50,9 @@ export class WorkspaceMenuComponent {
   // }
 
   onOpenPrivateChat(i:number) {
-    this.openPrivateChat.emit();
-    console.log('index is', i);
     this.usersService.selectedUser = i;
+    console.log('index is', i);
+    this.openPrivateChat.emit();
   }
 
 
