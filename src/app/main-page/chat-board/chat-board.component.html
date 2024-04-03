@@ -2,7 +2,7 @@
   <!-- Font-size muss noch angepasst werden, und width nicht 100%! -->
   <div class="title-sgl-user-chat">
     <app-workspace-user-profil
-      [userName]="selectedUserName"
+      [userName]="userService.users[userService.selectedUser].name"
       (click)="openShowProfilDialog()"
     ></app-workspace-user-profil>
   </div>
@@ -14,11 +14,14 @@
   <div class="new-chat-container">
     <div class="new-chat-user">
       <img src="assets/img/profils/Foto.svg" alt="" />
-      <h3 (click)="openShowProfilDialog()">{{ selectedUserName }}</h3>
+      <h3 (click)="openShowProfilDialog()">
+        {{ userService.users[userService.selectedUser].name }}
+      </h3>
     </div>
     <p>
       Diese Unterhaltung findet nur zwischen
-      <span>&#64;{{ selectedUserName }} </span>und dir statt.
+      <span>&#64;{{ userService.users[userService.selectedUser].name }} </span
+      >und dir statt.
     </p>
   </div>
 </div>

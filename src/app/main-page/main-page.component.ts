@@ -11,7 +11,6 @@ import { NewMsgBoardComponent } from './new-msg-board/new-msg-board.component';
 import { MatDialog } from '@angular/material/dialog';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogUserMenuComponent } from './dialogs/dialog-user-menu/dialog-user-menu.component';
-import { UserService } from '../services/user.service';
 
 
 @Component({
@@ -31,7 +30,7 @@ export class MainPageComponent {
   currentUser:any
 
 
-  constructor(private evtSvc: EventService, public dialog: MatDialog, public usersService: UserService) {
+  constructor(private evtSvc: EventService, public dialog: MatDialog) {
     this.evtSvc.getThreadOpenStatus().subscribe(status => {
       this.threadOpen = status;
     });

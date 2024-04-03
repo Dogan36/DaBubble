@@ -11,6 +11,7 @@ import {
 } from '@angular/material/dialog';
 import { Channel } from '../../../models/channel.class';
 import { ChannelService } from '../../../services/channel.service';
+import { UserService } from '../../../services/user.service';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class DialogAddChannelComponent {
   selectMerbersOpen = false;
 
 
-  constructor(private channelService: ChannelService){}
+  constructor(private channelService: ChannelService, private userService: UserService){}
 
   openAddMembers() {
     this.addMembersOpen = true;
@@ -40,9 +41,28 @@ export class DialogAddChannelComponent {
   }
 
   saveChannel() {
-    this.channel.members = ['regina'];
+
+    this.setMembers();
     console.log('Current channel is', this.channel);
+    this.channel.creator = 'Regina';
+    // Hier creator mit angemeldeten User austauschen!
 
     this.channelService.addChannel(this.channelService.toJSON(this.channel), 'channels');
+  }
+
+
+  setMembers() {
+    let allMembers = <HTMLInputElement>document.getElementById('all-members');
+    let selectedMembers = <HTMLInputElement>document.getElementById('selected-members');
+    this.channel.members = [];
+
+    if(allMembers && allMembers.checked == true) {
+      for (let i = 0; i < this.userService.users.length; i++) {
+        const user = this.userService.users[i];
+        
+        this.channel.members?.push(user.id);
+      }} else if(selectedMembers && selectedMembers.checked == true) {
+        this.channel.members = ['regina'];
+      } 
   }
 }

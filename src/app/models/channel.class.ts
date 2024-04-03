@@ -1,6 +1,7 @@
 export class Channel {
     id?: string;
     name: string;
+    creator: string;
     members?: string[];
     threads?: string[];
     description?: string;
@@ -9,6 +10,7 @@ export class Channel {
   constructor(obj?:any) {
     this.id = obj ? obj.id : '';
     this.name = obj ? obj.name : '';
+    this.creator = obj ? obj.creator : '';
     this.members = obj ? obj.members : [''];
     this.threads = obj ? obj.threads : [''];
     this.description = obj ? obj.description : '';

@@ -41,7 +41,7 @@
         type="radio"
         id="all-members"
         name="members"
-        value=""
+        value="all-members"
         checked
         (change)="toggleInput(selectedMembersCheck.checked)"
       />
@@ -55,7 +55,7 @@
         type="radio"
         id="selected-members"
         name="members"
-        value=""
+        value="selected-members"
         (change)="toggleInput(selectedMembersCheck.checked)"
       />
       <label class="add-members" for="selected-members"
@@ -68,6 +68,8 @@
   </mat-dialog-content>
   <mat-dialog-actions>
     @if(!addMembersOpen) { <button (click)="openAddMembers()">Weiter</button>}
-    @if(addMembersOpen) {<button (click)="saveChannel()">Erstellen</button>}
+    @if(addMembersOpen) {<button (click)="saveChannel()" mat-dialog-close>
+      Erstellen</button
+    >}
   </mat-dialog-actions>
 </div>

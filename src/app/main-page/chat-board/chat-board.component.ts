@@ -4,6 +4,8 @@ import { WorkspaceUserProfilComponent } from '../shared/workspace-user-profil/wo
 import { MatDialog } from '@angular/material/dialog';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogShowProfilComponent } from '../dialogs/dialog-show-profil/dialog-show-profil.component';
+import { ChannelService } from '../../services/channel.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-chat-board',
@@ -14,10 +16,9 @@ import { DialogShowProfilComponent } from '../dialogs/dialog-show-profil/dialog-
 })
 export class ChatBoardComponent {
 
-  @Input() selectedUserName: string = '';
   channelBoard = false;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, public userService: UserService) {}
 
 
   openShowProfilDialog() {

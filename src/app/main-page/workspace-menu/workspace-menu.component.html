@@ -24,8 +24,12 @@
   @if(channelListOpen) {
   <div class="channels-list">
     <!-- Hier alle channels über eine for Schleife rendern und index vergeben! -->
-    <div class="channel" (click)="onOpenChannel()"><h5>Entwicklerteam</h5></div>
-    <div class="channel" (click)="onOpenChannel()"><h5>Office-team</h5></div>
+    @for (channel of channelService.channels; track channel.id; let index =
+    $index) {
+    <div class="channel" (click)="onOpenChannel(index)">
+      <h5>{{ channel.name }}</h5>
+    </div>
+    }
     <div class="add-channel" (click)="openAddChannelDialog()">
       <h5>Channel hinzufügen</h5>
     </div>
