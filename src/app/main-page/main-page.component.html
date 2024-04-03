@@ -38,8 +38,10 @@
   ></app-new-msg-board>} @if(channelChatOpen) {
   <app-channel-board></app-channel-board>
   } @if(privateChatOpen) {
-  <app-chat-board></app-chat-board>
-  } @if(threadOpen) {
+  <app-chat-board
+    [selectedUserName]="usersService.users[usersService.selectedUser].name"
+  ></app-chat-board>
+  } @if(threadOpen && channelChatOpen) {
   <app-thread-board></app-thread-board>
   }
 </div>
