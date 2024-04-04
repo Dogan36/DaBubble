@@ -6,9 +6,11 @@
     <input type="text" /><img src="assets/img/icons/search.svg" alt="" />
   </div>
   <div class="user-menu">
-    <h2 (click)="openUserMenuDialog()"> {{this.authService.currentUser?.displayName}}</h2>
-    <img [src]="this.authService.photoURL"
-      
+    <h2 (click)="openUserMenuDialog()">
+      {{ this.authService.currentUser?.displayName }}
+    </h2>
+    <img
+      [src]="this.authService.photoURL"
       alt=""
       (click)="openUserMenuDialog()"
     />

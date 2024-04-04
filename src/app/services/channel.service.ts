@@ -10,8 +10,8 @@ export class ChannelService {
 
   firestore: Firestore = inject(Firestore);
 
-  channels: Channel[] = [];
   selectedChannel: number = 0;
+  channels: Channel[] = [];
 
   unsubChannels;
 
@@ -33,7 +33,7 @@ export class ChannelService {
 
   setChannelObject(obj:any, id: string) {
     return {
-      channelRef: id,
+      id: id,
       name: obj.name,
       creator: obj.creator,
       members: obj.members || '',

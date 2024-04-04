@@ -5,29 +5,55 @@
         {{ channelService.channels[channelService.selectedChannel].name }}
       </h3>
     </div>
-    <div class="close-icon" mat-dialog-close></div>
+    <div class="close-icon" mat-dialog-close (click)="closeChanges()"></div>
   </div>
   <mat-dialog-content class="dialog-content">
-    <label for="channelName">Channel-Name</label
-    ><input
-      type="text"
-      name=""
-      id="channelName"
-      placeholder="# z.B. Kooperationsprojekte"
-    />
-    <label for="description">Beschreibung <span>(optional)</span></label
-    ><input
-      type="text"
-      name=""
-      id="description"
-      placeholder="Dein Text hier"
-      required
-    />
-    <hr />
-    <h5>Erstellt von</h5>
-    <h3>
-      {{ channelService.channels[channelService.selectedChannel].creator }}
-    </h3>
+    <div class="flx-col" [class.changeStatus]="!editNameOpen">
+      <div class="label-container">
+        <label for="channelName">Channel-Name</label>@if(!editNameOpen) {<span
+          (click)="openChangesName()"
+          >Bearbeiten</span
+        >} @if(editNameOpen) {<span (click)="saveChanges()">Speichern</span>}
+      </div>
+      @if(!editNameOpen) {
+      <p>
+        {{ channelService.channels[channelService.selectedChannel].name }}
+      </p>
+      } @if(editNameOpen) {<input
+        [(ngModel)]="channel.name"
+        type="text"
+        name=""
+        id="channelName"
+        placeholder="# z.B. Kooperationsprojekte"
+      />}
+    </div>
+    <div class="flx-col" [class.changeStatus]="!editTextOpen">
+      <div class="label-container">
+        <label for="description">Beschreibung</label> @if(!editTextOpen) {<span
+          (click)="openChangesText()"
+          >Bearbeiten</span
+        >} @if(editTextOpen) {<span (click)="saveChanges()">Speichern</span>}
+      </div>
+      @if(!editTextOpen) {
+      <p>
+        {{
+          channelService.channels[channelService.selectedChannel].description
+        }}
+      </p>
+      } @if(editTextOpen) {<input
+        [(ngModel)]="channel.description"
+        type="text"
+        name=""
+        id="description"
+        placeholder="Dein Text hier"
+        required
+      />}
+      <hr />
+      <h5>Erstellt von</h5>
+      <h3>
+        {{ channelService.channels[channelService.selectedChannel].creator }}
+      </h3>
+    </div>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button>Channel verlassen</button>

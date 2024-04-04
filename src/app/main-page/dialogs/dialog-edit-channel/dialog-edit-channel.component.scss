@@ -11,6 +11,22 @@
 }
 
 mat-dialog-content {
+    .label-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        span {
+            margin-right: 30px;
+            @include font18(600);
+            color: $cpt-purple-3;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
     hr {
         border: none;
         border-top: 1px solid $cpt-line;
@@ -26,4 +42,17 @@ mat-dialog-content {
     h3 {
         color: $cpt-purple-3;
     }
+}
+
+
+.flx-col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.changeStatus {
+    border: 1px solid $cpt-line;
+    border-radius: 20px;
+    padding: 20px;
 }
