@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, User, createUserWithEmailAndPassword, updateProfile, user, browserSessionPersistence, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, getAdditionalUserInfo, sendPasswordResetEmail, updateEmail, signOut, sendEmailVerification } from '@angular/fire/auth';
+import { Auth, User, createUserWithEmailAndPassword, updateProfile, user, browserSessionPersistence, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, getAdditionalUserInfo, sendPasswordResetEmail, updateEmail, signOut, sendEmailVerification, onAuthStateChanged } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { Subscription, from } from 'rxjs';
+import { Observable, Subscription, from, map } from 'rxjs';
 import { UserType } from '../types/user.class';
 import { Firestore, doc, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
 import { OverlayService } from './overlay.service';
@@ -39,7 +39,6 @@ export class AuthService {
         this.userUid = this.currentUser.uid;
         this.getUserPhotoURL(this.currentUser.uid)
         .then(photoURL => {
-          console.log(photoURL)
           this.photoURL = photoURL;
         })
         this.router.navigate(['/start']);
@@ -213,6 +212,12 @@ export class AuthService {
       console.error('Error getting user photo URL:', error);
       throw error;
     }
+  }
+
+  getCurrentUserUid(): Observable<string | null> {
+    return this.user$.pipe(
+      map(user => user ? user.uid : null)
+    );
   }
 
 }
