@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import {
   MatDialog,
   MAT_DIALOG_DATA,
@@ -11,12 +10,13 @@ import {
 } from '@angular/material/dialog';
 import { ChannelService } from '../../../services/channel.service';
 import { Channel } from '../../../models/channel.class';
+import { AuthService } from '../../../services/auth.service';
 
 
 @Component({
   selector: 'app-dialog-edit-channel',
   standalone: true,
-  imports: [MatDialogContent, MatDialogActions, MatDialogClose, FormsModule],
+  imports: [MatDialogContent, MatDialogActions, MatDialogClose],
   templateUrl: './dialog-edit-channel.component.html',
   styleUrl: './dialog-edit-channel.component.scss'
 })
@@ -24,18 +24,10 @@ export class DialogEditChannelComponent {
 
   editNameOpen = false;
   editTextOpen = false;
-  // channel = this.channelService.channels.slice(this.channelService.selectedChannel);
+  channelData = this.channelService.channels[this.channelService.selectedChannel];
   channel: Channel;
-  // oldObj = this.channelService.channels[this.channelService.selectedChannel];
 
-  constructor(public channelService: ChannelService) {
-    // this.channel.creator = this.oldObj.creator;
-    // this.channel.description = this.oldObj.description;
-    // this.channel.id = this.oldObj.id;
-    // this.channel.members = this.oldObj.members;
-    // this.channel.name = this.oldObj.name;
-    // this.channel.threads = this.oldObj.threads;
-    // this.channel = this.channelService.channels.slice(this.channelService.selectedChannel);
+  constructor(public channelService: ChannelService, private authService: AuthService ) {
     this.channel = Object.assign({}, this.channelService.channels[this.channelService.selectedChannel]);
   }
 
@@ -51,7 +43,29 @@ export class DialogEditChannelComponent {
     this.editTextOpen = false;
   }
   
-  saveChanges() {
+  saveChanges(field:string) {
+    let changedName = <HTMLInputElement>document.getElementById('channelName');
+    let changedText = <HTMLInputElement>document.getElementById('description');
+
+    
+    if(field == 'name') {
+      this.channel.name = changedName.value;
+    } else if(field == 'text') {
+      this.channel.description = changedText.value;
+    }
+    
     this.channelService.updateChannel(this.channel);
+  }
+
+  leaveChannel() {
+    // evtl. Zugriff auf user id verbessern
+    if(this.authService.currentUser?.uid) {
+      let index = this.channel.members?.indexOf(this.authService.currentUser?.uid)
+      
+      if(index) {
+        this.channel.members?.splice(index, 1);
+        this.channelService.updateChannel(this.channel);
+      }
+    }
   }
 }

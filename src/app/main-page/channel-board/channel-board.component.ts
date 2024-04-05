@@ -6,12 +6,13 @@ import { MatDialog } from '@angular/material/dialog';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogEditChannelComponent } from '../dialogs/dialog-edit-channel/dialog-edit-channel.component';
 import { ChannelService } from '../../services/channel.service';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-channel-board',
   standalone: true,
-  imports: [TextareaMainPageComponent, MessageLeftComponent, MessageRightComponent, MatDialogModule],
+  imports: [TextareaMainPageComponent, MessageLeftComponent, MessageRightComponent, MatDialogModule, CommonModule],
   templateUrl: './channel-board.component.html',
   styleUrl: './channel-board.component.scss'
 })
@@ -20,7 +21,7 @@ export class ChannelBoardComponent {
     channelBoard = true;
 
     constructor(public dialog: MatDialog, public channelService: ChannelService) {
-      
+
     }
 
 

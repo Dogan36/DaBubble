@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Firestore, onSnapshot, collection, addDoc, doc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { Channel } from '../models/channel.class';
+import { AuthService } from './auth.service';
 
 
 @Injectable({
@@ -15,9 +16,33 @@ export class ChannelService {
 
   unsubChannels;
 
-  constructor() {
+  constructor(private authService: AuthService) {
     this.unsubChannels = this.subChannelsList();
    }
+
+  
+  // ngAfterViewInit() {
+  //   this.filterChannelsOfUser();
+  // }
+
+  //  filterChannelsOfUser() {
+  //   if(this.channels) {
+  //     let channelsOfUser = [];
+  //     for (let i = 0; i < this.channels.length; i++) {
+  //       const element = this.channels[i];
+  
+  //       if(this.authService.currentUser?.uid) {
+  //       let index = element.members?.indexOf(this.authService.currentUser?.uid)
+        
+  //       if(index) {
+  //         channelsOfUser.push(element);
+  
+  //         console.log('Channels Of User are', channelsOfUser);
+  //       }
+  //     }
+  //     }
+  //   }
+  //  }
 
 
   subChannelsList() {
@@ -43,7 +68,8 @@ export class ChannelService {
   }
 
 
-  async addChannel(item: Channel, colId: "channels") {
+  async addChannel(item: {}, colId: "channels") {
+    console.log('Test um zu schauen was alles in item drin ist', item)
     await addDoc(collection(this.firestore, colId), item).catch(
         (err) => { console.error(err) }
       ).then(
