@@ -10,6 +10,6 @@ import { Component, Input } from '@angular/core';
 export class WorkspaceUserProfilComponent {
 
   @Input() userName: string = '';
-  @Input() userimage: string = '';
+  @Input() userImage: string = '';
 
 }

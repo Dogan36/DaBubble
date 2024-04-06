@@ -13,38 +13,16 @@ export class ChannelService {
 
   selectedChannel: number = 0;
   channels: Channel[] = [];
+  channelsOfUser: Channel[] = [];
 
   unsubChannels;
 
   constructor(private authService: AuthService) {
     this.unsubChannels = this.subChannelsList();
-   }
-
+  }
   
-  // ngAfterViewInit() {
-  //   this.filterChannelsOfUser();
-  // }
-
-  //  filterChannelsOfUser() {
-  //   if(this.channels) {
-  //     let channelsOfUser = [];
-  //     for (let i = 0; i < this.channels.length; i++) {
-  //       const element = this.channels[i];
   
-  //       if(this.authService.currentUser?.uid) {
-  //       let index = element.members?.indexOf(this.authService.currentUser?.uid)
-        
-  //       if(index) {
-  //         channelsOfUser.push(element);
-  
-  //         console.log('Channels Of User are', channelsOfUser);
-  //       }
-  //     }
-  //     }
-  //   }
-  //  }
-
-
+  // Im Moment wird this.filterChannelsOfUser(); jedes mal aufgerufen wenn sich Daten ändern. Daher eher ungünstig in der subChannelsList() function
   subChannelsList() {
     return onSnapshot(collection(this.firestore, 'channels'), (list) => {
       this.channels = [];
@@ -52,6 +30,9 @@ export class ChannelService {
         this.channels.push(this.setChannelObject(element.data(), element.id),);
       })
       console.log('Channels are', this.channels);
+
+      // Besser wo anders aufrufen!
+      this.filterChannelsOfUser(); 
     });
     }
 
@@ -108,5 +89,26 @@ export class ChannelService {
   ngonDestroy() {
     this.unsubChannels();
   }
+
+
+  filterChannelsOfUser() {
+      if(this.channels) {
+        for (let i = 0; i < this.channels.length; i++) {
+          const element = this.channels[i];
+  
+          if(this.authService.currentUser?.uid) {
+            let index = element.members?.indexOf(this.authService.currentUser?.uid);
+        
+            if(index !== -1) {
+              this.channelsOfUser.push(element);
+  
+            }
+          }
+        }
+      }
+    console.log('Channels Of User are', this.channelsOfUser);
+  }
+
+
 }
 

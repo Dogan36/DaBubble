@@ -8,6 +8,7 @@ import { ChannelService } from '../../services/channel.service';
 import { ChatService } from '../../services/chat.service';
 import { Subscription } from 'rxjs';
 
+
 @Component({
   selector: 'app-workspace-menu',
   standalone: true,
@@ -27,7 +28,9 @@ export class WorkspaceMenuComponent {
   @Output() openPrivateChat = new EventEmitter<void>();
   @Output() openNewChat = new EventEmitter<void>();
   private subscription: Subscription | undefined;
+
   constructor(public dialog: MatDialog, public usersService: UserService, public channelService: ChannelService, public chatService: ChatService) {}
+
   ngOnInit() {
     const subscription = this.chatService.subChats().subscribe(messages => {
       messages.forEach((message: any) => {
@@ -39,6 +42,7 @@ export class WorkspaceMenuComponent {
       });
     });
   }
+  
 
   ngOnDestroy() {
     // Beenden Sie das Abonnement, um Speicherlecks zu vermeiden
@@ -69,7 +73,6 @@ export class WorkspaceMenuComponent {
 
   onOpenPrivateChat(i:number) {
     this.usersService.selectedUser = i;
-    console.log('index is', i);
     this.openPrivateChat.emit();
   }
 
@@ -80,4 +83,7 @@ export class WorkspaceMenuComponent {
   openAddChannelDialog() {
     this.dialog.open(DialogAddChannelComponent, {panelClass: 'dialog-bor-rad-round'});
   }
+
 }
+
+
