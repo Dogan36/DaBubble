@@ -1,10 +1,19 @@
 <div class="title-container">
   <div class="title-channel-chat" (click)="openEditChannelDialog()">
-    <h3>{{ channelService.channels[channelService.selectedChannel].name }}</h3>
+    <h3
+      *ngIf="this.channelService.channels[this.channelService.selectedChannel]"
+    >
+      {{
+        this.channelService.channels[this.channelService.selectedChannel].name
+      }}
+    </h3>
     <div class="drop-down-icon"></div>
   </div>
-  <div class="channel-user-container">
-    <div class="user-avatar-container">
+  <div id="dialog-wrapper" class="channel-user-container">
+    <div
+      class="user-avatar-container"
+      (click)="openChannelMembersDialog('dialog-all-members')"
+    >
       <div>
         <img src="assets/img/profils/avatar_3_40.svg" alt="" /><img
           src="assets/img/profils/avatar_3_40.svg"
@@ -13,7 +22,64 @@
       </div>
       <h4>3</h4>
     </div>
-    <div class="add-user"></div>
+    <dialog class="dialog-window" id="dialog-all-members">
+      <div class="dialog-content">
+        <div class="dialog-title">
+          <h3>Mitglieder</h3>
+          <div
+            class="close-icon"
+            (click)="closeDialog('dialog-all-members')"
+          ></div>
+        </div>
+        <div
+          *ngIf="
+            this.channelService.channels[this.channelService.selectedChannel]
+          "
+          class="channel-members-list"
+        >
+          @for (member of
+          this.channelService.channels[this.channelService.selectedChannel].members;
+          track member[0]; let index = $index) {
+          <app-workspace-user-profil
+            [userName]="'Test'"
+          ></app-workspace-user-profil>
+          }
+        </div>
+        <div
+          class="add-user-container"
+          (click)="
+            closeDialog('dialog-all-members');
+            openChannelMembersDialog('dialog-add-members')
+          "
+        >
+          <div class="add-user"></div>
+          <p>Mitglieder hinzufügen</p>
+        </div>
+      </div>
+    </dialog>
+    <div
+      class="add-user"
+      (click)="openChannelMembersDialog('dialog-add-members')"
+    ></div>
+    <dialog class="dialog-window" id="dialog-add-members">
+      <div class="dialog-content">
+        <div class="dialog-title">
+          <h3>Leute hinzufügen</h3>
+          <div
+            class="close-icon"
+            (click)="closeDialog('dialog-add-members')"
+          ></div>
+        </div>
+        <p class="channel-sub-title">
+          {{
+            this.channelService.channels[this.channelService.selectedChannel]
+              .name
+          }}
+        </p>
+        <input type="text" placeholder="Name eingeben" />
+        <div class="dis-flx-just-end"><button>Hinzufügen</button></div>
+      </div>
+    </dialog>
   </div>
 </div>
 <div class="hr-line"></div>

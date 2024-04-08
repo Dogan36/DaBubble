@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Firestore, onSnapshot, collection, addDoc, doc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { Channel } from '../models/channel.class';
+import { AuthService } from './auth.service';
 
 
 @Injectable({
@@ -12,14 +13,16 @@ export class ChannelService {
 
   selectedChannel: number = 0;
   channels: Channel[] = [];
+  channelsOfUser: Channel[] = [];
 
   unsubChannels;
 
-  constructor() {
+  constructor(private authService: AuthService) {
     this.unsubChannels = this.subChannelsList();
-   }
-
-
+  }
+  
+  
+  // Im Moment wird this.filterChannelsOfUser(); jedes mal aufgerufen wenn sich Daten ändern. Daher eher ungünstig in der subChannelsList() function
   subChannelsList() {
     return onSnapshot(collection(this.firestore, 'channels'), (list) => {
       this.channels = [];
@@ -27,6 +30,9 @@ export class ChannelService {
         this.channels.push(this.setChannelObject(element.data(), element.id),);
       })
       console.log('Channels are', this.channels);
+
+      // Besser wo anders aufrufen!
+      this.filterChannelsOfUser(); 
     });
     }
 
@@ -43,7 +49,8 @@ export class ChannelService {
   }
 
 
-  async addChannel(item: Channel, colId: "channels") {
+  async addChannel(item: {}, colId: "channels") {
+    console.log('Test um zu schauen was alles in item drin ist', item)
     await addDoc(collection(this.firestore, colId), item).catch(
         (err) => { console.error(err) }
       ).then(
@@ -82,5 +89,26 @@ export class ChannelService {
   ngonDestroy() {
     this.unsubChannels();
   }
+
+
+  filterChannelsOfUser() {
+      if(this.channels) {
+        for (let i = 0; i < this.channels.length; i++) {
+          const element = this.channels[i];
+  
+          if(this.authService.currentUser?.uid) {
+            let index = element.members?.indexOf(this.authService.currentUser?.uid);
+        
+            if(index !== -1) {
+              this.channelsOfUser.push(element);
+  
+            }
+          }
+        }
+      }
+    console.log('Channels Of User are', this.channelsOfUser);
+  }
+
+
 }
 

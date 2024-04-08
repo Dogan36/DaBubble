@@ -38,7 +38,7 @@
 
   <!-- Direktnachrichten -->
   <div (click)="toggleMessageList()" class="workspace-subtitle-container">
-    <div [class.transfrom-icon]="!messageListOpen" class="drop-down-icon"></div>
+    <div [class.transform-icon]="!messageListOpen" class="drop-down-icon"></div>
     <div class="workspace-subtitle workspace-subtitle-icon-mes">
       <h4>Direktnachrichten</h4>
     </div>
@@ -47,10 +47,11 @@
   @if(messageListOpen) {
   <div class="message-list">
     <!-- Noch mal prüfen, was sinnvoller ist. Index oder user.id? -->
-    @for (message of this.messagesWithUsernames; track index; let index = $index) {
+    @for (message of this.messagesWithUsernames; track index; let index =
+    $index) {
     <app-workspace-user-profil
       [userName]="message.username"
-      [userimage]="message.photoURL"
+      [userImage]="message.photoURL"
       (click)="onOpenPrivateChat(index)"
     ></app-workspace-user-profil
     >}

@@ -45,7 +45,7 @@ export class DialogAddChannelComponent {
     this.setMembers();
     console.log('Current channel is', this.channel);
     this.channel.creator = 'Regina';
-    // Hier creator mit angemeldeten User austauschen!
+    // Hier creator mit angemeldeten User
 
     this.channelService.addChannel(this.channelService.toJSON(this.channel), 'channels');
   }

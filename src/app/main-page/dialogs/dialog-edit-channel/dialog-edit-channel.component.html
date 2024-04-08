@@ -2,7 +2,7 @@
   <div class="dialog-title">
     <div class="title-channel-chat">
       <h3>
-        {{ channelService.channels[channelService.selectedChannel].name }}
+        {{ channelData.name }}
       </h3>
     </div>
     <div class="close-icon" mat-dialog-close (click)="closeChanges()"></div>
@@ -13,14 +13,16 @@
         <label for="channelName">Channel-Name</label>@if(!editNameOpen) {<span
           (click)="openChangesName()"
           >Bearbeiten</span
-        >} @if(editNameOpen) {<span (click)="saveChanges()">Speichern</span>}
+        >} @if(editNameOpen) {<span (click)="saveChanges('name')"
+          >Speichern</span
+        >}
       </div>
       @if(!editNameOpen) {
       <p>
-        {{ channelService.channels[channelService.selectedChannel].name }}
+        {{ channelData.name }}
       </p>
       } @if(editNameOpen) {<input
-        [(ngModel)]="channel.name"
+        value="{{ channelData.name }}"
         type="text"
         name=""
         id="channelName"
@@ -32,16 +34,16 @@
         <label for="description">Beschreibung</label> @if(!editTextOpen) {<span
           (click)="openChangesText()"
           >Bearbeiten</span
-        >} @if(editTextOpen) {<span (click)="saveChanges()">Speichern</span>}
+        >} @if(editTextOpen) {<span (click)="saveChanges('text')"
+          >Speichern</span
+        >}
       </div>
       @if(!editTextOpen) {
       <p>
-        {{
-          channelService.channels[channelService.selectedChannel].description
-        }}
+        {{ channelData.description }}
       </p>
       } @if(editTextOpen) {<input
-        [(ngModel)]="channel.description"
+        value="{{ channelData.description }}"
         type="text"
         name=""
         id="description"
@@ -51,11 +53,11 @@
       <hr />
       <h5>Erstellt von</h5>
       <h3>
-        {{ channelService.channels[channelService.selectedChannel].creator }}
+        {{ channelData.creator }}
       </h3>
     </div>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button>Channel verlassen</button>
+    <button (click)="leaveChannel()">Channel verlassen</button>
   </mat-dialog-actions>
 </div>
