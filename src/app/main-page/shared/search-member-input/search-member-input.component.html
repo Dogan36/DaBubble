@@ -1,0 +1,20 @@
+<div class="user-tag-container">
+  <!-- @for (searchedUser of searchedUsers; track searchedUser) { -->
+  <!-- <div class="user-tag">
+    <img src="assets/img/profils/Foto.svg" alt="" />
+    <span
+      >JavaScript
+      <div class="close-icon"></div
+    ></span>
+  </div> -->
+  <!-- } -->
+  <input type="text" [(ngModel)]="searchText" placeholder="Name eingeben" />
+  @if(searchText) {
+  <div class="searched-users-list-container">
+    <app-workspace-user-profil
+      *ngFor="let user of searchedUsers | inputFilter : searchText"
+      [userName]="user"
+    ></app-workspace-user-profil>
+  </div>
+  }
+</div>

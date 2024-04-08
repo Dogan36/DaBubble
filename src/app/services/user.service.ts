@@ -10,6 +10,7 @@ export class UserService {
   firestore: Firestore = inject(Firestore);
 
   users: User[] = [];
+  usersName: string[] = [];
   selectedUser: number = 0;
 
   unsubUsers;
@@ -28,8 +29,8 @@ export class UserService {
       this.users = [];
       list.forEach(element => {
         this.users.push(this.setUserObject(element.data(), element.id),);
+        this.usersName.push(element.data()['name']);
       })
-      console.log('Users are', this.users);
     });
     }
 

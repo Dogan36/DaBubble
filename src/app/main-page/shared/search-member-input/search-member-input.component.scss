@@ -1,0 +1,71 @@
+@import './../../main-page.component.scss';
+@import './../../../../styles.scss';
+
+
+.user-tag-container {
+    display: flex;
+    gap: 10px;
+    border: 1px solid $cpt-line;
+    border-radius: 30px;
+    padding: 15px 20px;
+    
+    // position: relative;
+
+    input {
+        flex: 1;
+        // outline: none;
+        // border: 0;
+    }
+
+    .searched-users-list-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        border: 1px solid $cpt-line;
+        border-radius: 0 20px 20px 20px;
+        padding: 20px 21px;
+        position: absolute;
+        z-index: 10100;
+
+        &::backdrop {
+            background: none;
+        }
+    }
+}
+
+.user-tag {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    background-color: $cpt-bg;
+    border-radius: 35px;
+    padding: 3px 20px;
+
+    img {
+        height: 34px;
+        width: 34px;
+    }
+
+    span {
+        @include font18(400);
+        display: flex;
+        align-items: center;
+        color: black;
+        .close-icon {
+            background-image: url('./../../../../assets/img/icons/close_24.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 30px;
+            width: 30px;
+            padding-left: 35px;
+
+            &:hover {
+                background-image: url('./../../../../assets/img/icons/close_pur_24.svg');
+            }
+        }
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}

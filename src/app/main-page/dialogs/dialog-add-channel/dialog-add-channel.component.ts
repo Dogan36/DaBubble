@@ -12,12 +12,13 @@ import {
 import { Channel } from '../../../models/channel.class';
 import { ChannelService } from '../../../services/channel.service';
 import { UserService } from '../../../services/user.service';
+import { SearchMemberInputComponent } from '../../shared/search-member-input/search-member-input.component';
 
 
 @Component({
   selector: 'app-dialog-add-channel',
   standalone: true,
-  imports: [FormsModule, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose],
+  imports: [FormsModule, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, SearchMemberInputComponent],
   templateUrl: './dialog-add-channel.component.html',
   styleUrl: './dialog-add-channel.component.scss'
 })

@@ -70,7 +70,12 @@
             (click)="closeDialog('dialog-add-members')"
           ></div>
         </div>
-        <p class="channel-sub-title">
+        <p
+          class="channel-sub-title"
+          *ngIf="
+            this.channelService.channels[this.channelService.selectedChannel]
+          "
+        >
           {{
             this.channelService.channels[this.channelService.selectedChannel]
               .name
