@@ -50,7 +50,7 @@
     @for (message of this.messagesWithUsernames; track index; let index = $index) {
     <app-workspace-user-profil
       [userName]="message.username"
-      
+      [userimage]="message.photoURL"
       (click)="onOpenPrivateChat(index)"
     ></app-workspace-user-profil
     >}

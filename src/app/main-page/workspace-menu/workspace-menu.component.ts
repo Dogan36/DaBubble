@@ -19,7 +19,7 @@ export class WorkspaceMenuComponent {
 
   channelListOpen = true;
   messageListOpen = true;
-  public messagesWithUsernames: { message: any, username: string }[] = [];
+  public messagesWithUsernames: { message: any, username: string, photoURL:string }[] = [];
   // So muss die Funktion mit Parameter aussehen!
   // @Output() openChannel = new EventEmitter<any>();
   // evtl doch mit Service arbeiten
@@ -29,16 +29,21 @@ export class WorkspaceMenuComponent {
   private subscription: Subscription | undefined;
   constructor(public dialog: MatDialog, public usersService: UserService, public channelService: ChannelService, public chatService: ChatService) {}
   ngOnInit() {
-    const subscription = this.chatService.subChats().subscribe(messages => {
+    const subscription = this.chatService.subChats().subscribe((messages: any[]) => {
       messages.forEach((message: any) => {
         this.chatService.getMessageUsernames(message).then(usernames => {
           console.log(usernames);
-          const username = usernames[0]; // Nehmen Sie das erste Element aus dem Array von Benutzernamen
-          this.messagesWithUsernames.push({ message, username });
+          const username = usernames[0].name; // Nehmen Sie das erste Element aus dem Array von Benutzernamen
+          const photoURL = usernames[0].photoURL;
+          this.messagesWithUsernames.push({ message, username, photoURL });
         });
       });
     });
   }
+  
+  
+  
+  
 
   ngOnDestroy() {
     // Beenden Sie das Abonnement, um Speicherlecks zu vermeiden

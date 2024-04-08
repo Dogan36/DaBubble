@@ -49,34 +49,35 @@ export class ChatService {
   }
 
 
-  async getMessageUsernames(message: any): Promise<string[]> {
+  async getMessageUsernames(message: any): Promise<{ name: string, photoURL: string }[]> {
     const allUserUids: string[] = message.users || [];
-    console.log(allUserUids)
     const otherUserUids = allUserUids.filter(uid => uid !== this.authService.userUid);
     console.log(otherUserUids)
-    const otherUserNames: string[] = [];
+    const otherUserNames: { name: string, photoURL: string }[] = [];
     for (const uid of otherUserUids) {
-      console.log(uid)
-      const userDocRef = doc(this.firestore, 'users', uid);
-      
-      const userSnapshot = await getDoc(userDocRef);
-      console.log(userSnapshot)
-      
-      if (userSnapshot.exists()) {
-        const userData = userSnapshot.data();
-        console.log(userData)
-        otherUserNames.push(userData['name'] || 'Unknown');
-        console.log(otherUserNames)
-      } else {
-        console.log('User with UID', uid, 'does not exist');
-      }
+        const userDocRef = doc(this.firestore, 'users', uid);
+        const userSnapshot = await getDoc(userDocRef);
+        console.log(userSnapshot)
+        console.log(userSnapshot.data())
+        if (userSnapshot.exists()) {
+            const userData = userSnapshot.data();
+            console.log(userData)
+            const name = userData['name'] || 'Unknown';
+            const photoURL = userData['photoURL'] || ''; // Falls photoURL nicht vorhanden ist, leeres String verwenden
+            console.log(name)
+            console.log(photoURL)
+            otherUserNames.push({ name, photoURL });
+            console.log(otherUserNames)
+        } else {
+            console.log('User with UID', uid, 'does not exist');
+        }
     }
     return otherUserNames;
-  }
 }
 
 
 
 
+}
 
 
