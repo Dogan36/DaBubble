@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   MatDialog,
@@ -23,6 +23,8 @@ import { SearchMemberInputComponent } from '../../shared/search-member-input/sea
   styleUrl: './dialog-add-channel.component.scss'
 })
 export class DialogAddChannelComponent {
+
+  @ViewChild(SearchMemberInputComponent) searchMembersComponent?: SearchMemberInputComponent;
 
   channel: Channel = new Channel();
   addMembersOpen = false;
@@ -55,6 +57,7 @@ export class DialogAddChannelComponent {
   setMembers() {
     let allMembers = <HTMLInputElement>document.getElementById('all-members');
     let selectedMembers = <HTMLInputElement>document.getElementById('selected-members');
+    let selectedMembersArray = this.searchMembersComponent?.selectedMembers
     this.channel.members = [];
 
     if(allMembers && allMembers.checked == true) {
@@ -63,7 +66,15 @@ export class DialogAddChannelComponent {
         
         this.channel.members?.push(user.id);
       }} else if(selectedMembers && selectedMembers.checked == true) {
-        this.channel.members = ['regina'];
+        if(selectedMembersArray) {
+          for (let i = 0; i < selectedMembersArray.length; i++) {
+            const selectedMember = selectedMembersArray[i];
+            this.channel.members.push(selectedMember.id);
+          }
+        } else {
+            this.channel.members = ['regina'];
+            // Hier member mit angemeldeten User
+        }
       } 
   }
 }

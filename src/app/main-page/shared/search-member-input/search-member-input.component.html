@@ -1,20 +1,27 @@
 <div class="user-tag-container">
-  <!-- @for (searchedUser of searchedUsers; track searchedUser) { -->
-  <!-- <div class="user-tag">
-    <img src="assets/img/profils/Foto.svg" alt="" />
-    <span
-      >JavaScript
-      <div class="close-icon"></div
-    ></span>
-  </div> -->
-  <!-- } -->
-  <input type="text" [(ngModel)]="searchText" placeholder="Name eingeben" />
+  <div class="search-input-container">
+    @for(newMember of selectedMembers; track newMember.id; let index = $index) {
+    <div class="user-tag">
+      <img src="{{ newMember.photoURL }}" alt="" />
+      <span
+        >{{ newMember.name }}
+        <div class="close-icon" (click)="removeUser(index)"></div
+      ></span>
+    </div>
+    }
+    <input type="text" [(ngModel)]="searchText" placeholder="Name eingeben" />
+  </div>
   @if(searchText) {
   <div class="searched-users-list-container">
+    @for(user of searchedUsers | inputFilter : searchText; track user) {
     <app-workspace-user-profil
-      *ngFor="let user of searchedUsers | inputFilter : searchText"
       [userName]="user"
-    ></app-workspace-user-profil>
+      [userImage]="this.userService.users[getUserData(user)].photoURL"
+      (click)="addUserAsMember(user)"
+    ></app-workspace-user-profil
+    >} @empty {
+    <p>Niemand gefunden</p>
+    }
   </div>
   }
 </div>

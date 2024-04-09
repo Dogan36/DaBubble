@@ -27,6 +27,7 @@ export class UserService {
   subUsersList() {
     return onSnapshot(collection(this.firestore, 'users'), (list) => {
       this.users = [];
+      this.usersName = [];
       list.forEach(element => {
         this.users.push(this.setUserObject(element.data(), element.id),);
         this.usersName.push(element.data()['name']);

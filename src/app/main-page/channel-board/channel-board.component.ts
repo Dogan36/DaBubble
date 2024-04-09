@@ -9,12 +9,13 @@ import { ChannelService } from '../../services/channel.service';
 import { CommonModule } from '@angular/common';
 import { WorkspaceUserProfilComponent } from '../shared/workspace-user-profil/workspace-user-profil.component';
 import { UserService } from '../../services/user.service';
+import { SearchMemberInputComponent } from '../shared/search-member-input/search-member-input.component';
 
 
 @Component({
   selector: 'app-channel-board',
   standalone: true,
-  imports: [TextareaMainPageComponent, MessageLeftComponent, MessageRightComponent, MatDialogModule, CommonModule, WorkspaceUserProfilComponent],
+  imports: [TextareaMainPageComponent, MessageLeftComponent, MessageRightComponent, MatDialogModule, CommonModule, WorkspaceUserProfilComponent, SearchMemberInputComponent],
   templateUrl: './channel-board.component.html',
   styleUrl: './channel-board.component.scss'
 })
