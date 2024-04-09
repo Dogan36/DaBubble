@@ -48,4 +48,11 @@ export class UserService {
   ngonDestroy() {
     this.unsubUsers();
   }
+
+
+  getUsersData(id:string) {
+    let index = this.users.findIndex(obj => obj.id === id);
+
+    return index;
+  }
 }

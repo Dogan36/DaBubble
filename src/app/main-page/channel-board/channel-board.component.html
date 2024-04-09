@@ -41,7 +41,16 @@
           this.channelService.channels[this.channelService.selectedChannel].members;
           track member[0]; let index = $index) {
           <app-workspace-user-profil
-            [userName]="'Test'"
+            *ngIf="
+              this.userService.users[this.userService.getUsersData(member)]
+            "
+            [userName]="
+              this.userService.users[this.userService.getUsersData(member)].name
+            "
+            [userImage]="
+              this.userService.users[this.userService.getUsersData(member)]
+                .photoURL
+            "
           ></app-workspace-user-profil>
           }
         </div>
