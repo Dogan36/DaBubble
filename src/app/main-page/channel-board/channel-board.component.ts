@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Renderer2 } from '@angular/core';
+import { Component, Renderer2, ViewChild } from '@angular/core';
 import { TextareaMainPageComponent } from '../shared/textarea-main-page/textarea-main-page.component';
 import { MessageLeftComponent } from '../shared/message-left/message-left.component';
 import { MessageRightComponent } from '../shared/message-right/message-right.component';
@@ -10,6 +10,8 @@ import { CommonModule } from '@angular/common';
 import { WorkspaceUserProfilComponent } from '../shared/workspace-user-profil/workspace-user-profil.component';
 import { UserService } from '../../services/user.service';
 import { SearchMemberInputComponent } from '../shared/search-member-input/search-member-input.component';
+import { Channel } from '../../models/channel.class';
+import { User } from '../../models/user.class';
 
 
 @Component({
@@ -21,6 +23,8 @@ import { SearchMemberInputComponent } from '../shared/search-member-input/search
 })
 export class ChannelBoardComponent {
 
+    @ViewChild(SearchMemberInputComponent) searchMembersComponent?: SearchMemberInputComponent;
+
     channelBoard = true;
     private bodyClickListener?: () => void;
     channelData = this.channelService.channels[this.channelService.selectedChannel];
@@ -29,6 +33,7 @@ export class ChannelBoardComponent {
     constructor(public dialog: MatDialog, public channelService: ChannelService, private renderer: Renderer2, public userService: UserService) {}
 
  
+
     openEditChannelDialog() {
       this.dialog.open(DialogEditChannelComponent, {panelClass: 'dialog-bor-rad-round'});
     }
@@ -39,7 +44,7 @@ export class ChannelBoardComponent {
       if(dialog) {
         let wrapper = document.getElementById("dialog-wrapper");
         if(wrapper) {
-          dialog.style.left = (wrapper.offsetLeft - 218) + "px"; 
+          dialog.style.left = (wrapper.offsetLeft - 328) + "px"; 
           dialog.style.top = (wrapper.offsetTop + wrapper.offsetHeight + 140) + "px";
           dialog.showModal();
         } 
@@ -76,4 +81,33 @@ export class ChannelBoardComponent {
         this.bodyClickListener();
       }
     }
+
+
+    addMembersToChannel() {
+      let selectedMembersArray = this.searchMembersComponent?.selectedMembers;
+      let channel = Object.assign({}, this.channelService.channels[this.channelService.selectedChannel]);
+
+      if(selectedMembersArray) {
+        for (let i = 0; i < selectedMembersArray.length; i++) {
+          const selectedMember = selectedMembersArray[i];
+          if(!this.checkIfUserIsAleadyAdded(selectedMember, channel))
+          channel.members.push(selectedMember.id);
+        }
+          this.channelService.updateChannel(channel);
+      }
+      if(this.searchMembersComponent) {
+        this.searchMembersComponent.selectedMembers = [];
+      }
+        this.closeDialog('dialog-add-members');
+    }
+
+
+    checkIfUserIsAleadyAdded(userObj:User, channel:Channel) {
+        if(channel.members.indexOf(userObj.id) >= 0) {
+          return true
+        } else {
+          return false
+        }
+    }
 }
+

@@ -57,7 +57,7 @@ export class DialogAddChannelComponent {
   setMembers() {
     let allMembers = <HTMLInputElement>document.getElementById('all-members');
     let selectedMembers = <HTMLInputElement>document.getElementById('selected-members');
-    let selectedMembersArray = this.searchMembersComponent?.selectedMembers
+    let selectedMembersArray = this.searchMembersComponent?.selectedMembers;
     this.channel.members = [];
 
     if(allMembers && allMembers.checked == true) {
@@ -71,6 +71,7 @@ export class DialogAddChannelComponent {
             const selectedMember = selectedMembersArray[i];
             this.channel.members.push(selectedMember.id);
           }
+          selectedMembersArray = [];
         } else {
             this.channel.members = ['regina'];
             // Hier member mit angemeldeten User

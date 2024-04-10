@@ -17,10 +17,11 @@ import { User } from '../../../models/user.class';
 export class SearchMemberInputComponent {
 
   searchText = '';
-  searchedUsers = this.userService.usersName;
+  // searchedUsers = this.userService.usersName;
   selectedMembers: User[] = [];
 
   constructor(public userService: UserService, public channelService: ChannelService) {}
+
 
   addUserAsMember(user:string) {
     let userObj = this.userService.users[this.getUserData(user)];
@@ -28,17 +29,20 @@ export class SearchMemberInputComponent {
     if(!this.checkIfUserIsAleadyAdded(userObj)) {
       this.selectedMembers.push(userObj);
     }
-
-    // Update Funktion! Aber nicht hier!
-    // this.channelService.channels[this.channelService.selectedChannel].members?.push(id);
-    // this.channelService.updateChannel(this.channelService.channels[this.channelService.selectedChannel]);
+    let inputFiled = document.getElementById('search-user-input') as HTMLInputElement;
+    if(inputFiled) {
+      inputFiled.value = '';
+    }
+    this.searchText = ''; // funktioniert noch nicht richitg. Pipe stört diese funktinalität!
   }
+
 
   getUserData(userName:string) {
     let index = this.userService.users.findIndex(obj => obj.name === userName);
 
     return index
   }
+
 
   removeUser(i:number) {
     this.selectedMembers.splice(i, 1);

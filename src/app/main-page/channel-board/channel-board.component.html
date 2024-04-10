@@ -15,12 +15,29 @@
       (click)="openChannelMembersDialog('dialog-all-members')"
     >
       <div>
-        <img src="assets/img/profils/avatar_3_40.svg" alt="" /><img
-          src="assets/img/profils/avatar_3_40.svg"
+        @if(this.channelService.channels[this.channelService.selectedChannel]) {
+        @for (member of
+        this.channelService.channels[this.channelService.selectedChannel].members
+        | slice:0:3; track $index) {
+        <img
+          [src]="
+            this.userService.users[this.userService.getUsersData(member)]
+              .photoURL
+          "
           alt=""
-        /><img src="assets/img/profils/avatar_3_40.svg" alt="" />
+        />
+        }}
       </div>
-      <h4>3</h4>
+      <h4
+        *ngIf="
+          this.channelService.channels[this.channelService.selectedChannel]
+        "
+      >
+        {{
+          this.channelService.channels[this.channelService.selectedChannel]
+            .members.length
+        }}
+      </h4>
     </div>
     <dialog class="dialog-window" id="dialog-all-members">
       <div class="dialog-content">
@@ -91,7 +108,9 @@
           }}
         </p>
         <app-search-member-input></app-search-member-input>
-        <div class="dis-flx-just-end"><button>Hinzufügen</button></div>
+        <div class="dis-flx-just-end">
+          <button (click)="addMembersToChannel()">Hinzufügen</button>
+        </div>
       </div>
     </dialog>
   </div>

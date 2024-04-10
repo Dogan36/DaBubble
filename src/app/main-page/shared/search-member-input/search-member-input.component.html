@@ -9,11 +9,17 @@
       ></span>
     </div>
     }
-    <input type="text" [(ngModel)]="searchText" placeholder="Name eingeben" />
+    <input
+      id="search-user-input"
+      type="text"
+      [(ngModel)]="searchText"
+      placeholder="Name eingeben"
+    />
   </div>
   @if(searchText) {
   <div class="searched-users-list-container">
-    @for(user of searchedUsers | inputFilter : searchText; track user) {
+    @for(user of this.userService.usersName | inputFilter : searchText; track
+    user) {
     <app-workspace-user-profil
       [userName]="user"
       [userImage]="this.userService.users[getUserData(user)].photoURL"

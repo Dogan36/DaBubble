@@ -2,7 +2,7 @@ export class Channel {
     id?: string;
     name: string;
     creator: string;
-    members?: string[];
+    members: string[];
     threads?: string[];
     description?: string;
 
