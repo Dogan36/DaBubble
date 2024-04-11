@@ -18,11 +18,11 @@
   </div>
   @if(searchText) {
   <div class="searched-users-list-container">
-    @for(user of this.userService.usersName | inputFilter : searchText; track
-    user) {
+    @for(user of this.userService.users | inputFilter : searchText; track user)
+    {
     <app-workspace-user-profil
-      [userName]="user"
-      [userImage]="this.userService.users[getUserData(user)].photoURL"
+      [userName]="user.name"
+      [userImage]="user.photoURL"
       (click)="addUserAsMember(user)"
     ></app-workspace-user-profil
     >} @empty {

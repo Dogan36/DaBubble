@@ -26,6 +26,7 @@ export class ChannelService {
   subChannelsList() {
     return onSnapshot(collection(this.firestore, 'channels'), (list) => {
       this.channels = [];
+      this.channelsOfUser = [];
       list.forEach(element => {
         this.channels.push(this.setChannelObject(element.data(), element.id),);
       })

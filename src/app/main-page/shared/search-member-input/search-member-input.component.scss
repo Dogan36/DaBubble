@@ -3,8 +3,9 @@
 
 
 .user-tag-container {
-    display: flex;
-    flex-direction: column;
+    // display: flex;
+    // flex-direction: column;
+    position: relative;
     
     .search-input-container {
         display: flex;
@@ -33,10 +34,11 @@
         border-radius: 0 20px 20px 20px;
         max-height: 246px;
         margin-top: -8px;
-        margin-left: 24px;
         padding: 20px 21px;
+        position: absolute;
+        left: 22px;
         overflow-y: scroll;
-        width: 335px;
+        max-width: 335px;
         z-index: 10100;
     }
 }

@@ -17,14 +17,12 @@ import { User } from '../../../models/user.class';
 export class SearchMemberInputComponent {
 
   searchText = '';
-  // searchedUsers = this.userService.usersName;
   selectedMembers: User[] = [];
 
   constructor(public userService: UserService, public channelService: ChannelService) {}
 
 
-  addUserAsMember(user:string) {
-    let userObj = this.userService.users[this.getUserData(user)];
+  addUserAsMember(userObj: User) {
 
     if(!this.checkIfUserIsAleadyAdded(userObj)) {
       this.selectedMembers.push(userObj);
@@ -37,6 +35,7 @@ export class SearchMemberInputComponent {
   }
 
 
+  // diese Funktion ist wahrscheinlich überflüssig (Wurde vorher gebraucht um vom Namen auf die User Date zu kommen)
   getUserData(userName:string) {
     let index = this.userService.users.findIndex(obj => obj.name === userName);
 
