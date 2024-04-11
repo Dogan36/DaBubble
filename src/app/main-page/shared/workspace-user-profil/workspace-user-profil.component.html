@@ -1,4 +1,7 @@
 <div class="workspace-user-container">
   <img [src]="userImage" alt="" />
-  <h5>{{ userName }}</h5>
+  <h5>{{ userName }}</h5> 
+  @if(ownChat){
+    <h5>(Du)</h5>
+  }
 </div>

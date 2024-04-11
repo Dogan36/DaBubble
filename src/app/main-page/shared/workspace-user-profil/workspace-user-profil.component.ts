@@ -11,5 +11,6 @@ export class WorkspaceUserProfilComponent {
 
   @Input() userName: string = '';
   @Input() userImage: string = '';
+  @Input() ownChat: boolean = false
 
 }

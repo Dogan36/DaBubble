@@ -23,7 +23,6 @@ export class UserService {
     console.log('Users are ', this.users);
   }
 
-
   subUsersList() {
     return onSnapshot(collection(this.firestore, 'users'), (list) => {
       this.users = [];
@@ -53,7 +52,6 @@ export class UserService {
 
   getUsersData(id:string) {
     let index = this.users.findIndex(obj => obj.id === id);
-
     return index;
   }
 }

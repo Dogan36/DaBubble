@@ -6,6 +6,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { DialogShowProfilComponent } from '../dialogs/dialog-show-profil/dialog-show-profil.component';
 import { ChannelService } from '../../services/channel.service';
 import { UserService } from '../../services/user.service';
+import { ChatService } from '../../services/chat.service';
 
 @Component({
   selector: 'app-chat-board',
@@ -18,7 +19,7 @@ export class ChatBoardComponent {
 
   channelBoard = false;
 
-  constructor(public dialog: MatDialog, public userService: UserService) {}
+  constructor(public dialog: MatDialog, public userService: UserService, public chatService:ChatService) {}
 
 
   openShowProfilDialog() {

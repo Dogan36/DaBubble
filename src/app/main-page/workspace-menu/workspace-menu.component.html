@@ -10,10 +10,7 @@
 <div class="workspace-content">
   <div class="channel-head-container">
     <div (click)="toggleChannelList()" class="workspace-subtitle-container">
-      <div
-        [class.transform-icon]="!channelListOpen"
-        class="drop-down-icon"
-      ></div>
+      <div [class.transform-icon]="!channelListOpen" class="drop-down-icon"></div>
       <div class="workspace-subtitle workspace-subtitle-icon-ch">
         <h4>Channels</h4>
       </div>
@@ -45,16 +42,18 @@
   </div>
 
   @if(messageListOpen) {
+    
   <div class="message-list">
+
     <!-- Noch mal prüfen, was sinnvoller ist. Index oder user.id? -->
     @for (message of this.messagesWithUsernames; track index; let index =
     $index) {
-    <app-workspace-user-profil
-      [userName]="message.username"
+    <app-workspace-user-profil 
+      [userName]="message.username" 
       [userImage]="message.photoURL"
-      (click)="onOpenPrivateChat(index)"
-    ></app-workspace-user-profil
-    >}
+      (click)="onOpenPrivateChat(message.messageId)">
+    </app-workspace-user-profil>
+  }
   </div>
   }
 

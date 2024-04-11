@@ -12,14 +12,13 @@ export class ChatService {
 
   ) { }
 
-
+  currentChat: any
   messages: any[] = []
 
 
   subChats(): Observable<DocumentData[]> {
     console.log('subChats() function called');
     const currentUserUid = this.authService.getCurrentUserUid();
-
     return new Observable<DocumentData[]>(observer => {
       const unsubscribe = currentUserUid.subscribe(uid => {
         if (uid) {
@@ -49,31 +48,37 @@ export class ChatService {
   }
 
 
-  async getMessageUsernames(message: any): Promise<{ name: string, photoURL: string }[]> {
+  async getMessageUsernames(message: any): Promise<{ name: string, photoURL: string, uid: string }[]> {
     const allUserUids: string[] = message.users || [];
+    console.log(allUserUids)
     const otherUserUids = allUserUids.filter(uid => uid !== this.authService.userUid);
-    console.log(otherUserUids)
-    const otherUserNames: { name: string, photoURL: string }[] = [];
-    for (const uid of otherUserUids) {
+    const otherUserNames: { name: string, photoURL: string, uid: string }[] = [];
+    if (allUserUids.length > 1) {
+      for (const uid of otherUserUids) {
         const userDocRef = doc(this.firestore, 'users', uid);
         const userSnapshot = await getDoc(userDocRef);
-        console.log(userSnapshot)
-        console.log(userSnapshot.data())
         if (userSnapshot.exists()) {
-            const userData = userSnapshot.data();
-            console.log(userData)
-            const name = userData['name'] || 'Unknown';
-            const photoURL = userData['photoURL'] || ''; // Falls photoURL nicht vorhanden ist, leeres String verwenden
-            console.log(name)
-            console.log(photoURL)
-            otherUserNames.push({ name, photoURL });
-            console.log(otherUserNames)
+          const userData = userSnapshot.data();
+          const name = userData['name'] || 'Unknown';
+          const photoURL = userData['photoURL'] || ''; // Falls photoURL nicht vorhanden ist, leeres String verwenden
+          otherUserNames.push({ name, photoURL, uid });
+          console.log(userData)
+          console.log(otherUserNames)
+
         } else {
-            console.log('User with UID', uid, 'does not exist');
+          console.log('User with UID', uid, 'does not exist');
         }
-    }
+      }
+    } else {
+  
+      const name = this.authService.currentUser?.displayName|| 'Unknown';
+      const uid = this.authService.userUid
+      const photoURL = this.authService.photoURL || ''; // Falls photoURL nicht vorhanden ist, leeres String verwenden
+      otherUserNames.push({ name, photoURL, uid });
+     }
+
     return otherUserNames;
-}
+  }
 
 
 
