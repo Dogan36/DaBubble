@@ -1,11 +1,12 @@
 import { Injectable, inject } from '@angular/core';
 import { Auth, User, createUserWithEmailAndPassword, updateProfile, user, browserSessionPersistence, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, getAdditionalUserInfo, sendPasswordResetEmail, updateEmail, signOut, sendEmailVerification, onAuthStateChanged } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { Observable, Subscription, from, map } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, from, map } from 'rxjs';
 import { UserType } from '../types/user.class';
 import { Firestore, doc, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
 import { OverlayService } from './overlay.service';
 import { setPersistence } from '@firebase/auth';
+import { LoginService } from './login.service';
 
 
 @Injectable({
@@ -13,39 +14,43 @@ import { setPersistence } from '@firebase/auth';
 })
 export class AuthService {
   private overlayService: OverlayService = inject(OverlayService);
+  private loginService: LoginService = inject(LoginService);
   private auth: Auth = inject(Auth);
   private firestore: Firestore = inject(Firestore);
   private router: Router = inject(Router);
+  private currentUserSubject: BehaviorSubject<User | null>;
   currentUser: User | null = null;
   email: string = '';
   password: string = '';
   name: string = '';
+
   photoURL = './assets/img/profils/standardPic.svg';
-  showLogin: boolean = true;
-  showSignUp: boolean = false;
-  showSignUpPicture: boolean = false;
-  showSignUpPictureUpload = false;
-  showResetPassword: boolean = false;
   registerError: string = "";
   user$ = user(this.auth);
-  userSubscription: Subscription = new Subscription();
-  userUid: string = '';
   provider = new GoogleAuthProvider();
 
   constructor() {
-    this.userSubscription = this.user$.subscribe((user: User | null) => {
-      this.currentUser = user;
-      if (this.currentUser != null) {
-        this.userUid = this.currentUser.uid;
-        this.getUserPhotoURL(this.currentUser.uid)
-        .then(photoURL => {
-          this.photoURL = photoURL;
-        })
+    this.currentUserSubject = new BehaviorSubject<User | null>(null);
+    this.auth.onAuthStateChanged(user => {
+      if (user) {
+        this.currentUser = user;
+        this.currentUserSubject.next(user);
+        this.getUserPhotoURL(this.currentUser?.uid)
         this.router.navigate(['/start']);
+    
+        
       } else {
-        this.router.navigate(['']);
+        this.currentUser = null;
+        this.currentUserSubject.next(null);
+        this.router.navigate(['/']);
       }
     });
+  }
+
+  
+
+   public getCurrentUser(): Observable<User | null> {
+    return this.currentUserSubject.asObservable();
   }
 
   private createUserObject(): UserType {
@@ -65,7 +70,7 @@ export class AuthService {
         this.overlayService.hideOverlay();
       }, 1500);
       this.currentUser = userCredential.user;
-      
+
     } catch (error) {
       console.log(error)
       throw error;
@@ -76,7 +81,7 @@ export class AuthService {
     try {
       const userCredential = await createUserWithEmailAndPassword(this.auth, this.email, this.password);
       const user = userCredential.user;
-      await updateProfile(user, { displayName: this.name });  
+      await updateProfile(user, { displayName: this.name });
       const userObject: UserType = this.createUserObject();
       const userDocRef = doc(this.firestore, 'users', user.uid);
       await setDoc(userDocRef, userObject);
@@ -84,7 +89,7 @@ export class AuthService {
       this.overlayService.showOverlay('Konto erfolgreich erstellt!')
       setTimeout(() => {
         this.overlayService.hideOverlay();
-        this.toggleLogin()
+        this.loginService.toggleLogin()
       }, 1500);
     } catch (error) {
       throw error;
@@ -92,14 +97,14 @@ export class AuthService {
   }
 
   async updateInfo(name: string, email: string) {
-   
-    const userDocRef = doc(this.firestore, 'users', this.userUid);
-    
+
+    const userDocRef = doc(this.firestore, 'users', this.currentUser?.uid as string);
+
     if (this.currentUser) {
       await updateEmail(this.currentUser, email);
       await updateProfile(this.currentUser, { displayName: name });
       await updateDoc(userDocRef, { email: email, name: name });
-   }
+    }
   };
 
 
@@ -144,38 +149,13 @@ export class AuthService {
       });
   }
 
-  toggleSignUp() {
-    this.showLogin = !this.showLogin;
-    this.showSignUp = !this.showSignUp;
-  }
-
-  toggleToPicture() {
-    this.showSignUp = !this.showSignUp;
-    this.showSignUpPicture = !this.showSignUpPicture;
-  }
-
-  toggleOwnPicture() {
-    this.showSignUpPictureUpload = !this.showSignUpPictureUpload
-    this.showSignUpPicture = !this.showSignUpPicture;
-  }
-
-  toggleResetPasswort() {
-    this.showLogin = !this.showLogin;
-    this.showResetPassword = !this.showResetPassword;
-  }
-
-  toggleLogin() {
-    this.showSignUpPicture = !this.showSignUpPicture;
-    this.showLogin = !this.showLogin;
-  }
-
   sendPasswortReset(email: string) {
     sendPasswordResetEmail(this.auth, email)
       .then(() => {
         this.overlayService.showOverlay('<img src="./../assets/img/icons/send_white.svg"> E-Mail gesendet');
         setTimeout(() => {
           this.overlayService.hideOverlay();
-          this.toggleResetPasswort()
+          this.loginService.toggleResetPasswort()
         }, 1500);
       })
       .catch((error) => {
@@ -214,10 +194,6 @@ export class AuthService {
     }
   }
 
-  getCurrentUserUid(): Observable<string | null> {
-    return this.user$.pipe(
-      map(user => user ? user.uid : null)
-    );
-  }
+
 
 }

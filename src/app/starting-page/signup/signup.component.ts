@@ -2,6 +2,7 @@ import { Component, ElementRef, Renderer2, inject } from '@angular/core';
 import { NgClass, NgIf } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { LoginService } from '../../services/login.service';
 import { RouterLink } from '@angular/router';
 
 
@@ -16,6 +17,7 @@ import { RouterLink } from '@angular/router';
 export class SignupComponent {
   myForm: FormGroup;
   authService: AuthService = inject(AuthService);
+  loginService: LoginService = inject(LoginService)
   constructor(private fb: FormBuilder, private renderer: Renderer2,
     private el: ElementRef,) {
     this.myForm = this.fb.group({
@@ -42,7 +44,7 @@ export class SignupComponent {
       this.password = this.myForm.value['password'];
       this.name = this.myForm.value['name'];
       this.saveVariables();
-      this.authService.toggleToPicture();
+      this.loginService.toggleToPicture();
     }
   }
 

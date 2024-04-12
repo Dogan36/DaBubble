@@ -1,17 +1,17 @@
 <div class="main-section">
     <header>
         <div class="logo"><img src="./assets/img/Logo_full.svg" alt=""></div>
-        <div *ngIf="this.authService.showLogin" class="neuHier">
+        <div *ngIf="this.loginService.showLogin" class="neuHier">
             <p>Neu be DABubble?</p>
-            <p (click)="this.authService.toggleSignUp()">Konto erstellen</p>
+            <p (click)="this.loginService.toggleSignUp()">Konto erstellen</p>
         </div>
     </header>
 
-    <app-login *ngIf="authService.showLogin"></app-login>
-    <app-signup *ngIf="authService.showSignUp"></app-signup>
-    <app-signuppicture *ngIf="authService.showSignUpPicture"></app-signuppicture>
-    <app-upload-form *ngIf="authService.showSignUpPictureUpload"></app-upload-form>
-    <app-forgot-password *ngIf="authService.showResetPassword"></app-forgot-password>
+    <app-login *ngIf="loginService.showLogin"></app-login>
+    <app-signup *ngIf="loginService.showSignUp"></app-signup>
+    <app-signuppicture *ngIf="loginService.showSignUpPicture"></app-signuppicture>
+    <app-upload-form *ngIf="loginService.showSignUpPictureUpload"></app-upload-form>
+    <app-forgot-password *ngIf="loginService.showResetPassword"></app-forgot-password>
     <footer>
         <a routerLink='/imprint/'>Impressum</a>
         <a routerLink='/privacy-policy'>Datenschutz</a>

@@ -7,6 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { HammerModule } from '@angular/platform-browser';
 import { NgIf } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-upload-form',
@@ -17,6 +18,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 })
 export class UploadFormComponent {
   authService: AuthService = inject(AuthService);
+  loginService: LoginService = inject(LoginService)
 
 
   imageChangedEvent: any = '';

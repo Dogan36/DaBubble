@@ -3,6 +3,7 @@ import { Component, ElementRef, Renderer2, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { LoginService } from '../../services/login.service';
 import { OverlayService } from '../../services/overlay.service';
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ export class LoginComponent {
 
   myForm: FormGroup;
   authService: AuthService = inject(AuthService);
+  loginService: LoginService = inject(LoginService);
   loginError: string | null = null;
   constructor(private fb: FormBuilder, private renderer: Renderer2,
     private el: ElementRef, private overlayService:OverlayService) {

@@ -1,6 +1,6 @@
 <mat-progress-bar *ngIf="isUploading" mode="indeterminate"></mat-progress-bar>
 <div class="form">
-    <div (click)="authService.toggleOwnPicture()" class="arrow_back"></div>
+    <div (click)="loginService.toggleOwnPicture()" class="arrow_back"></div>
     <h1>Profilfoto</h1>
     <div class="imageContainer">
     <img width="120" height="120" [src]="croppedImage || authService.photoURL" />

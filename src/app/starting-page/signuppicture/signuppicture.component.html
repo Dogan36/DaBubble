@@ -10,11 +10,11 @@
             <img [src]="picture">
         </div>
     </div>
-    <div (click)="this.authService.toggleOwnPicture()" class="ownPicture">
+    <div (click)="this.loginService.toggleOwnPicture()" class="ownPicture">
         <p>eigenes Bild verwenden</p>
         <button class="secondaryButton">Datei hochladen</button>
     </div>
-    <div (click)="authService.toggleToPicture()" class="arrow_back"></div>
+    <div (click)="loginService.toggleToPicture()" class="arrow_back"></div>
     <div class="buttonContainer">
         <button [disabled]="this.signingIn" class="primaryButton" (click)="register()">Weiter</button>
     </div>

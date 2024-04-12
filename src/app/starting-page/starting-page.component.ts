@@ -8,6 +8,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
+import { LoginService } from '../services/login.service';
 
 
 
@@ -32,5 +33,6 @@ export class StartingPageComponent {
 
   constructor(public router: Router) { }
   authService: AuthService = inject(AuthService);
+  loginService: LoginService = inject(LoginService);
  
 }

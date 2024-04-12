@@ -2,6 +2,7 @@ import { Component, ElementRef, Renderer2, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIf } from '@angular/common';
+import { LoginService } from '../../services/login.service';
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
@@ -12,6 +13,7 @@ import { NgIf } from '@angular/common';
 export class ForgotPasswordComponent {
   myForm: FormGroup;
   authService: AuthService = inject(AuthService);
+  loginService: LoginService = inject(LoginService)
   constructor(private fb: FormBuilder, private renderer: Renderer2,
     private el: ElementRef,){
 

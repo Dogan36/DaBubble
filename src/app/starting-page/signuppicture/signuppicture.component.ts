@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms'; // Nur die benötigten Teile aus dem @angular/forms importieren
 import { NgFor } from '@angular/common';
 import { OverlayService } from '../../services/overlay.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-signuppicture',
@@ -22,8 +23,9 @@ export class SignuppictureComponent {
     "./../../../assets/img/profils/avatar_4.svg",
     "./../../../assets/img/profils/avatar_5.svg",
     "./../../../assets/img/profils/avatar_6.svg"];
-  constructor(private fb: FormBuilder, private renderer: Renderer2, public authService: AuthService, private router: Router, public overlayService: OverlayService) {
-    this.authService = authService; // Abhängigkeiten im Konstruktor setzen
+  constructor(private fb: FormBuilder, private renderer: Renderer2, public authService: AuthService, private router: Router, public overlayService: OverlayService, public loginService:LoginService) {
+    this.authService = authService;
+    
     this.router = router;
     
     this.signupForm = this.fb.group({
@@ -42,7 +44,7 @@ export class SignuppictureComponent {
         this.overlayService.showOverlayError('E-Mail bereits vergeben');
         setTimeout(() => {
           this.overlayService.hideOverlay()
-          this.authService.toggleToPicture()
+          this.loginService.toggleToPicture()
         }, 3000);
         this.signingIn = false;
       }

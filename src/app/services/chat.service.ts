@@ -18,19 +18,22 @@ export class ChatService {
 
   subChats(): Observable<DocumentData[]> {
     console.log('subChats() function called');
-    const currentUserUid = this.authService.getCurrentUserUid();
     return new Observable<DocumentData[]>(observer => {
-      const unsubscribe = currentUserUid.subscribe(uid => {
+      this.authService.getCurrentUser().subscribe(user => {
+        if (user) {
+          const uid = user.uid; // Hier wird die UID des Benutzers extrahiert
+          console.log(uid)
+       
         if (uid) {
           const chatsQuery = query(
             collection(this.firestore, 'messages'),
             where('users', 'array-contains', uid)
           );
-
           const unsubscribeSnapshot = onSnapshot(chatsQuery, snapshot => {
             const messages: DocumentData[] = [];
             snapshot.forEach(doc => {
               messages.push(doc.data());
+              console.log(messages)
             });
             observer.next(messages);
           });
@@ -38,20 +41,20 @@ export class ChatService {
           // Return function to unsubscribe
           observer.add(() => {
             unsubscribeSnapshot();
-            unsubscribe.unsubscribe();
           });
         } else {
           observer.error('Current user ID is not available');
-        }
+        }}
       });
     });
+  
   }
 
 
   async getMessageUsernames(message: any): Promise<{ name: string, photoURL: string, uid: string }[]> {
     const allUserUids: string[] = message.users || [];
     console.log(allUserUids)
-    const otherUserUids = allUserUids.filter(uid => uid !== this.authService.userUid);
+    const otherUserUids = allUserUids.filter(uid => uid !== this.authService.currentUser?.uid);
     const otherUserNames: { name: string, photoURL: string, uid: string }[] = [];
     if (allUserUids.length > 1) {
       for (const uid of otherUserUids) {
@@ -70,12 +73,12 @@ export class ChatService {
         }
       }
     } else {
-  
-      const name = this.authService.currentUser?.displayName|| 'Unknown';
-      const uid = this.authService.userUid
+
+      const name = this.authService.currentUser?.displayName || 'Unknown';
+      const uid = this.authService.currentUser?.uid as string;
       const photoURL = this.authService.photoURL || ''; // Falls photoURL nicht vorhanden ist, leeres String verwenden
       otherUserNames.push({ name, photoURL, uid });
-     }
+    }
 
     return otherUserNames;
   }
