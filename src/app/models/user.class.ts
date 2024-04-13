@@ -3,6 +3,7 @@ export class User {
     name: string;
     email: string;
     photoURL: string;
+    chatRefs: string []
 
 
     constructor(obj?:any) {
@@ -10,5 +11,6 @@ export class User {
         this.name = obj ? obj.name : '';
         this.email = obj ? obj.email : '';
         this.photoURL = obj ? obj.photoURL : '';
+        this.chatRefs = obj && obj.chatRefs? obj.chatRefs : [];
   }
 }

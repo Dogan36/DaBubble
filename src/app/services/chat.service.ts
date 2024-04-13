@@ -2,54 +2,61 @@ import { Injectable, inject } from '@angular/core';
 import { Firestore, onSnapshot, collection, addDoc, doc, updateDoc, deleteDoc, query, where, getDoc, DocumentData } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
 import { Observable, switchMap } from 'rxjs';
+import { UserService } from './user.service';
+import { User } from '../models/user.class';
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
   private firestore: Firestore = inject(Firestore);
   private authService: AuthService = inject(AuthService);
-  constructor(
-
-  ) { }
+  constructor(private userService: UserService) { this.unsubChats = this.subChats() }
 
   currentChat: any
   messages: any[] = []
+  unsubChats
 
-
-  subChats(): Observable<DocumentData[]> {
-    console.log('subChats() function called');
-    return new Observable<DocumentData[]>(observer => {
-      this.authService.getCurrentUser().subscribe(user => {
-        if (user) {
-          const uid = user.uid; // Hier wird die UID des Benutzers extrahiert
-          console.log(uid)
-       
-        if (uid) {
-          const chatsQuery = query(
-            collection(this.firestore, 'messages'),
-            where('users', 'array-contains', uid)
-          );
-          const unsubscribeSnapshot = onSnapshot(chatsQuery, snapshot => {
-            const messages: DocumentData[] = [];
-            snapshot.forEach(doc => {
-              messages.push(doc.data());
-              console.log(messages)
-            });
-            observer.next(messages);
-          });
-
-          // Return function to unsubscribe
-          observer.add(() => {
-            unsubscribeSnapshot();
-          });
-        } else {
-          observer.error('Current user ID is not available');
-        }}
-      });
+  subChats() {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = this.authService.getCurrentUser().subscribe(async (user) => {
+            if (user) {
+                try {
+                    await this.fetchChatMessages(user);
+                    resolve(unsubscribe);
+                } catch (error) {
+                    reject(error);
+                }
+            } else {
+                console.log('Kein aktiver Benutzer.');
+                reject(new Error('Kein aktiver Benutzer.'));
+            }
+        });
     });
-  
-  }
+}
 
+async fetchChatMessages(user:any) {
+    const userDocRef = doc(this.firestore, 'users', user.uid);
+    const userSnapshot = await getDoc(userDocRef);
+    if (userSnapshot.exists()) {
+        const userData = userSnapshot.data();
+        const chatRefs = userData['chatRefs'];
+        if (chatRefs && chatRefs.length > 0) {
+            const chatRef = chatRefs[0];
+            const chatMessagesRef = collection(this.firestore, `chats/${chatRef}/messages`);
+            onSnapshot(chatMessagesRef, (querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    console.log(doc.data());
+                });
+            });
+        } else {
+            console.log('Keine Chat-Referenz gefunden.');
+            throw new Error('Keine Chat-Referenz gefunden.');
+        }
+    } else {
+        console.log('Benutzerdokument existiert nicht.');
+        throw new Error('Benutzerdokument existiert nicht.');
+    }
+}
 
   async getMessageUsernames(message: any): Promise<{ name: string, photoURL: string, uid: string }[]> {
     const allUserUids: string[] = message.users || [];
@@ -73,19 +80,13 @@ export class ChatService {
         }
       }
     } else {
-
       const name = this.authService.currentUser?.displayName || 'Unknown';
       const uid = this.authService.currentUser?.uid as string;
       const photoURL = this.authService.photoURL || ''; // Falls photoURL nicht vorhanden ist, leeres String verwenden
       otherUserNames.push({ name, photoURL, uid });
     }
-
     return otherUserNames;
   }
-
-
-
-
 }
 
 

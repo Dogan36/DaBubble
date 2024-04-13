@@ -23,7 +23,7 @@ export class AuthService {
   email: string = '';
   password: string = '';
   name: string = '';
-
+chatRefs:any
   photoURL = './assets/img/profils/standardPic.svg';
   registerError: string = "";
   user$ = user(this.auth);
@@ -37,8 +37,7 @@ export class AuthService {
         this.currentUserSubject.next(user);
         this.getUserPhotoURL(this.currentUser?.uid)
         this.router.navigate(['/start']);
-    
-        
+  
       } else {
         this.currentUser = null;
         this.currentUserSubject.next(null);
@@ -57,7 +56,8 @@ export class AuthService {
     return {
       name: this.name,
       email: this.email,
-      photoURL: this.photoURL
+      photoURL: this.photoURL,
+      chatRefs: this.chatRefs
     };
   }
 
@@ -193,7 +193,4 @@ export class AuthService {
       throw error;
     }
   }
-
-
-
 }

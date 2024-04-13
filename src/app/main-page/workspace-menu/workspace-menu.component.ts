@@ -33,18 +33,7 @@ export class WorkspaceMenuComponent {
   constructor(public dialog: MatDialog, public usersService: UserService, public channelService: ChannelService, public chatService: ChatService, public authService: AuthService) {}
 
   ngOnInit() {
-    const subscription = this.chatService.subChats().subscribe((messages: any[]) => {
-      console.log(messages)
-      messages.forEach((message: any) => {
-        this.chatService.getMessageUsernames(message).then(usernames => {
-          const username = usernames[0].name; // Nehmen Sie das erste Element aus dem Array von Benutzernamen
-          const photoURL = usernames[0].photoURL;
-          const uid = usernames[0].uid;
-          const messageId = message.messageId
-          this.messagesWithUsernames.push({ message, username, photoURL, uid, messageId });
-        });
-      });
-    });
+   
   }
   
   ngOnDestroy() {
