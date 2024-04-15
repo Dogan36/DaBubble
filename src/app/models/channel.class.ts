@@ -1,5 +1,5 @@
 export class Channel {
-    id?: string;
+    id: string;
     name: string;
     creator: string;
     members: string[];
