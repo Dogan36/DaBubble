@@ -15,6 +15,11 @@ import { DialogShowProfilComponent } from '../../dialogs/dialog-show-profil/dial
 export class MessageLeftComponent {
 
   @Input() onChannelBoard: boolean = false;
+  @Input() member: string = '';
+  @Input() message: string = '';
+  // @Input() time: string = '';
+  // @Input() timeLastMessage: string = '';
+  // @Input() amountMessages: number = '';
 
   containerHovered: boolean = false;
 

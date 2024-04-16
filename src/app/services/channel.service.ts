@@ -60,7 +60,7 @@ export class ChannelService {
       name: obj.name,
       creator: obj.creator,
       members: obj.members || '',
-      threads: obj.threads || '',
+      // threads: obj.threads || '',
       description: obj.description || ''
     };
   }
@@ -78,8 +78,12 @@ export class ChannelService {
           listMessages.forEach(message => {
             this.messages.push(this.setMessageObj(message.data(), message.id));
           })
-          //hier noch filter funktion bauen um chats nicht doppelt zu pushen!
-          this.selectedChannelChats.push(this.setChatObj(this.messages, chat.id));
+          const index = this.selectedChannelChats.findIndex(chatObj => chatObj.chatId === chat.id);
+          if(index == -1) {
+            this.selectedChannelChats.push(this.setChatObj(this.messages, chat.id));
+          } else {
+            this.selectedChannelChats.splice(index, 1, this.setChatObj(this.messages, chat.id));
+          }
           console.log('Test002', this.selectedChannelChats);
         })
       })
@@ -130,7 +134,7 @@ export class ChannelService {
         name: obj.name,
         creator: obj.creator,
         members: obj.members,
-        threads: obj.threads || [''],
+        // threads: obj.threads || [''],
         description: obj.description || ''
     };
   }

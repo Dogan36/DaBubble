@@ -28,6 +28,8 @@ export class ChannelBoardComponent {
     channelBoard = true;
     private bodyClickListener?: () => void;
     channelData = this.channelService.channels[this.channelService.selectedChannel];
+    chatsData = this.channelService.selectedChannelChats;
+    
     
 
     constructor(public dialog: MatDialog, public channelService: ChannelService, private renderer: Renderer2, public userService: UserService) {}
