@@ -47,7 +47,8 @@ export class ChannelService {
       // Besser wo anders aufrufen!
       this.filterChannelsOfUser(); 
       if(this.channelsOfUser) {
-        this.subSglChannelChats(this.channelsOfUser[0].id);
+        //15.04 auskommentiert weil es einen fehler wirft
+        //this.subSglChannelChats(this.channelsOfUser[0].id);
         console.log('Test 212', this.channelsOfUser[0]);
       }
     });

@@ -18,7 +18,7 @@ export class AuthService {
   private auth: Auth = inject(Auth);
   private firestore: Firestore = inject(Firestore);
   private router: Router = inject(Router);
-  private currentUserSubject: BehaviorSubject<User | null>;
+
   currentUser: User | null = null;
   email: string = '';
   password: string = '';
@@ -30,17 +30,15 @@ chatRefs:any
   provider = new GoogleAuthProvider();
 
   constructor() {
-    this.currentUserSubject = new BehaviorSubject<User | null>(null);
+  
     this.auth.onAuthStateChanged(user => {
       if (user) {
         this.currentUser = user;
-        this.currentUserSubject.next(user);
-        this.getUserPhotoURL(this.currentUser?.uid)
+       
         this.router.navigate(['/start']);
   
       } else {
         this.currentUser = null;
-        this.currentUserSubject.next(null);
         this.router.navigate(['/']);
       }
     });
@@ -49,7 +47,7 @@ chatRefs:any
   
 
    public getCurrentUser(): Observable<User | null> {
-    return this.currentUserSubject.asObservable();
+    return this.user$
   }
 
   private createUserObject(): UserType {
@@ -82,10 +80,13 @@ chatRefs:any
       const userCredential = await createUserWithEmailAndPassword(this.auth, this.email, this.password);
       const user = userCredential.user;
       await updateProfile(user, { displayName: this.name });
+      await updateProfile(user, { photoURL: this.photoURL });
+      this.chatRefs = [user.uid];
       const userObject: UserType = this.createUserObject();
       const userDocRef = doc(this.firestore, 'users', user.uid);
       await setDoc(userDocRef, userObject);
       await updateDoc(userDocRef, { photoURL: this.photoURL });
+     //erst ab hier zulassen dass  die Registrierung fertig ist und der user  weiterleitet wird
       this.overlayService.showOverlay('Konto erfolgreich erstellt!')
       setTimeout(() => {
         this.overlayService.hideOverlay();

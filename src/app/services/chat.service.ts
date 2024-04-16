@@ -80,6 +80,7 @@ async fetchChatMessages(user:any) {
         }
       }
     } else {
+
       const name = this.authService.currentUser?.displayName || 'Unknown';
       const uid = this.authService.currentUser?.uid as string;
       const photoURL = this.authService.photoURL || ''; // Falls photoURL nicht vorhanden ist, leeres String verwenden

@@ -162,6 +162,6 @@ export class ChatsService {
 
   ngOnDestroy() {
     // this.unsubChatsList();
-    this.unsubSglChannelChat();
+   // this.unsubSglChannelChat();
   }
 }
