@@ -123,6 +123,14 @@
     <p class="thread-sep-time">Dienstag, 14 Januar</p>
     <div class="thread-sep-line"></div>
   </div>
+  <!-- <app-message-left
+    [onChannelBoard]="channelBoard"
+    [member]="
+      this.userService.users[
+        this.userService.getUsersData(this.chatsData[0].messages[0][member])
+      ].name
+    "
+  ></app-message-left> -->
   <app-message-left [onChannelBoard]="channelBoard"></app-message-left>
   <app-message-left [onChannelBoard]="channelBoard"></app-message-left>
 </div>

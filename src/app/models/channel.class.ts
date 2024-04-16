@@ -3,7 +3,7 @@ export class Channel {
     name: string;
     creator: string;
     members: string[];
-    threads?: string[];
+    // threads?: string[];
     description?: string;
 
 
@@ -12,7 +12,7 @@ export class Channel {
     this.name = obj ? obj.name : '';
     this.creator = obj ? obj.creator : '';
     this.members = obj ? obj.members : [''];
-    this.threads = obj ? obj.threads : [''];
+    // this.threads = obj ? obj.threads : [''];
     this.description = obj ? obj.description : '';
   }
 
