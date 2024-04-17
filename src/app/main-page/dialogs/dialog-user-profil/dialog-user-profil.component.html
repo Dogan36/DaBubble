@@ -9,12 +9,12 @@
   </div>
   <mat-dialog-content class="dialog-content">
     <div class="profil-img">
-      <img [src]="this.authService.photoURL">
+      <img  [src]="this.authService.currentUser?.photoURL">
     </div>
     @if(!editProfilOpen) {
     <div class="profil-name-container">
       <div>
-        <h2> {{this.authService.currentUser?.displayName}}</h2>
+        <h2> {{this.authService.currentUser?.name}}</h2>
         <span class="edit-user" (click)="editProfil()">Bearbeiten</span>
       </div>
       <h4>Aktiv</h4>

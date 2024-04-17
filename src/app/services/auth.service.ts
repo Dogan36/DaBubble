@@ -3,7 +3,7 @@ import { Auth, User, createUserWithEmailAndPassword, updateProfile, user, browse
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subscription, from, map } from 'rxjs';
 import { UserType } from '../types/user.class';
-import { Firestore, doc, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDoc, onSnapshot, setDoc, updateDoc } from '@angular/fire/firestore';
 import { OverlayService } from './overlay.service';
 import { setPersistence } from '@firebase/auth';
 import { LoginService } from './login.service';
@@ -19,39 +19,66 @@ export class AuthService {
   private firestore: Firestore = inject(Firestore);
   private router: Router = inject(Router);
 
-  currentUser: User | null = null;
+  private _currentUserSubject: BehaviorSubject<UserType | null> = new BehaviorSubject<UserType | null>(null);
+  currentUser$ = this._currentUserSubject.asObservable();
+  currentUser: any;
+  user:any
+  uid: string = '';
   email: string = '';
   password: string = '';
   name: string = '';
-chatRefs:any
   photoURL = './assets/img/profils/standardPic.svg';
-  registerError: string = "";
-  user$ = user(this.auth);
+  chatRefs: any;
+
+  registerError: string = ''
+
   provider = new GoogleAuthProvider();
 
   constructor() {
-  
+    this.setPersistence();
     this.auth.onAuthStateChanged(user => {
       if (user) {
-        this.currentUser = user;
-       
-        this.router.navigate(['/start']);
-  
+        this.user = user
+        const uid = user.uid;
+        const userDocRef = doc(this.firestore, 'users', uid);
+        onSnapshot(userDocRef, (doc) => {
+          if (!doc.exists()) {
+            this.router.navigate(['/']);
+          } else {
+            this.currentUser = { uid: user.uid, ...doc.data() } as UserType;
+            this._currentUserSubject.next(this.currentUser);
+          }
+        }, (error) => {
+          console.error('Error fetching user document:', error);
+          // Handle error
+        });
       } else {
-        this.currentUser = null;
+        this._currentUserSubject.next(null);
         this.router.navigate(['/']);
       }
     });
   }
 
+  private setPersistence(): void {
+    // Firebase initialisieren
+   
+    
+    // Authentifizierung initialisieren
   
 
-   public getCurrentUser(): Observable<User | null> {
-    return this.user$
+    // Setzen der Persistenzoption auf "local"
+    setPersistence(this.auth, browserSessionPersistence)
+      .then(() => {
+        console.log('Firebase persistence set to local');
+      })
+      .catch((error) => {
+        console.error('Error setting Firebase persistence:', error);
+      });
   }
 
   private createUserObject(): UserType {
     return {
+      uid: this.uid,
       name: this.name,
       email: this.email,
       photoURL: this.photoURL,
@@ -62,12 +89,13 @@ chatRefs:any
   async login(): Promise<void> {
     try {
       await setPersistence(this.auth, browserSessionPersistence);
-      const userCredential = await signInWithEmailAndPassword(this.auth, this.email, this.password);
+      await signInWithEmailAndPassword(this.auth, this.email, this.password);
       this.overlayService.showOverlay('Anmelden')
       setTimeout(() => {
         this.overlayService.hideOverlay();
       }, 1500);
-      this.currentUser = userCredential.user;
+
+      this.router.navigate(['/start']);
 
     } catch (error) {
       console.log(error)
@@ -79,18 +107,22 @@ chatRefs:any
     try {
       const userCredential = await createUserWithEmailAndPassword(this.auth, this.email, this.password);
       const user = userCredential.user;
-      await updateProfile(user, { displayName: this.name });
-      await updateProfile(user, { photoURL: this.photoURL });
+      await updateProfile(user, {
+        displayName: this.name
+      });
+      await updateProfile(user, {
+        photoURL: this.photoURL
+      });
       this.chatRefs = [user.uid];
       const userObject: UserType = this.createUserObject();
       const userDocRef = doc(this.firestore, 'users', user.uid);
       await setDoc(userDocRef, userObject);
-      await updateDoc(userDocRef, { photoURL: this.photoURL });
-     //erst ab hier zulassen dass  die Registrierung fertig ist und der user  weiterleitet wird
+      this.loginService.toggleLogin
+      //erst ab hier zulassen dass  die Registrierung fertig ist und der user weiterleitet wird
       this.overlayService.showOverlay('Konto erfolgreich erstellt!')
       setTimeout(() => {
         this.overlayService.hideOverlay();
-        this.loginService.toggleLogin()
+        this.router.navigate(['/start']);
       }, 1500);
     } catch (error) {
       throw error;
@@ -99,43 +131,39 @@ chatRefs:any
 
   async updateInfo(name: string, email: string) {
 
-    const userDocRef = doc(this.firestore, 'users', this.currentUser?.uid as string);
+    const userDocRef = doc(this.firestore, 'users', this.currentUser.uid);
+    await updateEmail(this.user, email);
+    await updateDoc(userDocRef, { email: email, name: name });
 
-    if (this.currentUser) {
-      await updateEmail(this.currentUser, email);
-      await updateProfile(this.currentUser, { displayName: name });
-      await updateDoc(userDocRef, { email: email, name: name });
-    }
   };
 
 
   loginWithGoogle() {
-    signInWithPopup(this.auth, this.provider)
+    signInWithPopup(this.auth, new GoogleAuthProvider())
       .then((result) => {
-        this.overlayService.showOverlay('Anmelden')
+        this.overlayService.showOverlay('Anmelden');
         const credential = GoogleAuthProvider.credentialFromResult(result);
         if (credential) {
-          const token = credential.accessToken;
-          this.currentUser = result.user;
-          const profile = getAdditionalUserInfo(result)?.profile
-          if (profile !== null && profile !== undefined) {
-            if (typeof profile['name'] === 'string') {
-              this.name = profile['name'];
-            }
-            if (typeof profile['picture'] === 'string') {
-              this.photoURL = profile['picture'];
-            }
-            if (typeof profile['email'] === 'string') {
-              this.email = profile['email'];
-            }
-          }
-          const userObject: UserType = this.createUserObject()
-          const userDocRef = doc(this.firestore, 'users', this.currentUser.uid);
-          setDoc(userDocRef, userObject);
-
+         
+          console.log(result.user)
+          const userData: UserType = {
+            uid: result.user.uid,
+            email: result.user.email || '',
+            name: result.user.displayName || '',
+            photoURL: result.user.photoURL || '',
+            chatRefs:[result.user.uid]
+          };
+          const userDocRef = doc(this.firestore, 'users', result.user.uid);
+          //check if user  already exists in the database and create it if not
+          getDoc(userDocRef).then((docSnapshot) => {
+              if (!docSnapshot.exists()) {
+                setDoc(userDocRef, userData);
+              }}
+          );
+          this._currentUserSubject.next(userData); // Aktualisieren Sie currentUser im BehaviorSubject
+          this.router.navigate(['/start']);
           setTimeout(() => {
             this.overlayService.hideOverlay();
-
           }, 1500);
         }
       }).catch((error) => {
@@ -179,19 +207,4 @@ chatRefs:any
     }
   }
 
-  async getUserPhotoURL(userId: string): Promise<string> {
-    try {
-      const userDocRef = doc(this.firestore, 'users', userId);
-      const userSnapshot = await getDoc(userDocRef);
-      if (userSnapshot.exists()) {
-        const userData = userSnapshot.data();
-        return userData['photoURL'] || "./assets/img/profils/standardPic.svg";
-      } else {
-        return "./assets/img/profils/standardPic.svg";
-      }
-    } catch (error) {
-      console.error('Error getting user photo URL:', error);
-      throw error;
-    }
-  }
 }

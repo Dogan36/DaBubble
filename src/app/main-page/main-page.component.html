@@ -7,10 +7,10 @@
   </div>
   <div class="user-menu">
     <h2 (click)="openUserMenuDialog()">
-      {{ this.authService.currentUser?.displayName }}
+      {{ this.authService.currentUser?.name }}
     </h2>
     <img
-      [src]="this.authService.photoURL"
+     [src]="this.authService.currentUser?.photoURL"
       alt=""
       (click)="openUserMenuDialog()"
     />

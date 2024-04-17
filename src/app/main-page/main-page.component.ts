@@ -11,7 +11,7 @@ import { NewMsgBoardComponent } from './new-msg-board/new-msg-board.component';
 import { MatDialog } from '@angular/material/dialog';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogUserMenuComponent } from './dialogs/dialog-user-menu/dialog-user-menu.component';
-
+import { UserType } from '../types/user.class';
 
 @Component({
   selector: 'app-main-page',
@@ -28,7 +28,7 @@ export class MainPageComponent {
   privateChatOpen = false;
   threadOpen = true;
   uid:string=''
-
+  currentUser: UserType | null = null;
 
   constructor(private evtSvc: EventService, public dialog: MatDialog) {
     this.evtSvc.getThreadOpenStatus().subscribe(status => {
@@ -37,18 +37,10 @@ export class MainPageComponent {
   }
 
 
-  ngOnInit(): void {
-    this.authService.getCurrentUser().subscribe(user => {
-      if (user) {
-        this.uid = user.uid;
-       console.log(this.uid)
-      }
-    });
-  }
-
+  
 
   test() {
-    console.log(this.authService.currentUser?.uid)
+    console.log(this.authService.currentUser.photoURL)
   }
 
 

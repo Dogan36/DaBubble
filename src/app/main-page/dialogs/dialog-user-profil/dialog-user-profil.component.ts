@@ -31,9 +31,9 @@ export class DialogUserProfilComponent {
 
   editProfil() {
     this.editProfilOpen = true;
-    this.displayName = this.authService.currentUser?.displayName || '';
+    this.displayName = this.authService.currentUser?.name|| '';
     this.email = this.authService.currentUser?.email || '';
-    console.log(this.email)
+ 
   }
 
   closeEditProfil() {

@@ -10,13 +10,13 @@ import { User } from '../models/user.class';
 export class ChatService {
   private firestore: Firestore = inject(Firestore);
   private authService: AuthService = inject(AuthService);
-  constructor(private userService: UserService) { this.unsubChats = this.subChats() }
+  constructor(private userService: UserService) { }
 
   currentChat: any
   messages: any[] = []
-  unsubChats
+ // unsubChats
 
-  subChats() {
+ /* subChats() {
     return new Promise((resolve, reject) => {
         const unsubscribe = this.authService.getCurrentUser().subscribe(async (user) => {
             if (user) {
@@ -88,6 +88,7 @@ async fetchChatMessages(user:any) {
     }
     return otherUserNames;
   }
+  */
 }
 
 
