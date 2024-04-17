@@ -76,11 +76,10 @@ export class UserService {
       for (let i = 0; i < this.users.length; i++) {
         const element = this.users[i];
 
-        if (this.authService.currentUser?.uid) {
-          if (element.id === this.authService.currentUser.uid) {
+        if (this.authService.uid) {
+          if (element.id === this.authService.uid) {
             this.currentUserData = element;
             const username = this.currentUserData;
-            console.log(this.currentUserData.name);
             return; // Beende die Schleife, sobald der Benutzer gefunden wurde
           }
         }

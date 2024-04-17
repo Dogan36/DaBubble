@@ -154,8 +154,9 @@ export class ChannelService {
       for (let i = 0; i < this.channels.length; i++) {
         const element = this.channels[i];
         
-        if(this.authService.currentUser?.uid) {
-          let index = element.members?.indexOf(this.authService.currentUser?.uid);
+        if(this.authService.uid) {
+          console.log(this.authService.uid)
+          let index = element.members?.indexOf(this.authService.uid);
           
           if(index !== -1) {
             this.channelsOfUser.push(element);

@@ -39,13 +39,14 @@ export class AuthService {
     this.auth.onAuthStateChanged(user => {
       if (user) {
         this.user = user
-        const uid = user.uid;
-        const userDocRef = doc(this.firestore, 'users', uid);
+        this.uid = user.uid;
+        const userDocRef = doc(this.firestore, 'users', this.uid);
         onSnapshot(userDocRef, (doc) => {
           if (!doc.exists()) {
             this.router.navigate(['/']);
           } else {
-            this.currentUser = { uid: user.uid, ...doc.data() } as UserType;
+            this.currentUser = {...doc.data() } as UserType;
+            console.log(this.currentUser)
             this._currentUserSubject.next(this.currentUser);
           }
         }, (error) => {
@@ -82,7 +83,7 @@ export class AuthService {
       name: this.name,
       email: this.email,
       photoURL: this.photoURL,
-      chatRefs: this.chatRefs
+      chatRefs: this.uid
     };
   }
 
