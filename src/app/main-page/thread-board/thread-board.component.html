@@ -8,12 +8,32 @@
 </div>
 <div class="hr-line"></div>
 <div class="thread-field">
-  <app-message-left></app-message-left>
+  <!-- <app-message-left></app-message-left>
   <div class="thread-answers-sep">
     <p>2 Antworten</p>
     <div></div>
-  </div>
-  <app-message-left></app-message-left>
+  </div> -->
+  @if(this.channelService.selectedChannelChats[this.channelService.selChatIndex])
+  { @for(message of
+  this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages;
+  track index; let index = $index) {
+  <app-message-left
+    [member]="
+      this.userService.users[
+        this.userService.getUsersData(
+          this.channelService.selectedChannelChats[
+            this.channelService.selChatIndex
+          ].allMessages[index].member
+        )
+      ].name
+    "
+    [message]="
+      this.channelService.selectedChannelChats[this.channelService.selChatIndex]
+        .allMessages[index].message
+    "
+  ></app-message-left
+  >}}
+  <!-- <app-message-left></app-message-left> -->
   <app-message-right></app-message-right>
 </div>
 <app-textarea-main-page></app-textarea-main-page>

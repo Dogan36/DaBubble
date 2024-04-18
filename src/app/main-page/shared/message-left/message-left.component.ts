@@ -4,6 +4,8 @@ import { EventService } from '../../../services/event.service';
 import { MatDialog } from '@angular/material/dialog';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogShowProfilComponent } from '../../dialogs/dialog-show-profil/dialog-show-profil.component';
+import { Chat } from '../../../models/chat.class';
+import { ChannelService } from '../../../services/channel.service';
 
 @Component({
   selector: 'app-message-left',
@@ -17,14 +19,15 @@ export class MessageLeftComponent {
   @Input() onChannelBoard: boolean = false;
   @Input() member: string = '';
   @Input() message: string = '';
+  @Input() amountMessage: number = 0;
   // @Input() time: string = '';
   // @Input() timeLastMessage: string = '';
-  // @Input() amountMessages: number = '';
+  @Input() selectedChatIndex: number = 0;
 
   containerHovered: boolean = false;
 
 
-  constructor(private evtSvc: EventService, public dialog: MatDialog) {}
+  constructor(private evtSvc: EventService, public dialog: MatDialog, private channelService: ChannelService) {}
 
 
   onMouseOver() {
@@ -32,7 +35,8 @@ export class MessageLeftComponent {
   }
 
 
-  onOpenThread() {
+  onOpenThread(chatIndex:number) {
+    this.channelService.selChatIndex = chatIndex;
     this.evtSvc.openThread();
   }
 

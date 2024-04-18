@@ -2,9 +2,10 @@ import { Injectable, inject } from '@angular/core';
 import { Firestore, onSnapshot, collection, addDoc, doc, updateDoc, deleteDoc, query, where } from '@angular/fire/firestore';
 import { Channel } from '../models/channel.class';
 import { AuthService } from './auth.service';
-import { ChatsService } from './chats.service';
+// import { ChatsService } from './chats.service';
 import { Message } from '../models/message.class';
 import { Chat } from '../models/chat.class';
+import { UserService } from './user.service';
 
 
 @Injectable({
@@ -18,12 +19,12 @@ export class ChannelService {
   channels: Channel[] = [];
   channelsOfUser: Channel[] = [];
   selectedChannelChats: Chat[] = [];
-  messages: Message[] = [];
-  // uid:string='';
+  selChatIndex: number = 0;
+  colMessages: Message[] = [];
 
   unsubChannels;
 
-  constructor(private authService: AuthService, private chatsService: ChatsService) {
+  constructor(private authService: AuthService) {
     // this.authService.getCurrentUser().subscribe(user => {
     //   if (user) {
     //     this.uid = user.uid;
@@ -48,7 +49,7 @@ export class ChannelService {
       this.filterChannelsOfUser(); 
       if(this.channelsOfUser) {
         //15.04 auskommentiert weil es einen fehler wirft
-        //this.subSglChannelChats(this.channelsOfUser[0].id);
+        this.subSglChannelChats(this.channelsOfUser[0].id);
         console.log('Test 212', this.channelsOfUser[0]);
       }
     });
@@ -74,16 +75,16 @@ export class ChannelService {
       listChats.forEach(chat => {
         
         onSnapshot(collection(this.firestore, `channels/${channelRef}/chats/${chat.id}/messages`), (listMessages) => {
-          this.messages = [];
+          this.colMessages = [];
 
           listMessages.forEach(message => {
-            this.messages.push(this.setMessageObj(message.data(), message.id));
+            this.colMessages.push(this.setMessageObj(message.data(), message.id));
           })
           const index = this.selectedChannelChats.findIndex(chatObj => chatObj.chatId === chat.id);
           if(index == -1) {
-            this.selectedChannelChats.push(this.setChatObj(this.messages, chat.id));
+            this.selectedChannelChats.push(this.setChatObj(this.colMessages, chat.id));
           } else {
-            this.selectedChannelChats.splice(index, 1, this.setChatObj(this.messages, chat.id));
+            this.selectedChannelChats.splice(index, 1, this.setChatObj(this.colMessages, chat.id));
           }
           console.log('Test002', this.selectedChannelChats);
         })
@@ -94,20 +95,20 @@ export class ChannelService {
 
 
 // an dieser Stelle verwende ich nicht message.class sondern erstelle ein neues Objekt, daher die Fehlermeldung für setChatObj.
-  setMessageObj(obj:any, id:string) { 
+  setMessageObj(obj:any, id:string): Message { 
     return {
       messageId: id,
-      message: obj.message,
+      message: obj.message || '',
       member: obj.member,
       timestamp: obj.timestamp
-    }
+    };
   }
 
-  setChatObj(messages:any, id:string) {
+  setChatObj(colMessages:Message[], id:string) : Chat {
     return {
       chatId: id,
-      messages: messages,
-    }
+      allMessages: colMessages,
+    };
   }
 
 

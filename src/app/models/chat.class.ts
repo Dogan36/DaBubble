@@ -1,12 +1,12 @@
-import { Message } from "../types/messages.class";
+import { Message } from "./message.class";
 
 export class Chat {
     chatId?: string;
-    messages: Message[];
+    allMessages: Message[];
 
 
   constructor(obj?:any) {
     this.chatId = obj ? obj.id : '';
-    this.messages = obj ? obj.messages: [''];
+    this.allMessages = obj ? obj.messages: [''];
   }
 }

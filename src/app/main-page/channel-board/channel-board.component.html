@@ -123,15 +123,25 @@
     <p class="thread-sep-time">Dienstag, 14 Januar</p>
     <div class="thread-sep-line"></div>
   </div>
-  <!-- <app-message-left
+  @if(this.channelService.selectedChannelChats[0]) { @for(chat of
+  this.channelService.selectedChannelChats; track index; let index = $index) {
+  <app-message-left
     [onChannelBoard]="channelBoard"
     [member]="
       this.userService.users[
-        this.userService.getUsersData(this.chatsData[0].messages[0][member])
+        this.userService.getUsersData(
+          this.channelService.selectedChannelChats[index].allMessages[0].member
+        )
       ].name
     "
-  ></app-message-left> -->
-  <app-message-left [onChannelBoard]="channelBoard"></app-message-left>
-  <app-message-left [onChannelBoard]="channelBoard"></app-message-left>
+    [message]="
+      this.channelService.selectedChannelChats[index].allMessages[0].message
+    "
+    [amountMessage]="
+      this.channelService.selectedChannelChats[index].allMessages.length - 1
+    "
+    [selectedChatIndex]="index"
+  ></app-message-left
+  >}}
 </div>
 <app-textarea-main-page></app-textarea-main-page>

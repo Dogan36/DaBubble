@@ -3,6 +3,8 @@ import { TextareaMainPageComponent } from '../shared/textarea-main-page/textarea
 import { MessageLeftComponent } from '../shared/message-left/message-left.component';
 import { MessageRightComponent } from '../shared/message-right/message-right.component';
 import { EventService } from '../../services/event.service';
+import { ChannelService } from '../../services/channel.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-thread-board',
@@ -15,7 +17,7 @@ export class ThreadBoardComponent {
 
   channelBoard = false;
 
-  constructor(private evtSvc: EventService) {}
+  constructor(private evtSvc: EventService, public channelService: ChannelService, public userService: UserService) {}
 
   onCloseThread() {
     this.evtSvc.closeThread();
