@@ -44,14 +44,15 @@
   @if(messageListOpen) {
     
   <div class="message-list">
-
+    
     <!-- Noch mal prüfen, was sinnvoller ist. Index oder user.id? -->
-    @for (message of this.messagesWithUsernames; track index; let index =
+    @for (chat of this.chats; track index; let index =
     $index) {
     <app-workspace-user-profil 
-      [userName]="message.username" 
-      [userImage]="message.photoURL"
-      (click)="onOpenPrivateChat(message.messageId)">
+      [userName]="chat.name" 
+      [userImage]="chat.photoURL"
+      [ownChat]="chat.ownChat"
+      (click)="onOpenPrivateChat(chat)">
     </app-workspace-user-profil>
   }
   </div>

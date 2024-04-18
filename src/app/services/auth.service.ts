@@ -13,11 +13,7 @@ import { LoginService } from './login.service';
   providedIn: 'root'
 })
 export class AuthService {
-  private overlayService: OverlayService = inject(OverlayService);
-  private loginService: LoginService = inject(LoginService);
-  private auth: Auth = inject(Auth);
-  private firestore: Firestore = inject(Firestore);
-  private router: Router = inject(Router);
+
 
   private _currentUserSubject: BehaviorSubject<UserType | null> = new BehaviorSubject<UserType | null>(null);
   currentUser$ = this._currentUserSubject.asObservable();
@@ -34,7 +30,13 @@ export class AuthService {
 
   provider = new GoogleAuthProvider();
 
-  constructor() {
+  constructor( 
+    private overlayService: OverlayService,
+    private loginService: LoginService,
+    private auth: Auth,
+    private firestore: Firestore,
+    private router: Router
+    ){
     this.setPersistence();
     this.auth.onAuthStateChanged(user => {
       if (user) {
@@ -46,7 +48,6 @@ export class AuthService {
             this.router.navigate(['/']);
           } else {
             this.currentUser = {...doc.data() } as UserType;
-            console.log(this.currentUser)
             this._currentUserSubject.next(this.currentUser);
           }
         }, (error) => {
@@ -61,16 +62,10 @@ export class AuthService {
   }
 
   private setPersistence(): void {
-    // Firebase initialisieren
-   
-    
-    // Authentifizierung initialisieren
-  
-
+ 
     // Setzen der Persistenzoption auf "local"
     setPersistence(this.auth, browserSessionPersistence)
       .then(() => {
-        console.log('Firebase persistence set to local');
       })
       .catch((error) => {
         console.error('Error setting Firebase persistence:', error);
@@ -145,8 +140,6 @@ export class AuthService {
         this.overlayService.showOverlay('Anmelden');
         const credential = GoogleAuthProvider.credentialFromResult(result);
         if (credential) {
-         
-          console.log(result.user)
           const userData: UserType = {
             uid: result.user.uid,
             email: result.user.email || '',

@@ -21,24 +21,28 @@ export class WorkspaceMenuComponent {
 
   channelListOpen = true;
   messageListOpen = true;
-  public messagesWithUsernames: { message: any, username: string, photoURL:string, uid:string, messageId:string }[] = [];
+  chats: any[] = []; // Hier werden die Chats gespeichert
   // So muss die Funktion mit Parameter aussehen!
   // @Output() openChannel = new EventEmitter<any>();
   // evtl doch mit Service arbeiten
   @Output() openChannel = new EventEmitter<void>();
   @Output() openPrivateChat = new EventEmitter<void>();
   @Output() openNewChat = new EventEmitter<void>();
-  private subscription: Subscription | undefined;
+  private chatSubscription: Subscription | undefined;
+
 
   constructor(public dialog: MatDialog, public usersService: UserService, public channelService: ChannelService, public chatService: ChatService, public authService: AuthService) {}
 
   ngOnInit() {
-   
+    this.chatSubscription = this.chatService.chats$.subscribe(chats => {
+      this.chats = chats;
+      console.log(chats)
+    });
   }
   
   ngOnDestroy() {
     // Beenden Sie das Abonnement, um Speicherlecks zu vermeiden
-    this.subscription?.unsubscribe();
+    this.chatSubscription?.unsubscribe();
   }
 
   toggleChannelList() {
@@ -63,9 +67,9 @@ export class WorkspaceMenuComponent {
   //   this.openChannel.emit(index);
   // }
 
-  onOpenPrivateChat(i:any) {
-    console.log(i)
-    this.chatService.currentChat = i
+  onOpenPrivateChat(chat: any) {
+    this.chatService.currentChat = chat
+    console.log( this.chatService.currentChat)
     this.openPrivateChat.emit();
   }
 

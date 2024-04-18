@@ -47,10 +47,11 @@ export class ChannelService {
 
       // Besser wo anders aufrufen!
       this.filterChannelsOfUser(); 
-      if(this.channelsOfUser) {
+      if(this.channelsOfUser.length !== 0 ) {
+
         //15.04 auskommentiert weil es einen fehler wirft
         this.subSglChannelChats(this.channelsOfUser[0].id);
-        console.log('Test 212', this.channelsOfUser[0]);
+
       }
     });
     }
@@ -156,7 +157,6 @@ export class ChannelService {
         const element = this.channels[i];
         
         if(this.authService.uid) {
-          console.log(this.authService.uid)
           let index = element.members?.indexOf(this.authService.uid);
           
           if(index !== -1) {
@@ -166,7 +166,7 @@ export class ChannelService {
         }
       }
     }
-    console.log('Channels Of User are', this.channelsOfUser);
+
   }
   
   

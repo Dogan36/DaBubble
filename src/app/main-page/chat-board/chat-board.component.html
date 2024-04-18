@@ -2,8 +2,10 @@
   <!-- Font-size muss noch angepasst werden, und width nicht 100%! -->
   <div class="title-sgl-user-chat">
     <app-workspace-user-profil
-      [userName]="userService.users[userService.selectedUser].name"
+    [userImage]="chatService.currentChat.photoURL"
+      [userName]="chatService.currentChat.name"
       (click)="openShowProfilDialog()"
+      [ownChat]="chatService.currentChat.ownChat"
     ></app-workspace-user-profil>
   </div>
 </div>
@@ -13,16 +15,23 @@
 <div class="chat-field">
   <div class="new-chat-container">
     <div class="new-chat-user">
-      <img src="assets/img/profils/Foto.svg" alt="" />
+      <img [src]="chatService.currentChat.photoURL" alt="" />
       <h3 (click)="openShowProfilDialog()">
-        {{ userService.users[userService.selectedUser].name }}
+        {{ chatService.currentChat.name }} 
+        @if(this.chatService.currentChat.ownChat){
+          (Du)
+        }
       </h3>
     </div>
-    <p>
+    @if(!this.chatService.currentChat.ownChat){<p>
       Diese Unterhaltung findet nur zwischen
-      <span>&#64;{{ userService.users[userService.selectedUser].name }} </span
+      <span>&#64;{{ chatService.currentChat.name }} </span
       >und dir statt.
-    </p>
+    </p>}
+    
+    @if(this.chatService.currentChat.ownChat){
+      <p> Dieser Raum ist nur für dich da. Mache dir Notizen, liste deine To-dos auf oder bewahre Links und Dateien griffbereit auf. Du kannst hier auch gerne Dinge mit dir selbst besprechen.</p>
+    }
   </div>
 </div>
 <app-textarea-main-page></app-textarea-main-page>
