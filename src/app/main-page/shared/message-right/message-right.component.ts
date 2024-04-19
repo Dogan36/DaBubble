@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-message-right',
@@ -8,6 +8,14 @@ import { Component } from '@angular/core';
   styleUrl: './message-right.component.scss'
 })
 export class MessageRightComponent {
+
+  @Input() member: string = '';
+  @Input() message: string = '';
+  @Input() memberImg: string = '';
+  @Input() amountMessage: number = 0;
+  // @Input() time: string = '';
+  // @Input() timeLastMessage: string = '';
+  @Input() selectedChatIndex: number = 0;
 
     containerHovered: boolean = false;
 

@@ -4,11 +4,7 @@
   (mouseleave)="onMouseOver()"
 >
   <div>
-    <img
-      src="assets/img/profils/avatar_2.svg"
-      alt=""
-      (click)="openShowProfilDialog()"
-    />
+    <img [src]="memberImg" alt="" (click)="openShowProfilDialog()" />
   </div>
   <div>
     <div class="user-name-time">

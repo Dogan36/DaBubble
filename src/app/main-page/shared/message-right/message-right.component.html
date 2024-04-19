@@ -6,13 +6,13 @@
   <div>
     <div class="user-name-time">
       <span>14:25 Uhr</span>
-      <h5>Noah Braun</h5>
+      <h5>{{ member }}</h5>
     </div>
     <div class="user-msg">
-      <p>Welche Version ist aktuell von Angular?</p>
+      <p>{{ message }}</p>
     </div>
   </div>
-  <div><img src="assets/img/profils/avatar_2.svg" alt="" /></div>
+  <div><img [src]="memberImg" alt="" /></div>
   @if (containerHovered) {
   <div class="add-reaction-container">
     <div class="add-reaction"></div>

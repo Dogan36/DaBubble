@@ -137,6 +137,15 @@
     [message]="
       this.channelService.selectedChannelChats[index].allMessages[0].message
     "
+    [memberImg]="
+      this.userService.users[
+        this.userService.getUsersData(
+          this.channelService.selectedChannelChats[
+            this.channelService.selChatIndex
+          ].allMessages[index].member
+        )
+      ].photoURL
+    "
     [amountMessage]="
       this.channelService.selectedChannelChats[index].allMessages.length - 1
     "

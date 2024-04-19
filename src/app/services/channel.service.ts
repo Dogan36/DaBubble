@@ -95,7 +95,6 @@ export class ChannelService {
   }
 
 
-// an dieser Stelle verwende ich nicht message.class sondern erstelle ein neues Objekt, daher die Fehlermeldung für setChatObj.
   setMessageObj(obj:any, id:string): Message { 
     return {
       messageId: id,
@@ -123,6 +122,28 @@ export class ChannelService {
       ) 
   }
 
+
+  // saves new chat
+  // async startNewChat(item: {}, message: {}, channelRef:string) {
+  //   await addDoc(collection(this.firestore, `channels/${channelRef}/chats`), item).catch(
+  //       (err) => { console.error(err) }
+  //     ).then(
+  //       (docRef) => { console.log("Document written with ID: ", docRef),
+  //       this.addMessageToChat(message, channelRef, docRef);
+  //       } // docSubRef noch mal in dem message Object als id speichern?? 
+  //     ) 
+  // }
+
+
+  // saves new message in chat
+  async addMessageToChat(message: {}, channelRef:string, chatRef: string) {
+    await addDoc(collection(this.firestore, `channels/${channelRef}/chats/${chatRef}/messages`), message).catch(
+        (err) => { console.error(err) }
+      ).then(
+      (docRef) => { console.log("Document written with ID: ", docRef)} // docRef noch mal in dem message Object als id speichern!
+      ) 
+  }
+
   
   async updateChannel(item: Channel) {
     if(item.id) {
@@ -141,6 +162,24 @@ export class ChannelService {
         description: obj.description || ''
     };
   }
+
+
+  // async updateMessage(message: {}, channelRef:string, chatRef:string) {
+  //   if(message.id) {
+  //     let docRef = doc(collection(this.firestore, `channels/${channelRef}/chats/${chatRef}/messages`), message.id);
+  //     await updateDoc(docRef, this.toJSONmessage(message)).catch((err) => { console.log(err); });
+  //   }
+  // }
+  
+  
+  toJSONmessage(obj:any) {
+    return {
+        message: obj.message || '',
+        member: obj.member,
+        timestamp: obj.timestamp
+    };
+  }
+
 
 
   async deleteNote(docId: string) {

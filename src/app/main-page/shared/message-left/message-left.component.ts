@@ -19,6 +19,7 @@ export class MessageLeftComponent {
   @Input() onChannelBoard: boolean = false;
   @Input() member: string = '';
   @Input() message: string = '';
+  @Input() memberImg: string = '';
   @Input() amountMessage: number = 0;
   // @Input() time: string = '';
   // @Input() timeLastMessage: string = '';

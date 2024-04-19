@@ -5,6 +5,7 @@ import { MessageRightComponent } from '../shared/message-right/message-right.com
 import { EventService } from '../../services/event.service';
 import { ChannelService } from '../../services/channel.service';
 import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-thread-board',
@@ -17,7 +18,7 @@ export class ThreadBoardComponent {
 
   channelBoard = false;
 
-  constructor(private evtSvc: EventService, public channelService: ChannelService, public userService: UserService) {}
+  constructor(private evtSvc: EventService, public channelService: ChannelService, public userService: UserService, public authService: AuthService) {}
 
   onCloseThread() {
     this.evtSvc.closeThread();

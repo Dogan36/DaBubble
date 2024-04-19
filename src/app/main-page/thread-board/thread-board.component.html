@@ -17,6 +17,8 @@
   { @for(message of
   this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages;
   track index; let index = $index) {
+  @if(this.channelService.selectedChannelChats[ this.channelService.selChatIndex
+  ].allMessages[index].member !== this.authService.uid) {
   <app-message-left
     [member]="
       this.userService.users[
@@ -31,9 +33,42 @@
       this.channelService.selectedChannelChats[this.channelService.selChatIndex]
         .allMessages[index].message
     "
+    [memberImg]="
+      this.userService.users[
+        this.userService.getUsersData(
+          this.channelService.selectedChannelChats[
+            this.channelService.selChatIndex
+          ].allMessages[index].member
+        )
+      ].photoURL
+    "
   ></app-message-left
-  >}}
+  >} @else {
+  <app-message-right
+    [member]="
+      this.userService.users[
+        this.userService.getUsersData(
+          this.channelService.selectedChannelChats[
+            this.channelService.selChatIndex
+          ].allMessages[index].member
+        )
+      ].name
+    "
+    [message]="
+      this.channelService.selectedChannelChats[this.channelService.selChatIndex]
+        .allMessages[index].message
+    "
+    [memberImg]="
+      this.userService.users[
+        this.userService.getUsersData(
+          this.channelService.selectedChannelChats[
+            this.channelService.selChatIndex
+          ].allMessages[index].member
+        )
+      ].photoURL
+    "
+  ></app-message-right>
+  }}}
   <!-- <app-message-left></app-message-left> -->
-  <app-message-right></app-message-right>
 </div>
 <app-textarea-main-page></app-textarea-main-page>
