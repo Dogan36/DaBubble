@@ -13,6 +13,7 @@ import { Channel } from '../../../models/channel.class';
 import { ChannelService } from '../../../services/channel.service';
 import { UserService } from '../../../services/user.service';
 import { SearchMemberInputComponent } from '../../shared/search-member-input/search-member-input.component';
+import { AuthService } from '../../../services/auth.service';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class DialogAddChannelComponent {
   selectMerbersOpen = false;
 
 
-  constructor(private channelService: ChannelService, private userService: UserService){}
+  constructor(private channelService: ChannelService, private userService: UserService, private authService: AuthService){}
 
   openAddMembers() {
     this.addMembersOpen = true;
@@ -47,8 +48,7 @@ export class DialogAddChannelComponent {
 
     this.setMembers();
     console.log('Current channel is', this.channel);
-    this.channel.creator = 'Regina';
-    // Hier creator mit angemeldeten User
+    this.channel.creator = this.authService.uid;
 
     this.channelService.addChannel(this.channelService.toJSON(this.channel), 'channels');
   }
@@ -73,8 +73,7 @@ export class DialogAddChannelComponent {
           }
           selectedMembersArray = [];
         } else {
-            this.channel.members = ['regina'];
-            // Hier member mit angemeldeten User
+            this.channel.members = [this.authService.uid];
         }
       } 
   }

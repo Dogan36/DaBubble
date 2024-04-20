@@ -6,13 +6,21 @@
   <div>
     <div class="user-name-time">
       <span>14:25 Uhr</span>
-      <h5>{{ member }}</h5>
+      <h5 (click)="openShowProfilDialog()">{{ member }}</h5>
     </div>
     <div class="user-msg">
       <p>{{ message }}</p>
     </div>
+    @if(onChannelBoard) {
+    <div class="answer-info-container">
+      <p (click)="onOpenThread(selectedChatIndex)">
+        {{ amountMessage }} Antworten
+      </p>
+      <span>Letzte Antwort 14:56</span>
+    </div>
+    }
   </div>
-  <div><img [src]="memberImg" alt="" /></div>
+  <div><img [src]="memberImg" alt="" (click)="openShowProfilDialog()" /></div>
   @if (containerHovered) {
   <div class="add-reaction-container">
     <div class="add-reaction"></div>

@@ -42,6 +42,10 @@
         )
       ].photoURL
     "
+    [memberRef]="
+      this.channelService.selectedChannelChats[this.channelService.selChatIndex]
+        .allMessages[index].member
+    "
   ></app-message-left
   >} @else {
   <app-message-right
@@ -67,8 +71,11 @@
         )
       ].photoURL
     "
+    [memberRef]="
+      this.channelService.selectedChannelChats[this.channelService.selChatIndex]
+        .allMessages[index].member
+    "
   ></app-message-right>
   }}}
-  <!-- <app-message-left></app-message-left> -->
 </div>
 <app-textarea-main-page></app-textarea-main-page>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {
   MatDialog,
   MAT_DIALOG_DATA,
@@ -19,6 +19,10 @@ import { UserService } from '../../../services/user.service';
 })
 export class DialogShowProfilComponent {
 
-  constructor(public usersService: UserService) { }
-
+  constructor(public usersService: UserService, @Inject(MAT_DIALOG_DATA) public data: {
+        profilName: string,
+        profilRef: string,
+        profilEmail: string,
+        profilImg: string,
+      }) { }
 }

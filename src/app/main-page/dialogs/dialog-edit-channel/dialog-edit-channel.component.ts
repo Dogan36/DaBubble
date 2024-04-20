@@ -11,6 +11,7 @@ import {
 import { ChannelService } from '../../../services/channel.service';
 import { Channel } from '../../../models/channel.class';
 import { AuthService } from '../../../services/auth.service';
+import { UserService } from '../../../services/user.service';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class DialogEditChannelComponent {
   channelData = this.channelService.channels[this.channelService.selectedChannel];
   channel: Channel;
 
-  constructor(public channelService: ChannelService, private authService: AuthService ) {
+  constructor(public channelService: ChannelService, private authService: AuthService, public userService: UserService ) {
     this.channel = Object.assign({}, this.channelService.channels[this.channelService.selectedChannel]);
   }
 
@@ -59,8 +60,8 @@ export class DialogEditChannelComponent {
 
   leaveChannel() {
     // evtl. Zugriff auf user id verbessern
-    if(this.authService.currentUser?.uid) {
-      let index = this.channel.members?.indexOf(this.authService.currentUser?.uid)
+    if(this.authService.uid) {
+      let index = this.channel.members?.indexOf(this.authService.uid)
       
       if(index) {
         this.channel.members?.splice(index, 1);

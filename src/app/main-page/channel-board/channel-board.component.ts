@@ -12,6 +12,7 @@ import { UserService } from '../../services/user.service';
 import { SearchMemberInputComponent } from '../shared/search-member-input/search-member-input.component';
 import { Channel } from '../../models/channel.class';
 import { User } from '../../models/user.class';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -29,10 +30,10 @@ export class ChannelBoardComponent {
     private bodyClickListener?: () => void;
     channelData = this.channelService.channels[this.channelService.selectedChannel];
     chatsData = this.channelService.selectedChannelChats;
-    
+
     
 
-    constructor(public dialog: MatDialog, public channelService: ChannelService, private renderer: Renderer2, public userService: UserService) {}
+    constructor(public dialog: MatDialog, public channelService: ChannelService, private renderer: Renderer2, public userService: UserService, public authService: AuthService) {}
 
  
 

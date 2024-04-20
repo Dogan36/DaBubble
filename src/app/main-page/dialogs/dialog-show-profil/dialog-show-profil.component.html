@@ -5,15 +5,17 @@
   </div>
   <mat-dialog-content class="dialog-content">
     <div class="profil-img">
-      <img src="assets/img/profils/avatar_2.svg" alt="" />
+      <img [src]="data.profilImg" alt="" />
     </div>
     <div class="profil-name-container">
-      <h2>{{ usersService.users[usersService.selectedUser].name }}</h2>
+      <!-- <h2>{{ usersService.users[usersService.selectedUser].name }}</h2> -->
+      <h2>{{ data.profilName }}</h2>
       <h4>Aktiv</h4>
     </div>
     <div class="profil-email-container">
       <h4>E-Mail-Adresse</h4>
-      <p>{{ usersService.users[usersService.selectedUser].email }}</p>
+      <p>{{ data.profilEmail }}</p>
+      <!-- <p>{{ usersService.users[usersService.selectedUser].email }}</p> -->
       <!-- <p>noahbra&#64;beispiel.com</p> -->
     </div>
   </mat-dialog-content>

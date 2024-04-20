@@ -13,7 +13,7 @@ export class UserService {
   users: User[] = [];
   usersName: string[] = [];
   selectedUser: number = 0;
-  currentUserData: User | undefined
+  currentUserData: User | undefined;
   unsubUsers;
   //unsubCurrentUser;
 

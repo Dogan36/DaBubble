@@ -125,6 +125,8 @@
   </div>
   @if(this.channelService.selectedChannelChats[0]) { @for(chat of
   this.channelService.selectedChannelChats; track index; let index = $index) {
+  @if(this.channelService.selectedChannelChats[index].allMessages[0].member !==
+  this.authService.uid) {
   <app-message-left
     [onChannelBoard]="channelBoard"
     [member]="
@@ -140,9 +142,7 @@
     [memberImg]="
       this.userService.users[
         this.userService.getUsersData(
-          this.channelService.selectedChannelChats[
-            this.channelService.selChatIndex
-          ].allMessages[index].member
+          this.channelService.selectedChannelChats[index].allMessages[0].member
         )
       ].photoURL
     "
@@ -150,7 +150,38 @@
       this.channelService.selectedChannelChats[index].allMessages.length - 1
     "
     [selectedChatIndex]="index"
+    [memberRef]="
+      this.channelService.selectedChannelChats[index].allMessages[0].member
+    "
   ></app-message-left
-  >}}
+  >} @else {
+  <app-message-right
+    [onChannelBoard]="channelBoard"
+    [member]="
+      this.userService.users[
+        this.userService.getUsersData(
+          this.channelService.selectedChannelChats[index].allMessages[0].member
+        )
+      ].name
+    "
+    [message]="
+      this.channelService.selectedChannelChats[index].allMessages[0].message
+    "
+    [memberImg]="
+      this.userService.users[
+        this.userService.getUsersData(
+          this.channelService.selectedChannelChats[index].allMessages[0].member
+        )
+      ].photoURL
+    "
+    [amountMessage]="
+      this.channelService.selectedChannelChats[index].allMessages.length - 1
+    "
+    [selectedChatIndex]="index"
+    [memberRef]="
+      this.channelService.selectedChannelChats[index].allMessages[0].member
+    "
+  ></app-message-right>
+  }}}
 </div>
 <app-textarea-main-page></app-textarea-main-page>

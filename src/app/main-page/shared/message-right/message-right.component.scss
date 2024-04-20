@@ -49,6 +49,27 @@
             padding: 15px;
         }
 
+        .answer-info-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+
+            p {
+                color: $cpt-purple-3;
+                width: 110px;
+                text-align: center;
+
+                &:hover {
+                    cursor: pointer;
+                    font-weight: 600;
+                }
+            }
+
+            span {
+                color: $cpt-font-gray;
+            }
+        }
+
         .add-reaction-container { 
             animation: transformIcon 250ms forwards;
             background-color: white;

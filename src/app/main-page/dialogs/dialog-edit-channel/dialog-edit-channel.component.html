@@ -52,8 +52,15 @@
       />}
       <hr />
       <h5>Erstellt von</h5>
-      <h3>
+      <!-- <h3>
         {{ channelData.creator }}
+      </h3> -->
+      <h3>
+        {{
+          this.userService.users[
+            this.userService.getUsersData(this.channelData.creator)
+          ].name
+        }}
       </h3>
     </div>
   </mat-dialog-content>
