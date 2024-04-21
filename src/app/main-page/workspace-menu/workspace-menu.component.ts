@@ -72,6 +72,7 @@ export class WorkspaceMenuComponent {
     this.chatService.currentChat = chat
     console.log( this.chatService.currentChat)
     this.openPrivateChat.emit();
+    this.chatService.getChatMessages(chat)
   }
 
 

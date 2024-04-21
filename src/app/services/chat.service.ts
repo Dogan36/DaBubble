@@ -65,53 +65,53 @@ export class ChatService {
   async processChat(chatRef: string, currentUserUid: string) {
     const chatDocRef = doc(this.firestore, 'chats', chatRef);
     const chatSnapshot = await getDoc(chatDocRef);
-    
+
     if (chatSnapshot.exists()) {
-        const chatData = chatSnapshot.data();
-        const memberIds = chatData['members'];
-        
-        if (memberIds.length > 1) {
-            const otherMemberData = await this.getOtherMemberData(chatRef, currentUserUid);
-            const readBy = await this.isReadByCurrentUser(chatRef, currentUserUid);
-            let lastMessageTimestamp = chatData['timestamp'] || 0;
-            const chat = {
-                chatRef,
-                name: otherMemberData.name,
-                photoURL: otherMemberData.photoURL,
-                readBy,
-                lastMessageTimestamp
-            };
+      const chatData = chatSnapshot.data();
+      const memberIds = chatData['members'];
 
-            // Füge den neuen Chat der chatsSubject hinzu
-            this.chatsSubject.next([...this.chatsSubject.value, chat]);
-        } else if (memberIds.length === 1) {
-            const chat = {
-                chatRef,
-                name: this.authService.currentUser.name,
-                photoURL: this.authService.currentUser.photoURL,
-                lastMessageTimestamp:99999999999999,
-                ownChat: true
-            };
+      if (memberIds.length > 1) {
+        const otherMemberData = await this.getOtherMemberData(chatRef, currentUserUid);
+        const readBy = await this.isReadByCurrentUser(chatRef, currentUserUid);
+        let lastMessageTimestamp = chatData['timestamp'] || 0;
+        const chat = {
+          chatRef,
+          name: otherMemberData.name,
+          photoURL: otherMemberData.photoURL,
+          readBy,
+          lastMessageTimestamp
+        };
 
-            // Füge den neuen Chat der chatsSubject hinzu
-            this.chatsSubject.next([...this.chatsSubject.value, chat]);
-        }
+        // Füge den neuen Chat der chatsSubject hinzu
+        this.chatsSubject.next([...this.chatsSubject.value, chat]);
+      } else if (memberIds.length === 1) {
+        const chat = {
+          chatRef,
+          name: this.authService.currentUser.name,
+          photoURL: this.authService.currentUser.photoURL,
+          lastMessageTimestamp: 99999999999999,
+          ownChat: true
+        };
+
+        // Füge den neuen Chat der chatsSubject hinzu
+        this.chatsSubject.next([...this.chatsSubject.value, chat]);
+      }
     }
-}
-          
+  }
+
   async getOtherMemberData(chatRef: string, currentUserUid: string): Promise<any> {
     const chatDocRef = doc(this.firestore, 'chats', chatRef);
     const chatSnapshot = await getDoc(chatDocRef);
-    
+
     if (chatSnapshot.exists()) {
       const chatData = chatSnapshot.data();
       const memberIds = chatData['members'];
       const otherMemberUid = memberIds.find((id: string) => id !== currentUserUid);
-  
+
       if (otherMemberUid) {
         const otherMemberDocRef = doc(this.firestore, 'users', otherMemberUid);
         const otherMemberSnapshot = await getDoc(otherMemberDocRef);
-  
+
         if (otherMemberSnapshot.exists()) {
           return otherMemberSnapshot.data();
         }
@@ -146,10 +146,10 @@ export class ChatService {
 
   sortChatsByLastMessageTimestamp() {
     const sortedChats = this.chatsSubject.value.slice().sort((a, b) => {
-        return b.lastMessageTimestamp - a.lastMessageTimestamp;
+      return b.lastMessageTimestamp - a.lastMessageTimestamp;
     });
     this.chatsSubject.next(sortedChats);
-}
+  }
 
   unsubscribeChats() {
     if (this.unsubChats) {
@@ -161,23 +161,40 @@ export class ChatService {
     return this.chats$;
   }
 
-  getChatMessages(chatRef: string): Observable<any[]> {
-    const chatDocRef = doc(this.firestore, 'chats', chatRef);
-    const messagesCollectionRef = collection(chatDocRef, 'messages');
-    const messagesQuery = query(messagesCollectionRef, orderBy('timestamp', 'asc'));
-
-    return new Observable<any[]>(observer => {
-      const unsubscribe = onSnapshot(messagesQuery, querySnapshot => {
-        const messages: any[] = [];
-        querySnapshot.forEach(doc => {
-          messages.push({ id: doc.id, ...doc.data() });
-        });
-        observer.next(messages);
+  getChatMessages(chat: any) {
+    console.log(chat); // Überprüfung der übergebenen chatRef
+  
+    const chatRef = doc(this.firestore, 'chats', chat.chatRef); // Erstellung der Referenz auf das Chat-Dokument
+    const messagesCollectionRef = collection(chatRef, 'messages'); // Erstellung der Referenz auf die Subsammlung "messages" innerhalb des Chats
+  
+    console.log("Nachrichtensammlungs-Referenz:", messagesCollectionRef); // Überprüfung der erstellten Referenz auf die Nachrichtensammlung
+  
+    const unsubscribe = onSnapshot(messagesCollectionRef, querySnapshot => {
+      const messages: any[] = [];
+  
+      // Überprüfung, ob Nachrichten vorhanden sind
+      if (querySnapshot.empty) {
+        console.log("Keine Nachrichten vorhanden.");
+        return; // Die Ausführung hier beenden, da keine Nachrichten vorhanden sind
+      }
+  
+      // Nachrichten verarbeiten, wenn sie vorhanden sind
+      querySnapshot.forEach(doc => {
+        messages.push({...doc.data()});
       });
-
-      return () => unsubscribe();
+  
+      console.log("Empfangene Nachrichten:", messages); // Ausgabe der empfangenen Nachrichten
+    }, error => {
+      console.error("Fehler beim Abonnieren von Nachrichten:", error); // Fehlerbehandlung beim Abonnieren von Nachrichten
     });
+  
+    // Überprüfung, ob das Observable beendet wird
+    console.log("Beende Abonnement auf Nachrichten.");
+  
+    return () => {
+      unsubscribe();
+      console.log("Abonnement auf Nachrichten beendet."); // Bestätigung, dass das Abonnement beendet wurde
+    };
   }
-
+  
 }
-
