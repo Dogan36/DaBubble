@@ -73,7 +73,7 @@ export class ChatService {
         if (memberIds.length > 1) {
             const otherMemberData = await this.getOtherMemberData(chatRef, currentUserUid);
             const readBy = await this.isReadByCurrentUser(chatRef, currentUserUid);
-            const lastMessageTimestamp = await this.getMessageLastTimestamp(chatRef);
+            let lastMessageTimestamp = chatData['timestamp'] || 0;
             const chat = {
                 chatRef,
                 name: otherMemberData.name,
@@ -117,7 +117,6 @@ export class ChatService {
         }
       }
     }
-    
     return null; // Rückgabe, falls keine Daten gefunden wurden
   }
 
@@ -133,16 +132,17 @@ export class ChatService {
     }
   }
 
-  async getMessageLastTimestamp(chatRef: string): Promise<number> {
-    const chatMessagesRef = collection(this.firestore, `chats/${chatRef}/messages`);
-    const querySnapshot = await getDocs(query(chatMessagesRef, orderBy('timestamp', 'desc'), limit(1)));
-    if (!querySnapshot.empty) {
-      const lastMessageDoc = querySnapshot.docs[0];
-      const lastMessageData = lastMessageDoc.data();
-      return lastMessageData['timestamp'] || 0;
-    }
-    return 0; // Rückgabe eines Standardzeitstempels, wenn keine Nachrichten vorhanden sind
-  }
+  // async getMessageLastTimestamp(chatRef: string): Promise<number> {
+  //   const chatMessagesRef = collection(this.firestore, `chats/${chatRef}/messages`);
+  //   const querySnapshot = await getDocs(query(chatMessagesRef, orderBy('timestamp', 'desc'), limit(1)));
+  //   if (!querySnapshot.empty) {
+  //     const lastMessageDoc = querySnapshot.docs[0];
+  //     const lastMessageData = lastMessageDoc.data();
+  //     return lastMessageData['timestamp'] || 0;
+  //   }
+  //   return 0; // Rückgabe eines Standardzeitstempels, wenn keine Nachrichten vorhanden sind
+  // }
+
 
   sortChatsByLastMessageTimestamp() {
     const sortedChats = this.chatsSubject.value.slice().sort((a, b) => {
