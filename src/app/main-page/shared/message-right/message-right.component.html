@@ -8,10 +8,10 @@
       <span>14:25 Uhr</span>
       <h5 (click)="openShowProfilDialog()">{{ member }}</h5>
     </div>
-    <div class="user-msg">
+    <div class="user-msg" (click)="onOpenThread(selectedChatIndex)">
       <p>{{ message }}</p>
     </div>
-    @if(onChannelBoard) {
+    @if(onChannelBoard && amountMessage !== 0) {
     <div class="answer-info-container">
       <p (click)="onOpenThread(selectedChatIndex)">
         {{ amountMessage }} Antworten

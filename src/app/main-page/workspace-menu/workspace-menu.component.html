@@ -10,7 +10,10 @@
 <div class="workspace-content">
   <div class="channel-head-container">
     <div (click)="toggleChannelList()" class="workspace-subtitle-container">
-      <div [class.transform-icon]="!channelListOpen" class="drop-down-icon"></div>
+      <div
+        [class.transform-icon]="!channelListOpen"
+        class="drop-down-icon"
+      ></div>
       <div class="workspace-subtitle workspace-subtitle-icon-ch">
         <h4>Channels</h4>
       </div>
@@ -23,7 +26,7 @@
     <!-- Hier alle channels über eine for Schleife rendern und index vergeben! -->
     @for (channel of channelService.channels; track channel.id; let index =
     $index) {
-    <div class="channel" (click)="onOpenChannel(index)">
+    <div class="channel" (click)="onOpenChannel(index, channel.id)">
       <h5>{{ channel.name }}</h5>
     </div>
     }
@@ -42,19 +45,18 @@
   </div>
 
   @if(messageListOpen) {
-    
+
   <div class="message-list">
-    
     <!-- Noch mal prüfen, was sinnvoller ist. Index oder user.id? -->
-    @for (chat of this.chats; track index; let index =
-    $index) {
-    <app-workspace-user-profil 
-      [userName]="chat.name" 
+    @for (chat of this.chats; track index; let index = $index) {
+    <app-workspace-user-profil
+      [userName]="chat.name"
       [userImage]="chat.photoURL"
       [ownChat]="chat.ownChat"
-      (click)="onOpenPrivateChat(chat)">
+      (click)="onOpenPrivateChat(chat)"
+    >
     </app-workspace-user-profil>
-  }
+    }
   </div>
   }
 

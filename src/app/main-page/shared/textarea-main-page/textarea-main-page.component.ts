@@ -45,5 +45,18 @@ export class TextareaMainPageComponent {
 
       // }
     // }
+    this.message.message = '';
   }
+
+
+//   onEnterKeyPressed(event: Event) {
+//   // Überprüfe, ob die gedrückte Taste die Enter-Taste ist
+//   if ((event as KeyboardEvent).key === 'Enter' && (event as KeyboardEvent).shiftKey!) {
+//     // Verhindere das Standardverhalten des Textfelds (Umbruch einer neuen Zeile)
+//     event.preventDefault();
+
+//     // Rufe deine submitMessage-Funktion auf
+//     this.submitMessage();
+//   }
+// }
 }

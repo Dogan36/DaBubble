@@ -14,10 +14,11 @@
       <div class="reaction-icon-emoji"></div>
       <div class="reaction-icon-at"></div>
     </div>
-    <div
+    <div class="icon-send" (click)="submitMessage()"></div>
+    <!-- <div
       class="icon-send"
       (click)="submitMessage()"
-      (keydown.enter)="submitMessage()"
-    ></div>
+      (keydown.enter)="onEnterKeyPressed($event)"
+    ></div> -->
   </div>
 </div>

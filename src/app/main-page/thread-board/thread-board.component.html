@@ -16,65 +16,30 @@
   @if(this.channelService.selectedChannelChats[this.channelService.selChatIndex])
   { @for(message of
   this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages;
-  track index; let index = $index) {
-  @if(this.channelService.selectedChannelChats[ this.channelService.selChatIndex
-  ].allMessages[index].member !== this.authService.uid) {
+  track index; let index = $index) { @if(message.member !==
+  this.authService.uid) {
   <app-message-left
     [member]="
-      this.userService.users[
-        this.userService.getUsersData(
-          this.channelService.selectedChannelChats[
-            this.channelService.selChatIndex
-          ].allMessages[index].member
-        )
-      ].name
+      this.userService.users[this.userService.getUsersData(message.member)].name
     "
-    [message]="
-      this.channelService.selectedChannelChats[this.channelService.selChatIndex]
-        .allMessages[index].message
-    "
+    [message]="message.message"
     [memberImg]="
-      this.userService.users[
-        this.userService.getUsersData(
-          this.channelService.selectedChannelChats[
-            this.channelService.selChatIndex
-          ].allMessages[index].member
-        )
-      ].photoURL
+      this.userService.users[this.userService.getUsersData(message.member)]
+        .photoURL
     "
-    [memberRef]="
-      this.channelService.selectedChannelChats[this.channelService.selChatIndex]
-        .allMessages[index].member
-    "
+    [memberRef]="message.member"
   ></app-message-left
   >} @else {
   <app-message-right
     [member]="
-      this.userService.users[
-        this.userService.getUsersData(
-          this.channelService.selectedChannelChats[
-            this.channelService.selChatIndex
-          ].allMessages[index].member
-        )
-      ].name
+      this.userService.users[this.userService.getUsersData(message.member)].name
     "
-    [message]="
-      this.channelService.selectedChannelChats[this.channelService.selChatIndex]
-        .allMessages[index].message
-    "
+    [message]="message.message"
     [memberImg]="
-      this.userService.users[
-        this.userService.getUsersData(
-          this.channelService.selectedChannelChats[
-            this.channelService.selChatIndex
-          ].allMessages[index].member
-        )
-      ].photoURL
+      this.userService.users[this.userService.getUsersData(message.member)]
+        .photoURL
     "
-    [memberRef]="
-      this.channelService.selectedChannelChats[this.channelService.selChatIndex]
-        .allMessages[index].member
-    "
+    [memberRef]="message.member"
   ></app-message-right>
   }}}
 </div>

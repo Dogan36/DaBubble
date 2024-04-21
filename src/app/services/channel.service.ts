@@ -2,7 +2,6 @@ import { Injectable, inject } from '@angular/core';
 import { Firestore, onSnapshot, collection, addDoc, doc, updateDoc, deleteDoc, query, where } from '@angular/fire/firestore';
 import { Channel } from '../models/channel.class';
 import { AuthService } from './auth.service';
-// import { ChatsService } from './chats.service';
 import { Message } from '../models/message.class';
 import { Chat } from '../models/chat.class';
 import { UserService } from './user.service';
@@ -15,10 +14,10 @@ export class ChannelService {
 
   firestore: Firestore = inject(Firestore);
 
-  channels: Channel[] = []; // all existing channels
+  allChannels: Channel[] = []; // all existing channels
+  
+  channels: Channel[] = []; // filtered channels of user
   selectedChannel: number = 0; // selected channel on the board (index)
-
-  channelsOfUser: Channel[] = []; // filtered channels of user
 
   selectedChannelChats: Chat[] = []; // all chats of selected channel
   selChatIndex: number = 0; // selected chat of all chts (index)
@@ -26,6 +25,7 @@ export class ChannelService {
   colMessages: Message[] = []; // var to store all msg of one chat while subscribing the channel with its chats
 
   unsubChannels;
+  private unsubSglChannelChats!: Function;
 
   constructor(private authService: AuthService) {
     // this.authService.getCurrentUser().subscribe(user => {
@@ -42,19 +42,18 @@ export class ChannelService {
   subChannelsList() {
     // const q = query(collection(this.firestore, 'channels'), where('members', 'array-contains', this.uid));
     return onSnapshot(collection(this.firestore, 'channels'), (list) => {
+
+      this.allChannels = [];
       this.channels = [];
-      this.channelsOfUser = [];
+  
       list.forEach(element => {
-        this.channels.push(this.setChannelObject(element.data(), element.id),);
+        this.allChannels.push(this.setChannelObject(element.data(), element.id),);
       })
 
       // Besser wo anders aufrufen!
       this.filterChannelsOfUser(); 
-      if(this.channelsOfUser.length !== 0 ) {
-
-        //15.04 auskommentiert weil es einen fehler wirft
-        this.subSglChannelChats(this.channelsOfUser[0].id);
-
+      if(this.channels.length !== 0 ) {
+        this.subSglChannelChats(this.channels[0].id);
       }
     });
     }
@@ -74,7 +73,7 @@ export class ChannelService {
 
   subSglChannelChats(channelRef:string) {
     this.selectedChannelChats = [];
-    onSnapshot(collection(this.firestore, `channels/${channelRef}/chats`), (listChats) => {
+    this.unsubSglChannelChats = onSnapshot(collection(this.firestore, `channels/${channelRef}/chats`), (listChats) => {
       
       listChats.forEach(chat => {
         
@@ -90,11 +89,9 @@ export class ChannelService {
           } else {
             this.selectedChannelChats.splice(index, 1, this.setChatObj(this.colMessages, chat.id));
           }
-          console.log('Test002', this.selectedChannelChats);
         })
       })
     })
-    console.log('Test 003', this.selectedChannelChats);
   }
 
 
@@ -117,7 +114,6 @@ export class ChannelService {
 
 
   async addChannel(item: {}, colId: "channels") {
-    console.log('Test um zu schauen was alles in item drin ist', item)
     await addDoc(collection(this.firestore, colId), item).catch(
         (err) => { console.error(err) }
       ).then(
@@ -147,11 +143,11 @@ export class ChannelService {
   // saves new message in chat
   async addMessageToChat(message: {}, chatRef:string) {
     let channelRef = this.channels[this.selectedChannel].id;
-    // let chatRef = this.selectedChannelChats[this.selChatIndex].chatId;
+
     await addDoc(collection(this.firestore, `channels/${channelRef}/chats/${chatRef}/messages`), message).catch(
         (err) => { console.error(err) }
       ).then(
-      (docRef) => { console.log("Document written with ID: ", docRef)} // docRef noch mal in dem message Object als id speichern!
+      (docRef) => { console.log("Document written with ID: ", docRef)}
       ) 
   }
 
@@ -192,8 +188,8 @@ export class ChannelService {
   }
 
 
-
-  async deleteNote(docId: string) {
+// In der user stroy eigentlich nicht vorgesehen
+  async deleteChannel(docId: string) {
     let docRef = doc(collection(this.firestore, 'channels'), docId);
     await deleteDoc(docRef).catch(
       (err) => {console.log(err)}
@@ -202,26 +198,28 @@ export class ChannelService {
 
   
   filterChannelsOfUser() {
-    if(this.channels) {
-      for (let i = 0; i < this.channels.length; i++) {
-        const element = this.channels[i];
+    if(this.allChannels) {
+      for (let i = 0; i < this.allChannels.length; i++) {
+        const element = this.allChannels[i];
         
         if(this.authService.uid) {
           let index = element.members?.indexOf(this.authService.uid);
           
           if(index !== -1) {
-            this.channelsOfUser.push(element);
-            
+            this.channels.push(element);
           }
         }
       }
     }
-
   }
   
   
   ngOnDestroy() {
     this.unsubChannels();
+
+    if (this.unsubSglChannelChats) {
+        this.unsubSglChannelChats();
+    }
   }
 }
 

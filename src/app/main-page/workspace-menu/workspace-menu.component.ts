@@ -58,7 +58,8 @@ export class WorkspaceMenuComponent {
     this.openNewChat.emit();
   }
 
-  onOpenChannel(i:number) {
+  onOpenChannel(i:number, channelRef:string) {
+    this.channelService.subSglChannelChats(channelRef);
     this.channelService.selectedChannel = i;
     this.openChannel.emit();
   }
