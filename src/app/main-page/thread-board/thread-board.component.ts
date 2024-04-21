@@ -16,7 +16,8 @@ import { AuthService } from '../../services/auth.service';
 })
 export class ThreadBoardComponent {
 
-  channelBoard = false;
+  // channelBoard = false;
+  threadBoard = true;
 
   constructor(private evtSvc: EventService, public channelService: ChannelService, public userService: UserService, public authService: AuthService) {}
 

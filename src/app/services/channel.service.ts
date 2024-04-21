@@ -15,12 +15,15 @@ export class ChannelService {
 
   firestore: Firestore = inject(Firestore);
 
-  selectedChannel: number = 0;
-  channels: Channel[] = [];
-  channelsOfUser: Channel[] = [];
-  selectedChannelChats: Chat[] = [];
-  selChatIndex: number = 0;
-  colMessages: Message[] = [];
+  channels: Channel[] = []; // all existing channels
+  selectedChannel: number = 0; // selected channel on the board (index)
+
+  channelsOfUser: Channel[] = []; // filtered channels of user
+
+  selectedChannelChats: Chat[] = []; // all chats of selected channel
+  selChatIndex: number = 0; // selected chat of all chts (index)
+  
+  colMessages: Message[] = []; // var to store all msg of one chat while subscribing the channel with its chats
 
   unsubChannels;
 
@@ -124,19 +127,27 @@ export class ChannelService {
 
 
   // saves new chat
-  // async startNewChat(item: {}, message: {}, channelRef:string) {
-  //   await addDoc(collection(this.firestore, `channels/${channelRef}/chats`), item).catch(
-  //       (err) => { console.error(err) }
-  //     ).then(
-  //       (docRef) => { console.log("Document written with ID: ", docRef),
-  //       this.addMessageToChat(message, channelRef, docRef);
-  //       } // docSubRef noch mal in dem message Object als id speichern?? 
-  //     ) 
-  // }
+  async startNewChat(item: {}, message: {}) {
+    let channelRef = this.channels[this.selectedChannel].id;
+    await addDoc(collection(this.firestore, `channels/${channelRef}/chats`), item).catch(
+        (err) => { console.error(err) }
+      ).then(
+        (docRef) => { 
+          if (docRef) {
+            console.log("Document written with ID: ", docRef);
+            this.addMessageToChat(message, docRef.id);
+          } else {
+            console.error("Failed to get document reference.");
+          }
+        } 
+      ) 
+  }
 
 
   // saves new message in chat
-  async addMessageToChat(message: {}, channelRef:string, chatRef: string) {
+  async addMessageToChat(message: {}, chatRef:string) {
+    let channelRef = this.channels[this.selectedChannel].id;
+    // let chatRef = this.selectedChannelChats[this.selChatIndex].chatId;
     await addDoc(collection(this.firestore, `channels/${channelRef}/chats/${chatRef}/messages`), message).catch(
         (err) => { console.error(err) }
       ).then(

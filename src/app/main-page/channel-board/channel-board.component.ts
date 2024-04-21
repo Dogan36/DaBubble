@@ -1,4 +1,5 @@
 import { Component, Renderer2, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { TextareaMainPageComponent } from '../shared/textarea-main-page/textarea-main-page.component';
 import { MessageLeftComponent } from '../shared/message-left/message-left.component';
 import { MessageRightComponent } from '../shared/message-right/message-right.component';
@@ -6,7 +7,6 @@ import { MatDialog } from '@angular/material/dialog';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogEditChannelComponent } from '../dialogs/dialog-edit-channel/dialog-edit-channel.component';
 import { ChannelService } from '../../services/channel.service';
-import { CommonModule } from '@angular/common';
 import { WorkspaceUserProfilComponent } from '../shared/workspace-user-profil/workspace-user-profil.component';
 import { UserService } from '../../services/user.service';
 import { SearchMemberInputComponent } from '../shared/search-member-input/search-member-input.component';
@@ -30,6 +30,7 @@ export class ChannelBoardComponent {
     private bodyClickListener?: () => void;
     channelData = this.channelService.channels[this.channelService.selectedChannel];
     chatsData = this.channelService.selectedChannelChats;
+    // channelTextarea = true;
 
     
 

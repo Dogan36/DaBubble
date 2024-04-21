@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { ChannelBoardComponent } from '../../channel-board/channel-board.component';
+// import { ChannelBoardComponent } from '../../channel-board/channel-board.component';
 import { EventService } from '../../../services/event.service';
 import { MatDialog } from '@angular/material/dialog';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -11,7 +11,7 @@ import { UserService } from '../../../services/user.service';
 @Component({
   selector: 'app-message-left',
   standalone: true,
-  imports: [ChannelBoardComponent, MatDialogModule],
+  imports: [MatDialogModule],
   templateUrl: './message-left.component.html',
   styleUrl: './message-left.component.scss'
 })
