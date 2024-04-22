@@ -3,8 +3,7 @@ import { Firestore, onSnapshot, collection, addDoc, doc, updateDoc, deleteDoc, q
 import { AuthService } from './auth.service';
 import { BehaviorSubject, Observable, Subscription, switchMap } from 'rxjs';
 import { UserService } from './user.service';
-import { User } from '../models/user.class';
-import { Data } from '@angular/router';
+
 
 
 
@@ -25,7 +24,8 @@ export class ChatService {
   private chatsSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   public chats$: Observable<any[]> = this.chatsSubject.asObservable();
   unsubChats: any
-
+  messages: any[] = [];
+  
   subChats() {
     return new Promise<void>((resolve, reject) => {
       this.unsubChats = this.authService.currentUser$.subscribe(user => {
@@ -170,8 +170,7 @@ export class ChatService {
     console.log("Nachrichtensammlungs-Referenz:", messagesCollectionRef); // Überprüfung der erstellten Referenz auf die Nachrichtensammlung
   
     const unsubscribe = onSnapshot(messagesCollectionRef, querySnapshot => {
-      const messages: any[] = [];
-  
+     
       // Überprüfung, ob Nachrichten vorhanden sind
       if (querySnapshot.empty) {
         console.log("Keine Nachrichten vorhanden.");
@@ -180,10 +179,10 @@ export class ChatService {
   
       // Nachrichten verarbeiten, wenn sie vorhanden sind
       querySnapshot.forEach(doc => {
-        messages.push({...doc.data()});
+        this.messages.push({...doc.data()});
       });
   
-      console.log("Empfangene Nachrichten:", messages); // Ausgabe der empfangenen Nachrichten
+      console.log("Empfangene Nachrichten:", this.messages); // Ausgabe der empfangenen Nachrichten
     }, error => {
       console.error("Fehler beim Abonnieren von Nachrichten:", error); // Fehlerbehandlung beim Abonnieren von Nachrichten
     });
