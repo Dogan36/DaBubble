@@ -83,12 +83,16 @@ export class ChannelService {
           listMessages.forEach(message => {
             this.colMessages.push(this.setMessageObj(message.data(), message.id));
           })
+          // sorts the array of messages by the timestamp!
+          this.colMessages.sort((a, b) => a.timestamp - b.timestamp);
+
           const index = this.selectedChannelChats.findIndex(chatObj => chatObj.chatId === chat.id);
           if(index == -1) {
-            this.selectedChannelChats.push(this.setChatObj(this.colMessages, chat.id));
+            this.selectedChannelChats.push(this.setChatObj(this.colMessages, chat.id, chat.data()['timestamp']));
           } else {
-            this.selectedChannelChats.splice(index, 1, this.setChatObj(this.colMessages, chat.id));
+            this.selectedChannelChats.splice(index, 1, this.setChatObj(this.colMessages, chat.id, chat.data()['timestamp']));
           }
+          this.selectedChannelChats.sort((a, b) => a.timestamp - b.timestamp);
         })
       })
     })
@@ -104,9 +108,10 @@ export class ChannelService {
     };
   }
 
-  setChatObj(colMessages:Message[], id:string) : Chat {
+  setChatObj(colMessages:Message[], id:string, timestamp: number) : Chat {
     return {
       chatId: id,
+      timestamp: timestamp,
       allMessages: colMessages,
     };
   }
@@ -212,6 +217,40 @@ export class ChannelService {
       }
     }
   }
+
+  getTime(timestamp:number) {
+    const date = new Date(timestamp);
+    const hours = ('0' + date.getHours()).slice(-2);
+    const minutes = ('0' + date.getMinutes()).slice(-2);
+    const formattedTime = `${hours}:${minutes}`;
+
+    return formattedTime;
+  }
+
+  getDate(timestamp:number) {
+    const date = new Date(timestamp);
+
+    const daysOfWeek = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+    const months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+
+    const dayOfWeek = daysOfWeek[date.getDay()];
+    const dayOfMonth = date.getDate();
+    const monthName = months[date.getMonth()];
+
+    const formattedDate = `${dayOfWeek}, ${dayOfMonth} ${monthName}`;
+    return formattedDate;
+  }
+
+  isToday(timestamp: number): boolean {
+    const today = new Date();
+    const dateFromTimestamp = new Date(timestamp);
+    
+    return (
+        today.getFullYear() === dateFromTimestamp.getFullYear() &&
+        today.getMonth() === dateFromTimestamp.getMonth() &&
+        today.getDate() === dateFromTimestamp.getDate()
+    );
+}
   
   
   ngOnDestroy() {

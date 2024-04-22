@@ -117,14 +117,20 @@
 </div>
 <div class="hr-line"></div>
 <div class="chat-field">
-  <!-- evtl aus thread-sep-container eine Komponente machen -->
-  <div class="thread-sep-container">
-    <div class="thread-sep-line"></div>
-    <p class="thread-sep-time">Dienstag, 14 Januar</p>
-    <div class="thread-sep-line"></div>
-  </div>
   @if(this.channelService.selectedChannelChats[0]) { @for(chat of
   this.channelService.selectedChannelChats; track index; let index = $index) {
+  <!-- Date logic -->
+  @if(chat.chatId === this.channelService.selectedChannelChats[0].chatId ||
+  this.channelService.getDate(this.channelService.selectedChannelChats[index -
+  1].timestamp) !== this.channelService.getDate(chat.timestamp)) {
+  @if(this.channelService.isToday(chat.timestamp)) {
+  <app-time-separator [forDate]="'Heute'"></app-time-separator>
+  } @else {
+  <app-time-separator
+    [forDate]="this.channelService.getDate(chat.timestamp)"
+  ></app-time-separator>
+  }}
+  <!-- message left or right logic -->
   @if(chat.allMessages[0] && chat.allMessages[0].member &&
   chat.allMessages[0].member !== this.authService.uid) {
   <app-message-left
@@ -143,6 +149,12 @@
     [amountMessage]="chat.allMessages.length - 1"
     [selectedChatIndex]="index"
     [memberRef]="chat.allMessages[0].member"
+    [time]="this.channelService.getTime(chat.allMessages[0].timestamp)"
+    [timeLastMessage]="
+      this.channelService.getTime(
+        chat.allMessages[chat.allMessages.length - 1].timestamp
+      )
+    "
   ></app-message-left
   >} @else if(chat.allMessages[0] && chat.allMessages[0].member) {
   <app-message-right
@@ -161,6 +173,12 @@
     [amountMessage]="chat.allMessages.length - 1"
     [selectedChatIndex]="index"
     [memberRef]="chat.allMessages[0].member"
+    [time]="this.channelService.getTime(chat.allMessages[0].timestamp)"
+    [timeLastMessage]="
+      this.channelService.getTime(
+        chat.allMessages[chat.allMessages.length - 1].timestamp
+      )
+    "
   ></app-message-right>
   }}}
 </div>

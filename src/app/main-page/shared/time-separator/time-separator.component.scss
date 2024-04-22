@@ -1,0 +1,22 @@
+@import './../../../../styles.scss';
+@import './../../main-page.component.scss';
+
+
+.thread-sep-container {
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+    margin-right: 30px;
+
+    .thread-sep-line {
+        flex: 1;
+        height: 1px;
+        background-color: $cpt-line;
+    }
+
+    .thread-sep-time {
+        border: 1px solid $cpt-line;
+        border-radius: 30px;
+        padding: 5px 15px;
+    }
+}

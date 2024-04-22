@@ -6,17 +6,17 @@ import { EventService } from '../../services/event.service';
 import { ChannelService } from '../../services/channel.service';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
+import { TimeSeparatorComponent } from '../shared/time-separator/time-separator.component';
 
 @Component({
   selector: 'app-thread-board',
   standalone: true,
-  imports: [TextareaMainPageComponent, MessageLeftComponent, MessageRightComponent],
+  imports: [TextareaMainPageComponent, MessageLeftComponent, MessageRightComponent, TimeSeparatorComponent],
   templateUrl: './thread-board.component.html',
   styleUrl: './thread-board.component.scss'
 })
 export class ThreadBoardComponent {
 
-  // channelBoard = false;
   threadBoard = true;
 
   constructor(private evtSvc: EventService, public channelService: ChannelService, public userService: UserService, public authService: AuthService) {}

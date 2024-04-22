@@ -8,16 +8,25 @@
 </div>
 <div class="hr-line"></div>
 <div class="thread-field">
-  <!-- <app-message-left></app-message-left>
-  <div class="thread-answers-sep">
-    <p>2 Antworten</p>
-    <div></div>
-  </div> -->
   @if(this.channelService.selectedChannelChats[this.channelService.selChatIndex])
   { @for(message of
   this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages;
-  track index; let index = $index) { @if(message.member !==
-  this.authService.uid) {
+  track index; let index = $index) {
+  <!-- Date logic -->
+  @if(message.messageId ===
+  this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[0].messageId
+  ||
+  this.channelService.getDate(this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[index
+  - 1].timestamp) !== this.channelService.getDate(message.timestamp)) {
+  @if(this.channelService.isToday(message.timestamp)) {
+  <app-time-separator [forDate]="'Heute'"></app-time-separator>
+  } @else {
+  <app-time-separator
+    [forDate]="this.channelService.getDate(message.timestamp)"
+  ></app-time-separator>
+  }}
+  <!-- message left or right logic -->
+  @if(message.member !== this.authService.uid) {
   <app-message-left
     [member]="
       this.userService.users[this.userService.getUsersData(message.member)].name
@@ -28,6 +37,7 @@
         .photoURL
     "
     [memberRef]="message.member"
+    [time]="this.channelService.getTime(message.timestamp)"
   ></app-message-left
   >} @else {
   <app-message-right
@@ -40,7 +50,24 @@
         .photoURL
     "
     [memberRef]="message.member"
+    [time]="this.channelService.getTime(message.timestamp)"
   ></app-message-right>
+  }
+  <!-- hier kommt separator nach der ersten message hin -->
+  @if(message.messageId ===
+  this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[0].messageId)
+  {
+  <div class="thread-answers-sep">
+    <p>
+      {{
+        this.channelService.selectedChannelChats[
+          this.channelService.selChatIndex
+        ].allMessages.length - 1
+      }}
+      Antworten
+    </p>
+    <div></div>
+  </div>
   }}}
 </div>
 <app-textarea-main-page [onThreadBoard]="threadBoard"></app-textarea-main-page>

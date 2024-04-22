@@ -9,7 +9,7 @@
   <div>
     <div class="user-name-time">
       <h5 (click)="openShowProfilDialog()">{{ member }}</h5>
-      <span>14:25 Uhr</span>
+      <span>{{ time }} Uhr</span>
     </div>
     <div class="user-msg" (click)="onOpenThread(selectedChatIndex)">
       <p>{{ message }}</p>
@@ -19,7 +19,7 @@
       <p (click)="onOpenThread(selectedChatIndex)">
         {{ amountMessage }} Antworten
       </p>
-      <span>Letzte Antwort 14:56</span>
+      <span>Letzte Antwort {{ timeLastMessage }}</span>
     </div>
     } @if (containerHovered) {
     <div class="add-reaction-container"></div>

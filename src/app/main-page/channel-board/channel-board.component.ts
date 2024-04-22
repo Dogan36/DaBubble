@@ -13,12 +13,13 @@ import { SearchMemberInputComponent } from '../shared/search-member-input/search
 import { Channel } from '../../models/channel.class';
 import { User } from '../../models/user.class';
 import { AuthService } from '../../services/auth.service';
+import { TimeSeparatorComponent } from '../shared/time-separator/time-separator.component';
 
 
 @Component({
   selector: 'app-channel-board',
   standalone: true,
-  imports: [TextareaMainPageComponent, MessageLeftComponent, MessageRightComponent, MatDialogModule, CommonModule, WorkspaceUserProfilComponent, SearchMemberInputComponent],
+  imports: [TextareaMainPageComponent, MessageLeftComponent, MessageRightComponent, MatDialogModule, CommonModule, WorkspaceUserProfilComponent, SearchMemberInputComponent, TimeSeparatorComponent],
   templateUrl: './channel-board.component.html',
   styleUrl: './channel-board.component.scss'
 })

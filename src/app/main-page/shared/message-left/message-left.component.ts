@@ -22,8 +22,8 @@ export class MessageLeftComponent {
   @Input() message: string = '';
   @Input() memberImg: string = '';
   @Input() amountMessage: number = 0;
-  // @Input() time: string = '';
-  // @Input() timeLastMessage: string = '';
+  @Input() time: string = '';
+  @Input() timeLastMessage: string = '';
   @Input() selectedChatIndex: number = 0;
   @Input() memberRef: string = '';
 
