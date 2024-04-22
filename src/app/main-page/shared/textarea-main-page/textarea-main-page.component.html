@@ -1,24 +1,23 @@
 <div class="chat-input-container">
-  <textarea
-    id="message-field"
-    [(ngModel)]="message.message"
-    name=""
-    id=""
-    rows="4"
-    placeholder="Nachricht an ..."
-  ></textarea>
-  <div class="chat-icons-container">
-    <div class="reaction-icons">
-      <div class="reaction-icon-plus"></div>
-      <div class="sep-line"></div>
-      <div class="reaction-icon-emoji"></div>
-      <div class="reaction-icon-at"></div>
+  <form (ngSubmit)="submitMessage(messageForm)" #messageForm="ngForm">
+    <textarea
+      id="message-field"
+      [(ngModel)]="message.message"
+      name="message"
+      id=""
+      rows="4"
+      placeholder="Nachricht an ..."
+      (keydown.enter)="onEnterKeyPressed($event, messageForm)"
+      minlength="1"
+    ></textarea>
+    <div class="chat-icons-container">
+      <div class="reaction-icons">
+        <div class="reaction-icon-plus"></div>
+        <div class="sep-line"></div>
+        <div class="reaction-icon-emoji"></div>
+        <div class="reaction-icon-at"></div>
+      </div>
+      <input class="icon-send" type="submit" value="" />
     </div>
-    <div class="icon-send" (click)="submitMessage()"></div>
-    <!-- <div
-      class="icon-send"
-      (click)="submitMessage()"
-      (keydown.enter)="onEnterKeyPressed($event)"
-    ></div> -->
-  </div>
+  </form>
 </div>
