@@ -53,10 +53,12 @@
     [time]="this.channelService.getTime(message.timestamp)"
   ></app-message-right>
   }
-  <!-- hier kommt separator nach der ersten message hin -->
+  <!-- separator after first message -->
   @if(message.messageId ===
-  this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[0].messageId)
-  {
+  this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[0].messageId
+  &&
+  this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages.length
+  > 1) {
   <div class="thread-answers-sep">
     <p>
       {{

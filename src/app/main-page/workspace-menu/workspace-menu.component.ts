@@ -22,9 +22,6 @@ export class WorkspaceMenuComponent {
   channelListOpen = true;
   messageListOpen = true;
   chats: any[] = []; // Hier werden die Chats gespeichert
-  // So muss die Funktion mit Parameter aussehen!
-  // @Output() openChannel = new EventEmitter<any>();
-  // evtl doch mit Service arbeiten
   @Output() openChannel = new EventEmitter<void>();
   @Output() openPrivateChat = new EventEmitter<void>();
   @Output() openNewChat = new EventEmitter<void>();
@@ -63,16 +60,13 @@ export class WorkspaceMenuComponent {
     this.channelService.selectedChannel = i;
     this.openChannel.emit();
   }
-  // So muss die Funktion mit Parameter aussehen!
-  //   onOpenChannel(index:number) {
-  //   this.openChannel.emit(index);
-  // }
+
 
   onOpenPrivateChat(chat: any) {
-    this.chatService.currentChat = chat
-    console.log( this.chatService.currentChat)
+    this.chatService.currentChat = chat;
+    console.log( this.chatService.currentChat);
     this.openPrivateChat.emit();
-    this.chatService.getChatMessages(chat)
+    this.chatService.getChatMessages(chat);
   }
 
 

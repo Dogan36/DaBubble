@@ -13,6 +13,7 @@
 <div class="hr-line"></div>
 
 <div class="chat-field">
+  @if(this.chatService.messages.length == 0) {
   <div class="new-chat-container">
     <div class="new-chat-user">
       <img [src]="chatService.currentChat.photoURL" alt="" />
@@ -34,5 +35,48 @@
     </p>
     }
   </div>
+  } @else { @for(message of this.chatService.messages; track index; let index =
+  $index) {
+  <!-- Date logic -->
+  <!-- Hier besser mit ID arbeiten!
+  message.messageId === this.chatService.messages[0].messageId -->
+  @if(message.timestamp === this.chatService.messages[0].timestamp ||
+  this.channelService.getDate(this.chatService.messages[index - 1].timestamp)
+  !== this.channelService.getDate(message.timestamp)) {
+  @if(this.channelService.isToday(message.timestamp)) {
+  <app-time-separator [forDate]="'Heute'"></app-time-separator>
+  } @else {
+  <app-time-separator
+    [forDate]="this.channelService.getDate(message.timestamp)"
+  ></app-time-separator>
+  }}
+  <!-- message left or right logic -->
+  @if(message.member !== this.authService.uid) {
+  <app-message-left
+    [member]="
+      this.userService.users[this.userService.getUsersData(message.member)].name
+    "
+    [message]="message.message"
+    [memberImg]="
+      this.userService.users[this.userService.getUsersData(message.member)]
+        .photoURL
+    "
+    [memberRef]="message.member"
+    [time]="this.channelService.getTime(message.timestamp)"
+  ></app-message-left
+  >} @else {
+  <app-message-right
+    [member]="
+      this.userService.users[this.userService.getUsersData(message.member)].name
+    "
+    [message]="message.message"
+    [memberImg]="
+      this.userService.users[this.userService.getUsersData(message.member)]
+        .photoURL
+    "
+    [memberRef]="message.member"
+    [time]="this.channelService.getTime(message.timestamp)"
+  ></app-message-right>
+  } } }
 </div>
 <app-textarea-main-page></app-textarea-main-page>

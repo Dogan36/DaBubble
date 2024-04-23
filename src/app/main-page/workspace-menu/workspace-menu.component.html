@@ -23,7 +23,6 @@
 
   @if(channelListOpen) {
   <div class="channels-list">
-    <!-- Hier alle channels über eine for Schleife rendern und index vergeben! -->
     @for (channel of channelService.channels; track channel.id; let index =
     $index) {
     <div class="channel" (click)="onOpenChannel(index, channel.id)">
@@ -36,7 +35,7 @@
   </div>
   }
 
-  <!-- Direktnachrichten -->
+  <!-- Private Chats -->
   <div (click)="toggleMessageList()" class="workspace-subtitle-container">
     <div [class.transform-icon]="!messageListOpen" class="drop-down-icon"></div>
     <div class="workspace-subtitle workspace-subtitle-icon-mes">
@@ -47,7 +46,6 @@
   @if(messageListOpen) {
 
   <div class="message-list">
-    <!-- Noch mal prüfen, was sinnvoller ist. Index oder user.id? -->
     @for (chat of this.chats; track index; let index = $index) {
     <app-workspace-user-profil
       [userName]="chat.name"
@@ -59,6 +57,4 @@
     }
   </div>
   }
-
-  <!-- Struktur noch mal anpassen + Overflow: scroll -->
 </div>
