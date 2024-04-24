@@ -34,4 +34,8 @@ export class LoginService {
     this.showSignUpPicture = !this.showSignUpPicture;
     this.showLogin = !this.showLogin;
   }
+
+  navigateToLogin(){
+    window.location.href='/';
+  }
 }

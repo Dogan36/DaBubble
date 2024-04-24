@@ -56,7 +56,8 @@ export class AuthService {
         });
       } else {
         this._currentUserSubject.next(null);
-        this.router.navigate(['/']);
+        if(this.router.url !== '/reset-password'){   this.router.navigate(['/']);}
+     
       }
     });
   }
