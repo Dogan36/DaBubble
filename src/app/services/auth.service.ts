@@ -33,7 +33,7 @@ export class AuthService {
   constructor( 
     private overlayService: OverlayService,
     private loginService: LoginService,
-    private auth: Auth,
+    public auth: Auth,
     private firestore: Firestore,
     private router: Router
     ){

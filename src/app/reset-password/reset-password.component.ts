@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { NgIf } from '@angular/common';
 import { LoginService } from '../services/login.service';
 import { Router, RouterLink } from '@angular/router';
+import { ResetPasswordService } from '../services/reset-password.service';
 @Component({
   selector: 'app-reset-password',
   standalone: true,
@@ -15,23 +16,23 @@ export class ResetPasswordComponent {
   myForm: FormGroup;
   authService: AuthService = inject(AuthService);
   loginService: LoginService = inject(LoginService)
+  resetPasswordService: ResetPasswordService = inject(ResetPasswordService);
   constructor(private fb: FormBuilder, private renderer: Renderer2,
-    private el: ElementRef, public router:Router){
+    private el: ElementRef, public router: Router) {
 
-    
-      this.myForm = this.fb.group({
-      
-        password: ['', [Validators.required, Validators.minLength(7)]],
-        passwordRepeat: ['', Validators.required]
-      });
+
+    this.myForm = this.fb.group({
+
+      password: ['', [Validators.required, Validators.minLength(7)]],
+      passwordRepeat: ['', Validators.required]
+    });
   }
-  password:string =''
-  
+  password: string = ''
   onSubmit() {
-   
+
     if (this.myForm.valid) {
       this.password = this.myForm.value['password'];
-      console.log(this.password)
+      this.resetPasswordService.handleResetPassword()
     }
   }
 
@@ -58,7 +59,7 @@ export class ResetPasswordComponent {
   validatePasswordRepeat() {
     const passwordControl = this.myForm.get('password');
     const passwordRepeatControl = this.myForm.get('passwordRepeat');
-    
+
     if (passwordControl && passwordRepeatControl && passwordControl.value !== passwordRepeatControl.value) {
       // Setze das entsprechende Formularfeld auf "berührt", damit Fehler angezeigt werden können
       passwordRepeatControl.markAsTouched();
