@@ -71,6 +71,7 @@ export class DialogAddChannelComponent {
             const selectedMember = selectedMembersArray[i];
             this.channel.members.push(selectedMember.id);
           }
+          this.channel.members.push(this.authService.uid);
           selectedMembersArray = [];
         } else {
             this.channel.members = [this.authService.uid];

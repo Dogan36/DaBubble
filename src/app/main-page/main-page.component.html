@@ -10,7 +10,7 @@
       {{ this.authService.currentUser?.name }}
     </h2>
     <img
-     [src]="this.authService.currentUser?.photoURL"
+      [src]="this.authService.currentUser?.photoURL"
       alt=""
       (click)="openUserMenuDialog()"
     />
@@ -41,7 +41,8 @@
   <app-channel-board></app-channel-board>
   } @if(privateChatOpen) {
   <app-chat-board></app-chat-board>
-  } @if(threadOpen && channelChatOpen) {
+  } @if(threadOpen && channelChatOpen &&
+  this.channelService.selectedChannelChats.length > 0) {
   <app-thread-board></app-thread-board>
   }
 </div>

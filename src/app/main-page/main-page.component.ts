@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogUserMenuComponent } from './dialogs/dialog-user-menu/dialog-user-menu.component';
 import { UserType } from '../types/user.class';
+import { ChannelService } from '../services/channel.service';
 
 @Component({
   selector: 'app-main-page',
@@ -30,7 +31,7 @@ export class MainPageComponent {
   uid:string=''
   currentUser: UserType | null = null;
 
-  constructor(private evtSvc: EventService, public dialog: MatDialog) {
+  constructor(private evtSvc: EventService, public dialog: MatDialog, public channelService: ChannelService ) {
     this.evtSvc.getThreadOpenStatus().subscribe(status => {
       this.threadOpen = status;
     });

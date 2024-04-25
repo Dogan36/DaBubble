@@ -1,7 +1,7 @@
 import { Message } from "./message.class";
 
 export class Chat {
-    chatId?: string;
+    chatId: string;
     timestamp: number;
     allMessages: Message[];
 

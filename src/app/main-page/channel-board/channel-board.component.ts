@@ -34,7 +34,6 @@ export class ChannelBoardComponent {
     // channelTextarea = true;
 
     
-
     constructor(public dialog: MatDialog, public channelService: ChannelService, private renderer: Renderer2, public userService: UserService, public authService: AuthService) {}
 
  

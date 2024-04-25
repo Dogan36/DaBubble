@@ -20,7 +20,7 @@ export class ChannelService {
   selectedChannel: number = 0; // selected channel on the board (index)
 
   selectedChannelChats: Chat[] = []; // all chats of selected channel
-  selChatIndex: number = 0; // selected chat of all chts (index)
+  selChatIndex: number = 0; // selected chat of all chats (index)
   
   colMessages: Message[] = []; // var to store all msg of one chat while subscribing the channel with its chats
 
@@ -104,6 +104,7 @@ export class ChannelService {
       messageId: id,
       message: obj.message || '',
       member: obj.member,
+      reactions: this.setReactions(obj) || [],
       timestamp: obj.timestamp
     };
   }
@@ -114,6 +115,29 @@ export class ChannelService {
       timestamp: timestamp,
       allMessages: colMessages,
     };
+  }
+
+  setReactions(obj:any) {
+    if(obj.reactions) {
+    let reactionsArray = [];
+    for (let i = 0; i < obj.reactions.length; i++) {
+      const reactionString = obj.reactions[i];
+      
+      let reactionArray = reactionString.split('&');
+
+      if (reactionArray.length === 2) {
+        let reactionMember = reactionArray[0];
+        let reactionEmoji = reactionArray[1];
+
+        reactionsArray.push({reactUser: reactionMember, reactEmoji: reactionEmoji})
+      } else {
+        console.log("Der Eingabestring hat nicht das erwartete Format.");
+      }
+    }
+    return reactionsArray;
+    } else {
+      return [];
+    }
   }
 
 
@@ -170,26 +194,48 @@ export class ChannelService {
         name: obj.name,
         creator: obj.creator,
         members: obj.members,
-        // threads: obj.threads || [''],
         description: obj.description || ''
     };
   }
 
 
-  // async updateMessage(message: {}, channelRef:string, chatRef:string) {
-  //   if(message.id) {
-  //     let docRef = doc(collection(this.firestore, `channels/${channelRef}/chats/${chatRef}/messages`), message.id);
-  //     await updateDoc(docRef, this.toJSONmessage(message)).catch((err) => { console.log(err); });
-  //   }
-  // }
+  async updateMessage(message: Message) {
+    let channelRef = this.channels[this.selectedChannel].id;
+    let chatRef = this.selectedChannelChats[this.selChatIndex].chatId;
+
+    if(message.messageId) {
+      let docRef = doc(collection(this.firestore, `channels/${channelRef}/chats/${chatRef}/messages`), message.messageId);
+      await updateDoc(docRef, this.toJSONmessage(message)).catch((err) => { console.log(err); });
+    }
+  }
   
   
   toJSONmessage(obj:any) {
+    if(obj.reactions.length > 0) {
+      console.log('ich versteh es nicht', obj.reactions);
     return {
         message: obj.message || '',
         member: obj.member,
+        reactions: this.toJSONreactions(obj) || [],
         timestamp: obj.timestamp
-    };
+    }} else {
+      return {
+        message: obj.message || '',
+        member: obj.member,
+        timestamp: obj.timestamp
+      }
+    }
+  }
+
+
+  toJSONreactions(obj:any) {
+    let reactionsArray = [];
+    for (let i = 0; i < obj.reactions.length; i++) {
+      const reaction = obj.reactions[i];
+
+      reactionsArray.push(reaction.reactUser + "&" + reaction.reactEmoji)
+    }
+    return reactionsArray;
   }
 
 

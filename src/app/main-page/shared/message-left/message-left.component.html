@@ -1,7 +1,7 @@
 <div
   class="message-left"
-  (mouseenter)="onMouseOver()"
-  (mouseleave)="onMouseOver()"
+  (mouseenter)="onMouseOver('enter')"
+  (mouseleave)="onMouseOver('leave')"
 >
   <div>
     <img [src]="memberImg" alt="" (click)="openShowProfilDialog()" />
@@ -22,7 +22,18 @@
       <span>Letzte Antwort {{ timeLastMessage }}</span>
     </div>
     } @if (containerHovered) {
-    <div class="add-reaction-container"></div>
+    <div
+      class="add-reaction-container"
+      [matMenuTriggerFor]="aboveMenu"
+      #aboveMenuTrigger="matMenuTrigger"
+    ></div>
     }
+    <mat-menu #aboveMenu="matMenu" yPosition="above" xPosition="before">
+      <emoji-mart
+        (emojiClick)="addEmoji($event)"
+        emoji="point_up"
+        [enableSearch]="false"
+      ></emoji-mart>
+    </mat-menu>
   </div>
 </div>

@@ -20,6 +20,10 @@
         this.channelService.channels[this.channelService.selectedChannel].members
         | slice:0:3; track $index) {
         <img
+          *ngIf="
+            this.userService.users &&
+            this.userService.users[this.userService.getUsersData(member)]
+          "
           [src]="
             this.userService.users[this.userService.getUsersData(member)]
               .photoURL

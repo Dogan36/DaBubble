@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import '@ctrl/ngx-emoji-mart/picker';
+
 $cpt-purple-1: #444DF2;
 $cpt-purple-2: #797EF3;
 $cpt-purple-3: #535AF1;
@@ -95,6 +97,14 @@ body {
         box-shadow: none !important;
     }
 } 
+
+.mat-mdc-menu-panel {
+    max-width: fit-content !important;
+}
+
+.mat-mdc-menu-content {
+    padding: 0 !important;
+}
 
 
 

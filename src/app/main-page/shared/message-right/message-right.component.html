@@ -1,7 +1,7 @@
 <div
   class="message-right"
-  (mouseenter)="onMouseOver()"
-  (mouseleave)="onMouseOver()"
+  (mouseenter)="onMouseOver('enter')"
+  (mouseleave)="onMouseOver('leave')"
 >
   <div>
     <div class="user-name-time">
@@ -23,8 +23,19 @@
   <div><img [src]="memberImg" alt="" (click)="openShowProfilDialog()" /></div>
   @if (containerHovered) {
   <div class="add-reaction-container">
-    <div class="add-reaction"></div>
+    <div
+      class="add-reaction"
+      [matMenuTriggerFor]="aboveMenu"
+      #aboveMenuTrigger="matMenuTrigger"
+    ></div>
     <div class="edit-msg"></div>
   </div>
   }
+  <mat-menu #aboveMenu="matMenu" yPosition="above" xPosition="before">
+    <emoji-mart
+      (emojiClick)="addEmoji($event)"
+      emoji="point_up"
+      [enableSearch]="false"
+    ></emoji-mart>
+  </mat-menu>
 </div>

@@ -3,18 +3,22 @@ import { Message } from '../../../models/message.class';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ChannelService } from '../../../services/channel.service';
 import { AuthService } from '../../../services/auth.service';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
+import {MatMenuModule} from '@angular/material/menu';
+import { EmojiComponent, EmojiEvent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 
 
 @Component({
   selector: 'app-textarea-main-page',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, PickerComponent, MatMenuModule, EmojiComponent],
   templateUrl: './textarea-main-page.component.html',
   styleUrl: './textarea-main-page.component.scss'
 })
 export class TextareaMainPageComponent {
 
   message: Message = new Message();
+
 
   @Input() onChannelBoard:boolean = false;
   @Input() onThreadBoard:boolean = false;
@@ -53,9 +57,15 @@ export class TextareaMainPageComponent {
 
 
   onEnterKeyPressed(event: Event, ngForm: NgForm) {
-  if (!(event as KeyboardEvent).shiftKey && (event as KeyboardEvent).key === 'Enter') {
+    if (!(event as KeyboardEvent).shiftKey && (event as KeyboardEvent).key === 'Enter') {
     event.preventDefault();
-    this.submitMessage(ngForm);
+      this.submitMessage(ngForm);
+    }
   }
-}
-}
+
+
+  addEmoji($event: EmojiEvent) {
+      if($event.emoji.native)
+      this.message.message += $event.emoji.native;
+      }
+  }

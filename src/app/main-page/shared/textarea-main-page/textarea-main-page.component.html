@@ -11,10 +11,18 @@
       minlength="1"
     ></textarea>
     <div class="chat-icons-container">
-      <div class="reaction-icons">
+      <div class="reaction-icons" id="reaction-icons-wrapper">
         <div class="reaction-icon-plus"></div>
         <div class="sep-line"></div>
-        <div class="reaction-icon-emoji"></div>
+        <!-- <ngx-emoji emoji=":santa::skin-tone-1:"></ngx-emoji> -->
+        <div class="reaction-icon-emoji" [matMenuTriggerFor]="aboveMenu"></div>
+        <mat-menu #aboveMenu="matMenu" yPosition="above" xPosition="before">
+          <emoji-mart
+            (emojiClick)="addEmoji($event)"
+            emoji="point_up"
+            [enableSearch]="false"
+          ></emoji-mart>
+        </mat-menu>
         <div class="reaction-icon-at"></div>
       </div>
       <input class="icon-send" type="submit" value="" />
