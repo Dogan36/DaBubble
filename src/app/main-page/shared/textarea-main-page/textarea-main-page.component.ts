@@ -40,8 +40,6 @@ export class TextareaMainPageComponent {
         const selectedChat = this.channelService.selectedChannelChats[this.channelService.selChatIndex];
         if(selectedChat && selectedChat.chatId) {
         this.channelService.addMessageToChat(this.channelService.toJSONmessage(this.message), selectedChat.chatId);
-
-        console.log('Event hat geklappt', this.message.message);
       }}
       // else if(this.onPrivatChat) {
 

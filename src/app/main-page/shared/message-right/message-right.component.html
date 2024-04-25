@@ -3,7 +3,7 @@
   (mouseenter)="onMouseOver('enter')"
   (mouseleave)="onMouseOver('leave')"
 >
-  <div>
+  <div class="message-container">
     <div class="user-name-time">
       <span>{{ time }} Uhr</span>
       <h5 (click)="openShowProfilDialog()">{{ member }}</h5>
@@ -11,7 +11,22 @@
     <div class="user-msg" (click)="onOpenThread(selectedChatIndex)">
       <p>{{ message }}</p>
     </div>
-    @if(onChannelBoard && amountMessage !== 0) {
+    @if(this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[messageIndex].reactions.length
+    > 0) {
+    <div class="reactions-container">
+      <div class="add-reaction" [matMenuTriggerFor]="aboveMenu"></div>
+      <div class="reactions-list">
+        @for(reaction of
+        this.channelService.selectedChannelChats[selectedChatIndex].allMessages[messageIndex].reactions;
+        track reaction; let index = $index) {
+        <div class="sgl-reaction-container">
+          <ngx-emoji emoji="{{ reaction.reactEmoji }}"></ngx-emoji>
+          <span>1</span>
+        </div>
+        }
+      </div>
+    </div>
+    } @if(onChannelBoard && amountMessage !== 0) {
     <div class="answer-info-container">
       <p (click)="onOpenThread(selectedChatIndex)">
         {{ amountMessage }} Antworten
@@ -24,6 +39,7 @@
   @if (containerHovered) {
   <div class="add-reaction-container">
     <div
+      (click)="onOpenThread(selectedChatIndex)"
       class="add-reaction"
       [matMenuTriggerFor]="aboveMenu"
       #aboveMenuTrigger="matMenuTrigger"

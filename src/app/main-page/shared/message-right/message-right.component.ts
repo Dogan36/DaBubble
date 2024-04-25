@@ -34,11 +34,9 @@ export class MessageRightComponent {
   @ViewChild('aboveMenuTrigger') emojiMenuTrigger?: MatMenuTrigger;
 
   containerHovered: boolean = false;
-  messageObj: Message;
 
-  constructor(private evtSvc: EventService, public dialog: MatDialog, private channelService: ChannelService, private userService: UserService, private authService: AuthService) {
-    this.messageObj = Object.assign({}, this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[this.messageIndex]);
-  }
+  constructor(private evtSvc: EventService, public dialog: MatDialog, public channelService: ChannelService, private userService: UserService, private authService: AuthService) {}
+
 
   onMouseOver(action:string) {
     if (this.emojiMenuTrigger && this.emojiMenuTrigger.menuOpen) {
@@ -53,8 +51,10 @@ export class MessageRightComponent {
 
 
   onOpenThread(chatIndex:number) {
-    this.channelService.selChatIndex = chatIndex;
-    this.evtSvc.openThread();
+    if(this.onChannelBoard === true) {
+      this.channelService.selChatIndex = chatIndex;
+      this.evtSvc.openThread();
+    }
   }
 
 
@@ -71,21 +71,25 @@ export class MessageRightComponent {
 
 
   addEmoji($event: EmojiEvent) {
-    console.log("Emoji klappt schon mal", $event.emoji);
+    // console.log("Emoji klappt schon mal", $event.emoji);
 
     if($event.emoji && $event.emoji.colons && this.authService.uid) {
+
+      const messageObj = Object.assign({}, this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[this.messageIndex]);
 
       let newReaction: Reaction = {
         reactUser: this.authService.uid, 
         reactEmoji: $event.emoji.colons
       }
-  
-      this.messageObj.reactions.push(newReaction);
-  
-      // checken ob ich mit dem emoji schon drin bin, wenn ja, dann rauslöschen, wenn nein, dann pushen und am ende alles updaten. 
-  
-      this.channelService.updateMessage(this.messageObj);
 
+      const index = messageObj.reactions.findIndex(reaction =>
+        reaction.reactUser === newReaction.reactUser && reaction.reactEmoji === newReaction.  reactEmoji
+      );
+
+      if(index === -1) {
+        messageObj.reactions.push(newReaction);
+        this.channelService.updateMessage(messageObj);
+      }
     }
   }
 }

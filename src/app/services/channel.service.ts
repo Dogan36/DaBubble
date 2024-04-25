@@ -176,7 +176,10 @@ export class ChannelService {
     await addDoc(collection(this.firestore, `channels/${channelRef}/chats/${chatRef}/messages`), message).catch(
         (err) => { console.error(err) }
       ).then(
-      (docRef) => { console.log("Document written with ID: ", docRef)}
+      (docRef) => { 
+        // console.log("Document written with ID: ", docRef)
+        console.log('So sieht die Message aus', message);
+      }
       ) 
   }
 

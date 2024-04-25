@@ -39,6 +39,7 @@
     "
     [memberRef]="message.member"
     [time]="this.channelService.getTime(message.timestamp)"
+    [selectedChatIndex]="this.channelService.selChatIndex"
   ></app-message-left
   >} @else {
   <app-message-right
@@ -53,6 +54,7 @@
     "
     [memberRef]="message.member"
     [time]="this.channelService.getTime(message.timestamp)"
+    [selectedChatIndex]="this.channelService.selChatIndex"
   ></app-message-right>
   }
   <!-- separator after first message -->

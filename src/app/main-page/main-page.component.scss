@@ -5,6 +5,12 @@
 $wdth-left: 366px;
 $wdth-right: 485px;
 
+@mixin font16($fontWeight) {
+    font-size: 16px;
+    line-height: 21.82px;
+    font-weight: $fontWeight;
+}
+
 @mixin font18($fontWeight) {
     font-size: 18px;
     line-height: 24.55px;
