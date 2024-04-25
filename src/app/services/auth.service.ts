@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { EventEmitter, Injectable, inject } from '@angular/core';
 import { Auth, User, createUserWithEmailAndPassword, updateProfile, user, browserSessionPersistence, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, getAdditionalUserInfo, sendPasswordResetEmail, updateEmail, signOut, sendEmailVerification, onAuthStateChanged } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subscription, from, map } from 'rxjs';
@@ -7,6 +7,7 @@ import { Firestore, collection, doc, getDoc, onSnapshot, setDoc, updateDoc } fro
 import { OverlayService } from './overlay.service';
 import { setPersistence } from '@firebase/auth';
 import { LoginService } from './login.service';
+
 
 
 @Injectable({
@@ -29,7 +30,7 @@ export class AuthService {
   registerError: string = ''
 
   provider = new GoogleAuthProvider();
-
+  public logoutEvent: EventEmitter<void> = new EventEmitter<void>();
   constructor( 
     private overlayService: OverlayService,
     private loginService: LoginService,
@@ -155,6 +156,7 @@ export class AuthService {
                 setDoc(userDocRef, userData);
               }}
           );
+          this
           this._currentUserSubject.next(userData); // Aktualisieren Sie currentUser im BehaviorSubject
           this.router.navigate(['/start']);
           setTimeout(() => {
@@ -192,6 +194,7 @@ export class AuthService {
 
   async logout(): Promise<void> {
     try {
+      this.logoutEvent.emit();
       this.overlayService.showOverlay('Abmelden')
       await signOut(this.auth);
       setTimeout(() => {

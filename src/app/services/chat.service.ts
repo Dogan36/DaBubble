@@ -17,27 +17,42 @@ import { UserService } from './user.service';
 export class ChatService {
   private firestore: Firestore = inject(Firestore);
   private authService: AuthService = inject(AuthService);
-  constructor(private userService: UserService) { this.unsubChats = this.subChats() }
+  constructor(private userService: UserService) {
+    this.initialize();
+  
+  }
 
   currentChat: any
 
   private chatsSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   public chats$: Observable<any[]> = this.chatsSubject.asObservable();
-  unsubChats: any
+  private initialized: boolean = false;
+  private unsubChats: Subscription | undefined;
   messages: any[] = [];
+
+  ngOnDestory() {
+    console.log('destroy')
+    this.unsubscribeChats()
+  }
+  private initialize() {
   
-  subChats() {
-    return new Promise<void>((resolve, reject) => {
-      this.unsubChats = this.authService.currentUser$.subscribe(user => {
-        if (user) {
-          try {
-            this.fetchChats(user);
-            resolve();
-          } catch (error) {
-            reject(error);
-          }
-        }
+    if (!this.initialized) {
+      this.unsubChats = this.subChats();
+      this.authService.logoutEvent.subscribe(() => {
+        this.unsubscribeChats();
       });
+      this.initialized = true;
+    }
+  }
+  private subChats(): Subscription {
+    return this.authService.currentUser$.subscribe(user => {
+      if (user) {
+        try {
+          this.fetchChats(user);
+        } catch (error) {
+          console.error("Error fetching chats:", error);
+        }
+      }
     });
   }
 
@@ -48,7 +63,7 @@ export class ChatService {
     if (userSnapshot.exists()) {
       const userData = userSnapshot.data();
       const chatRefs = userData['chatRefs'];
-
+  
       if (chatRefs && chatRefs.length > 0) {
         const chatPromises = chatRefs.map(async (chatRef: string) => {
           await this.processChat(chatRef, user.uid);
@@ -162,38 +177,36 @@ export class ChatService {
   }
 
   getChatMessages(chat: any) {
-    console.log(chat); // Überprüfung der übergebenen chatRef
-  
-    const chatRef = doc(this.firestore, 'chats', chat.chatRef); // Erstellung der Referenz auf das Chat-Dokument
+      const chatRef = doc(this.firestore, 'chats', chat.chatRef); // Erstellung der Referenz auf das Chat-Dokument
     const messagesCollectionRef = collection(chatRef, 'messages'); // Erstellung der Referenz auf die Subsammlung "messages" innerhalb des Chats
-  
+
     console.log("Nachrichtensammlungs-Referenz:", messagesCollectionRef); // Überprüfung der erstellten Referenz auf die Nachrichtensammlung
-  
+
     const unsubscribe = onSnapshot(messagesCollectionRef, querySnapshot => {
-     
+
       // Überprüfung, ob Nachrichten vorhanden sind
       if (querySnapshot.empty) {
         console.log("Keine Nachrichten vorhanden.");
         return; // Die Ausführung hier beenden, da keine Nachrichten vorhanden sind
       }
-  
+
       // Nachrichten verarbeiten, wenn sie vorhanden sind
       querySnapshot.forEach(doc => {
-        this.messages.push({...doc.data()});
+        this.messages.push({ ...doc.data() });
       });
-  
+
       console.log("Empfangene Nachrichten:", this.messages); // Ausgabe der empfangenen Nachrichten
     }, error => {
       console.error("Fehler beim Abonnieren von Nachrichten:", error); // Fehlerbehandlung beim Abonnieren von Nachrichten
     });
-  
+
     // Überprüfung, ob das Observable beendet wird
     console.log("Beende Abonnement auf Nachrichten.");
-  
+
     return () => {
       unsubscribe();
       console.log("Abonnement auf Nachrichten beendet."); // Bestätigung, dass das Abonnement beendet wurde
     };
   }
-  
+
 }
