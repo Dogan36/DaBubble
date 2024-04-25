@@ -18,7 +18,7 @@ export class ChatService {
   private firestore: Firestore = inject(Firestore);
   private authService: AuthService = inject(AuthService);
   constructor(private userService: UserService) {
-    this.initialize();
+    this.subChats();
   
   }
 
@@ -34,25 +34,21 @@ export class ChatService {
     console.log('destroy')
     this.unsubscribeChats()
   }
-  private initialize() {
-  
-    if (!this.initialized) {
-      this.unsubChats = this.subChats();
-      this.authService.logoutEvent.subscribe(() => {
-        this.unsubscribeChats();
-      });
-      this.initialized = true;
-    }
-  }
+ 
   private subChats(): Subscription {
     return this.authService.currentUser$.subscribe(user => {
+      if (!this.initialized) {
       if (user) {
         try {
           this.fetchChats(user);
+          this.authService.logoutEvent.subscribe(() => {
+            this.unsubscribeChats();
+          });
+          this.initialized=true
         } catch (error) {
           console.error("Error fetching chats:", error);
         }
-      }
+      }}
     });
   }
 
