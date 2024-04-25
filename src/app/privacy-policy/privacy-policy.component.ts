@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-privacy-policy',
   standalone: true,
@@ -8,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './privacy-policy.component.scss'
 })
 export class PrivacyPolicyComponent {
+constructor(public router:Router){
 
+}
 }
