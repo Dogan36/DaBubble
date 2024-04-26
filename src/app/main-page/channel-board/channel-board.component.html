@@ -159,6 +159,9 @@
         chat.allMessages[chat.allMessages.length - 1].timestamp
       )
     "
+    [sortedReactions]="
+      this.channelService.sortSameReactions(chat.allMessages[0].reactions)
+    "
   ></app-message-left
   >} @else if(chat.allMessages[0] && chat.allMessages[0].member) {
   <app-message-right
@@ -182,6 +185,9 @@
       this.channelService.getTime(
         chat.allMessages[chat.allMessages.length - 1].timestamp
       )
+    "
+    [sortedReactions]="
+      this.channelService.sortSameReactions(chat.allMessages[0].reactions)
     "
   ></app-message-right>
   }}}

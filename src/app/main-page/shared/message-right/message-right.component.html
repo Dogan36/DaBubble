@@ -11,18 +11,27 @@
     <div class="user-msg" (click)="onOpenThread(selectedChatIndex)">
       <p>{{ message }}</p>
     </div>
-    @if(this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[messageIndex].reactions.length
-    > 0) {
+    @if(sortedReactions.length > 0) {
     <div class="reactions-container">
       <div class="add-reaction" [matMenuTriggerFor]="aboveMenu"></div>
       <div class="reactions-list">
-        @for(reaction of
-        this.channelService.selectedChannelChats[selectedChatIndex].allMessages[messageIndex].reactions;
-        track reaction; let index = $index) {
-        <div class="sgl-reaction-container">
-          <ngx-emoji emoji="{{ reaction.reactEmoji }}"></ngx-emoji>
-          <span>1</span>
+        @for(emojiObj of sortedReactions; track emojiObj) {
+        <div
+          class="sgl-reaction-container"
+          (click)="addOrRemoveEmoji(emojiObj.reactEmoji)"
+        >
+          <ngx-emoji emoji="{{ emojiObj.reactEmoji }}"></ngx-emoji>
+          <span>{{ emojiObj.reactUser.length }}</span>
         </div>
+        <!-- @if(reactEmojiHoverd) {
+        <div class="emoji-info-container">
+          <ngx-emoji emoji="{{ emojiObj.reactEmoji }}"></ngx-emoji>
+          @for(user of emojiObj.reactUser; track user) {
+          <div>{{ user }}</div>
+          }
+          <span>hat reagiert</span>
+        </div>
+        }  -->
         }
       </div>
     </div>
@@ -55,3 +64,6 @@
     ></emoji-mart>
   </mat-menu>
 </div>
+
+<!-- (mouseenter)="overReactEmoji('enter')"
+          (mouseleave)="overReactEmoji('leave')" -->

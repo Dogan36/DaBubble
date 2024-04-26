@@ -40,6 +40,8 @@
     [memberRef]="message.member"
     [time]="this.channelService.getTime(message.timestamp)"
     [selectedChatIndex]="this.channelService.selChatIndex"
+    [selectedChatIndex]="this.channelService.selChatIndex"
+    [sortedReactions]="this.channelService.sortSameReactions(message.reactions)"
   ></app-message-left
   >} @else {
   <app-message-right
@@ -55,6 +57,7 @@
     [memberRef]="message.member"
     [time]="this.channelService.getTime(message.timestamp)"
     [selectedChatIndex]="this.channelService.selChatIndex"
+    [sortedReactions]="this.channelService.sortSameReactions(message.reactions)"
   ></app-message-right>
   }
   <!-- separator after first message -->

@@ -215,7 +215,6 @@ export class ChannelService {
   
   toJSONmessage(obj:any) {
     if(obj.reactions.length > 0) {
-      console.log('ich versteh es nicht', obj.reactions);
     return {
         message: obj.message || '',
         member: obj.member,
@@ -308,6 +307,30 @@ export class ChannelService {
     if (this.unsubSglChannelChats) {
         this.unsubSglChannelChats();
     }
+  }
+
+
+
+    sortSameReactions(reactions: { reactUser: string, reactEmoji: string }[]) {
+    const sortedReactions: {reactUser: string[], reactEmoji: string}[] = [];
+
+    reactions.forEach(reaction => {
+
+      if(sortedReactions.length > 0) {
+        const index = sortedReactions.findIndex(sortedReaction =>
+          sortedReaction.reactEmoji === reaction.reactEmoji);
+
+        if(index === -1) {
+          sortedReactions.push({ reactUser: [reaction.reactUser], reactEmoji: reaction.reactEmoji});
+        } else {
+          sortedReactions[index].reactUser.push(reaction.reactUser);
+        }
+
+      } else {
+          sortedReactions.push({ reactUser: [reaction.reactUser], reactEmoji: reaction.reactEmoji});
+      }
+    });
+      return sortedReactions;
   }
 }
 

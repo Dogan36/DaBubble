@@ -1,16 +1,17 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { EventService } from '../../../services/event.service';
 import { MatDialog } from '@angular/material/dialog';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { DialogShowProfilComponent } from '../../dialogs/dialog-show-profil/dialog-show-profil.component';
 import { ChannelService } from '../../../services/channel.service';
 import { UserService } from '../../../services/user.service';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
-import {MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
+import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { EmojiComponent, EmojiEvent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { Message } from '../../../models/message.class';
 import { AuthService } from '../../../services/auth.service';
 import { Reaction } from '../../../models/reaction.class';
+
 
 @Component({
   selector: 'app-message-right',
@@ -31,9 +32,12 @@ export class MessageRightComponent {
   @Input() timeLastMessage: string = '';
   @Input() selectedChatIndex: number = 0;
   @Input() memberRef: string = '';
+  @Input() sortedReactions: {reactUser: string[], reactEmoji: string}[] = [];
   @ViewChild('aboveMenuTrigger') emojiMenuTrigger?: MatMenuTrigger;
 
   containerHovered: boolean = false;
+  reactEmojiHoverd: boolean = false;
+
 
   constructor(private evtSvc: EventService, public dialog: MatDialog, public channelService: ChannelService, private userService: UserService, private authService: AuthService) {}
 
@@ -47,6 +51,17 @@ export class MessageRightComponent {
         this.containerHovered = false;
       }
     }
+  }
+
+  overReactEmoji(action:string) {
+    if(action === 'enter') {
+      this.reactEmojiHoverd = true;
+    } else if(action === 'leave') {
+      this.reactEmojiHoverd = false;
+    }
+
+    console.log('reactEmojiHoverd ist', this.reactEmojiHoverd);
+    console.log(action);
   }
 
 
@@ -71,7 +86,6 @@ export class MessageRightComponent {
 
 
   addEmoji($event: EmojiEvent) {
-    // console.log("Emoji klappt schon mal", $event.emoji);
 
     if($event.emoji && $event.emoji.colons && this.authService.uid) {
 
@@ -83,7 +97,7 @@ export class MessageRightComponent {
       }
 
       const index = messageObj.reactions.findIndex(reaction =>
-        reaction.reactUser === newReaction.reactUser && reaction.reactEmoji === newReaction.  reactEmoji
+        reaction.reactUser === newReaction.reactUser && reaction.reactEmoji === newReaction.reactEmoji
       );
 
       if(index === -1) {
@@ -92,6 +106,28 @@ export class MessageRightComponent {
       }
     }
   }
+
+
+  addOrRemoveEmoji(reactEmoji: string) {
+    const messageObj = Object.assign({}, this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[this.messageIndex]);
+
+    let newReaction: Reaction = {
+        reactUser: this.authService.uid, 
+        reactEmoji: reactEmoji
+      }
+
+    const index = messageObj.reactions.findIndex(reaction =>
+        reaction.reactUser === newReaction.reactUser && reaction.reactEmoji === newReaction.reactEmoji
+      );
+
+    if(index === -1) {
+        messageObj.reactions.push(newReaction);
+        this.channelService.updateMessage(messageObj);
+    } else {
+        messageObj.reactions.splice(index, 1);
+        this.channelService.updateMessage(messageObj);
+    }
+  }
 }
 
-// onMouseOver() evtl auf parent componente legen
+

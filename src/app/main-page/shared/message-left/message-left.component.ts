@@ -1,15 +1,16 @@
-import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { EventService } from '../../../services/event.service';
 import { MatDialog } from '@angular/material/dialog';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { DialogShowProfilComponent } from '../../dialogs/dialog-show-profil/dialog-show-profil.component';
-import { Chat } from '../../../models/chat.class';
 import { ChannelService } from '../../../services/channel.service';
 import { UserService } from '../../../services/user.service';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
-import {MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
+import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { EmojiComponent, EmojiEvent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { Message } from '../../../models/message.class';
+import { AuthService } from '../../../services/auth.service';
+import { Reaction } from '../../../models/reaction.class';
 
 
 @Component({
@@ -31,15 +32,13 @@ export class MessageLeftComponent {
   @Input() timeLastMessage: string = '';
   @Input() selectedChatIndex: number = 0;
   @Input() memberRef: string = '';
+  @Input() sortedReactions: {reactUser: string[], reactEmoji: string}[] = [];
   @ViewChild('aboveMenuTrigger') emojiMenuTrigger?: MatMenuTrigger;
 
   containerHovered: boolean = false;
-  messageObj: Message;
 
 
-  constructor(private evtSvc: EventService, public dialog: MatDialog, private channelService: ChannelService, private userService: UserService) {
-    this.messageObj = Object.assign({}, this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[this.messageIndex]);
-  }
+  constructor(private evtSvc: EventService, public dialog: MatDialog, private channelService: ChannelService, private userService: UserService, private authService: AuthService) {}
 
 
   onMouseOver(action:string) {
@@ -55,8 +54,10 @@ export class MessageLeftComponent {
 
 
   onOpenThread(chatIndex:number) {
-    this.channelService.selChatIndex = chatIndex;
-    this.evtSvc.openThread();
+    if(this.onChannelBoard === true) {
+      this.channelService.selChatIndex = chatIndex;
+      this.evtSvc.openThread();
+    }
   }
 
 
@@ -73,9 +74,46 @@ export class MessageLeftComponent {
 
 
   addEmoji($event: EmojiEvent) {
-    console.log("Emoji klappt schon mal", $event.emoji);
-    // hier kommt die logik hin um eine message upzudaten -> Zugriff auf channelService!
+
+    if($event.emoji && $event.emoji.colons && this.authService.uid) {
+
+      const messageObj = Object.assign({}, this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[this.messageIndex]);
+
+      let newReaction: Reaction = {
+        reactUser: this.authService.uid, 
+        reactEmoji: $event.emoji.colons
+      }
+
+      const index = messageObj.reactions.findIndex(reaction =>
+        reaction.reactUser === newReaction.reactUser && reaction.reactEmoji === newReaction.reactEmoji
+      );
+
+      if(index === -1) {
+        messageObj.reactions.push(newReaction);
+        this.channelService.updateMessage(messageObj);
+      }
+    }
+  }
+
+
+  addOrRemoveEmoji(reactEmoji: string) {
+    const messageObj = Object.assign({}, this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[this.messageIndex]);
+
+    let newReaction: Reaction = {
+        reactUser: this.authService.uid, 
+        reactEmoji: reactEmoji
+      }
+
+    const index = messageObj.reactions.findIndex(reaction =>
+        reaction.reactUser === newReaction.reactUser && reaction.reactEmoji === newReaction.reactEmoji
+      );
+
+    if(index === -1) {
+        messageObj.reactions.push(newReaction);
+        this.channelService.updateMessage(messageObj);
+    } else {
+        messageObj.reactions.splice(index, 1);
+        this.channelService.updateMessage(messageObj);
+    }
   }
 }
-
-// onMouseOver() evtl auf parent componente legen
