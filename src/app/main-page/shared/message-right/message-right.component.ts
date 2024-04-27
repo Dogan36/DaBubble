@@ -36,10 +36,9 @@ export class MessageRightComponent {
   @ViewChild('aboveMenuTrigger') emojiMenuTrigger?: MatMenuTrigger;
 
   containerHovered: boolean = false;
-  reactEmojiHoverd: boolean = false;
 
 
-  constructor(private evtSvc: EventService, public dialog: MatDialog, public channelService: ChannelService, private userService: UserService, private authService: AuthService) {}
+  constructor(private evtSvc: EventService, public dialog: MatDialog, public channelService: ChannelService, public userService: UserService, public authService: AuthService) {}
 
 
   onMouseOver(action:string) {
@@ -51,17 +50,6 @@ export class MessageRightComponent {
         this.containerHovered = false;
       }
     }
-  }
-
-  overReactEmoji(action:string) {
-    if(action === 'enter') {
-      this.reactEmojiHoverd = true;
-    } else if(action === 'leave') {
-      this.reactEmojiHoverd = false;
-    }
-
-    console.log('reactEmojiHoverd ist', this.reactEmojiHoverd);
-    console.log(action);
   }
 
 

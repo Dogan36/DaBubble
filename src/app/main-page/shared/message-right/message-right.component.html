@@ -13,25 +13,48 @@
     </div>
     @if(sortedReactions.length > 0) {
     <div class="reactions-container">
-      <div class="add-reaction" [matMenuTriggerFor]="aboveMenu"></div>
+      <div
+        class="add-reaction"
+        (click)="onOpenThread(selectedChatIndex)"
+        [matMenuTriggerFor]="aboveMenu"
+      ></div>
       <div class="reactions-list">
         @for(emojiObj of sortedReactions; track emojiObj) {
         <div
           class="sgl-reaction-container"
-          (click)="addOrRemoveEmoji(emojiObj.reactEmoji)"
+          (click)="
+            onOpenThread(selectedChatIndex);
+            addOrRemoveEmoji(emojiObj.reactEmoji)
+          "
         >
+          <div class="emoji-info-container">
+            <ngx-emoji emoji="{{ emojiObj.reactEmoji }}"></ngx-emoji>
+            @for(user of emojiObj.reactUser; track user) { @if(user ===
+            this.authService.uid && emojiObj.reactUser.length === 1) {
+            <span class="react-user-name">Du</span>
+            <span>hast reagiert</span>
+            } @else if(user === this.authService.uid) {
+            <span class="react-user-name">Du</span>
+            } @else {
+            <span class="react-user-name">{{
+              this.userService.users[this.userService.getUsersData(user)].name
+            }}</span>
+            }
+            <!-- @if(emojiObj.reactUser.length === 2) {
+            <span class="react-user-name">und</span>
+            } @else if(emojiObj.reactUser.length > 2) {
+            <span class="react-user-name">, </span>
+            }  -->
+            } @if(emojiObj.reactUser.length === 1 && emojiObj.reactUser[0] !==
+            this.authService.uid) {
+            <span>hat reagiert</span>
+            } @else if(emojiObj.reactUser.length > 1) {
+            <span>haben reagiert</span>
+            }
+          </div>
           <ngx-emoji emoji="{{ emojiObj.reactEmoji }}"></ngx-emoji>
           <span>{{ emojiObj.reactUser.length }}</span>
         </div>
-        <!-- @if(reactEmojiHoverd) {
-        <div class="emoji-info-container">
-          <ngx-emoji emoji="{{ emojiObj.reactEmoji }}"></ngx-emoji>
-          @for(user of emojiObj.reactUser; track user) {
-          <div>{{ user }}</div>
-          }
-          <span>hat reagiert</span>
-        </div>
-        }  -->
         }
       </div>
     </div>
@@ -64,6 +87,3 @@
     ></emoji-mart>
   </mat-menu>
 </div>
-
-<!-- (mouseenter)="overReactEmoji('enter')"
-          (mouseleave)="overReactEmoji('leave')" -->
