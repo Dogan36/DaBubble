@@ -87,6 +87,7 @@
             .sgl-reaction-container {
                 display: flex;
                 gap: 10px;
+                background-color: white;
                 border-radius: 20px;
                 border: 1px solid $cpt-line;
                 height: 36px;
@@ -199,6 +200,7 @@
             background-color: $cpt-bg;
         }
     }
+
 
     @keyframes transformIcon {
         from {transform: translateX(-20px); opacity: 0;}

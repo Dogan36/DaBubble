@@ -3,6 +3,7 @@
   (mouseenter)="onMouseOver('enter')"
   (mouseleave)="onMouseOver('leave')"
 >
+  @if(!editMessageState) {
   <div class="message-container">
     <div class="user-name-time">
       <span>{{ time }} Uhr</span>
@@ -11,6 +12,8 @@
     <div class="user-msg" (click)="onOpenThread(selectedChatIndex)">
       <p>{{ message }}</p>
     </div>
+
+    <!-- reactions under msg -->
     @if(sortedReactions.length > 0) {
     <div class="reactions-container">
       <div
@@ -58,7 +61,10 @@
         }
       </div>
     </div>
-    } @if(onChannelBoard && amountMessage !== 0) {
+    }
+
+    <!-- Channel Board chat answer infos -->
+    @if(onChannelBoard && amountMessage !== 0) {
     <div class="answer-info-container">
       <p (click)="onOpenThread(selectedChatIndex)">
         {{ amountMessage }} Antworten
@@ -67,7 +73,16 @@
     </div>
     }
   </div>
+  } @else if(editMessageState) {
+  <app-edit-msg-textarea
+    [messageIndex]="messageIndex"
+    [message]="message"
+    (closeEditMsg)="closeEditMessage($event)"
+  ></app-edit-msg-textarea>
+  }
   <div><img [src]="memberImg" alt="" (click)="openShowProfilDialog()" /></div>
+
+  <!-- Message Container Hoverd + Dialog -->
   @if (containerHovered) {
   <div class="add-reaction-container">
     <div
@@ -76,7 +91,10 @@
       [matMenuTriggerFor]="aboveMenu"
       #aboveMenuTrigger="matMenuTrigger"
     ></div>
-    <div class="edit-msg"></div>
+    <div
+      class="edit-msg"
+      (click)="onOpenThread(selectedChatIndex); editMessage()"
+    ></div>
   </div>
   }
   <mat-menu #aboveMenu="matMenu" yPosition="above" xPosition="before">

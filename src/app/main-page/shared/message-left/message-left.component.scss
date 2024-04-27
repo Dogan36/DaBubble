@@ -18,6 +18,12 @@
             }
         }
 
+        .message-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
         .user-name-time {
             display: flex;
             align-items: center;
@@ -45,7 +51,6 @@
             background-color: $cpt-bg;
             border-radius: 0px 20px 20px 20px;
             padding: 15px;
-            margin-bottom: 8px;
 
             &:hover {
                 cursor: pointer;
@@ -54,7 +59,6 @@
 
         .reactions-container {
             display: flex;
-            flex-direction: row-reverse;
             gap: 10px;
 
             .add-reaction {
@@ -81,18 +85,48 @@
             .sgl-reaction-container {
                 display: flex;
                 gap: 10px;
+                background-color: white;
                 border-radius: 20px;
                 border: 1px solid $cpt-line;
                 height: 36px;
                 padding: 5px 10px 5px 10px;
+                position: relative;
 
                 span {
                     @include font16(400);
                     line-height: 24px;
                 }
 
+                .emoji-info-container {
+                    display: none;
+                    background-color: $cpt-purple-1;
+                    border-radius: 30px 30px 30px 0;
+                    color: white;
+                    min-width: 120px;
+                    padding: 15px 10px 15px 10px;
+                    position: absolute;
+                    bottom: 35px;
+                    left: 34px;
+                    text-align: center;
+                    z-index: 100;
+
+                    span {
+                        @include font16(400);
+                    }
+
+                    .react-user-name {
+                        @include font18(700);
+                    }
+                }
+
                 &:hover {
                     cursor: pointer;
+
+                    .emoji-info-container {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                    }
                 }
             }
         }

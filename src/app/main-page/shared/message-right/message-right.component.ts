@@ -11,12 +11,13 @@ import { EmojiComponent, EmojiEvent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { Message } from '../../../models/message.class';
 import { AuthService } from '../../../services/auth.service';
 import { Reaction } from '../../../models/reaction.class';
+import { EditMsgTextareaComponent } from '../edit-msg-textarea/edit-msg-textarea.component';
 
 
 @Component({
   selector: 'app-message-right',
   standalone: true,
-  imports: [MatDialogModule, PickerComponent, MatMenuModule, EmojiComponent],
+  imports: [MatDialogModule, PickerComponent, MatMenuModule, EmojiComponent, EditMsgTextareaComponent],
   templateUrl: './message-right.component.html',
   styleUrl: './message-right.component.scss'
 })
@@ -36,6 +37,7 @@ export class MessageRightComponent {
   @ViewChild('aboveMenuTrigger') emojiMenuTrigger?: MatMenuTrigger;
 
   containerHovered: boolean = false;
+  editMessageState: boolean = false;
 
 
   constructor(private evtSvc: EventService, public dialog: MatDialog, public channelService: ChannelService, public userService: UserService, public authService: AuthService) {}
@@ -115,6 +117,15 @@ export class MessageRightComponent {
         messageObj.reactions.splice(index, 1);
         this.channelService.updateMessage(messageObj);
     }
+  }
+
+
+  editMessage() {
+    this.editMessageState = true;
+  }
+
+  closeEditMessage($event: boolean) {
+    this.editMessageState = $event;
   }
 }
 

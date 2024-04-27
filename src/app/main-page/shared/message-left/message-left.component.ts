@@ -38,7 +38,7 @@ export class MessageLeftComponent {
   containerHovered: boolean = false;
 
 
-  constructor(private evtSvc: EventService, public dialog: MatDialog, private channelService: ChannelService, private userService: UserService, private authService: AuthService) {}
+  constructor(private evtSvc: EventService, public dialog: MatDialog, private channelService: ChannelService, public userService: UserService, public authService: AuthService) {}
 
 
   onMouseOver(action:string) {

@@ -1,0 +1,83 @@
+@import './../../../../styles.scss';
+@import './../../main-page.component.scss';
+
+
+.edit-msg-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: white;
+    border: 1px solid $cpt-line;
+    border-radius: 20px;
+    padding: 20px;
+
+    textarea {
+        border: none;
+        font-family: $cpt-font;
+        font-size: 18px;
+        line-height: 24.55px;
+        resize: none;
+        width: 100%;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .edit-msg-btn-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+
+        .reaction-icon {
+
+            .reaction-icon-emoji {
+                background-image: url('./../../../../assets/img/icons/sentiment_satisfied.svg');
+                background-position: center;
+                background-repeat: no-repeat;
+                height: 40px;
+                width: 40px;
+    
+                &:hover {
+                    background-image: url('./../../../../assets/img/icons/sentiment_satisfied_hov.svg');
+                }
+            }
+        }
+
+        .right-btn-container {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+
+        button, input {
+            border-radius: 50px;
+            color: white;
+            @include font18(700);
+            padding: 12px 25px;
+            outline: none;
+            
+        }
+        
+        button {
+            background-color: white;
+            border: 1px solid $cpt-purple-2;
+            color: $cpt-purple-1;
+
+            &:hover {
+                color: $cpt-purple-2;
+                border: 1px solid $cpt-purple-2;
+            }
+        }
+        
+        input {
+            background-color: $cpt-purple-1;
+            border: none;
+            
+            &:hover {
+                background-color: $cpt-purple-2;
+            }
+        }
+        }
+    }
+}

@@ -34,7 +34,6 @@ export class TextareaMainPageComponent {
 
       if(this.onChannelBoard) {
         this.channelService.startNewChat({timestamp: this.message.timestamp}, this.channelService.toJSONmessage(this.message));
-        console.log('Event hat geklappt', this.message.message);
 
       } else if(this.onThreadBoard) {
         const selectedChat = this.channelService.selectedChannelChats[this.channelService.selChatIndex];
