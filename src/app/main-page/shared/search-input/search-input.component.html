@@ -1,0 +1,34 @@
+<div class="search-input-container">
+  <input
+    id="search-user-input"
+    type="text"
+    placeholder="An: #channel, oder @jemand oder E-Mail Adresse"
+    [(ngModel)]="inputText"
+    (input)="startSearch()"
+  />
+  @if(searchText) {
+  <div class="searched-users-list-container">
+    @if(searchUser) { @for(user of this.userService.users | inputFilter :
+    searchText; track user) {
+    <app-workspace-user-profil
+      [userName]="user.name"
+      [userImage]="user.photoURL"
+      (click)="openChat(user)"
+    ></app-workspace-user-profil
+    >} @empty {
+    <p>Niemand gefunden</p>
+    }} @else if(searchChannel) {
+    <div class="channels-list">
+      @for(channel of this.channelService.channels | inputFilter : searchText;
+      track channel) {
+      <div class="channel" (click)="onOpenChannel(channel.id)">
+        <h5>{{ channel.name }}</h5>
+      </div>
+      } @empty {
+      <p>Kein Channel gefunden</p>
+      }
+    </div>
+    }
+  </div>
+  }
+</div>

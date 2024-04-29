@@ -21,7 +21,10 @@
         </mat-menu>
       </div>
       <div class="right-btn-container">
-        <button (click)="cancleUpdateMsg($event)">Abbrechen</button>
+        @if(onChannelBoard === true) {
+        <button (click)="cancleUpdateMsg($event)">Abbrechen</button>} @else {
+        <button><div class="close-icon"></div></button>
+        }
         <input class="save-btn" type="submit" value="Speichern" />
       </div>
     </div>

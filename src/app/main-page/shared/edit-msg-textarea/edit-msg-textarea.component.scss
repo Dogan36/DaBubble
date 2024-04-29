@@ -41,6 +41,7 @@
     
                 &:hover {
                     background-image: url('./../../../../assets/img/icons/sentiment_satisfied_hov.svg');
+                    cursor: pointer;
                 }
             }
         }
@@ -48,7 +49,7 @@
         .right-btn-container {
             display: flex;
             align-items: center;
-            gap: 32px;
+            gap: 10px;
 
         button, input {
             border-radius: 50px;
@@ -67,6 +68,7 @@
             &:hover {
                 color: $cpt-purple-2;
                 border: 1px solid $cpt-purple-2;
+                cursor: pointer;
             }
         }
         
@@ -76,8 +78,21 @@
             
             &:hover {
                 background-color: $cpt-purple-2;
+                cursor: pointer;
             }
         }
+        }
+    }
+
+    .close-icon {
+        background-image: url('./../../../../assets/img/icons/close_pur_24.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 24px;
+        width: 24px;
+
+        &:hover {
+            cursor: pointer;
         }
     }
 }

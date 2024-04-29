@@ -1,0 +1,66 @@
+@import './../../main-page.component.scss';
+@import './../../../../styles.scss';
+
+
+.search-input-container {
+    position: relative;
+}
+
+
+input {
+    border: 1px solid $cpt-line;
+    border-radius: 30px;
+    color: $cpt-font-gray;
+    font-size: 18px;
+    line-height: 24.55px;
+    padding: 15px 20px;
+    outline: none;
+    width: 100%;
+}
+
+
+.searched-users-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: white;
+    border: 1px solid $cpt-line;
+    border-radius: 0 20px 20px 20px;
+    max-height: 246px;
+    margin-top: -8px;
+    padding: 20px 21px;
+    position: absolute;
+    left: 22px;
+    overflow-y: scroll;
+    max-width: 335px;
+    z-index: 10100;
+
+    .channels-list {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            gap: 13px;
+    
+            .channel {
+                background-repeat: no-repeat;
+                display: flex;
+                align-items: center;
+                background-image: url('./../../../../assets/img/icons/tag.svg');
+                background-position: 15px 50%;
+                height: 33px;
+                padding: 0 8px 0 49px;
+    
+                h5 {
+                    font-weight: 400;
+                }
+    
+                &:hover {
+                    color: $cpt-purple-3;
+                    cursor: pointer;
+                    background-image: url('./../../../../assets/img/icons/tag_pur.svg');
+                    border-radius: 20px;
+                    background-color: $cpt-bg;
+                }
+            }
+        }
+}

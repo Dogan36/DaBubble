@@ -77,13 +77,14 @@
   <app-edit-msg-textarea
     [messageIndex]="messageIndex"
     [message]="message"
+    [onChannelBoard]="onChannelBoard"
     (closeEditMsg)="closeEditMessage($event)"
   ></app-edit-msg-textarea>
   }
   <div><img [src]="memberImg" alt="" (click)="openShowProfilDialog()" /></div>
 
   <!-- Message Container Hoverd + Dialog -->
-  @if (containerHovered) {
+  @if (containerHovered && editMessageState === false) {
   <div class="add-reaction-container">
     <div
       (click)="onOpenThread(selectedChatIndex)"

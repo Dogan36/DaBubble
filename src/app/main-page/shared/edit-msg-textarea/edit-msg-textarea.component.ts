@@ -17,6 +17,7 @@ export class EditMsgTextareaComponent {
 
   @Input() messageIndex: number = 0;
   @Input() message: string = '';
+  @Input() onChannelBoard: boolean = false;
   @Output() closeEditMsg = new EventEmitter<boolean>();
 
 
