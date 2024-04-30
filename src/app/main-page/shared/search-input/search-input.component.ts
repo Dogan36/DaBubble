@@ -5,6 +5,7 @@ import { UserService } from '../../../services/user.service';
 import { WorkspaceUserProfilComponent } from '../workspace-user-profil/workspace-user-profil.component';
 import { ChannelService } from '../../../services/channel.service';
 import { User } from '../../../models/user.class';
+import { EventService } from '../../../services/event.service';
 
 @Component({
   selector: 'app-search-input',
@@ -20,7 +21,7 @@ export class SearchInputComponent {
   searchChannel = false;
   searchUser = false;
 
-  constructor(public userService: UserService, public channelService: ChannelService) {}
+  constructor(public userService: UserService, public channelService: ChannelService, private evtSvc: EventService) {}
 
 
   startSearch() {
@@ -46,9 +47,11 @@ export class SearchInputComponent {
 
 
   onOpenChannel(channelRef:string) {
-    // this.channelService.subSglChannelChats(channelRef);
-    // this.channelService.selectedChannel = i; // index irgendwie vergeben. Vielleicht noch mal abgleichen mit der channels liste.
-    // this.openChannel.emit();
+    this.channelService.subSglChannelChats(channelRef);
+    this.channelService.setSelectedChannelIndex(channelRef);
+    this.evtSvc.openChannel(true);
+    this.evtSvc.openThread(false);
+    this.evtSvc.openPrivateChat(false);
   }
 
 

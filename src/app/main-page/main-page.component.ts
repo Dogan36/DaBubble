@@ -35,6 +35,12 @@ export class MainPageComponent {
     this.evtSvc.getThreadOpenStatus().subscribe(status => {
       this.threadOpen = status;
     });
+    this.evtSvc.getChannelOpenStatus().subscribe(status => {
+      this.channelChatOpen = status;
+    });
+    this.evtSvc.getPrivateChatOpenStatus().subscribe(status => {
+      this.privateChatOpen = status;
+    });
   }
 
 
@@ -58,18 +64,24 @@ export class MainPageComponent {
       // Aus channelList = []; wird mithilfe des index, der richtig Channel ausgesucht, evtl in ein weiteres Array gepackt und diese Daten werden dann von dem Child ChannelBoardComponente abgegriffen/ gesendet.
   // }
   openNewChat() {
-    this.channelChatOpen = false;
-    this.privateChatOpen = false;
+    this.evtSvc.openChannel(false);
+    this.evtSvc.openPrivateChat(false);
+    // this.channelChatOpen = false;
+    // this.privateChatOpen = false;
   }
 
   openChanel() {
-    this.channelChatOpen = true;
-    this.privateChatOpen = false;
+    this.evtSvc.openChannel(true);
+    this.evtSvc.openPrivateChat(false);
+    // this.channelChatOpen = true;
+    // this.privateChatOpen = false;
   }
 
   openPrivateChat() {
-      this.channelChatOpen = false;
-      this.privateChatOpen = true;
+    this.evtSvc.openChannel(false);
+    this.evtSvc.openPrivateChat(true);
+    // this.channelChatOpen = false;
+    // this.privateChatOpen = true;
   }
 
 

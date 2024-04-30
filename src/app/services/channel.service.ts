@@ -266,6 +266,17 @@ export class ChannelService {
     }
   }
 
+
+  setSelectedChannelIndex(channelRef: string) {
+    const index = this.channels.findIndex(channel => channel.id === channelRef);
+    console.log('Index of selectedChannel', index);
+
+    if (index !== -1) {
+      this.selectedChannel = index;
+    }
+  }
+
+
   getTime(timestamp:number) {
     const date = new Date(timestamp);
     const hours = ('0' + date.getHours()).slice(-2);

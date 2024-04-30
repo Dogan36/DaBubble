@@ -22,6 +22,6 @@ export class ThreadBoardComponent {
   constructor(private evtSvc: EventService, public channelService: ChannelService, public userService: UserService, public authService: AuthService) {}
 
   onCloseThread() {
-    this.evtSvc.closeThread();
+    this.evtSvc.openThread(false);
   }
 }

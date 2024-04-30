@@ -56,7 +56,7 @@ export class MessageLeftComponent {
   onOpenThread(chatIndex:number) {
     if(this.onChannelBoard === true) {
       this.channelService.selChatIndex = chatIndex;
-      this.evtSvc.openThread();
+      this.evtSvc.openThread(true);
     }
   }
 
