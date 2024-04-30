@@ -1,0 +1,99 @@
+@import "./../starting-page.component.scss";
+
+
+.content {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background: linear-gradient(1.46deg, #313AE6 1.22%, #797EF3 98.76%);
+    z-index: 3;
+    top: 0;
+    left: 0;
+}
+
+.logo-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    width: 696px;
+    height: 184px;
+    display: flex;
+    justify-content: center;
+    /* Zentriert den Text horizontal */
+    align-items: center;
+    /* Zentriert den Text vertikal */
+}
+
+.img-container {
+    position: absolute;
+    height: 100%;
+    width: 184px;
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 2;
+}
+
+.logo-container img {
+    height: 100%;
+    width: auto;
+}
+
+.text-container {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: calc(100% - 184px);
+    overflow: hidden;
+}
+
+.text-container p {
+    position: absolute;
+    white-space: nowrap;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 114px;
+    right: 600px
+}
+
+.left {
+    left: calc(0% + 93px) !important;
+    transition: left 1s ease;
+
+}
+
+.right {
+    right: 0% !important;
+    transition: right 1s ease;
+}
+
+.moveOnTop{
+    animation: logoAnimation 1s forwards;
+}
+
+@keyframes logoAnimation {
+    0% {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    50% {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    100% {
+       
+       
+        transform: translate(0, 0);
+        top: 7%;
+        left: 5%;
+    }
+}

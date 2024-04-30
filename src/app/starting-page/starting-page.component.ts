@@ -9,6 +9,7 @@ import { AuthService } from '../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { LoginService } from '../services/login.service';
+import { StartAnimationComponent } from './start-animation/start-animation.component';
 
 
 
@@ -24,6 +25,7 @@ import { LoginService } from '../services/login.service';
     FormsModule,
     NgIf,
     RouterLink,
+    StartAnimationComponent
   ],
   templateUrl: './starting-page.component.html',
   styleUrl: './starting-page.component.scss'
