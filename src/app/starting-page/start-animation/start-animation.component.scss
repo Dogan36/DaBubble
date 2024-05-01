@@ -1,30 +1,31 @@
 @import "./../starting-page.component.scss";
 
-
-.content {
+.background{
     position: absolute;
     height: 100vh;
     width: 100vw;
-    overflow: hidden;
     background: linear-gradient(1.46deg, #313AE6 1.22%, #797EF3 98.76%);
-    z-index: 3;
     top: 0;
     left: 0;
+    z-index: 2;
+    opacity: 1;
+    transition: opacity 1s ease;
 }
+
 
 .logo-container {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1;
+    z-index: 3;
     width: 696px;
     height: 184px;
     display: flex;
     justify-content: center;
     /* Zentriert den Text horizontal */
     align-items: center;
-    /* Zentriert den Text vertikal */
+    transition: all 1s;
 }
 
 .img-container {
@@ -34,6 +35,7 @@
     left: 50%;
     transform: translate(-50%);
     z-index: 2;
+    transition: all 1s;
 }
 
 .logo-container img {
@@ -47,6 +49,7 @@
     height: 100%;
     width: calc(100% - 184px);
     overflow: hidden;
+    transition: all 1s;
 }
 
 .text-container p {
@@ -56,7 +59,9 @@
     transform: translateY(-50%);
     color: white;
     font-size: 114px;
-    right: 600px
+    font-weight: bold;
+    right: 600px;
+    transition: all 1s;
 }
 
 .left {
@@ -71,29 +76,33 @@
 }
 
 .moveOnTop{
-    animation: logoAnimation 1s forwards;
+    transform: translate(0, 0);
+    top: 7%;
+    left: 5%;
+  height: 70px;
+  width: 243px;
 }
 
-@keyframes logoAnimation {
-    0% {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    50% {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    100% {
-       
-       
-        transform: translate(0, 0);
-        top: 7%;
-        left: 5%;
-    }
+.width{
+    width: 70px;
+    left: calc(0% + 38px) !important;
 }
+
+.text-container-width{
+    width: calc(100% - 70px);
+}
+
+.fontSize{
+    color: black !important;
+    font-size: 36px !important;
+
+}
+
+.opacity {
+    opacity: 0;
+}
+
+.d-none{
+    display: none;
+}
+

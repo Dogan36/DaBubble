@@ -19,23 +19,21 @@ export class StartAnimationComponent {
     this.startAnimation()
   }
   startAnimation() {
+   
     setTimeout(() => this.animateStage1(), 2000);
     setTimeout(() => this.animateStage2(), 4000); // Start stage 2 after stage 1
-    setTimeout(() => this.animateStage3(), 5000); // Start stage 3 after stage 2
-    setTimeout(() => this.animateStage4(), 12000); // Start stage 4 after stage 3
+    setTimeout(() => this.animateStage3(), 6000); // Start stage 3 after stage 2
+    setTimeout(() => this.animateStage4(), 7000); // Start stage 4 after stage 3
   }
 
   animateStage1(){
-   
     this.isAnimatedStage1=true;
   }
 
   animateStage2(){
-   
     this.isAnimatedStage2=true;
   }
   animateStage3(){
-    console.log('3')
     this.isAnimatedStage3=true;
   }
 

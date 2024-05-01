@@ -1,10 +1,10 @@
-<div class="content" [ngClass]="{'vanish': isAnimatedStage4}">
-    <div class="logo-container" [ngClass]="{'moveOnTop': isAnimatedStage3}">
-        <div class="img-container" [ngClass]="{'left': isAnimatedStage1}">
-            <img src="./../../../assets/img/Logo.svg" alt="Logo">
-        </div>
-        <div class="text-container">
-            <p [ngClass]="{'right': isAnimatedStage2}">DaBubble</p>
-        </div>
+<div class="background" [ngClass]="{'opacity': isAnimatedStage3, 'd-none': isAnimatedStage4}"></div>
+<div class="logo-container" [ngClass]="{'moveOnTop': isAnimatedStage3}">
+    <div class="img-container" [ngClass]="{'left': isAnimatedStage1, 'width': isAnimatedStage3}">
+        <img src="./../../../assets/img/Logo.svg" alt="Logo">
     </div>
+    <div class="text-container" [ngClass]="{'text-container-width': isAnimatedStage3}">
+        <p [ngClass]="{'right': isAnimatedStage2, 'fontSize': isAnimatedStage3}">DaBubble</p>
+    </div>
+
 </div>
