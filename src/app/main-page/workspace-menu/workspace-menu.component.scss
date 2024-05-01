@@ -26,6 +26,10 @@
             cursor: pointer;
         }
     }
+
+    @media (max-width: 544px) {
+        display: none;
+    }
 }
 
 .workspace-content {
@@ -148,6 +152,17 @@
     flex-direction: column;
     gap: 13px;
     padding: 0 30px;
+}
+
+
+.new-chat-icon {
+    position: absolute;
+    bottom: 35px;
+    right: 16px;
+
+    @media (min-width: 544px) {
+        display: none;
+    }
 }
 
 

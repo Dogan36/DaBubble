@@ -26,19 +26,14 @@ export class SearchInputComponent {
 
   startSearch() {
     if (this.inputText.includes('@')) {
-
-      console.log('Das "@" wurde gefunden.');
       this.searchText = this.inputText.replace('@', '');
       this.searchUser = true;
 
     } else if (this.inputText.includes('#')) {
-
-      console.log('Das "#" wurde gefunden.');
       this.searchText = this.inputText.replace('#', '');
       this.searchChannel = true;
 
     } else {
-
         this.searchChannel = false;
         this.searchUser = false;
 

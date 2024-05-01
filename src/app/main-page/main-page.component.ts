@@ -28,6 +28,7 @@ export class MainPageComponent {
   channelChatOpen = true;
   privateChatOpen = false;
   threadOpen = true;
+  newChatOpen = false;
   uid:string=''
   currentUser: UserType | null = null;
 
@@ -41,9 +42,22 @@ export class MainPageComponent {
     this.evtSvc.getPrivateChatOpenStatus().subscribe(status => {
       this.privateChatOpen = status;
     });
+    this.evtSvc.getNewChatOpenStatus().subscribe(status => {
+      this.newChatOpen = status;
+    });
+    this.evtSvc.getWorkspaceOpenStatus().subscribe(status => {
+      this.workspaceOpen = status;
+    });
   }
 
-
+  ngOnInit() {
+    if (window.innerWidth < 544) {
+      this.evtSvc.openChannel(false);
+      this.evtSvc.openPrivateChat(false);
+      this.evtSvc.openThread(false);
+      this.evtSvc.openNewChat(false);
+    }
+  }
   
 
   test() {
@@ -56,32 +70,43 @@ export class MainPageComponent {
   }
 
 
-  // Es muss noch ein Index als Parameter mitgesehndet werden
-  //   openChanel(i) {
-  //   this.channelChatOpen = true;
-  //   this.privateChatOpen = false;
-
-      // Aus channelList = []; wird mithilfe des index, der richtig Channel ausgesucht, evtl in ein weiteres Array gepackt und diese Daten werden dann von dem Child ChannelBoardComponente abgegriffen/ gesendet.
-  // }
   openNewChat() {
     this.evtSvc.openChannel(false);
     this.evtSvc.openPrivateChat(false);
-    // this.channelChatOpen = false;
-    // this.privateChatOpen = false;
+    this.evtSvc.openNewChat(true);
+
+    if (window.innerWidth < 544) {
+      this.evtSvc.openWorkspace(false);
+    }
   }
 
   openChanel() {
     this.evtSvc.openChannel(true);
     this.evtSvc.openPrivateChat(false);
-    // this.channelChatOpen = true;
-    // this.privateChatOpen = false;
+    this.evtSvc.openNewChat(false);
+
+    if (window.innerWidth < 544) {
+      this.evtSvc.openWorkspace(false);
+    }
   }
 
   openPrivateChat() {
     this.evtSvc.openChannel(false);
     this.evtSvc.openPrivateChat(true);
-    // this.channelChatOpen = false;
-    // this.privateChatOpen = true;
+    this.evtSvc.openNewChat(false);
+
+    if (window.innerWidth < 544) {
+      this.evtSvc.openWorkspace(false);
+    }
+  }
+
+  openWorkspace() {
+    if (window.innerWidth < 544) {
+      this.evtSvc.openChannel(false);
+      this.evtSvc.openPrivateChat(false);
+      this.evtSvc.openNewChat(false);
+      this.evtSvc.openWorkspace(true);
+    }
   }
 
 

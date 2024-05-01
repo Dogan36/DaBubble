@@ -92,10 +92,16 @@
       [matMenuTriggerFor]="aboveMenu"
       #aboveMenuTrigger="matMenuTrigger"
     ></div>
-    <div
-      class="edit-msg"
-      (click)="onOpenThread(selectedChatIndex); editMessage()"
-    ></div>
+    <div class="edit-msg">
+      <div class="edit-msg-btn">
+        <div
+          class="edit-msg-text"
+          (click)="onOpenThread(selectedChatIndex); editMessage()"
+        >
+          Nachricht bearbeiten
+        </div>
+      </div>
+    </div>
   </div>
   }
   <mat-menu #aboveMenu="matMenu" yPosition="above" xPosition="before">

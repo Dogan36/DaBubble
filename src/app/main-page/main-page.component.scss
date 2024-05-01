@@ -66,7 +66,6 @@ header {
     display: flex;
     align-items: center;
     gap: 20px;
-    // box-sizing: border-box;
     padding: 25px 20px;
 
     .logo-container {
@@ -75,6 +74,44 @@ header {
 
         img {
             padding-left: 30px;
+
+            @media (max-width: 544px) {
+                height: 45px;
+            }
+        }
+
+        @media (max-width: 544px) {
+            width: auto;
+        }
+    }
+
+    .devspace-logo-container {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        
+        .arrow-icon-back {
+            background-image: url('./../../assets/img/icons/keyboard_arrow_down.svg');
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 25px;
+            transform: rotate(90deg);
+            width: 25px;
+        }
+
+        .devspace-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .devspace-icon {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (min-width: 544px) {
+            display: none;
         }
     }
 
@@ -85,7 +122,6 @@ header {
         input {
             border: none;
             border-radius: 42px;
-            // box-sizing: border-box;
             height: 75px;
             padding: 0 35px 0 35px;
             width: 100%;
@@ -103,6 +139,10 @@ header {
                 cursor: pointer;
             }
         }
+
+        @media (max-width: 544px) {
+            display: none;
+        }
     }
 
     .user-menu {
@@ -115,8 +155,14 @@ header {
         img {
             cursor: pointer;
             height: 70px;
-        width: 70px;
-        border-radius: 100%;
+            width: 70px;
+            border-radius: 100%;
+
+            @media (max-width: 544px) {
+                height: 50px;
+                width: 50px;
+                border-radius: 60px;
+            }
         }
 
         h2 {
@@ -124,6 +170,10 @@ header {
             font-weight: 700;
             line-height: 43.65px;
             margin: 0;
+
+            @media (max-width: 544px) {
+                display: none;
+            }
         }
         &:hover {
             h2 {
@@ -135,6 +185,14 @@ header {
                 background-image: url('./../../assets/img/icons/keyboard_arrow_down_pur.svg');
                 cursor: pointer;
             }
+        }
+    }
+
+    @media (max-width: 544px) {
+        padding: 15px 16px;
+
+        .drop-down-icon {
+            display: none;
         }
     }
 }
@@ -149,13 +207,11 @@ header {
     &:hover {
         background-image: url('./../../assets/img/icons/keyboard_arrow_down_pur.svg');
     }
-
 }
 
 .main-section {
     display: flex;
     gap: 20px;
-    // box-sizing: border-box;
     height: calc(100vh - 120px);
     padding: 0 20px 25px 20px;
     position: relative;
@@ -175,6 +231,10 @@ header {
         gap: 25px;
         padding: 32px 30px;
         width: $wdth-left;
+
+        @media (max-width: 544px) {
+            position: relative;
+        }
     }
 
     app-new-msg-board, app-chat-board, app-channel-board {
@@ -184,7 +244,6 @@ header {
     app-thread-board {
         width: $wdth-right;
     }
-
 
     .menu-btn-container {
         display: flex;
@@ -229,6 +288,20 @@ header {
             .menu-btn-op {
                 background-image: url('./../../assets/img/icons/show_pur.svg');
             }
+        }
+
+        @media (max-width: 544px) {
+            display: none;
+        }
+    }
+
+    @media (max-width: 544px) {
+        background-color: white;
+        height: calc(100vh - 80px);
+        padding: 0 0 0 0;
+
+        app-workspace-menu {
+            width: 100%;
         }
     }
 }

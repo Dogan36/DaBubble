@@ -1,4 +1,4 @@
-import { Component, Renderer2, ViewChild } from '@angular/core';
+import { Component, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TextareaMainPageComponent } from '../shared/textarea-main-page/textarea-main-page.component';
 import { MessageLeftComponent } from '../shared/message-left/message-left.component';
@@ -26,7 +26,9 @@ import { TimeSeparatorComponent } from '../shared/time-separator/time-separator.
 export class ChannelBoardComponent {
 
     @ViewChild(SearchMemberInputComponent) searchMembersComponent?: SearchMemberInputComponent;
+    @ViewChild('channelChatsContainer') channelChatsContainerRef?: ElementRef;
 
+    
     channelBoard = true;
     private bodyClickListener?: () => void;
     channelData = this.channelService.channels[this.channelService.selectedChannel];
@@ -36,7 +38,22 @@ export class ChannelBoardComponent {
     
     constructor(public dialog: MatDialog, public channelService: ChannelService, private renderer: Renderer2, public userService: UserService, public authService: AuthService) {}
 
- 
+
+    // ngAfterViewInit(): void {
+    //   this.scrollToBottom();
+    //   console.log('Ja klappt');
+    // }
+
+
+  //   ngAfterViewInit(): void {
+  //   if (this.channelChatsContainerRef) {
+  //     const containerElement = this.channelChatsContainerRef.nativeElement;
+  //     this.renderer.listen(containerElement, 'load', () => {
+  //       this.scrollToBottom();
+  //     });
+  //   }
+  // }
+
 
     openEditChannelDialog() {
       this.dialog.open(DialogEditChannelComponent, {panelClass: 'dialog-bor-rad-round'});
@@ -112,6 +129,15 @@ export class ChannelBoardComponent {
         } else {
           return false
         }
+    }
+
+
+    scrollToBottom(): void {
+      if (this.channelChatsContainerRef) {
+        const containerElement = this.channelChatsContainerRef.nativeElement;
+        containerElement.scrollTop = containerElement.scrollHeight;
+        console.log('Die Höhe ist ', containerElement.scrollHeight);
+      }
     }
 }
 

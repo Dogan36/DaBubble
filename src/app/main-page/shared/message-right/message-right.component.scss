@@ -173,25 +173,53 @@
                 background-position: center;
                 width: 40px;
                 height: 40px;
-
-                &:hover {
-                    cursor: pointer;
-                }
             }
             .add-reaction {
                 background-image: url('./../../../../assets/img/icons/add_reaction.svg');
 
                 &:hover {
                     background-image: url('./../../../../assets/img/icons/add_reaction_pur.svg');
-
+                    cursor: pointer;
                 }
             }
 
             .edit-msg {
                 background-image: url('./../../../../assets/img/icons/option.svg');
-
+                position: relative;
+                
                 &:hover {
                     background-image: url('./../../../../assets/img/icons/option_pur.svg');
+                    
+                    .edit-msg-btn {
+                        display: block;
+                    }
+                }
+                
+                .edit-msg-btn {
+                    display: none;
+                    background-color: white;
+                    border: none;
+                    box-shadow: 0 0 14px 0 rgba(0,0,0, 0.2);
+                    border-radius: 0 30px 30px 30px;
+                    padding: 10px 20px;
+                    position: absolute;
+                    left: 30px;
+                    top: 20px;
+                    transition: all 725ms ease-in-out;
+                    
+                    .edit-msg-text {
+                        @include font24(600);
+                        border-radius: 100px;
+                        padding: 10px 20px;
+                        white-space: nowrap;
+                        
+                        &:hover {
+                            background-color: $cpt-bg;
+                            color: $cpt-purple-3;
+                            cursor: pointer;
+                        }
+                    }
+                    
                 }
             }
         }

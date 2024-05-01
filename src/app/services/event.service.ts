@@ -8,6 +8,8 @@ export class EventService {
   private threadOpenStatus = new BehaviorSubject<boolean>(true);
   private channelOpenStatus = new BehaviorSubject<boolean>(true);
   private privateChatOpenStatus = new BehaviorSubject<boolean>(false);
+  private newChatOpenStatus = new BehaviorSubject<boolean>(false);
+  private workspaceOpenStatus = new BehaviorSubject<boolean>(true);
 
 
   constructor() { }
@@ -33,7 +35,7 @@ export class EventService {
     this.channelOpenStatus.next(state);
   }
 
-  
+
   // Private Chat Status
 
   getPrivateChatOpenStatus() {
@@ -43,4 +45,28 @@ export class EventService {
   openPrivateChat(state:boolean) {
     this.privateChatOpenStatus.next(state);
   }
+
+
+  // New Chat Status
+
+  getNewChatOpenStatus() {
+    return this.newChatOpenStatus.asObservable();
+  }
+
+  openNewChat(state:boolean) {
+    this.newChatOpenStatus.next(state);
+  }
+
+
+  // Workspace Status
+
+  getWorkspaceOpenStatus() {
+    return this.workspaceOpenStatus.asObservable();
+  }
+
+  openWorkspace(state:boolean) {
+    this.workspaceOpenStatus.next(state);
+  }
 }
+
+
