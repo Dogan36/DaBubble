@@ -58,4 +58,8 @@
             padding-left: 24px;
         }
     }
+
+    @media (max-width: 544px) {
+        min-width: auto;
+    }
 }

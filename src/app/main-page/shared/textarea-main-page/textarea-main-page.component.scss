@@ -9,6 +9,10 @@
     padding-bottom: 56px;
     margin: 32px 30px;
 
+    form {
+        width: 100%;
+    }
+
     textarea {
         border-radius: 20px;
         border: none;
@@ -27,7 +31,6 @@
     .chat-icons-container {
         display: flex;
         justify-content: space-between;
-        // box-sizing: border-box;
         position: absolute;
         bottom: 0;
         padding: 0 16px 16px 16px;
@@ -87,6 +90,10 @@
                 background-image: url('./../../../../assets/img/icons/send_hov.svg');
             }
         }
+    }
+
+    @media (max-width: 544px) {
+        margin: 15px 16px 32px 16px;
     }
 } 
 

@@ -30,6 +30,12 @@
                 background-image: url('./../../../assets/img/icons/keyboard_arrow_down_pur.svg');
             }
         }
+
+        @media (max-width: 544px) {
+            h3 {
+                @include font20(700);
+            }
+        }
     }
 
     .channel-user-container {
@@ -70,6 +76,10 @@
                     color: $cpt-purple-3;
                 }
             }
+
+            @media (max-width: 544px) {
+                display: none;
+            }
         }
 
         .add-user {
@@ -84,6 +94,10 @@
                 cursor: pointer;
             }
         }
+    }
+
+    @media (max-width: 544px) {
+        padding: 10px 16px;
     }
 }
 

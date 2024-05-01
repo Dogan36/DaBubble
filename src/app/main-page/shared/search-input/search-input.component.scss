@@ -16,6 +16,10 @@ input {
     padding: 15px 20px;
     outline: none;
     width: 100%;
+
+    @media (max-width: 544px) {
+        padding: 13px 20px;
+    }
 }
 
 

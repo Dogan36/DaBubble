@@ -8,12 +8,13 @@ import { ChannelService } from '../../services/channel.service';
 import { ChatService } from '../../services/chat.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
+import { SearchInputComponent } from '../shared/search-input/search-input.component';
 
 
 @Component({
   selector: 'app-workspace-menu',
   standalone: true,
-  imports: [WorkspaceUserProfilComponent, MatDialogModule,],
+  imports: [WorkspaceUserProfilComponent, MatDialogModule, SearchInputComponent],
   templateUrl: './workspace-menu.component.html',
   styleUrl: './workspace-menu.component.scss'
 })

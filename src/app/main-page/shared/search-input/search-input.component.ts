@@ -47,6 +47,11 @@ export class SearchInputComponent {
     this.evtSvc.openChannel(true);
     this.evtSvc.openThread(false);
     this.evtSvc.openPrivateChat(false);
+    this.evtSvc.openNewChat(false);
+
+    if (window.innerWidth <= 544) {
+      this.evtSvc.openWorkspace(false);
+    }
   }
 
 
