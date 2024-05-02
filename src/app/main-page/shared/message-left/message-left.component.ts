@@ -53,10 +53,19 @@ export class MessageLeftComponent {
   }
 
 
-  onOpenThread(chatIndex:number) {
+  onOpenThread() {
+    if(this.onChannelBoard === true) {
+      this.evtSvc.openThread(true);
+
+      if (window.innerWidth <= 544) { 
+        this.evtSvc.openChannel(false);
+      }
+    }
+  }
+
+  setChatIndex(chatIndex:number) {
     if(this.onChannelBoard === true) {
       this.channelService.selChatIndex = chatIndex;
-      this.evtSvc.openThread(true);
     }
   }
 

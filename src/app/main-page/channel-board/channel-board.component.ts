@@ -68,6 +68,10 @@ export class ChannelBoardComponent {
           dialog.style.left = (wrapper.offsetLeft - 328) + "px"; 
           dialog.style.top = (wrapper.offsetTop + wrapper.offsetHeight + 140) + "px";
           dialog.showModal();
+
+          if (window.innerWidth <= 544) {
+            dialog.style.left = ((window.innerWidth - dialog.offsetWidth) / 2) + "px";
+          }
         } 
       }
       setTimeout(() => {

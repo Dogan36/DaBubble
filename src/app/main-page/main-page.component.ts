@@ -74,6 +74,7 @@ export class MainPageComponent {
     this.evtSvc.openChannel(false);
     this.evtSvc.openPrivateChat(false);
     this.evtSvc.openNewChat(true);
+    this.evtSvc.openThread(false);
 
     if (window.innerWidth <= 544) {
       this.evtSvc.openWorkspace(false);
@@ -84,9 +85,12 @@ export class MainPageComponent {
     this.evtSvc.openChannel(true);
     this.evtSvc.openPrivateChat(false);
     this.evtSvc.openNewChat(false);
-
+    
     if (window.innerWidth <= 544) {
       this.evtSvc.openWorkspace(false);
+      this.evtSvc.openThread(false);
+    } else {
+      this.evtSvc.openThread(true);
     }
   }
 
@@ -94,6 +98,7 @@ export class MainPageComponent {
     this.evtSvc.openChannel(false);
     this.evtSvc.openPrivateChat(true);
     this.evtSvc.openNewChat(false);
+    this.evtSvc.openThread(false);
 
     if (window.innerWidth <= 544) {
       this.evtSvc.openWorkspace(false);
@@ -106,6 +111,7 @@ export class MainPageComponent {
       this.evtSvc.openPrivateChat(false);
       this.evtSvc.openNewChat(false);
       this.evtSvc.openWorkspace(true);
+      this.evtSvc.openThread(false);
     }
   }
 

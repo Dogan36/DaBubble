@@ -74,14 +74,18 @@ header {
 
         img {
             padding-left: 30px;
-
-            @media (max-width: 544px) {
-                height: 45px;
-            }
         }
 
         @media (max-width: 544px) {
-            width: auto;
+            display: none;
+        }
+    }
+
+    .logo-container-mobile {
+        display: none;
+
+        @media (max-width: 544px) {
+            display: block;
         }
     }
 
@@ -233,6 +237,7 @@ header {
         width: $wdth-left;
 
         @media (max-width: 544px) {
+            padding: 15px 16px;
             position: relative;
         }
     }
@@ -243,6 +248,10 @@ header {
 
     app-thread-board {
         width: $wdth-right;
+
+        @media(max-width: 544px) {
+            width: 100%;
+        }
     }
 
     .menu-btn-container {
@@ -297,7 +306,7 @@ header {
 
     @media (max-width: 544px) {
         background-color: white;
-        height: calc(100vh - 80px);
+        height: calc(100vh - 81.5px);
         padding: 0 0 0 0;
 
         app-workspace-menu {
@@ -359,6 +368,10 @@ header {
                 background-color: $cpt-purple-2;
             }
         }
+    }
+
+    @media (max-width: 544px) {
+        padding: 40px 20px;
     }
 }
 

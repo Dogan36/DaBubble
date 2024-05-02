@@ -9,19 +9,22 @@
   </div>
   <mat-dialog-content class="dialog-content">
     <div class="profil-img">
-      <img  [src]="this.authService.currentUser?.photoURL">
+      <img [src]="this.authService.currentUser?.photoURL" />
     </div>
     @if(!editProfilOpen) {
     <div class="profil-name-container">
       <div>
-        <h2> {{this.authService.currentUser?.name}}</h2>
-        <span class="edit-user" (click)="editProfil()">Bearbeiten</span>
+        <h2>{{ this.authService.currentUser?.name }}</h2>
+        <div (click)="editProfil()">
+          <div class="edit-user"></div>
+          <span class="edit-user-text">Bearbeiten</span>
+        </div>
       </div>
       <h4>Aktiv</h4>
     </div>
     <div class="profil-email-container">
       <h4>E-Mail-Adresse</h4>
-      <p>{{this.authService.currentUser?.email}}</p>
+      <p>{{ this.authService.currentUser?.email }}</p>
     </div>
     } @if(editProfilOpen) {
     <div class="edit-user-info-container">

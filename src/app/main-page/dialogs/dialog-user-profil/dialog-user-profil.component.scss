@@ -8,22 +8,35 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+
         .edit-user {
             background-image: url('./../../../../assets/img/icons/edit_round.svg');
             background-repeat: no-repeat;
             background-position: 0 50%;
-            color: $cpt-purple-3;
             height: 30px;
-            padding-left: 50px;
-            padding-top: 3px;
-            padding-bottom: 3px;
-            text-align: center;
-            width: 148px;
+            width: 30px;
+        }
+
+        .edit-user-text {
             @include font18(600);
-        
-            &:hover {
+            color: $cpt-purple-3;
+            padding-left: 16px;
+            text-align: center;
+            width: 96px;
+
+            @media (max-width: 544px) {
+                display: none;
+            }
+        }
+
+        &:hover {
+            @include font18(700);
+            cursor: pointer;
+
+            .edit-user {
                 background-image: url('./../../../../assets/img/icons/edit_round_hov.svg');
-                cursor: pointer;
+            }
+            .edit-user-text {
                 @include font18(700);
             }
         }

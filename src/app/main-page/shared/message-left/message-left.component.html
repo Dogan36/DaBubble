@@ -11,14 +11,17 @@
       <h5 (click)="openShowProfilDialog()">{{ member }}</h5>
       <span>{{ time }} Uhr</span>
     </div>
-    <div class="user-msg" (click)="onOpenThread(selectedChatIndex)">
+    <div
+      class="user-msg"
+      (click)="setChatIndex(selectedChatIndex); onOpenThread()"
+    >
       <p>{{ message }}</p>
     </div>
     @if(sortedReactions.length > 0) {
     <div class="reactions-container">
       <div
         class="add-reaction"
-        (click)="onOpenThread(selectedChatIndex)"
+        (click)="setChatIndex(selectedChatIndex)"
         [matMenuTriggerFor]="aboveMenu"
       ></div>
       <div class="reactions-list">
@@ -26,7 +29,7 @@
         <div
           class="sgl-reaction-container"
           (click)="
-            onOpenThread(selectedChatIndex);
+            setChatIndex(selectedChatIndex);
             addOrRemoveEmoji(emojiObj.reactEmoji)
           "
         >
@@ -63,14 +66,14 @@
     </div>
     } @if(onChannelBoard && amountMessage !== 0) {
     <div class="answer-info-container">
-      <p (click)="onOpenThread(selectedChatIndex)">
+      <p (click)="setChatIndex(selectedChatIndex); onOpenThread()">
         {{ amountMessage }} Antworten
       </p>
       <span>Letzte Antwort {{ timeLastMessage }}</span>
     </div>
     } @if (containerHovered) {
     <div
-      (click)="onOpenThread(selectedChatIndex)"
+      (click)="setChatIndex(selectedChatIndex)"
       class="add-reaction-container"
       [matMenuTriggerFor]="aboveMenu"
       #aboveMenuTrigger="matMenuTrigger"

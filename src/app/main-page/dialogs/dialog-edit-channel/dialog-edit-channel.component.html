@@ -10,12 +10,17 @@
   <mat-dialog-content class="dialog-content">
     <div class="flx-col" [class.changeStatus]="!editNameOpen">
       <div class="label-container">
-        <label for="channelName">Channel-Name</label>@if(!editNameOpen) {<span
-          (click)="openChangesName()"
-          >Bearbeiten</span
-        >} @if(editNameOpen) {<span (click)="saveChanges('name')"
-          >Speichern</span
-        >}
+        <label for="channelName">Channel-Name</label>@if(!editNameOpen) {
+        <div>
+          <div class="edit-icon" (click)="openChangesName()"></div>
+          <span (click)="openChangesName()">Bearbeiten</span>
+        </div>
+        } @if(editNameOpen) {
+        <div>
+          <div class="save-icon" (click)="saveChanges('name')"></div>
+          <span (click)="saveChanges('name')">Speichern</span>
+        </div>
+        }
       </div>
       @if(!editNameOpen) {
       <p>
@@ -31,12 +36,17 @@
     </div>
     <div class="flx-col" [class.changeStatus]="!editTextOpen">
       <div class="label-container">
-        <label for="description">Beschreibung</label> @if(!editTextOpen) {<span
-          (click)="openChangesText()"
-          >Bearbeiten</span
-        >} @if(editTextOpen) {<span (click)="saveChanges('text')"
-          >Speichern</span
-        >}
+        <label for="description">Beschreibung</label> @if(!editTextOpen) {
+        <div>
+          <div class="edit-icon" (click)="openChangesText()"></div>
+          <span (click)="openChangesText()">Bearbeiten</span>
+        </div>
+        } @if(editTextOpen) {
+        <div>
+          <div class="save-icon" (click)="saveChanges('text')"></div>
+          <span (click)="saveChanges('text')">Speichern</span>
+        </div>
+        }
       </div>
       @if(!editTextOpen) {
       <p>

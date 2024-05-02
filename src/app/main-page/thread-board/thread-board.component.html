@@ -2,7 +2,9 @@
   <!-- hier später Variable für channel einfügen -->
   <span class="thread-title"
     ><h3>Thread</h3>
-    <span>Entwicklerteam</span></span
+    <span>{{
+      this.channelService.channels[this.channelService.selectedChannel].name
+    }}</span></span
   >
   <div class="close-icon" (click)="onCloseThread()"></div>
 </div>

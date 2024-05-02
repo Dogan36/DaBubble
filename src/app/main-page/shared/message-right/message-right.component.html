@@ -9,7 +9,10 @@
       <span>{{ time }} Uhr</span>
       <h5 (click)="openShowProfilDialog()">{{ member }}</h5>
     </div>
-    <div class="user-msg" (click)="onOpenThread(selectedChatIndex)">
+    <div
+      class="user-msg"
+      (click)="setChatIndex(selectedChatIndex); onOpenThread()"
+    >
       <p>{{ message }}</p>
     </div>
 
@@ -18,7 +21,7 @@
     <div class="reactions-container">
       <div
         class="add-reaction"
-        (click)="onOpenThread(selectedChatIndex)"
+        (click)="setChatIndex(selectedChatIndex)"
         [matMenuTriggerFor]="aboveMenu"
       ></div>
       <div class="reactions-list">
@@ -26,7 +29,7 @@
         <div
           class="sgl-reaction-container"
           (click)="
-            onOpenThread(selectedChatIndex);
+            setChatIndex(selectedChatIndex);
             addOrRemoveEmoji(emojiObj.reactEmoji)
           "
         >
@@ -66,7 +69,7 @@
     <!-- Channel Board chat answer infos -->
     @if(onChannelBoard && amountMessage !== 0) {
     <div class="answer-info-container">
-      <p (click)="onOpenThread(selectedChatIndex)">
+      <p (click)="setChatIndex(selectedChatIndex); onOpenThread()">
         {{ amountMessage }} Antworten
       </p>
       <span>Letzte Antwort {{ timeLastMessage }}</span>
@@ -87,7 +90,7 @@
   @if (containerHovered && editMessageState === false) {
   <div class="add-reaction-container">
     <div
-      (click)="onOpenThread(selectedChatIndex)"
+      (click)="setChatIndex(selectedChatIndex)"
       class="add-reaction"
       [matMenuTriggerFor]="aboveMenu"
       #aboveMenuTrigger="matMenuTrigger"
@@ -96,7 +99,7 @@
       <div class="edit-msg-btn">
         <div
           class="edit-msg-text"
-          (click)="onOpenThread(selectedChatIndex); editMessage()"
+          (click)="setChatIndex(selectedChatIndex); editMessage()"
         >
           Nachricht bearbeiten
         </div>

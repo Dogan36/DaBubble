@@ -15,6 +15,7 @@ mat-dialog-content {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        min-width: 180px;
 
         span {
             margin-right: 30px;
@@ -23,6 +24,37 @@ mat-dialog-content {
 
             &:hover {
                 cursor: pointer;
+            }
+
+            @media (max-width: 544px) {
+                display: none;
+            }
+        }
+
+        .edit-icon, .save-icon {
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 30px;
+            width: 30px;
+
+            @media (min-width: 545px) {
+                display: none;
+            }
+        }
+
+        .edit-icon {
+            background-image: url(./../../../../assets/img/icons/edit_round.svg);
+
+            &:hover {
+                background-image: url(./../../../../assets/img/icons/edit_round_hov.svg);
+            }
+        }
+
+        .save-icon {
+            background-image: url(./../../../../assets/img/icons/check_circle.svg);
+
+            &:hover {
+                 background-image: url(./../../../../assets/img/icons/check_circle_pur.svg);
             }
         }
     }

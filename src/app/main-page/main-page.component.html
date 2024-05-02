@@ -1,7 +1,10 @@
 <header (click)="test()">
-  @if(workspaceOpen) {
   <div class="logo-container">
     <img src="assets/img/Logo_full.svg" alt="" />
+  </div>
+  @if(workspaceOpen) {
+  <div class="logo-container-mobile">
+    <img src="assets/img/Logo_mobile.svg" alt="" />
   </div>
   } @if(!workspaceOpen) {
   <div class="devspace-logo-container" (click)="openWorkspace()">
@@ -40,7 +43,6 @@
     <div class="menu-btn-op"></div>
   </div>
   } @if(workspaceOpen) {
-  <!-- Es muss noch ein Index als Parameter hinzugefügt werden! -->
   <app-workspace-menu
     (openNewChat)="openNewChat()"
     (openChannel)="openChanel()"
@@ -51,8 +53,7 @@
   <app-channel-board></app-channel-board>
   } @if(privateChatOpen) {
   <app-chat-board></app-chat-board>
-  } @if(threadOpen && channelChatOpen &&
-  this.channelService.selectedChannelChats.length > 0) {
+  } @if(threadOpen && this.channelService.selectedChannelChats.length > 0) {
   <app-thread-board></app-thread-board>
   }
 </div>

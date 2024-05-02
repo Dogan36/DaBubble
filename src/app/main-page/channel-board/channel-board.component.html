@@ -190,7 +190,26 @@
       this.channelService.sortSameReactions(chat.allMessages[0].reactions)
     "
   ></app-message-right>
-  }}}
+  }}} @else if(this.channelService.selectedChannelChats.length === 0) {
+  <div class="empty-channel-info">
+    <h3
+      *ngIf="this.channelService.channels[this.channelService.selectedChannel]"
+      class="title-channel-field"
+    >
+      {{
+        this.channelService.channels[this.channelService.selectedChannel].name
+      }}
+    </h3>
+    <p>
+      Dieser Channel wurde neu erstellt. Das ist der Anfang des Channels
+      <span>
+        {{
+          this.channelService.channels[this.channelService.selectedChannel].name
+        }}</span
+      >.
+    </p>
+  </div>
+  }
 </div>
 <app-textarea-main-page
   [onChannelBoard]="channelBoard"
