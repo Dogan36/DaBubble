@@ -105,7 +105,8 @@ export class ChannelService {
       message: obj.message || '',
       member: obj.member,
       reactions: this.setReactions(obj) || [],
-      timestamp: obj.timestamp
+      timestamp: obj.timestamp,
+      uploadedFiles: obj.uploadedFiles
     };
   }
 
@@ -197,7 +198,8 @@ export class ChannelService {
         name: obj.name,
         creator: obj.creator,
         members: obj.members,
-        description: obj.description || ''
+        description: obj.description || '',
+        uploadedFiles: obj.uploadedFiles
     };
   }
 

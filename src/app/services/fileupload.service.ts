@@ -1,0 +1,75 @@
+import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { getDownloadURL, getStorage, ref, uploadBytesResumable, deleteObject } from "firebase/storage";
+
+@Injectable({
+  providedIn: 'root'
+})
+export class FileUploadService {
+  private filesToUpload: File[] = [];
+  private uploadedFiles: { file: File, docRef: any, downloadURL: string }[] = [];
+  private fileSelectedSubject: Subject<File[]> = new Subject<File[]>();
+  private storage = getStorage();
+  private randomPath = Math.random().toString(36).substring(2);
+  private storageRef = ref(this.storage, this.randomPath);
+  private isUploading: boolean = false;
+
+  constructor() { }
+
+  chooseFile() {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.addEventListener('change', async (event) => {
+      const target = event.target as HTMLInputElement;
+      if (target.files && target.files.length > 0) {
+        const chosenFiles: File[] = Array.from(target.files);
+        this.filesToUpload.push(...chosenFiles);
+        this.fileSelectedSubject.next(this.filesToUpload);
+        await this.uploadFiles(); // Starte den Upload automatisch nach Auswahl der Datei(en)
+      }
+    });
+    fileInput.click();
+  }
+
+  private async uploadFiles() {
+    if (this.filesToUpload.length === 0 || this.isUploading) return;
+
+    this.isUploading = true;
+
+    const uploadTasks = this.filesToUpload.map(async (file) => {
+      const childRef = ref(this.storageRef, file.name);
+      const snapshot = await uploadBytesResumable(childRef, file);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      this.uploadedFiles.push({ file, docRef: snapshot.ref, downloadURL });
+    });
+
+    try {
+      await Promise.all(uploadTasks);
+      // Alle Dateien erfolgreich hochgeladen
+      console.log('Alle Dateien wurden erfolgreich hochgeladen');
+    } catch (error) {
+      // Fehler beim Hochladen der Dateien
+      console.error('Fehler beim Hochladen der Dateien:', error);
+    } finally {
+      this.isUploading = false;
+    }
+  }
+
+  getUploadedFiles(): { file: File, docRef: any, downloadURL: string }[] {
+    return this.uploadedFiles;
+  }
+
+  
+
+  async deleteFile(fileIndex: number) {
+    const fileToDelete = this.uploadedFiles[fileIndex];
+    if (!fileToDelete) return; // Überprüfen, ob das Index valide ist
+    try {
+      await deleteObject(fileToDelete.docRef);
+      this.uploadedFiles.splice(fileIndex, 1);
+      console.log('Datei erfolgreich gelöscht');
+    } catch (error) {
+      console.error('Fehler beim Löschen der Datei:', error);
+    }
+  }
+}
