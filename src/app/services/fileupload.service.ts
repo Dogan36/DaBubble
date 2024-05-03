@@ -22,14 +22,24 @@ export class FileUploadService {
     fileInput.addEventListener('change', async (event) => {
       const target = event.target as HTMLInputElement;
       if (target.files && target.files.length > 0) {
+        // Leere die Liste der zuvor hochgeladenen Dateien
+        this.filesToUpload = [];
+        
+        // Füge die neu ausgewählten Dateien hinzu
         const chosenFiles: File[] = Array.from(target.files);
         this.filesToUpload.push(...chosenFiles);
+        
+        // Benachrichtige über die Auswahl neuer Dateien
         this.fileSelectedSubject.next(this.filesToUpload);
-        await this.uploadFiles(); // Starte den Upload automatisch nach Auswahl der Datei(en)
+        
+        // Starte den Upload automatisch nach Auswahl der Datei(en)
+        await this.uploadFiles();
+        console.log(this.uploadedFiles);
       }
     });
     fileInput.click();
   }
+  
 
   private async uploadFiles() {
     if (this.filesToUpload.length === 0 || this.isUploading) return;
@@ -67,7 +77,7 @@ export class FileUploadService {
     try {
       await deleteObject(fileToDelete.docRef);
       this.uploadedFiles.splice(fileIndex, 1);
-      console.log('Datei erfolgreich gelöscht');
+      console.log(this.uploadFiles);
     } catch (error) {
       console.error('Fehler beim Löschen der Datei:', error);
     }
