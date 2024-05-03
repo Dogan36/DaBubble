@@ -3,8 +3,6 @@
 
 
 .user-tag-container {
-    // display: flex;
-    // flex-direction: column;
     position: relative;
     
     .search-input-container {
@@ -40,6 +38,10 @@
         overflow-y: scroll;
         max-width: 335px;
         z-index: 10100;
+
+        @media (max-width: 432px) {
+            max-width: 264px;
+        }
     }
 }
 

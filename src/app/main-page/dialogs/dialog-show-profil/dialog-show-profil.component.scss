@@ -15,6 +15,11 @@
                 border-radius: 50%;
                 width: 200px;
                 height: 200px;
+
+                @media (max-width: 432px) {
+                    width: 160px;
+                    height: 160px;
+                }
             }
         }
 
@@ -28,6 +33,10 @@
             h2 {
                 @include font32(700);
                 color: black;
+
+                @media (max-width: 432px) {
+                    @include font24(700);
+                }
             }
             h4 {
                 color: $cpt-green;
@@ -38,12 +47,20 @@
         .profil-email-container {
             h4, p {
                 padding-left: 50px;
+
+                @media (max-width: 432px) {
+                    padding-left: 32px;
+                }
             }
             h4 {
                 color: black;
                 background-image: url('./../../../../assets/img/icons/mail_black.svg');
                 background-repeat: no-repeat;
                 background-position: 0 50%;
+
+                @media (max-width: 432px) {
+                    @include font18(700);
+                }
             }
             p {
                 color: $cpt-blue;
@@ -52,6 +69,10 @@
 
         @media (max-width: 544px) {
             width: auto;
+        }
+
+        @media (max-width: 432px) {
+            max-width: 300px;
         }
     }
 }

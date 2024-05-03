@@ -74,6 +74,10 @@ mat-dialog-content {
     h3 {
         color: $cpt-purple-3;
     }
+
+    p {
+        word-break: break-all;
+    }
 }
 
 

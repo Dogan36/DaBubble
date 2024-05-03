@@ -57,6 +57,7 @@
             border-radius: 20px 0px 20px 20px;
             color: white;
             padding: 15px;
+            word-break: break-all;
 
             &:hover {
                 cursor: pointer;
@@ -222,6 +223,10 @@
                             background-color: $cpt-bg;
                             color: $cpt-purple-3;
                             cursor: pointer;
+                        }
+
+                        @media (max-width: 544px) {
+                            @include font20(600);
                         }
                     }
                     

@@ -74,7 +74,7 @@ export class MessageRightComponent {
   openShowProfilDialog() {
     let memberData = this.userService.users[this.userService.getUsersData(this.memberRef)];
 
-    this.dialog.open(DialogShowProfilComponent, {panelClass: 'dialog-bor-rad-round', data: {
+    this.dialog.open(DialogShowProfilComponent, {panelClass: ['dialog-bor-rad-round', 'user-profil-popup'], data: {
         profilName: memberData.name,
         profilRef: memberData.id,
         profilEmail: memberData.email,

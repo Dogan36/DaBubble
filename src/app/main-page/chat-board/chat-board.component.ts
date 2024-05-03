@@ -21,12 +21,22 @@ import { TimeSeparatorComponent } from '../shared/time-separator/time-separator.
 })
 export class ChatBoardComponent {
 
+  @Input() 
   channelBoard = false;
 
   constructor(public dialog: MatDialog, public userService: UserService, public chatService:ChatService, public authService: AuthService, public channelService: ChannelService) {}
 
 
   openShowProfilDialog() {
-    this.dialog.open(DialogShowProfilComponent, {panelClass: 'dialog-bor-rad-round'},);
+    // let memberData = this.userService.users[this.userService.getUsersData(this.memberRef)];
+
+    let memberData = this.userService.users[this.userService.getUsersData('YxHQcig7Dbb4doQCAcBmjhZjoKo2')];
+    
+    this.dialog.open(DialogShowProfilComponent, {panelClass: ['dialog-bor-rad-round', 'user-profil-popup'], data: {
+        profilName: memberData.name,
+        profilRef: memberData.id,
+        profilEmail: memberData.email,
+        profilImg: memberData.photoURL,
+      }});
   }
 }

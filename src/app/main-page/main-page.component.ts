@@ -120,6 +120,6 @@ export class MainPageComponent {
    * Opens UserMenuDialog by click
    */
   openUserMenuDialog() {
-    this.dialog.open(DialogUserMenuComponent, {position: {right:'24px', top: '80px'}, panelClass: 'dialog-bor-rad-corner'});
+    this.dialog.open(DialogUserMenuComponent, {position: {right:'24px', top: '80px'}, panelClass: ['dialog-bor-rad-corner', 'user-profil-menu']});
   }
 }

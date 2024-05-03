@@ -132,6 +132,9 @@ app-search-input {
 
         h5 {
             font-weight: 400;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         &:hover {

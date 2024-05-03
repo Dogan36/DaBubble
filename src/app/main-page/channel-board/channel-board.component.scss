@@ -21,6 +21,12 @@
         padding-left: 52px;
         padding-right: 10px;
 
+        h3 {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
         &:hover {
             background-color: $cpt-bg;
             background-image: url('./../../../assets/img/icons/tag_big_pur.svg');
@@ -36,6 +42,7 @@
             background-position: 10px 50%;
             height: 40px;
             padding-left: 40px;
+            max-width: 360px;;
 
             h3 {
                 @include font20(700);
@@ -44,6 +51,10 @@
             &:hover {
                 background-image: url('./../../../assets/img/icons/tag_pur.svg');
             }
+        }
+
+        @media (max-width: 432px) {
+            max-width: 252px;
         }
     }
 
@@ -154,11 +165,23 @@
         flex-direction: column;
         gap: 7px;
         padding: 40px;
+
         .title-channel-field {
             background-image: url('./../../../assets/img/icons/tag_big.svg');
             background-repeat: no-repeat;
             background-position: 0px 50%;
             padding-left: 40px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            @media (max-width: 544px) {
+                max-width: 388px
+            }
+
+            @media (max-width: 432px) {
+                max-width: 272px
+            }
         }
 
         p {
