@@ -15,6 +15,9 @@
       class="user-msg"
       (click)="setChatIndex(selectedChatIndex); onOpenThread()"
     >
+      @if(uploadedFile.length > 0) {
+      <a href="{{ uploadedFile[1] }}" target="_blank">{{ uploadedFile[0] }}</a>
+      }
       <p>{{ message }}</p>
     </div>
     @if(sortedReactions.length > 0) {
