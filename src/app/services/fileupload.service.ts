@@ -7,7 +7,7 @@ import { getDownloadURL, getStorage, ref, uploadBytesResumable, deleteObject } f
 })
 export class FileUploadService {
   private filesToUpload: File[] = [];
-  private uploadedFiles: { file: File, docRef: any, downloadURL: string }[] = [];
+  public uploadedFiles: { file: File, docRef: any, downloadURL: string }[] = [];
   private fileSelectedSubject: Subject<File[]> = new Subject<File[]>();
   private storage = getStorage();
   private randomPath = Math.random().toString(36).substring(2);
@@ -71,12 +71,25 @@ export class FileUploadService {
 
   
 
-  async deleteFile(fileIndex: number) {
-    const fileToDelete = this.uploadedFiles[fileIndex];
+  // async deleteFile(fileIndex: number) {
+  //   const fileToDelete = this.uploadedFiles[fileIndex];
+  //   if (!fileToDelete) return; // Überprüfen, ob das Index valide ist
+  //   try {
+  //     await deleteObject(fileToDelete.docRef);
+  //     this.uploadedFiles.splice(fileIndex, 1);
+  //     console.log(this.uploadFiles);
+  //   } catch (error) {
+  //     console.error('Fehler beim Löschen der Datei:', error);
+  //   }
+  // }
+
+  async deleteFile() {
+    const fileToDelete = this.uploadedFiles[0];
     if (!fileToDelete) return; // Überprüfen, ob das Index valide ist
     try {
       await deleteObject(fileToDelete.docRef);
-      this.uploadedFiles.splice(fileIndex, 1);
+      // this.uploadedFiles.splice(fileIndex, 1);
+      this.uploadedFiles.splice(0, 1);
       console.log(this.uploadFiles);
     } catch (error) {
       console.error('Fehler beim Löschen der Datei:', error);

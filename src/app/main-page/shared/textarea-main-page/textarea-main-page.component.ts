@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Message } from '../../../models/message.class';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ChannelService } from '../../../services/channel.service';
@@ -17,7 +17,8 @@ import { NgFor } from '@angular/common';
   styleUrl: './textarea-main-page.component.scss'
 })
 export class TextareaMainPageComponent {
-  uploadedFiles: { file: File, docRef: any, downloadURL: string }[] = [];
+  // uploadedFiles: { file: File, docRef: any, downloadURL: string }[] = [];
+  // uploadedFile: { file: File, docRef: any, downloadURL: string }[] = [];
 
   message: Message = new Message();
 
@@ -25,21 +26,35 @@ export class TextareaMainPageComponent {
   @Input() onChannelBoard:boolean = false;
   @Input() onThreadBoard:boolean = false;
   // @Input() privatTextarea = false;
+  @Output() TextfieldStatus: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() textfieldOnUploadChannel:boolean = false;
+  @Input() textfieldOnUploadChat:boolean = false;
+  @Input() textfieldOnUploadThread:boolean = false;
 
-  constructor(private channelService: ChannelService, private authService: AuthService, public fileUploadService: FileUploadService) { this.uploadedFiles = this.fileUploadService.getUploadedFiles();}
+  constructor(private channelService: ChannelService, private authService: AuthService, public fileUploadService: FileUploadService) { 
+    // this.uploadedFile = this.fileUploadService.getUploadedFiles();
+  }
+
 
   submitMessage(ngForm: NgForm) {
-    if (this.uploadedFiles.length > 0 || this.message.message.trim() !== '') { 
+    if (this.fileUploadService.uploadedFiles.length > 0 || this.message.message.trim() !== '') { 
       this.message.member = this.authService.uid;
       this.message.timestamp = Date.now();
   
      
-        this.message.uploadedFiles = this.uploadedFiles.map(fileInfo => ({
-          name: fileInfo.file.name,
-          downloadURL: fileInfo.downloadURL
-        }));
+      // this.message.uploadedFiles = this.uploadedFiles.map(fileInfo => ({
+      //     name: fileInfo.file.name,
+      //     downloadURL: fileInfo.downloadURL
+      //   }));
+
+      this.fileUploadService.uploadedFiles.map(fileInfo => (
+        this.message.uploadedFile = [fileInfo.file.name, fileInfo.downloadURL]
+          // an dieser Stelle noch docRef vergeben!
+        ));
+
         console.log(this.message)
         // Wenn mindestens eine Datei hochgeladen wurde oder die Nachricht nicht leer ist
+        
         if (this.onChannelBoard) {
           this.channelService.startNewChat({ timestamp: this.message.timestamp }, this.channelService.toJSONmessage(this.message));
         } else if (this.onThreadBoard) {
@@ -50,16 +65,26 @@ export class TextareaMainPageComponent {
         }
         // Zurücksetzen des Formulars
         ngForm.resetForm();
+        
         // Leeren der hochgeladenen Dateien
-        this.uploadedFiles = [];
+        if(this.fileUploadService.uploadedFiles) {
+          this.fileUploadService.uploadedFiles = [];
+        }
+        // this.uploadedFile = [];
+        this.setTextfieldStatus(false);
      
     } else {
       console.log('Ungültige Eingabe');
     }
   }
 
- deleteFile(index: number) {
-    this.fileUploadService.deleteFile(index);
+//  deleteFile(index: number) {
+//     this.fileUploadService.deleteFile(index);
+//   }
+
+  deleteFile() {
+    this.fileUploadService.deleteFile();
+    this.setTextfieldStatus(false);
   }
 
   onEnterKeyPressed(event: Event, ngForm: NgForm) {
@@ -74,4 +99,9 @@ export class TextareaMainPageComponent {
       if($event.emoji.native)
       this.message.message += $event.emoji.native;
       }
+
+
+  setTextfieldStatus(state: boolean) {
+    this.TextfieldStatus.emit(state);
   }
+}

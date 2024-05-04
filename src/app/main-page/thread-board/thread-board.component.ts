@@ -18,6 +18,7 @@ import { TimeSeparatorComponent } from '../shared/time-separator/time-separator.
 export class ThreadBoardComponent {
 
   threadBoard = true;
+  textfieldOnUpload = false;
 
   constructor(private evtSvc: EventService, public channelService: ChannelService, public userService: UserService, public authService: AuthService) {}
 
@@ -32,4 +33,8 @@ export class ThreadBoardComponent {
     }
   }
 
+
+  setTextfieldStatus(event: boolean) {
+    this.textfieldOnUpload = event;
+  }
 }

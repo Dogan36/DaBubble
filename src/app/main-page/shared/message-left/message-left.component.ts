@@ -33,6 +33,8 @@ export class MessageLeftComponent {
   @Input() selectedChatIndex: number = 0;
   @Input() memberRef: string = '';
   @Input() sortedReactions: {reactUser: string[], reactEmoji: string}[] = [];
+  @Input() uploadedFile: string[] = [];
+
   @ViewChild('aboveMenuTrigger') emojiMenuTrigger?: MatMenuTrigger;
 
   containerHovered: boolean = false;

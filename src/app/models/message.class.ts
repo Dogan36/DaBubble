@@ -6,7 +6,8 @@ export class Message {
     member: string;
     reactions: Reaction[];
     timestamp: number;
-    uploadedFiles: { name: string, downloadURL: string }[];
+    uploadedFile: string[];
+    // uploadedFiles: { name: string, downloadURL: string }[];
 
   constructor(obj?:any) {
     this.messageId = obj ? obj.id : '';
@@ -14,6 +15,6 @@ export class Message {
     this.member = obj ? obj.member : '';
     this.reactions = obj ? obj.reactions : [];
     this.timestamp = obj ? obj.timestamp : '';
-    this.uploadedFiles = obj ? obj.uploadedFiles : [];
+    this.uploadedFile = obj ? obj.uploadedFile : [];
   }
 }

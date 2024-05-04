@@ -44,6 +44,7 @@
     [selectedChatIndex]="this.channelService.selChatIndex"
     [selectedChatIndex]="this.channelService.selChatIndex"
     [sortedReactions]="this.channelService.sortSameReactions(message.reactions)"
+    [uploadedFile]="message.uploadedFile"
   ></app-message-left
   >} @else {
   <app-message-right
@@ -60,6 +61,7 @@
     [time]="this.channelService.getTime(message.timestamp)"
     [selectedChatIndex]="this.channelService.selChatIndex"
     [sortedReactions]="this.channelService.sortSameReactions(message.reactions)"
+    [uploadedFile]="message.uploadedFile"
   ></app-message-right>
   }
   <!-- separator after first message -->
@@ -81,4 +83,8 @@
   </div>
   }}}
 </div>
-<app-textarea-main-page [onThreadBoard]="threadBoard"></app-textarea-main-page>
+<app-textarea-main-page
+  [onThreadBoard]="threadBoard"
+  (TextfieldStatus)="setTextfieldStatus($event)"
+  [textfieldOnUploadThread]="textfieldOnUpload"
+></app-textarea-main-page>

@@ -34,6 +34,7 @@ export class ChannelBoardComponent {
     channelData = this.channelService.channels[this.channelService.selectedChannel];
     chatsData = this.channelService.selectedChannelChats;
     // channelTextarea = true;
+    textfieldOnUpload = false;
 
     
     constructor(public dialog: MatDialog, public channelService: ChannelService, private renderer: Renderer2, public userService: UserService, public authService: AuthService) {}
@@ -143,5 +144,10 @@ export class ChannelBoardComponent {
         console.log('Die Höhe ist ', containerElement.scrollHeight);
       }
     }
+
+
+  setTextfieldStatus(event: boolean) {
+    this.textfieldOnUpload = event;
+  }
 }
 

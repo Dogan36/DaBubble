@@ -162,6 +162,7 @@
     [sortedReactions]="
       this.channelService.sortSameReactions(chat.allMessages[0].reactions)
     "
+    [uploadedFile]="chat.allMessages[0].uploadedFile"
   ></app-message-left
   >} @else if(chat.allMessages[0] && chat.allMessages[0].member) {
   <app-message-right
@@ -189,6 +190,7 @@
     [sortedReactions]="
       this.channelService.sortSameReactions(chat.allMessages[0].reactions)
     "
+    [uploadedFile]="chat.allMessages[0].uploadedFile"
   ></app-message-right>
   }}} @else if(this.channelService.selectedChannelChats.length === 0) {
   <div class="empty-channel-info">
@@ -202,7 +204,11 @@
     </h3>
     <p>
       Dieser Channel wurde neu erstellt. Das ist der Anfang des Channels
-      <span>
+      <span
+        *ngIf="
+          this.channelService.channels[this.channelService.selectedChannel]
+        "
+      >
         {{
           this.channelService.channels[this.channelService.selectedChannel].name
         }}</span
@@ -213,4 +219,6 @@
 </div>
 <app-textarea-main-page
   [onChannelBoard]="channelBoard"
+  [textfieldOnUploadChannel]="textfieldOnUpload"
+  (TextfieldStatus)="setTextfieldStatus($event)"
 ></app-textarea-main-page>

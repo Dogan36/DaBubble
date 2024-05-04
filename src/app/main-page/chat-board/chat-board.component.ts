@@ -23,6 +23,7 @@ export class ChatBoardComponent {
 
   @Input() 
   channelBoard = false;
+  textfieldOnUpload = false;
 
   constructor(public dialog: MatDialog, public userService: UserService, public chatService:ChatService, public authService: AuthService, public channelService: ChannelService) {}
 
@@ -38,5 +39,10 @@ export class ChatBoardComponent {
         profilEmail: memberData.email,
         profilImg: memberData.photoURL,
       }});
+  }
+
+
+  setTextfieldStatus(event: boolean) {
+    this.textfieldOnUpload = event;
   }
 }

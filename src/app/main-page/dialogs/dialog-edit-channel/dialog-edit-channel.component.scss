@@ -8,6 +8,18 @@
     background-repeat: no-repeat;
     background-position: 0px 50%;
     padding-left: 40px;
+
+    h3 {
+        overflow-wrap: break-word;
+    }
+
+    @media (max-width: 544px) {
+        max-width: 350px;
+    }
+
+    @media (max-width: 432px) {
+        max-width: 234px;
+    }
 }
 
 mat-dialog-content {

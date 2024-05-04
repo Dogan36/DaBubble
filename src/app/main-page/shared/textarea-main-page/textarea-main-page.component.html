@@ -11,16 +11,37 @@
       minlength="1"
     ></textarea>
     <div class="uploadedFiles">
-      <div *ngFor="let uploadedFile of uploadedFiles; let i = index">
-        <div class="file">
-          <span>{{ uploadedFile.file.name }}</span>
-          <span (click)="deleteFile(i)" class="deleteIcon">X</span>
-        </div>
+      @if(this.fileUploadService.uploadedFiles[0] && textfieldOnUploadChannel ==
+      true) {
+      <!-- <div *ngFor="let uploadedFile of uploadedFiles; let i = index"> -->
+      <div class="file">
+        <!-- <span>{{ uploadedFile.file.name }}</span> -->
+        <span>{{ this.fileUploadService.uploadedFiles[0] }}</span>
+        <span (click)="deleteFile()" class="deleteIcon">X</span>
       </div>
+      } @else if(this.fileUploadService.uploadedFiles[0] &&
+      textfieldOnUploadThread == true) {
+      <div class="file">
+        <span>{{ this.fileUploadService.uploadedFiles[0] }}</span>
+        <span (click)="deleteFile()" class="deleteIcon">X</span>
+      </div>
+      } @else if(this.fileUploadService.uploadedFiles[0] &&
+      textfieldOnUploadChat == true) {
+      <div class="file">
+        <span>{{ this.fileUploadService.uploadedFiles[0] }}</span>
+        <span (click)="deleteFile()" class="deleteIcon">X</span>
+      </div>
+      }
     </div>
+    <!-- </div> -->
     <div class="chat-icons-container">
       <div class="reaction-icons" id="reaction-icons-wrapper">
-        <div class="reaction-icon-plus" (click)="this.fileUploadService.chooseFile()"></div>
+        <div
+          class="reaction-icon-plus"
+          (click)="
+            this.fileUploadService.chooseFile(); setTextfieldStatus(true)
+          "
+        ></div>
         <div class="sep-line"></div>
         <div class="reaction-icon-emoji" [matMenuTriggerFor]="aboveMenu"></div>
         <mat-menu #aboveMenu="matMenu" yPosition="above" xPosition="before">

@@ -106,7 +106,7 @@ export class ChannelService {
       member: obj.member,
       reactions: this.setReactions(obj) || [],
       timestamp: obj.timestamp,
-      uploadedFiles: obj.uploadedFiles
+      uploadedFile: obj.uploadedFile || []
     };
   }
 
@@ -217,16 +217,18 @@ export class ChannelService {
   
   toJSONmessage(obj:any) {
     if(obj.reactions.length > 0) {
-    return {
+      return {
         message: obj.message || '',
         member: obj.member,
         reactions: this.toJSONreactions(obj) || [],
-        timestamp: obj.timestamp
+        timestamp: obj.timestamp,
+        uploadedFile: obj.uploadedFile || []
     }} else {
       return {
         message: obj.message || '',
         member: obj.member,
-        timestamp: obj.timestamp
+        timestamp: obj.timestamp,
+        uploadedFile: obj.uploadedFile || []
       }
     }
   }
@@ -348,3 +350,33 @@ export class ChannelService {
 }
 
 
+
+
+  // toJSONmessage(obj:any) {
+  //   if(obj.reactions.length > 0 && obj.uploadedFile) {
+  //     return {
+  //       message: obj.message || '',
+  //       member: obj.member,
+  //       reactions: this.toJSONreactions(obj) || [],
+  //       timestamp: obj.timestamp,
+  //       uploadedFile: obj.uploadedFile || []
+  //   }} else if(obj.reactions.length > 0 && obj.uploadedFile.length === 0) {
+  //     return {
+  //       message: obj.message || '',
+  //       member: obj.member,
+  //       reactions: this.toJSONreactions(obj) || [],
+  //       timestamp: obj.timestamp,
+  //   }} else if(obj.reactions.length === 0 && obj.uploadedFile.length > 0) {
+  //     return {
+  //       message: obj.message || '',
+  //       member: obj.member,
+  //       timestamp: obj.timestamp,
+  //       uploadedFile: obj.uploadedFile || []
+  //   }} else {
+  //     return {
+  //       message: obj.message || '',
+  //       member: obj.member,
+  //       timestamp: obj.timestamp,
+  //     }
+  //   }
+  // }

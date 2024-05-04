@@ -79,4 +79,7 @@
   ></app-message-right>
   } } }
 </div>
-<app-textarea-main-page></app-textarea-main-page>
+<app-textarea-main-page
+  (TextfieldStatus)="setTextfieldStatus($event)"
+  [textfieldOnUploadChat]="textfieldOnUpload"
+></app-textarea-main-page>
