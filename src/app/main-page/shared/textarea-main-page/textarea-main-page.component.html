@@ -10,30 +10,46 @@
       (keydown.enter)="onEnterKeyPressed($event, messageForm)"
       minlength="1"
     ></textarea>
-    <div class="uploadedFiles">
+
+    <!-- Uploaded file -->
+    <div class="uploaded-files">
       @if(this.fileUploadService.uploadedFiles[0] && textfieldOnUploadChannel ==
       true) {
       <!-- <div *ngFor="let uploadedFile of uploadedFiles; let i = index"> -->
       <div class="file">
         <!-- <span>{{ uploadedFile.file.name }}</span> -->
-        <span>{{ this.fileUploadService.uploadedFiles[0] }}</span>
-        <span (click)="deleteFile()" class="deleteIcon">X</span>
+        <a
+          href="{{ this.fileUploadService.uploadedFiles[0].downloadURL }}"
+          target="_blank"
+          >{{ this.fileUploadService.uploadedFiles[0].file.name }}</a
+        >
+
+        <div (click)="deleteFile()" class="delete-icon"></div>
       </div>
       } @else if(this.fileUploadService.uploadedFiles[0] &&
       textfieldOnUploadThread == true) {
       <div class="file">
-        <span>{{ this.fileUploadService.uploadedFiles[0] }}</span>
-        <span (click)="deleteFile()" class="deleteIcon">X</span>
+        <a
+          href="{{ this.fileUploadService.uploadedFiles[0].downloadURL }}"
+          target="_blank"
+          >{{ this.fileUploadService.uploadedFiles[0].file.name }}</a
+        >
+        <span (click)="deleteFile()" class="delete-icon"></span>
       </div>
       } @else if(this.fileUploadService.uploadedFiles[0] &&
       textfieldOnUploadChat == true) {
       <div class="file">
-        <span>{{ this.fileUploadService.uploadedFiles[0] }}</span>
-        <span (click)="deleteFile()" class="deleteIcon">X</span>
+        <a
+          href="{{ this.fileUploadService.uploadedFiles[0].downloadURL }}"
+          target="_blank"
+          >{{ this.fileUploadService.uploadedFiles[0].file.name }}</a
+        >
+        <span (click)="deleteFile()" class="delete-icon"></span>
       </div>
       }
     </div>
-    <!-- </div> -->
+
+    <!-- Icons on the bottom -->
     <div class="chat-icons-container">
       <div class="reaction-icons" id="reaction-icons-wrapper">
         <div

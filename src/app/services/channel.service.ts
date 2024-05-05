@@ -10,6 +10,7 @@ import { UserService } from './user.service';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ChannelService {
 
   firestore: Firestore = inject(Firestore);

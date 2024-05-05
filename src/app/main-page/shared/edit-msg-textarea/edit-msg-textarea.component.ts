@@ -18,6 +18,8 @@ export class EditMsgTextareaComponent {
   @Input() messageIndex: number = 0;
   @Input() message: string = '';
   @Input() onChannelBoard: boolean = false;
+  @Input() uploadedFile: string[] = [];
+
   @Output() closeEditMsg = new EventEmitter<boolean>();
 
 
@@ -30,6 +32,7 @@ export class EditMsgTextareaComponent {
 
     if (ngForm.valid && this.message.trim() !== '') {
       messageObj.message = this.message;
+      messageObj.uploadedFile = this.uploadedFile;
       this.channelService.updateMessage(messageObj);
 
       ngForm.resetForm();
@@ -49,5 +52,11 @@ export class EditMsgTextareaComponent {
   addEmoji($event: EmojiEvent) {
     if($event.emoji.native)
     this.message += $event.emoji.native;
+  }
+
+  deleteFile() {
+    // mit der docRef file vom Storage löschen!
+
+    this.uploadedFile = [];
   }
 }

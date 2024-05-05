@@ -17,6 +17,7 @@ export class FileUploadService {
   constructor() { }
 
   chooseFile() {
+    if(this.uploadedFiles.length === 0) {
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
     fileInput.addEventListener('change', async (event) => {
@@ -34,10 +35,11 @@ export class FileUploadService {
         
         // Starte den Upload automatisch nach Auswahl der Datei(en)
         await this.uploadFiles();
-        console.log(this.uploadedFiles);
+        console.log('so sieht die file aus', this.uploadedFiles);
       }
     });
     fileInput.click();
+  }
   }
   
 

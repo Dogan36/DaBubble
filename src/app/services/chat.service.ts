@@ -5,36 +5,34 @@ import { BehaviorSubject, Observable, Subscription, switchMap } from 'rxjs';
 import { UserService } from './user.service';
 
 
-
-
-
 @Injectable({
   providedIn: 'root'
 })
 
-
-
 export class ChatService {
   private firestore: Firestore = inject(Firestore);
   private authService: AuthService = inject(AuthService);
-  constructor(private userService: UserService) {
-    this.subChats();
-  
-  }
 
   currentChat: any
-
+  
   private chatsSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   public chats$: Observable<any[]> = this.chatsSubject.asObservable();
   private initialized: boolean = false;
   private unsubChats: Subscription | undefined;
   messages: any[] = [];
 
+
+  constructor(private userService: UserService) {
+    this.subChats();
+  }
+
+
   ngOnDestory() {
     console.log('destroy')
     this.unsubscribeChats()
   }
  
+
   private subChats(): Subscription {
     return this.authService.currentUser$.subscribe(user => {
       if (!this.initialized) {
@@ -51,6 +49,8 @@ export class ChatService {
       }}
     });
   }
+
+
 
   async fetchChats(user: any) {
     const userDocRef = doc(this.firestore, 'users', user.uid);
@@ -72,6 +72,7 @@ export class ChatService {
       }
     }
   }
+
 
   async processChat(chatRef: string, currentUserUid: string) {
     const chatDocRef = doc(this.firestore, 'chats', chatRef);
@@ -110,6 +111,7 @@ export class ChatService {
     }
   }
 
+
   async getOtherMemberData(chatRef: string, currentUserUid: string): Promise<any> {
     const chatDocRef = doc(this.firestore, 'chats', chatRef);
     const chatSnapshot = await getDoc(chatDocRef);
@@ -130,6 +132,7 @@ export class ChatService {
     }
     return null; // Rückgabe, falls keine Daten gefunden wurden
   }
+
 
   async isReadByCurrentUser(chatRef: string, currentUserUid: string): Promise<boolean> {
     const chatDocRef = doc(this.firestore, 'chats', chatRef); // Annahme: Die Chats sind unter 'chats' gespeichert
@@ -162,15 +165,18 @@ export class ChatService {
     this.chatsSubject.next(sortedChats);
   }
 
+
   unsubscribeChats() {
     if (this.unsubChats) {
       this.unsubChats.unsubscribe();
     }
   }
 
+
   getChats() {
     return this.chats$;
   }
+
 
   getChatMessages(chat: any) {
       const chatRef = doc(this.firestore, 'chats', chat.chatRef); // Erstellung der Referenz auf das Chat-Dokument

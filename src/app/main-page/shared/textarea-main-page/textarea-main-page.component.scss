@@ -28,6 +28,7 @@
         }
     }
 
+
     .chat-icons-container {
         display: flex;
         justify-content: space-between;
@@ -96,6 +97,48 @@
         margin: 15px 16px 32px 16px;
     }
 } 
+
+
+.uploaded-files {
+        display: flex;
+        padding: 20px;
+        
+        .file {
+            display: flex;
+            gap: 10px;
+            background-color: $cpt-bg;
+            border-radius: 50px;
+            padding: 4px 12px;
+
+            a {
+                color: black;
+                line-height: 24px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+
+                @media (max-width: 544px) {
+                    max-width: 324px;
+                }
+
+                @media (max-width: 432px) {
+                    max-width: 188px;
+                }
+            }
+
+            .delete-icon {
+                background-image: url(./../../../../assets/img/icons/close_24.svg);
+                background-position: center;
+                background-repeat: no-repeat;
+                height: 24px;
+                width: 24px;
+
+                &:hover {
+                    background-image: url(./../../../../assets/img/icons/close_pur_24.svg);
+                }
+            }
+        }
+}
 
 
 .dialog-window {

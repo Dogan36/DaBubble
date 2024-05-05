@@ -9,6 +9,16 @@
       placeholder="Nachricht an ..."
       minlength="1"
     ></textarea>
+    <div class="uploaded-files">
+      @if(uploadedFile[0]) {
+      <div class="file">
+        <a href="{{ uploadedFile[1] }}" target="_blank">{{
+          uploadedFile[0]
+        }}</a>
+        <div (click)="deleteFile()" class="delete-icon"></div>
+      </div>
+      }
+    </div>
     <div class="edit-msg-btn-container">
       <div class="reaction-icon" id="reaction-icons-wrapper">
         <div class="reaction-icon-emoji" [matMenuTriggerFor]="aboveMenu"></div>
@@ -31,3 +41,4 @@
   </form>
 </div>
 <!-- Warum einmal Abbrechen mit close Funktion und einmal nur x? -->
+<!-- für Channel Board mit Abbrechen und für Thread Board mit X, allerdings auch für private Chat und sieht auch nicht so gut aus! -->
