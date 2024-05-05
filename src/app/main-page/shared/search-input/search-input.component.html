@@ -13,7 +13,8 @@
     <app-workspace-user-profil
       [userName]="user.name"
       [userImage]="user.photoURL"
-      (click)="openChat(user)"
+      [userId]="user.id"
+      (click)="stopSearch()"
     ></app-workspace-user-profil
     >} @empty {
     <p>Niemand gefunden</p>

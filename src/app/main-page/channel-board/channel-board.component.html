@@ -72,6 +72,8 @@
               this.userService.users[this.userService.getUsersData(member)]
                 .photoURL
             "
+            [userId]="member"
+            (click)="closeDialog('dialog-all-members')"
           ></app-workspace-user-profil>
           }
         </div>

@@ -21,9 +21,9 @@ import { TimeSeparatorComponent } from '../shared/time-separator/time-separator.
 })
 export class ChatBoardComponent {
 
-  @Input() 
   channelBoard = false;
   textfieldOnUpload = false;
+  privatTextarea = true;
 
   constructor(public dialog: MatDialog, public userService: UserService, public chatService:ChatService, public authService: AuthService, public channelService: ChannelService) {}
 

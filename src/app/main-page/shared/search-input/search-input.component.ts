@@ -55,8 +55,9 @@ export class SearchInputComponent {
   }
 
 
-  openChat(user: User) {
-
+  stopSearch() {
+    this.searchText = '';
+    this.inputText = '';
   }
 
 }

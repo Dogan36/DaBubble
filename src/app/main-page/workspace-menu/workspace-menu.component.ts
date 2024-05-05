@@ -34,7 +34,7 @@ export class WorkspaceMenuComponent {
   ngOnInit() {
     this.chatSubscription = this.chatService.chats$.subscribe(chats => {
       this.chats = chats;
-      console.log(chats)
+      console.log('Das sind alle Chats',chats)
     });
   }
   

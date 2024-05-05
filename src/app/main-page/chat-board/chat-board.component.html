@@ -80,6 +80,7 @@
   } } }
 </div>
 <app-textarea-main-page
+  [onPrivatTextarea]="privatTextarea"
   (TextfieldStatus)="setTextfieldStatus($event)"
   [textfieldOnUploadChat]="textfieldOnUpload"
 ></app-textarea-main-page>

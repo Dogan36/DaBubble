@@ -10,6 +10,7 @@ import { UserService } from './user.service';
 })
 
 export class ChatService {
+
   private firestore: Firestore = inject(Firestore);
   private authService: AuthService = inject(AuthService);
 
@@ -21,15 +22,31 @@ export class ChatService {
   private unsubChats: Subscription | undefined;
   messages: any[] = [];
 
+  private userSubscription: Subscription;
+  unsubPrivateChats: any;
+
+  privateChats: {chatRef:string, members:string[]}[] = []
 
   constructor(private userService: UserService) {
     this.subChats();
+
+    this.userSubscription = this.authService.currentUser$.subscribe(user => {
+      if (user) {
+        this.unsubPrivateChats = this.subPrivateChats(user.uid);
+      }
+    });
   }
 
 
   ngOnDestory() {
     console.log('destroy')
     this.unsubscribeChats()
+
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
+
+    this.unsubPrivateChats();
   }
  
 
@@ -210,5 +227,103 @@ export class ChatService {
       console.log("Abonnement auf Nachrichten beendet."); // Bestätigung, dass das Abonnement beendet wurde
     };
   }
+
+
+
+  subPrivateChats(userId: string) {
+    const q = query(collection(this.firestore, 'chats'), where('members', 'array-contains', userId));
+
+    return onSnapshot(q, (list) => {
+
+      this.privateChats = [];
+  
+      list.forEach(element => {
+
+        this.privateChats.push({chatRef: element.id, members: element.data()['members']});
+
+      });
+      
+      console.log('Das sind alle meine Chats', this.privateChats);
+    });
+  }
+
+
+
+  // start new chat
+  async startNewPrivateChat(item: {}) { // item => beide user Refs
+
+    await addDoc(collection(this.firestore, 'chats'), item).catch(
+        (err) => { console.error(err) }
+      ).then(
+        (docRef) => { 
+          if (docRef) {
+            console.log("Document written with ID: ", docRef);
+            // hier update Funktion um die ChatRef in den beiden Usern zu speichern!
+            // privateChat öffnen => aktueller Chat
+          } else {
+            console.error("Failed to get document reference.");
+          }
+        } 
+      ) 
+  }
+
+
+  async addMessageToPrivateChat(message: {}, chatRef:string) {
+    // let chatRef = this.chats[this.selectedChat].id;
+
+    await addDoc(collection(this.firestore, `chats/${chatRef}/messages`), message).catch(
+        (err) => { console.error(err) }
+      ).then(
+      (docRef) => { 
+        // console.log("Document written with ID: ", docRef)
+        console.log('So sieht die Message aus', message);
+      }
+      ) 
+  }
+
+
+// Eigentlich auch so im channelService, aber für besser Übersicht auch noch mal hier
+  toJSONmessage(obj:any) {
+    if(obj.reactions.length > 0) {
+      return {
+        message: obj.message || '',
+        member: obj.member,
+        reactions: this.toJSONreactions(obj) || [],
+        timestamp: obj.timestamp,
+        uploadedFile: obj.uploadedFile || []
+    }} else {
+      return {
+        message: obj.message || '',
+        member: obj.member,
+        timestamp: obj.timestamp,
+        uploadedFile: obj.uploadedFile || []
+      }
+    }
+  }
+
+
+// Eigentlich auch so im channelService, aber für besser Übersicht auch noch mal hier
+  toJSONreactions(obj:any) {
+    let reactionsArray = [];
+    for (let i = 0; i < obj.reactions.length; i++) {
+      const reaction = obj.reactions[i];
+
+      reactionsArray.push(reaction.reactUser + "&" + reaction.reactEmoji)
+    }
+    return reactionsArray;
+  }
+
+
+  searchForMemberInChats(memberId: string) {
+    for (let i = 0; i < this.privateChats.length; i++) {
+      const chat = this.privateChats[i];
+
+      if (chat.members.includes(memberId)) {
+            return true;
+        }
+    }
+    return false;
+  }
+  
 
 }

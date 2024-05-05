@@ -8,6 +8,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import { EmojiComponent, EmojiEvent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { FileUploadService } from '../../../services/fileupload.service';
 import { NgFor } from '@angular/common';
+import { ChatService } from '../../../services/chat.service';
 
 @Component({
   selector: 'app-textarea-main-page',
@@ -25,13 +26,13 @@ export class TextareaMainPageComponent {
 
   @Input() onChannelBoard:boolean = false;
   @Input() onThreadBoard:boolean = false;
-  // @Input() privatTextarea = false;
+  @Input() onPrivatTextarea = false;
   @Output() TextfieldStatus: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() textfieldOnUploadChannel:boolean = false;
   @Input() textfieldOnUploadChat:boolean = false;
   @Input() textfieldOnUploadThread:boolean = false;
 
-  constructor(private channelService: ChannelService, private authService: AuthService, public fileUploadService: FileUploadService) { 
+  constructor(private channelService: ChannelService, private authService: AuthService, public fileUploadService: FileUploadService, private chatService: ChatService) { 
     // this.uploadedFile = this.fileUploadService.getUploadedFiles();
   }
 
@@ -62,7 +63,11 @@ export class TextareaMainPageComponent {
           if (selectedChat && selectedChat.chatId) {
             this.channelService.addMessageToChat(this.channelService.toJSONmessage(this.message), selectedChat.chatId);
           }
+        } else if(this.onPrivatTextarea) {
+
+            this.chatService.addMessageToPrivateChat(this.chatService.toJSONmessage(this.message), 'LgkYk9gfAfALP97n1f1U'); // hier noch chatRef mit aktueller Chat.id austauschen
         }
+
         // Zurücksetzen des Formulars
         ngForm.resetForm();
         
