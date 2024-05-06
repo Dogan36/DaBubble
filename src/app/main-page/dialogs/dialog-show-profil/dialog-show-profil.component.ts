@@ -12,6 +12,7 @@ import { UserService } from '../../../services/user.service';
 import { ChatService } from '../../../services/chat.service';
 import { AuthService } from '../../../services/auth.service';
 import { EventService } from '../../../services/event.service';
+import { timestamp } from 'rxjs';
 
 @Component({
   selector: 'app-dialog-show-profil',
@@ -34,16 +35,17 @@ export class DialogShowProfilComponent {
 
     if(!this.chatService.searchForMemberInChats(this.data.profilRef)) {
 
-      this.chatService.startNewPrivateChat({members: [this.authService.uid, this.data.profilRef]})
+      this.chatService.startNewPrivateChat({members: [this.authService.uid, this.data.profilRef], timestamp: Date.now()})
+    } 
+    // open privateChat mit chat infos!
+
+    this.evtSvc.openChannel(false);
+    this.evtSvc.openPrivateChat(true);
+    this.evtSvc.openNewChat(false);
+    this.evtSvc.openThread(false);
+
+    if (window.innerWidth <= 544) {
+      this.evtSvc.openWorkspace(false);
     }
-
-    // this.evtSvc.openChannel(false);
-    // this.evtSvc.openPrivateChat(true);
-    // this.evtSvc.openNewChat(false);
-    // this.evtSvc.openThread(false);
-
-    // if (window.innerWidth <= 544) {
-    //   this.evtSvc.openWorkspace(false);
-    // }
   }
 }

@@ -3,6 +3,8 @@ import { Firestore, onSnapshot, collection, addDoc, doc, updateDoc, deleteDoc, q
 import { AuthService } from './auth.service';
 import { BehaviorSubject, Observable, Subscription, switchMap } from 'rxjs';
 import { UserService } from './user.service';
+import { Message } from '../models/message.class';
+import { PrivateChat } from '../models/privateChat.class';
 
 
 @Injectable({
@@ -14,18 +16,21 @@ export class ChatService {
   private firestore: Firestore = inject(Firestore);
   private authService: AuthService = inject(AuthService);
 
-  currentChat: any
+  currentChat: any;
+  selChatIndex: number = 0;
   
   private chatsSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   public chats$: Observable<any[]> = this.chatsSubject.asObservable();
   private initialized: boolean = false;
   private unsubChats: Subscription | undefined;
-  messages: any[] = [];
+  messages: Message[] = [];
 
   private userSubscription: Subscription;
   unsubPrivateChats: any;
 
-  privateChats: {chatRef:string, members:string[]}[] = []
+  privateChats: PrivateChat[] = []
+  private unsubPrivateChatMessages!: Function;
+
 
   constructor(private userService: UserService) {
     this.subChats();
@@ -47,6 +52,7 @@ export class ChatService {
     }
 
     this.unsubPrivateChats();
+    this.unsubPrivateChatMessages();
   }
  
 
@@ -196,6 +202,7 @@ export class ChatService {
 
 
   getChatMessages(chat: any) {
+    this.messages = [];
       const chatRef = doc(this.firestore, 'chats', chat.chatRef); // Erstellung der Referenz auf das Chat-Dokument
     const messagesCollectionRef = collection(chatRef, 'messages'); // Erstellung der Referenz auf die Subsammlung "messages" innerhalb des Chats
 
@@ -211,7 +218,7 @@ export class ChatService {
 
       // Nachrichten verarbeiten, wenn sie vorhanden sind
       querySnapshot.forEach(doc => {
-        this.messages.push({ ...doc.data() });
+        this.messages.push(this.setMessageObj(doc.data(), doc.id));
       });
 
       console.log("Empfangene Nachrichten:", this.messages); // Ausgabe der empfangenen Nachrichten
@@ -230,6 +237,8 @@ export class ChatService {
 
 
 
+
+
   subPrivateChats(userId: string) {
     const q = query(collection(this.firestore, 'chats'), where('members', 'array-contains', userId));
 
@@ -239,19 +248,70 @@ export class ChatService {
   
       list.forEach(element => {
 
-        this.privateChats.push({chatRef: element.id, members: element.data()['members']});
+        this.privateChats.push({chatId: element.id, members: element.data()['members'], timestamp: element.data()['timestamp']});
 
       });
-      
+      this.privateChats.sort((a, b) => b.timestamp - a.timestamp);
       console.log('Das sind alle meine Chats', this.privateChats);
     });
   }
 
 
+  getPrivateChatMessages(chat: any) {
+    this.unsubPrivateChatMessages = onSnapshot(collection(this.firestore, `chats/${chat.chatId}/messages`), (listMessages) => {
+      this.messages = [];
+      
+      listMessages.forEach(message => {
+
+        this.messages.push(this.setMessageObj(message.data(), message.id));
+      })
+      this.messages.sort((a, b) => a.timestamp - b.timestamp);
+    })
+  }
+
+
+
+// Eigentlich auch so im channelService, aber für besser Übersicht auch noch mal hier
+  setMessageObj(obj:any, id:string): Message { 
+    return {
+      messageId: id,
+      message: obj.message || '',
+      member: obj.member,
+      reactions: this.setReactions(obj) || [],
+      timestamp: obj.timestamp,
+      uploadedFile: obj.uploadedFile || []
+    };
+  }
+
+
+// Eigentlich auch so im channelService, aber für besser Übersicht auch noch mal hier
+  setReactions(obj:any) {
+    if(obj.reactions) {
+    let reactionsArray = [];
+    for (let i = 0; i < obj.reactions.length; i++) {
+      const reactionString = obj.reactions[i];
+      
+      let reactionArray = reactionString.split('&');
+
+      if (reactionArray.length === 2) {
+        let reactionMember = reactionArray[0];
+        let reactionEmoji = reactionArray[1];
+
+        reactionsArray.push({reactUser: reactionMember, reactEmoji: reactionEmoji})
+      } else {
+        console.log("Der Eingabestring hat nicht das erwartete Format.");
+      }
+    }
+    return reactionsArray;
+    } else {
+      return [];
+    }
+  }
+
+
 
   // start new chat
-  async startNewPrivateChat(item: {}) { // item => beide user Refs
-
+  async startNewPrivateChat(item: {}) { 
     await addDoc(collection(this.firestore, 'chats'), item).catch(
         (err) => { console.error(err) }
       ).then(
@@ -259,7 +319,6 @@ export class ChatService {
           if (docRef) {
             console.log("Document written with ID: ", docRef);
             // hier update Funktion um die ChatRef in den beiden Usern zu speichern!
-            // privateChat öffnen => aktueller Chat
           } else {
             console.error("Failed to get document reference.");
           }
@@ -269,17 +328,39 @@ export class ChatService {
 
 
   async addMessageToPrivateChat(message: {}, chatRef:string) {
-    // let chatRef = this.chats[this.selectedChat].id;
+    // let chatRef = this.privateChats[this.selChatIndex].chatId;
 
     await addDoc(collection(this.firestore, `chats/${chatRef}/messages`), message).catch(
         (err) => { console.error(err) }
       ).then(
       (docRef) => { 
         // console.log("Document written with ID: ", docRef)
-        console.log('So sieht die Message aus', message);
       }
       ) 
+      this.privateChats[this.selChatIndex].timestamp = Date.now();
+      
+      await this.updateChat(this.privateChats[this.selChatIndex]);
   }
+
+
+  async updateChat(item: PrivateChat) {
+    if(item.chatId) {
+      let docRef = doc(collection(this.firestore, 'chats'), item.chatId);
+      await updateDoc(docRef, {members: item.members, timestamp: item.timestamp}).catch((err) => { console.log(err); });
+    }
+  }
+
+
+
+  async updateMessage(message: Message) {
+    let chatRef = this.privateChats[this.selChatIndex].chatId;
+
+    if(message.messageId) {
+      let docRef = doc(collection(this.firestore, `chats/${chatRef}/messages`), message.messageId);
+      await updateDoc(docRef, this.toJSONmessage(message)).catch((err) => { console.log(err); });
+    }
+  }
+
 
 
 // Eigentlich auch so im channelService, aber für besser Übersicht auch noch mal hier
@@ -312,6 +393,7 @@ export class ChatService {
     }
     return reactionsArray;
   }
+
 
 
   searchForMemberInChats(memberId: string) {

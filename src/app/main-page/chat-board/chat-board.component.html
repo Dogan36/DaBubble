@@ -1,12 +1,45 @@
 <div class="title-container">
   <!-- Font-size muss noch angepasst werden, und width nicht 100%! -->
   <div class="title-sgl-user-chat">
-    <app-workspace-user-profil
+    <!-- <app-workspace-user-profil
       [userImage]="chatService.currentChat.photoURL"
       [userName]="chatService.currentChat.name"
       (click)="openShowProfilDialog()"
       [ownChat]="chatService.currentChat.ownChat"
+    ></app-workspace-user-profil> -->
+    @if(chatService.currentChat.members.length === 2) {
+    <app-workspace-user-profil
+      [userName]="
+        this.userService.users[
+          this.userService.getUsersData(
+            this.userService.getPartnerId(chatService.currentChat.members)
+          )
+        ].name
+      "
+      [userImage]="
+        this.userService.users[
+          this.userService.getUsersData(
+            this.userService.getPartnerId(chatService.currentChat.members)
+          )
+        ].photoURL
+      "
+      [userId]="this.userService.getPartnerId(chatService.currentChat.members)"
+    ></app-workspace-user-profil
+    >} @else if(chatService.currentChat.members.length === 1) {
+    <app-workspace-user-profil
+      [userName]="
+        this.userService.users[
+          this.userService.getUsersData(chatService.currentChat.members[0])
+        ].name + ' (Du)'
+      "
+      [userImage]="
+        this.userService.users[
+          this.userService.getUsersData(chatService.currentChat.members[0])
+        ].photoURL
+      "
+      [userId]="chatService.currentChat.members[0]"
     ></app-workspace-user-profil>
+    }
   </div>
 </div>
 
@@ -16,18 +49,87 @@
   @if(this.chatService.messages.length == 0) {
   <div class="new-chat-container">
     <div class="new-chat-user">
-      <img [src]="chatService.currentChat.photoURL" alt="" />
-      <h3 (click)="openShowProfilDialog()">
-        {{ chatService.currentChat.name }}
-        @if(this.chatService.currentChat.ownChat){ (Du) }
+      @if(chatService.currentChat.members.length === 2) {
+      <img
+        [src]="
+          this.userService.users[
+            this.userService.getUsersData(
+              this.userService.getPartnerId(chatService.currentChat.members)
+            )
+          ].photoURL
+        "
+        alt=""
+        (click)="
+          openShowProfilDialog(
+            this.userService.users[
+              this.userService.getUsersData(
+                this.userService.getPartnerId(chatService.currentChat.members)
+              )
+            ].id
+          )
+        "
+      />
+      <h3
+        (click)="
+          openShowProfilDialog(
+            this.userService.users[
+              this.userService.getUsersData(
+                this.userService.getPartnerId(chatService.currentChat.members)
+              )
+            ].id
+          )
+        "
+      >
+        {{
+          this.userService.users[
+            this.userService.getUsersData(
+              this.userService.getPartnerId(chatService.currentChat.members)
+            )
+          ].name
+        }}
       </h3>
+      } @else if(chatService.currentChat.members.length === 1) {
+      <img
+        [src]="
+          this.userService.users[
+            this.userService.getUsersData(chatService.currentChat.members[0])
+          ].photoURL
+        "
+        alt=""
+        (click)="openShowProfilDialog(chatService.currentChat.members[0])"
+      />
+      <h3 (click)="openShowProfilDialog(chatService.currentChat.members[0])">
+        {{
+          this.userService.users[
+            this.userService.getUsersData(chatService.currentChat.members[0])
+          ].name + " (Du)"
+        }}
+      </h3>
+      }
     </div>
-    @if(!this.chatService.currentChat.ownChat){
+    @if(chatService.currentChat.members.length === 2){
     <p>
       Diese Unterhaltung findet nur zwischen
-      <span>&#64;{{ chatService.currentChat.name }} </span>und dir statt.
+      <span
+        (click)="
+          openShowProfilDialog(
+            this.userService.users[
+              this.userService.getUsersData(
+                this.userService.getPartnerId(chatService.currentChat.members)
+              )
+            ].id
+          )
+        "
+        >&#64;{{
+          this.userService.users[
+            this.userService.getUsersData(
+              this.userService.getPartnerId(chatService.currentChat.members)
+            )
+          ].name
+        }} </span
+      >und dir statt.
     </p>
-    } @if(this.chatService.currentChat.ownChat){
+    } @else if(chatService.currentChat.members.length === 1){
     <p>
       Dieser Raum ist nur für dich da. Mache dir Notizen, liste deine To-dos auf
       oder bewahre Links und Dateien griffbereit auf. Du kannst hier auch gerne
@@ -63,6 +165,8 @@
     "
     [memberRef]="message.member"
     [time]="this.channelService.getTime(message.timestamp)"
+    [onPrivateChat]="true"
+    [messageIndex]="index"
   ></app-message-left
   >} @else {
   <app-message-right
@@ -76,6 +180,8 @@
     "
     [memberRef]="message.member"
     [time]="this.channelService.getTime(message.timestamp)"
+    [onPrivateChat]="true"
+    [messageIndex]="index"
   ></app-message-right>
   } } }
 </div>

@@ -69,6 +69,7 @@ export class UserService {
     let index = this.users.findIndex(obj => obj.id === id);
     return index;
   }
+  
 
   filterCurrentUser() {
     if (this.users) {
@@ -86,6 +87,16 @@ export class UserService {
       }
     }
 
+  }
+
+
+  getPartnerId(members: string[]) {
+      let index = members.indexOf(this.authService.uid);
+      if(index === 0) {
+        return members[1];
+      } else {
+        return members[0]
+      }
   }
 
 

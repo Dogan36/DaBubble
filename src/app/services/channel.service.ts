@@ -66,7 +66,6 @@ export class ChannelService {
       name: obj.name,
       creator: obj.creator,
       members: obj.members || '',
-      // threads: obj.threads || '',
       description: obj.description || ''
     };
   }
@@ -327,7 +326,7 @@ export class ChannelService {
 
 
 
-    sortSameReactions(reactions: { reactUser: string, reactEmoji: string }[]) {
+sortSameReactions(reactions: { reactUser: string, reactEmoji: string }[]) {
     const sortedReactions: {reactUser: string[], reactEmoji: string}[] = [];
 
     reactions.forEach(reaction => {

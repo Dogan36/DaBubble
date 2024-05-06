@@ -45,10 +45,10 @@
     </div>
   </div>
 
-  @if(messageListOpen) {
+  @if(messageListOpen && chatService.privateChats) {
 
   <div class="message-list">
-    @for (chat of this.chats; track index; let index = $index) {
+    <!-- @for (chat of this.chats; track index; let index = $index) {
     <app-workspace-user-profil
       [userName]="chat.name"
       [userImage]="chat.photoURL"
@@ -56,7 +56,43 @@
       (click)="onOpenPrivateChat(chat)"
     >
     </app-workspace-user-profil>
-    }
+    } -->
+    @for (chat of chatService.privateChats; track chat.chatId; let index =
+    $index) { @if(chat.members.length === 2) {
+    <app-workspace-user-profil
+      [userName]="
+        this.usersService.users[
+          this.usersService.getUsersData(
+            this.usersService.getPartnerId(chat.members)
+          )
+        ].name
+      "
+      [userImage]="
+        this.usersService.users[
+          this.usersService.getUsersData(
+            this.usersService.getPartnerId(chat.members)
+          )
+        ].photoURL
+      "
+      [userId]="this.usersService.getPartnerId(chat.members)"
+      [onWorkspace]="true"
+      (click)="onOpenPrivateChat(chat, index)"
+    ></app-workspace-user-profil
+    >} @else if(chat.members.length === 1) {
+    <app-workspace-user-profil
+      [userName]="
+        this.usersService.users[this.usersService.getUsersData(chat.members[0])]
+          .name + ' (Du)'
+      "
+      [userImage]="
+        this.usersService.users[this.usersService.getUsersData(chat.members[0])]
+          .photoURL
+      "
+      [userId]="chat.members[0]"
+      [onWorkspace]="true"
+      (click)="onOpenPrivateChat(chat, index)"
+    ></app-workspace-user-profil>
+    } }
   </div>
   }
 </div>

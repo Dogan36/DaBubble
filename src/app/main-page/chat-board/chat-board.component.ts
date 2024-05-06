@@ -28,10 +28,9 @@ export class ChatBoardComponent {
   constructor(public dialog: MatDialog, public userService: UserService, public chatService:ChatService, public authService: AuthService, public channelService: ChannelService) {}
 
 
-  openShowProfilDialog() {
-    // let memberData = this.userService.users[this.userService.getUsersData(this.memberRef)];
+  openShowProfilDialog(memberId: string) {
 
-    let memberData = this.userService.users[this.userService.getUsersData('YxHQcig7Dbb4doQCAcBmjhZjoKo2')];
+    let memberData = this.userService.users[this.userService.getUsersData(memberId)];
     
     this.dialog.open(DialogShowProfilComponent, {panelClass: ['dialog-bor-rad-round', 'user-profil-popup'], data: {
         profilName: memberData.name,
@@ -40,6 +39,7 @@ export class ChatBoardComponent {
         profilImg: memberData.photoURL,
       }});
   }
+
 
 
   setTextfieldStatus(event: boolean) {

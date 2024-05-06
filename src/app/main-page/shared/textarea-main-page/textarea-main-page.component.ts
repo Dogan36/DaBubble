@@ -65,7 +65,7 @@ export class TextareaMainPageComponent {
           }
         } else if(this.onPrivatTextarea) {
 
-            this.chatService.addMessageToPrivateChat(this.chatService.toJSONmessage(this.message), 'LgkYk9gfAfALP97n1f1U'); // hier noch chatRef mit aktueller Chat.id austauschen
+            this.chatService.addMessageToPrivateChat(this.chatService.toJSONmessage(this.message), this.chatService.privateChats[this.chatService.selChatIndex].chatId); 
         }
 
         // Zurücksetzen des Formulars

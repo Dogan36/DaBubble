@@ -63,11 +63,13 @@ export class WorkspaceMenuComponent {
   }
 
 
-  onOpenPrivateChat(chat: any) {
+  onOpenPrivateChat(chat: any, index: number) {
     this.chatService.currentChat = chat;
+    this.chatService.selChatIndex = index;
+    this.chatService.getPrivateChatMessages(chat);
     console.log( this.chatService.currentChat);
     this.openPrivateChat.emit();
-    this.chatService.getChatMessages(chat);
+    // this.chatService.getChatMessages(chat);
   }
 
 

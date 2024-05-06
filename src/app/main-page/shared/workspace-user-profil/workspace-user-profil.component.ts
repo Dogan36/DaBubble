@@ -16,13 +16,14 @@ export class WorkspaceUserProfilComponent {
   @Input() userName: string = '';
   @Input() userImage: string = '';
   @Input() userId: string = '';
-  @Input() ownChat: boolean = false
+  @Input() ownChat: boolean = false;
+  @Input() onWorkspace: boolean = false;
 
   constructor(public dialog: MatDialog, private userService: UserService) {}
 
 
   openShowProfilDialog(memberId: string) {
-    if(this.userId) {
+    if(this.userId && this.onWorkspace !== true) {
 
     let memberData = this.userService.users[this.userService.getUsersData(memberId)];
 
@@ -36,4 +37,7 @@ export class WorkspaceUserProfilComponent {
       }});
   } 
   }
+
+
+  
 }

@@ -11,6 +11,7 @@ import { EmojiComponent, EmojiEvent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { Message } from '../../../models/message.class';
 import { AuthService } from '../../../services/auth.service';
 import { Reaction } from '../../../models/reaction.class';
+import { ChatService } from '../../../services/chat.service';
 
 
 @Component({
@@ -23,6 +24,7 @@ import { Reaction } from '../../../models/reaction.class';
 export class MessageLeftComponent {
 
   @Input() onChannelBoard: boolean = false;
+  @Input() onPrivateChat: boolean = false;
   @Input() messageIndex: number = 0;
   @Input() member: string = '';
   @Input() message: string = '';
@@ -40,7 +42,7 @@ export class MessageLeftComponent {
   containerHovered: boolean = false;
 
 
-  constructor(private evtSvc: EventService, public dialog: MatDialog, private channelService: ChannelService, public userService: UserService, public authService: AuthService) {}
+  constructor(private evtSvc: EventService, public dialog: MatDialog, private channelService: ChannelService, public userService: UserService, public authService: AuthService, private chatService: ChatService) {}
 
 
   onMouseOver(action:string) {
@@ -88,7 +90,12 @@ export class MessageLeftComponent {
 
     if($event.emoji && $event.emoji.colons && this.authService.uid) {
 
-      const messageObj = Object.assign({}, this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[this.messageIndex]);
+    let messageObj;
+    if(this.onPrivateChat === false) {
+      messageObj = Object.assign({}, this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[this.messageIndex]);
+    } else {
+      messageObj = this.chatService.messages[this.messageIndex];
+    }
 
       let newReaction: Reaction = {
         reactUser: this.authService.uid, 
@@ -101,14 +108,23 @@ export class MessageLeftComponent {
 
       if(index === -1) {
         messageObj.reactions.push(newReaction);
-        this.channelService.updateMessage(messageObj);
+        if(this.onPrivateChat === false) {
+          this.channelService.updateMessage(messageObj);
+        } else {
+          this.chatService.updateMessage(messageObj);
+        }
       }
     }
   }
 
 
   addOrRemoveEmoji(reactEmoji: string) {
-    const messageObj = Object.assign({}, this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[this.messageIndex]);
+    let messageObj; 
+    if(this.onPrivateChat === false) {
+      messageObj = Object.assign({}, this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[this.messageIndex]);
+    } else {
+      messageObj = this.chatService.messages[this.messageIndex];
+    }
 
     let newReaction: Reaction = {
         reactUser: this.authService.uid, 
@@ -121,10 +137,18 @@ export class MessageLeftComponent {
 
     if(index === -1) {
         messageObj.reactions.push(newReaction);
-        this.channelService.updateMessage(messageObj);
+        if(this.onPrivateChat === false) {
+          this.channelService.updateMessage(messageObj);
+        } else {
+          this.chatService.updateMessage(messageObj);
+        }
     } else {
         messageObj.reactions.splice(index, 1);
-        this.channelService.updateMessage(messageObj);
+        if(this.onPrivateChat === false) {
+          this.channelService.updateMessage(messageObj);
+        } else {
+          this.chatService.updateMessage(messageObj);
+        }
     }
   }
 }
