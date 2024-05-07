@@ -21,8 +21,9 @@
             @include font18(600);
             color: $cpt-purple-3;
             padding-left: 16px;
+            padding-right: 2px;
             text-align: center;
-            width: 96px;
+            width: 112px;
 
             @media (max-width: 544px) {
                 display: none;

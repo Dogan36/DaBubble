@@ -20,6 +20,7 @@ export class EditMsgTextareaComponent {
   @Input() message: string = '';
   @Input() onChannelBoard: boolean = false;
   @Input() onPrivateChat: boolean = false;
+  @Input() onThreadBoard: boolean = false;  
   @Input() uploadedFile: string[] = [];
 
   @Output() closeEditMsg = new EventEmitter<boolean>();

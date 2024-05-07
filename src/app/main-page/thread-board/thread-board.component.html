@@ -30,6 +30,7 @@
   <!-- message left or right logic -->
   @if(message.member !== this.authService.uid) {
   <app-message-left
+    [onThreadBoard]="threadBoard"
     [messageIndex]="index"
     [member]="
       this.userService.users[this.userService.getUsersData(message.member)].name
@@ -47,6 +48,7 @@
   ></app-message-left
   >} @else {
   <app-message-right
+    [onThreadBoard]="threadBoard"
     [messageIndex]="index"
     [member]="
       this.userService.users[this.userService.getUsersData(message.member)].name

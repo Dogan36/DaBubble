@@ -19,7 +19,10 @@
       </div>
       }
     </div>
-    <div class="edit-msg-btn-container">
+    <div
+      class="edit-msg-btn-container"
+      [class.edit-msg-con-thread]="onThreadBoard"
+    >
       <div class="reaction-icon" id="reaction-icons-wrapper">
         <div class="reaction-icon-emoji" [matMenuTriggerFor]="aboveMenu"></div>
         <mat-menu #aboveMenu="matMenu" yPosition="above" xPosition="before">
@@ -30,11 +33,12 @@
           ></emoji-mart>
         </mat-menu>
       </div>
-      <div class="right-btn-container">
-        @if(onChannelBoard === true) {
-        <button (click)="cancleUpdateMsg($event)">Abbrechen</button>} @else {
+      <div class="right-btn-container" [class.edit-btn-thread]="onThreadBoard">
+        <!-- @if(onChannelBoard === true) { -->
+        <button (click)="cancleUpdateMsg($event)">Abbrechen</button>
+        <!-- } @else {
         <button><div class="close-icon"></div></button>
-        }
+        } -->
         <input class="save-btn" type="submit" value="Speichern" />
       </div>
     </div>

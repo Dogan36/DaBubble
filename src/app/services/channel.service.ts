@@ -199,7 +199,6 @@ export class ChannelService {
         creator: obj.creator,
         members: obj.members,
         description: obj.description || '',
-        uploadedFiles: obj.uploadedFiles
     };
   }
 

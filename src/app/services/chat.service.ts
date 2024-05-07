@@ -406,6 +406,31 @@ export class ChatService {
     }
     return false;
   }
+
+
+  getSelChatIndex(memberId: string) {
+    if(memberId !== this.authService.uid) {
+    for (let i = 0; i < this.privateChats.length; i++) {
+      const chat = this.privateChats[i];
+
+      if (chat.members.includes(memberId)) {
+            return i;
+        }
+    }
+    return 0;
+    } else {
+      for (let i = 0; i < this.privateChats.length; i++) {
+        const chat = this.privateChats[i];
+        
+        if(chat.members.length === 1) {
+          return i;
+        }
+      }
+      return 0;
+    }
+  }
+
+
   
 
 }

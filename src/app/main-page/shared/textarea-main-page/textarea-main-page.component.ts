@@ -64,7 +64,6 @@ export class TextareaMainPageComponent {
             this.channelService.addMessageToChat(this.channelService.toJSONmessage(this.message), selectedChat.chatId);
           }
         } else if(this.onPrivatTextarea) {
-
             this.chatService.addMessageToPrivateChat(this.chatService.toJSONmessage(this.message), this.chatService.privateChats[this.chatService.selChatIndex].chatId); 
         }
 

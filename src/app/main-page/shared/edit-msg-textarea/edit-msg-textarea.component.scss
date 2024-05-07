@@ -52,48 +52,78 @@
             align-items: center;
             gap: 10px;
 
-        button, input {
-            border-radius: 50px;
-            color: white;
-            @include font18(700);
-            padding: 12px 25px;
-            outline: none;
-            
-        }
-        
-        button {
-            background-color: white;
-            border: 1px solid $cpt-purple-2;
-            color: $cpt-purple-1;
+            button, input {
+                border-radius: 50px;
+                color: white;
+                @include font18(700);
+                padding: 12px 25px;
+                outline: none;
 
-            &:hover {
-                color: $cpt-purple-2;
+                @media (max-width: 1600px) {
+                    padding: 12px 16px;
+                }
+            
+                @media (max-width: 544px) {
+                    @include font16(700);
+                    padding: 10px 20px;
+                }
+            }
+        
+            button {
+                background-color: white;
                 border: 1px solid $cpt-purple-2;
-                cursor: pointer;
+                color: $cpt-purple-1;
+
+                &:hover {
+                    color: $cpt-purple-2;
+                    border: 1px solid $cpt-purple-2;
+                    cursor: pointer;
+                }
             }
-        }
         
-        input {
-            background-color: $cpt-purple-1;
-            border: none;
-            
-            &:hover {
-                background-color: $cpt-purple-2;
-                cursor: pointer;
+            input {
+                background-color: $cpt-purple-1;
+                border: none;
+                
+                &:hover {
+                    background-color: $cpt-purple-2;
+                    cursor: pointer;
+                }
+
+                @media (max-width: 544px) {
+                    width: 100%;
+                }
+            }
+
+            // Auch schon für breitere Auflösungen
+            @media (max-width: 544px) {
+                flex-direction: column-reverse;
             }
         }
+
+        // Auch schon für breitere Auflösungen
+        @media (max-width: 544px) {
+            align-items: end;
         }
     }
 
-    .close-icon {
-        background-image: url('./../../../../assets/img/icons/close_pur_24.svg');
-        background-repeat: no-repeat;
-        background-position: center;
-        height: 24px;
-        width: 24px;
-
-        &:hover {
-            cursor: pointer;
-        }
+    .edit-btn-thread {
+        flex-direction: column-reverse;
     }
+
+    .edit-msg-con-thread {
+        align-items: end;
+    }
+
+    // .close-icon {
+    //     background-image: url('./../../../../assets/img/icons/close_pur_24.svg');
+    //     background-repeat: no-repeat;
+    //     background-position: center;
+    //     height: 24px;
+    //     width: 24px;
+
+    //     &:hover {
+    //         cursor: pointer;
+    //     }
+    // }
 }

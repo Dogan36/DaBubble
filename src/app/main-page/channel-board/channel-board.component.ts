@@ -66,7 +66,7 @@ export class ChannelBoardComponent {
       if(dialog) {
         let wrapper = document.getElementById("dialog-wrapper");
         if(wrapper) {
-          dialog.style.left = (wrapper.offsetLeft - 328) + "px"; 
+          dialog.style.left = (wrapper.offsetLeft - 308) + "px"; 
           dialog.style.top = (wrapper.offsetTop + wrapper.offsetHeight + 140) + "px";
           dialog.showModal();
 

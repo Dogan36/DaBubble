@@ -246,6 +246,14 @@ header {
         flex: 1;
     }
 
+    app-channel-board {
+        width: calc(100% - 931px);
+
+        @media(max-width: 544px) {
+            width: 100%;
+        }
+    }
+
     app-thread-board {
         width: $wdth-right;
 

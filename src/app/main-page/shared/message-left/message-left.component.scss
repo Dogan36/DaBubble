@@ -85,6 +85,7 @@
                 align-items: center;
                 flex-wrap: wrap;
                 gap: 10px;
+                width: calc(100% - 46px);
             }
 
             .sgl-reaction-container {
@@ -155,6 +156,13 @@
             span {
                 color: $cpt-font-gray;
             }
+
+            @media (max-width: 432px) {
+                flex-direction: column-reverse;
+                align-items: end;
+                justify-content: center;
+                gap: 8px;
+            }
         }
 
         .add-reaction-container { 
@@ -189,6 +197,16 @@
             padding: 10px 16px;
         }
     }
+
+
+    app-edit-msg-textarea {
+        width: calc(100% - 90px);
+
+        @media (max-width: 544px) {
+            width: calc(100% - 70px);
+        }
+    }
+    
 
     @keyframes transformIcon {
         from {transform: translateX(20px); opacity: 0;}

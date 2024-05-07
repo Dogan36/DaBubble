@@ -88,6 +88,7 @@
                 flex-wrap: wrap;
                 justify-content: end;
                 gap: 10px;
+                width: calc(100% - 46px);
             }
 
             .sgl-reaction-container {
@@ -160,6 +161,13 @@
             span {
                 color: $cpt-font-gray;
             }
+
+            @media (max-width: 432px) {
+                flex-direction: column-reverse;
+                align-items: end;
+                justify-content: center;
+                gap: 8px;
+            }
         }
 
         .add-reaction-container { 
@@ -228,8 +236,15 @@
                         @media (max-width: 544px) {
                             @include font20(600);
                         }
+                        @media (max-width: 432px) {
+                            @include font16(600);
+                            padding: 8px 16px;
+                        }
                     }
                     
+                    @media (max-width: 432px) {
+                        padding: 8px 10px;
+                    }
                 }
             }
         }
@@ -240,6 +255,15 @@
 
         @media (max-width: 544px) {
             padding: 10px 16px;
+        }
+    }
+
+
+    app-edit-msg-textarea {
+        width: calc(100% - 90px);
+
+        @media (max-width: 544px) {
+            width: calc(100% - 70px);
         }
     }
 

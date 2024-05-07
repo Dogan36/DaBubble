@@ -37,7 +37,10 @@ export class DialogShowProfilComponent {
 
       this.chatService.startNewPrivateChat({members: [this.authService.uid, this.data.profilRef], timestamp: Date.now()})
     } 
-    // open privateChat mit chat infos!
+
+    this.chatService.selChatIndex = this.chatService.getSelChatIndex(this.data.profilRef);
+    this.chatService.currentChat = this.chatService.privateChats[this.chatService.selChatIndex];
+ 
 
     this.evtSvc.openChannel(false);
     this.evtSvc.openPrivateChat(true);

@@ -25,6 +25,7 @@ export class MessageLeftComponent {
 
   @Input() onChannelBoard: boolean = false;
   @Input() onPrivateChat: boolean = false;
+  @Input() onThreadBoard: boolean = false;
   @Input() messageIndex: number = 0;
   @Input() member: string = '';
   @Input() message: string = '';
