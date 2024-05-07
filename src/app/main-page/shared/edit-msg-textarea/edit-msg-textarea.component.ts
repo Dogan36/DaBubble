@@ -5,6 +5,7 @@ import { EmojiComponent, EmojiEvent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { ChannelService } from '../../../services/channel.service';
 import { Message } from '../../../models/message.class';
 import { FormsModule, NgForm } from '@angular/forms';
+import { ChatService } from '../../../services/chat.service';
 
 @Component({
   selector: 'app-edit-msg-textarea',
@@ -18,22 +19,32 @@ export class EditMsgTextareaComponent {
   @Input() messageIndex: number = 0;
   @Input() message: string = '';
   @Input() onChannelBoard: boolean = false;
+  @Input() onPrivateChat: boolean = false;
   @Input() uploadedFile: string[] = [];
 
   @Output() closeEditMsg = new EventEmitter<boolean>();
 
 
-  constructor(public channelService: ChannelService) {}
+  constructor(public channelService: ChannelService, private chatService: ChatService) {}
 
 
   updateMessage(ngForm: NgForm) {
-
-    const messageObj = Object.assign({}, this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[this.messageIndex]);
+    let messageObj;
+    if(this.onPrivateChat !== true) {
+      messageObj = Object.assign({}, this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[this.messageIndex]);
+    } else {
+      messageObj = this.chatService.messages[this.messageIndex];
+    }
 
     if (ngForm.valid && this.message.trim() !== '') {
       messageObj.message = this.message;
       messageObj.uploadedFile = this.uploadedFile;
-      this.channelService.updateMessage(messageObj);
+
+      if(this.onPrivateChat !== true) {
+        this.channelService.updateMessage(messageObj);
+      } else {
+        this.chatService.updateMessage(messageObj);
+      }
 
       ngForm.resetForm();
       this.closeEditMsg.emit(false);

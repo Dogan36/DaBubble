@@ -167,6 +167,8 @@
     [time]="this.channelService.getTime(message.timestamp)"
     [onPrivateChat]="true"
     [messageIndex]="index"
+    [sortedReactions]="this.channelService.sortSameReactions(message.reactions)"
+    [uploadedFile]="message.uploadedFile"
   ></app-message-left
   >} @else {
   <app-message-right
@@ -182,6 +184,8 @@
     [time]="this.channelService.getTime(message.timestamp)"
     [onPrivateChat]="true"
     [messageIndex]="index"
+    [sortedReactions]="this.channelService.sortSameReactions(message.reactions)"
+    [uploadedFile]="message.uploadedFile"
   ></app-message-right>
   } } }
 </div>
