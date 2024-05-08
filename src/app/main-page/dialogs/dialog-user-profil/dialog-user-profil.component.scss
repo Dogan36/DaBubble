@@ -6,8 +6,18 @@
 .profil-name-container {
     div {
         display: flex;
-        align-items: center;
+        align-items: start;
         justify-content: space-between;
+
+        h2 {
+            overflow-wrap: break-word;
+        }
+
+        .edit-user-con {
+            display: flex;
+            align-items: center;
+            margin-top: 7px;
+        }
 
         .edit-user {
             background-image: url('./../../../../assets/img/icons/edit_round.svg');

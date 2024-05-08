@@ -64,7 +64,7 @@ export class MessageRightComponent {
     if(this.onChannelBoard === true) {
       this.evtSvc.openThread(true);
 
-      if (window.innerWidth <= 544) { 
+      if (window.innerWidth <= 1440) { 
         this.evtSvc.openChannel(false);
       }
     }

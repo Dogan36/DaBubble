@@ -59,7 +59,16 @@
         }
     }
 
+    @media (max-width: 1440px) {
+        min-width: 672px;
+    }
+
+    @media (max-width: 1024px) {
+        min-width: 472px;
+    }
+
     @media (max-width: 544px) {
         min-width: auto;
     }
+
 }

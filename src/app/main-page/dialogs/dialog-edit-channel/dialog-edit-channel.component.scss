@@ -8,9 +8,13 @@
     background-repeat: no-repeat;
     background-position: 0px 50%;
     padding-left: 40px;
+    width: calc(100% - 40px);
 
     h3 {
-        overflow-wrap: break-word;
+        // overflow-wrap: break-word;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     @media (max-width: 544px) {

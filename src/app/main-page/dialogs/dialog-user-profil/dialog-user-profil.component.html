@@ -15,7 +15,7 @@
     <div class="profil-name-container">
       <div>
         <h2>{{ this.authService.currentUser?.name }}</h2>
-        <div (click)="editProfil()">
+        <div (click)="editProfil()" class="edit-user-con">
           <div class="edit-user"></div>
           <span class="edit-user-text">Bearbeiten</span>
         </div>

@@ -76,6 +76,10 @@ header {
             padding-left: 30px;
         }
 
+        @media (max-width: 1024px) {
+            width: 304px;
+        }
+
         @media (max-width: 544px) {
             display: none;
         }
@@ -175,7 +179,7 @@ header {
             line-height: 43.65px;
             margin: 0;
 
-            @media (max-width: 544px) {
+            @media (max-width: 1280px) {
                 display: none;
             }
         }
@@ -189,6 +193,10 @@ header {
                 background-image: url('./../../assets/img/icons/keyboard_arrow_down_pur.svg');
                 cursor: pointer;
             }
+        }
+
+        @media (max-width: 1440px) {
+            width: fit-content;
         }
     }
 
@@ -236,6 +244,10 @@ header {
         padding: 32px 30px;
         width: $wdth-left;
 
+        @media (max-width: 1024px) {
+            width: 304px;
+        }
+
         @media (max-width: 544px) {
             padding: 15px 16px;
             position: relative;
@@ -256,6 +268,11 @@ header {
 
     app-thread-board {
         width: $wdth-right;
+
+        @media (max-width: 1440px) {
+            flex: 1;
+            width: auto;
+        }
 
         @media(max-width: 544px) {
             width: 100%;

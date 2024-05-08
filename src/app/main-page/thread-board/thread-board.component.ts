@@ -25,6 +25,10 @@ export class ThreadBoardComponent {
   onCloseThread() {
     this.evtSvc.openThread(false);
 
+    if (window.innerWidth > 544 && window.innerWidth <= 1440) {
+      this.evtSvc.openChannel(true);
+    }
+
     if (window.innerWidth <= 544) {
       this.evtSvc.openChannel(false);
       this.evtSvc.openPrivateChat(false);

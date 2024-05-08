@@ -33,6 +33,7 @@
             h2 {
                 @include font32(700);
                 color: black;
+                overflow-wrap: break-word;
 
                 @media (max-width: 432px) {
                     @include font24(700);

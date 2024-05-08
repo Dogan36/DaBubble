@@ -6,13 +6,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 29px 40px;
+    padding: 32px 30px;
     // padding: 25px 45px; eigentlich anderes Padding als Threads
 
     .title-channel-chat {
         display: flex;
         align-items: center;
         gap: 10px;
+        flex: 1;
         background-image: url('./../../../assets/img/icons/tag_big.svg');
         background-repeat: no-repeat;
         background-position: 12px 50%;
@@ -20,6 +21,8 @@
         height: 45px;  
         padding-left: 52px;
         padding-right: 10px;
+        width: calc(100% - 185px);
+        max-width: max-content;
 
         h3 {
             overflow: hidden;
