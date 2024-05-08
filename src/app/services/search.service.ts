@@ -38,7 +38,7 @@ console.log(this.foundMessages)
 
   searchChannelNames(searchText: string) {
     const queryText = searchText.toLowerCase();
-    const foundChannels = this.channelService.allChannels.filter(channel => channel.name.toLowerCase().includes(queryText));
+    const foundChannels = this.channelService.channels.filter(channel => channel.name.toLowerCase().includes(queryText));
     console.log(foundChannels)
     return foundChannels;
   }

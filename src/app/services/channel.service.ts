@@ -264,6 +264,7 @@ export class ChannelService {
           if(index !== -1) {
             this.channels.push(element);
           }
+          console.log(this.channels)
         }
       }
     }
