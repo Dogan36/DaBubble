@@ -21,11 +21,11 @@ export class SearchService {
   foundMessages: any = []
   private channelListLoaded$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  startSearch(searchText: string) {
+  async startSearch(searchText: string) {
     this.foundUsers = this.searchUsers(searchText)
     this.foundChannelNames = this.searchChannelNames(searchText)
-    this.foundMessages = this.searchChannelMessages(searchText)
-
+    this.foundMessages = await this.searchChannelMessages(searchText)
+console.log(this.foundMessages)
   }
 
   searchUsers(searchText: string) {
@@ -49,19 +49,18 @@ export class SearchService {
     const channels = this.channelService.channels;
     const foundMessages: any[] = [];
 
-    for (const channel of channels) {
+    const promises = channels.map(async channel => {
         const channelId = channel.id;
         const chatCollectionRef = collection(this.firestore, `channels/${channelId}/chats`);
-
         const chatQuerySnapshot = await getDocs(chatCollectionRef);
-        chatQuerySnapshot.forEach(async chatDoc => {
+        
+        const chatPromises = chatQuerySnapshot.docs.map(async chatDoc => {
             const chatId = chatDoc.id;
             const messageCollectionRef = collection(this.firestore, `channels/${channelId}/chats/${chatId}/messages`);
-
             const messageQuerySnapshot = await getDocs(messageCollectionRef);
+
             messageQuerySnapshot.forEach(messageDoc => {
                 const messageData = messageDoc.data();
-                // Hier können Sie die Nachrichten nach Ihrem Suchtext filtern
                 if (messageData['message'].toLowerCase().includes(queryText)) {
                     foundMessages.push({
                         channel: channelId,
@@ -71,10 +70,27 @@ export class SearchService {
                 }
             });
         });
-    }
 
-    console.log('Gefundene Nachrichten:', foundMessages);
+        await Promise.all(chatPromises);
+    });
+
+    await Promise.all(promises);
+
+  
     return foundMessages;
+}
+
+getMessageText(message: any): string {
+  if (typeof message === 'string') {
+      // Wenn die Nachricht bereits eine Zeichenkette ist, gib sie direkt zurück
+      return message;
+  } else if (message && message.hasOwnProperty('message')) {
+      // Wenn die Nachricht ein Objekt ist und die 'message'-Eigenschaft hat, gib den Wert dieser Eigenschaft zurück
+      return message.message;
+  } else {
+      // Andernfalls gib einfach eine leere Zeichenkette zurück oder eine Meldung, dass der Nachrichtentyp nicht unterstützt wird
+      return '';
+  }
 }
 }
 

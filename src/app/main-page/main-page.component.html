@@ -19,7 +19,42 @@
     <input [(ngModel)]="searchText" (input)="startSearch()" id="search-input" type="text" />
     <img src="assets/img/icons/search.svg" alt="" />
 </div>
- 
+<div class="searchResults" *ngIf="searchText.length > 0">
+  <div *ngIf="this.searchService.foundUsers.length === 0 && this.searchService.foundChannelNames.length === 0 && this.searchService.foundMessages.length === 0">
+      <p>Keine Ergebnisse gefunden.</p>
+  </div>
+
+  <div *ngIf="this.searchService.foundUsers.length > 0">
+      <h3>Gefundene Benutzer:</h3>
+      <ul>
+          <li *ngFor="let user of this.searchService.foundUsers">
+              <p>{{ user.name }}</p>
+              <!-- Weitere Benutzerinformationen anzeigen, wenn nötig -->
+          </li>
+      </ul>
+  </div>
+
+  <div *ngIf="this.searchService.foundChannelNames.length > 0">
+      <h3>Gefundene Kanäle:</h3>
+      <ul>
+          <li *ngFor="let channel of this.searchService.foundChannelNames">
+              <p>{{ channel.name }}</p>
+              <!-- Weitere Kanalinformationen anzeigen, wenn nötig -->
+          </li>
+      </ul>
+  </div>
+
+  <div *ngIf="this.searchService.foundMessages.length > 0">
+      <h3>Gefundene Nachrichten:</h3>
+      <ul>
+        <ng-container *ngFor="let message of this.searchService.foundMessages">
+          <div *ngIf="message.message">
+            <p>{{this.searchService.getMessageText(message.message) }}</p>
+          </div>
+      </ng-container>
+      </ul>
+  </div>
+</div>
   <div class="user-menu">
     <h2 (click)="openUserMenuDialog()">
       {{ this.authService.currentUser?.name }}

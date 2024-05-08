@@ -15,11 +15,12 @@ import { UserType } from '../types/user.class';
 import { ChannelService } from '../services/channel.service';
 import { SearchService } from '../services/search.service';
 import { FormsModule } from '@angular/forms';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [FormsModule, WorkspaceMenuComponent, ChatBoardComponent, ThreadBoardComponent, MatSidenavModule, MatButtonModule, ChannelBoardComponent, NewMsgBoardComponent, MatDialogModule],
+  imports: [NgIf, NgFor, FormsModule, WorkspaceMenuComponent, ChatBoardComponent, ThreadBoardComponent, MatSidenavModule, MatButtonModule, ChannelBoardComponent, NewMsgBoardComponent, MatDialogModule],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss'
 })
