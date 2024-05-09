@@ -55,11 +55,9 @@ export class ChannelService {
       this.filterChannelsOfUser(); 
       if(this.channels.length !== 0 ) {
         this.subSglChannelChats(this.channels[0].id);
-      } else if(this.channels.length === 0) {
-        this.addChannel(this.setFirstChannel(), "channels");
       }
     });
-  }
+    }
 
 
   setChannelObject(obj:any, id: string) {
@@ -201,6 +199,7 @@ export class ChannelService {
         creator: obj.creator,
         members: obj.members,
         description: obj.description || '',
+        uploadedFiles: obj.uploadedFiles
     };
   }
 
@@ -266,7 +265,6 @@ export class ChannelService {
           if(index !== -1) {
             this.channels.push(element);
           }
-          console.log(this.channels)
         }
       }
     }
@@ -349,18 +347,6 @@ sortSameReactions(reactions: { reactUser: string, reactEmoji: string }[]) {
     });
       return sortedReactions;
   }
-
-
-  setFirstChannel() {
-    const newChannel = {
-        name: 'Allgemein',
-        creator: this.authService.uid,
-        members: [this.authService.uid],
-        description: 'Das ist ein allgemeiner Channel',
-    }
-    return newChannel
-  }
-
 }
 
 
