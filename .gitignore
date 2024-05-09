@@ -47,4 +47,4 @@ Thumbs.db
 .runtimeconfig.json
 
 # API keys
-src/app/app.config.ts
+src/app.config.ts
