@@ -44,40 +44,30 @@ console.log(this.foundMessages)
   }
 
   async searchChannelMessages(searchText: string) {
-    const queryText = searchText.toLowerCase();
-    const currentUserID = this.authService.uid;
-    const channels = this.channelService.channels;
-    const foundMessages: any[] = [];
+  const queryText = searchText.toLowerCase();
+  const channels = this.channelService.channels;
+  const foundMessages: any[] = [];
 
-    const promises = channels.map(async channel => {
-        const channelId = channel.id;
-        const chatCollectionRef = collection(this.firestore, `channels/${channelId}/chats`);
-        const chatQuerySnapshot = await getDocs(chatCollectionRef);
-        
-        const chatPromises = chatQuerySnapshot.docs.map(async chatDoc => {
-            const chatId = chatDoc.id;
-            const messageCollectionRef = collection(this.firestore, `channels/${channelId}/chats/${chatId}/messages`);
-            const messageQuerySnapshot = await getDocs(messageCollectionRef);
+  // Erstelle eine einzige Firestore-Abfrage, um Nachrichten aller Kanäle zu filtern
+  const queryPromises = channels.map(async channel => {
+    const channelId = channel.id;
+    const messageCollectionRef = collection(this.firestore, `channels/${channelId}/messages`);
+    const messageQuerySnapshot = await getDocs(query(messageCollectionRef, where('message', '>=', queryText)));
 
-            messageQuerySnapshot.forEach(messageDoc => {
-                const messageData = messageDoc.data();
-                if (messageData['message'].toLowerCase().includes(queryText)) {
-                    foundMessages.push({
-                        channel: channelId,
-                        chat: chatId,
-                        message: messageData
-                    });
-                }
-            });
+    messageQuerySnapshot.forEach(messageDoc => {
+      const messageData = messageDoc.data();
+      if (messageData['message'].toLowerCase().includes(queryText)) {
+        foundMessages.push({
+          channel: channelId,
+          message: messageData
         });
-
-        await Promise.all(chatPromises);
+      }
     });
+  });
 
-    await Promise.all(promises);
+  await Promise.all(queryPromises); // Warte auf Abschluss aller Abfragen
 
-  
-    return foundMessages;
+  return foundMessages;
 }
 
 getMessageText(message: any): string {
