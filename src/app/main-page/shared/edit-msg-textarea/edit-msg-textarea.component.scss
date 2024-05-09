@@ -10,6 +10,7 @@
     background-color: white;
     border: 1px solid $cpt-line;
     border-radius: 20px;
+    container-type: inline-size;
     padding: 20px;
 
     textarea {
@@ -107,12 +108,23 @@
         }
     }
 
-    .edit-btn-thread {
-        flex-direction: column-reverse;
-    }
+    // .edit-btn-thread {
+    //     flex-direction: column-reverse;
+    // }
 
-    .edit-msg-con-thread {
-        align-items: end;
+    // .edit-msg-con-thread {
+    //     align-items: end;
+    // }
+
+
+    @container (max-width: 344px) {
+        .edit-msg-btn-container {
+            align-items: end;
+
+            .right-btn-container {
+                flex-direction: column-reverse;
+            }
+        }
     }
 
     // .close-icon {

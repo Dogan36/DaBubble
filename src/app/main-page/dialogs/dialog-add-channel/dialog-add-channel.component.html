@@ -67,8 +67,14 @@
     } }
   </mat-dialog-content>
   <mat-dialog-actions>
-    @if(!addMembersOpen) { <button (click)="openAddMembers()">Weiter</button>}
-    @if(addMembersOpen) {<button (click)="saveChannel()" mat-dialog-close>
+    @if(!addMembersOpen) {
+    <button
+      class="nxtBtn"
+      [disabled]="!channel.name"
+      (click)="openAddMembers()"
+    >
+      Weiter</button
+    >} @if(addMembersOpen) {<button (click)="saveChannel()" mat-dialog-close>
       Erstellen</button
     >}
   </mat-dialog-actions>

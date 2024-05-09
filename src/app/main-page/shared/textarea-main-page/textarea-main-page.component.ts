@@ -27,6 +27,7 @@ export class TextareaMainPageComponent {
   @Input() onChannelBoard:boolean = false;
   @Input() onThreadBoard:boolean = false;
   @Input() onPrivatTextarea = false;
+  @Input() onNewMsgBoard = false;
   @Output() TextfieldStatus: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() textfieldOnUploadChannel:boolean = false;
   @Input() textfieldOnUploadChat:boolean = false;

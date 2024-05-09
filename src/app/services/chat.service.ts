@@ -33,7 +33,7 @@ export class ChatService {
 
 
   constructor(private userService: UserService) {
-    this.subChats();
+    // this.subChats();
 
     this.userSubscription = this.authService.currentUser$.subscribe(user => {
       if (user) {
@@ -56,45 +56,45 @@ export class ChatService {
   }
  
 
-  private subChats(): Subscription {
-    return this.authService.currentUser$.subscribe(user => {
-      if (!this.initialized) {
-      if (user) {
-        try {
-          this.fetchChats(user);
-          this.authService.logoutEvent.subscribe(() => {
-            this.unsubscribeChats();
-          });
-          this.initialized=true
-        } catch (error) {
-          console.error("Error fetching chats:", error);
-        }
-      }}
-    });
-  }
+  // private subChats(): Subscription {
+  //   return this.authService.currentUser$.subscribe(user => {
+  //     if (!this.initialized) {
+  //     if (user) {
+  //       try {
+  //         this.fetchChats(user);
+  //         this.authService.logoutEvent.subscribe(() => {
+  //           this.unsubscribeChats();
+  //         });
+  //         this.initialized=true
+  //       } catch (error) {
+  //         console.error("Error fetching chats:", error);
+  //       }
+  //     }}
+  //   });
+  // }
 
 
 
-  async fetchChats(user: any) {
-    const userDocRef = doc(this.firestore, 'users', user.uid);
-    const userSnapshot = await getDoc(userDocRef);
+  // async fetchChats(user: any) {
+  //   const userDocRef = doc(this.firestore, 'users', user.uid);
+  //   const userSnapshot = await getDoc(userDocRef);
 
-    if (userSnapshot.exists()) {
-      const userData = userSnapshot.data();
-      const chatRefs = userData['chatRefs'];
+  //   if (userSnapshot.exists()) {
+  //     const userData = userSnapshot.data();
+  //     const chatRefs = userData['chatRefs'];
   
-      if (chatRefs && chatRefs.length > 0) {
-        const chatPromises = chatRefs.map(async (chatRef: string) => {
-          await this.processChat(chatRef, user.uid);
-        });
+  //     if (chatRefs && chatRefs.length > 0) {
+  //       const chatPromises = chatRefs.map(async (chatRef: string) => {
+  //         await this.processChat(chatRef, user.uid);
+  //       });
 
-        await Promise.all(chatPromises);
+  //       await Promise.all(chatPromises);
 
-        // Sortiere die Chats basierend auf dem Zeitstempel der letzten Nachricht
-        this.sortChatsByLastMessageTimestamp();
-      }
-    }
-  }
+  //       // Sortiere die Chats basierend auf dem Zeitstempel der letzten Nachricht
+  //       this.sortChatsByLastMessageTimestamp();
+  //     }
+  //   }
+  // }
 
 
   async processChat(chatRef: string, currentUserUid: string) {

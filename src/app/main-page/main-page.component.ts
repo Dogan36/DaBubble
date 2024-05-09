@@ -27,7 +27,7 @@ import { NgIf, NgFor } from '@angular/common';
 export class MainPageComponent {
 
   authService: AuthService = inject(AuthService);
-  searchService: SearchService = inject(SearchService)
+  searchService: SearchService = inject(SearchService);
   workspaceOpen = true;
   channelChatOpen = true;
   privateChatOpen = false;
@@ -36,6 +36,8 @@ export class MainPageComponent {
   uid: string = ''
   currentUser: UserType | null = null;
   searchText: string = '';
+
+
   constructor(private evtSvc: EventService, public dialog: MatDialog, public channelService: ChannelService) {
     this.evtSvc.getThreadOpenStatus().subscribe(status => {
       this.threadOpen = status;
@@ -76,6 +78,8 @@ export class MainPageComponent {
       this.searchService.startSearch(this.searchText);
     }
   }
+
+
   toggleSideNav() {
     this.workspaceOpen = !this.workspaceOpen;
   }

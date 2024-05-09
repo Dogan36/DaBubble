@@ -9,6 +9,7 @@
       placeholder="Nachricht an ..."
       (keydown.enter)="onEnterKeyPressed($event, messageForm)"
       minlength="1"
+      [disabled]="onNewMsgBoard"
     ></textarea>
 
     <!-- Uploaded file -->
@@ -53,13 +54,18 @@
     <div class="chat-icons-container">
       <div class="reaction-icons" id="reaction-icons-wrapper">
         <div
+          [style.pointer-events]="onNewMsgBoard ? 'none' : 'auto'"
           class="reaction-icon-plus"
           (click)="
             this.fileUploadService.chooseFile(); setTextfieldStatus(true)
           "
         ></div>
         <div class="sep-line"></div>
-        <div class="reaction-icon-emoji" [matMenuTriggerFor]="aboveMenu"></div>
+        <div
+          class="reaction-icon-emoji"
+          [style.pointer-events]="onNewMsgBoard ? 'none' : 'auto'"
+          [matMenuTriggerFor]="aboveMenu"
+        ></div>
         <mat-menu #aboveMenu="matMenu" yPosition="above" xPosition="before">
           <emoji-mart
             (emojiClick)="addEmoji($event)"
@@ -67,9 +73,17 @@
             [enableSearch]="false"
           ></emoji-mart>
         </mat-menu>
-        <div class="reaction-icon-at"></div>
+        <div
+          [style.pointer-events]="onNewMsgBoard ? 'none' : 'auto'"
+          class="reaction-icon-at"
+        ></div>
       </div>
-      <input class="icon-send" type="submit" value="" />
+      <input
+        class="icon-send"
+        type="submit"
+        value=""
+        [disabled]="onNewMsgBoard"
+      />
     </div>
   </form>
 </div>

@@ -26,6 +26,10 @@
         &:focus {
             outline: none;
         }
+
+        &:disabled {
+            background-color: white;
+        }
     }
 
 
@@ -89,6 +93,13 @@
 
             &:hover {
                 background-image: url('./../../../../assets/img/icons/send_hov.svg');
+            }
+
+            &:disabled {
+                filter: grayscale(100%);
+                &:hover {
+                    background-image: url('./../../../../assets/img/icons/send.svg');
+                }
             }
         }
     }

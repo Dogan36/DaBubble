@@ -34,7 +34,7 @@ export class UserService {
         this.users.push(this.setUserObject(element.data(), element.id),);
         this.usersName.push(element.data()['name']);
       })
-      this.filterCurrentUser()
+      this.filterCurrentUser();
     });
   }
 

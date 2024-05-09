@@ -59,6 +59,17 @@
         }
     }
 
+    .nxtBtn {
+        &:disabled {
+            background-color: lightgray;
+
+            &:hover {
+                background-color: lightgray;
+            }
+            
+        }
+    }
+
     @media (max-width: 1440px) {
         min-width: 672px;
     }
