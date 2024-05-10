@@ -35,20 +35,14 @@ export class DialogShowProfilComponent {
 
     if(!this.chatService.searchForMemberInChats(this.data.profilRef)) {
 
-      this.chatService.startNewPrivateChat({members: [this.authService.uid, this.data.profilRef], timestamp: Date.now()})
-    } 
-
+      this.chatService.startNewPrivateChat({members: [this.authService.uid, this.data.profilRef], timestamp: Date.now()},  'chats')
+    } else {
     this.chatService.selChatIndex = this.chatService.getSelChatIndex(this.data.profilRef);
     this.chatService.currentChat = this.chatService.privateChats[this.chatService.selChatIndex];
- 
 
-    this.evtSvc.openChannel(false);
-    this.evtSvc.openPrivateChat(true);
-    this.evtSvc.openNewChat(false);
-    this.evtSvc.openThread(false);
-
-    if (window.innerWidth <= 544) {
-      this.evtSvc.openWorkspace(false);
+    this.evtSvc.PrivateChatModus();
     }
   }
+
+
 }

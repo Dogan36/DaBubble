@@ -5,6 +5,8 @@ import { BehaviorSubject, Observable, Subscription, switchMap } from 'rxjs';
 import { UserService } from './user.service';
 import { Message } from '../models/message.class';
 import { PrivateChat } from '../models/privateChat.class';
+import { EventService } from './event.service';
+
 
 
 @Injectable({
@@ -32,13 +34,13 @@ export class ChatService {
   private unsubPrivateChatMessages!: Function;
 
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private evtSvc: EventService) {
     // this.subChats();
 
     this.userSubscription = this.authService.currentUser$.subscribe(user => {
       this.authService.generateOwnChatEvent.subscribe(() => {
         if(this.authService.ownChatEventEmitted == false){
-        this.startNewPrivateChat({ members: [this.authService.uid], timestamp: Date.now() });
+        this.startNewPrivateChat({ members: [this.authService.uid], timestamp: Date.now() }, 'chats');
         this.authService.ownChatEventEmitted = true
         }
       });
@@ -317,14 +319,15 @@ export class ChatService {
 
 
   // start new chat
-  async startNewPrivateChat(item: {}) { 
-    
-    await addDoc(collection(this.firestore, 'chats'), item).catch(
+  async startNewPrivateChat(item: {}, colId:string) { 
+    await addDoc(collection(this.firestore, colId), item).catch(
         (err) => { console.error(err) }
       ).then(
         (docRef) => { 
           if (docRef) {
-            console.log("Document written with ID: ", docRef);
+            this.selChatIndex = 0;
+            this.currentChat = this.privateChats[0];
+            this.evtSvc.PrivateChatModus();
             // hier update Funktion um die ChatRef in den beiden Usern zu speichern!
           } else {
             console.error("Failed to get document reference.");
@@ -436,8 +439,5 @@ export class ChatService {
       return 0;
     }
   }
-
-
-  
 
 }

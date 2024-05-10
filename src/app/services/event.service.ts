@@ -47,6 +47,7 @@ export class EventService {
   }
 
 
+
   // New Chat Status
 
   getNewChatOpenStatus() {
@@ -67,6 +68,23 @@ export class EventService {
   openWorkspace(state:boolean) {
     this.workspaceOpenStatus.next(state);
   }
+
+
+
+  // PrivateChat Windows
+
+
+    PrivateChatModus() {
+      this.openPrivateChat(true);
+      this.openChannel(false);
+      this.openNewChat(false);
+      this.openThread(false);
+  
+      if (window.innerWidth <= 544) {
+        this.openWorkspace(false);
+      }
+    }
+
 }
 
 
