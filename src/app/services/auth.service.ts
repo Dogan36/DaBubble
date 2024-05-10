@@ -27,11 +27,13 @@ export class AuthService {
   photoURL = './assets/img/profils/standardPic.svg';
   chatRefs: any;
   public ownChatEventEmitted: boolean = false;
+  public joinStartingChannelsEventEmitted: boolean = false;
   registerError: string = ''
 
   provider = new GoogleAuthProvider();
   public logoutEvent: EventEmitter<void> = new EventEmitter<void>();
   public generateOwnChatEvent: EventEmitter<void> = new EventEmitter<void>();
+  public joinStaringChannelsEvent: EventEmitter<void> = new EventEmitter<void>();
   
   constructor( 
     private overlayService: OverlayService,
@@ -117,11 +119,8 @@ export class AuthService {
       const userObject: UserType = this.createUserObject();
       const userDocRef = doc(this.firestore, 'users', user.uid);
       await setDoc(userDocRef, userObject);
-      if (!this.ownChatEventEmitted) {
-        console.log('emitted')
         this.generateOwnChatEvent.emit(); // Emitiere das Event
-        this.ownChatEventEmitted = true; // Setze die Variable auf true, um anzuzeigen, dass das Event emittiert wurde
-      }
+        this.joinStaringChannelsEvent.emit(); // Emitiere das Event
       this.loginService.toggleLogin
       //erst ab hier zulassen dass  die Registrierung fertig ist und der user weiterleitet wird
       this.overlayService.showOverlay('Konto erfolgreich erstellt!')
@@ -164,7 +163,7 @@ export class AuthService {
                 if (!this.ownChatEventEmitted) {
                   console.log('emitted')
                   this.generateOwnChatEvent.emit(); // Emitiere das Event
-                  this.ownChatEventEmitted = true; // Setze die Variable auf true, um anzuzeigen, dass das Event emittiert wurde
+                  this.joinStaringChannelsEvent.emit(); // Emitiere das Event
                 }
               }}
           );

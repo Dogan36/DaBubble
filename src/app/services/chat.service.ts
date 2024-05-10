@@ -50,7 +50,7 @@ export class ChatService {
 
 
   ngOnDestory() {
-    console.log('destroy')
+    this.authService.ownChatEventEmitted=false
     this.unsubscribeChats()
 
     if (this.userSubscription) {

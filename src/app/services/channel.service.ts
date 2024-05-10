@@ -34,6 +34,12 @@ export class ChannelService {
     //     this.uid = user.uid;
     //   }
     // });
+    this.authService.generateOwnChatEvent.subscribe(() => {
+      if(this.authService.joinStartingChannelsEventEmitted == false){
+      this.joinStartingChannels();
+      this.authService.joinStartingChannelsEventEmitted = true
+      }
+    });
     this.unsubChannels = this.subChannelsList();
   }
 
@@ -317,7 +323,7 @@ export class ChannelService {
   
   ngOnDestroy() {
     this.unsubChannels();
-
+    this.authService.joinStartingChannelsEventEmitted=false
     if (this.unsubSglChannelChats) {
         this.unsubSglChannelChats();
     }
@@ -345,6 +351,10 @@ sortSameReactions(reactions: { reactUser: string, reactEmoji: string }[]) {
       }
     });
       return sortedReactions;
+  }
+
+  joinStartingChannels(){
+    console.log('joinStartingChannelsCalled')
   }
 }
 
@@ -379,3 +389,4 @@ sortSameReactions(reactions: { reactUser: string, reactEmoji: string }[]) {
   //     }
   //   }
   // }
+
