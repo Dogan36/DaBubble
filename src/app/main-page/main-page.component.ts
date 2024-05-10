@@ -58,13 +58,13 @@ export class MainPageComponent {
 
 
   ngOnInit() {
-    if (window.innerWidth > 544 && window.innerWidth <= 1440) {
+    if (window.innerWidth > 792 && window.innerWidth <= 1440) {
       this.evtSvc.openChannel(true);
       this.evtSvc.openPrivateChat(false);
       this.evtSvc.openThread(false);
       this.evtSvc.openNewChat(false);
     }
-    if (window.innerWidth <= 544) {
+    if (window.innerWidth <= 792) {
       this.evtSvc.openChannel(false);
       this.evtSvc.openPrivateChat(false);
       this.evtSvc.openThread(false);
@@ -91,7 +91,7 @@ export class MainPageComponent {
     this.evtSvc.openNewChat(true);
     this.evtSvc.openThread(false);
 
-    if (window.innerWidth <= 544) {
+    if (window.innerWidth <= 792) {
       this.evtSvc.openWorkspace(false);
     }
   }
@@ -101,14 +101,14 @@ export class MainPageComponent {
     this.evtSvc.openPrivateChat(false);
     this.evtSvc.openNewChat(false);
     
-    if (window.innerWidth <= 544) {
+    if (window.innerWidth <= 792) {
       this.evtSvc.openWorkspace(false);
       this.evtSvc.openThread(false);
     } else {
       this.evtSvc.openThread(true);
     }
 
-    if (window.innerWidth > 544 && window.innerWidth <= 1440) {
+    if (window.innerWidth > 792 && window.innerWidth <= 1440) {
       this.evtSvc.openChannel(true);
       this.evtSvc.openPrivateChat(false);
       this.evtSvc.openThread(false);
@@ -122,13 +122,13 @@ export class MainPageComponent {
     this.evtSvc.openNewChat(false);
     this.evtSvc.openThread(false);
 
-    if (window.innerWidth <= 544) {
+    if (window.innerWidth <= 792) {
       this.evtSvc.openWorkspace(false);
     }
   }
 
   openWorkspace() {
-    if (window.innerWidth <= 544) {
+    if (window.innerWidth <= 792) {
       this.evtSvc.openChannel(false);
       this.evtSvc.openPrivateChat(false);
       this.evtSvc.openNewChat(false);

@@ -68,8 +68,12 @@
             }
         }
 
+        @media (max-width: 792px) {
+            width: 356px;;
+        }
+
         @media (max-width: 544px) {
-            width: auto;
+            width: 338px;
         }
 
         @media (max-width: 432px) {

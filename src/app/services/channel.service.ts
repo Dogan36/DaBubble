@@ -272,6 +272,15 @@ export class ChannelService {
           }
         }
       }
+      this.channels.sort(function (a, b) {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+          return 0;
+      });
     }
   }
 
@@ -331,7 +340,7 @@ export class ChannelService {
 
 
 
-sortSameReactions(reactions: { reactUser: string, reactEmoji: string }[]) {
+  sortSameReactions(reactions: { reactUser: string, reactEmoji: string }[]) {
     const sortedReactions: {reactUser: string[], reactEmoji: string}[] = [];
 
     reactions.forEach(reaction => {
@@ -353,10 +362,38 @@ sortSameReactions(reactions: { reactUser: string, reactEmoji: string }[]) {
       return sortedReactions;
   }
 
-  joinStartingChannels(){
+
+  joinStartingChannels() {
+
+    const indexE = this.allChannels.findIndex(channel => channel.id === 'AdmWvjOG986xrhB0qWUP');
+    const indexA = this.allChannels.findIndex(channel => channel.id === 'CyYgkUT5csUtrJ88cBCv');
+    const indexO = this.allChannels.findIndex(channel => channel.id === 'wD8QfT5LVsfatMkctXgN');
+
+    if(indexE !== -1) {
+      const channel: Channel = this.allChannels[indexE];
+      channel.members.push(this.authService.uid);
+      this.updateChannel(channel);
+    }
+    if(indexA !== -1) {
+      const channel: Channel = this.allChannels[indexA];
+      channel.members.push(this.authService.uid);
+      this.updateChannel(channel);
+    }
+    if(indexO !== -1) {
+      const channel: Channel = this.allChannels[indexO];
+      channel.members.push(this.authService.uid);
+      this.updateChannel(channel);
+    }
+
     console.log('joinStartingChannelsCalled')
   }
 }
+
+// AdmWvjOG986xrhB0qWUP - Entwicklerteam
+
+// CyYgkUT5csUtrJ88cBCv - Allgemein
+
+// wD8QfT5LVsfatMkctXgN - Office-team
 
 
 

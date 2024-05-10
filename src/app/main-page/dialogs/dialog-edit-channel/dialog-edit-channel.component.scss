@@ -92,7 +92,7 @@ mat-dialog-content {
     }
 
     p {
-        word-break: break-all;
+        overflow-wrap: break-word;
     }
 }
 

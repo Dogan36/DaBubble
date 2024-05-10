@@ -78,6 +78,10 @@
         min-width: 472px;
     }
 
+    @media (max-width: 792px) {
+        min-width: 356px;
+    }
+
     @media (max-width: 544px) {
         min-width: auto;
     }

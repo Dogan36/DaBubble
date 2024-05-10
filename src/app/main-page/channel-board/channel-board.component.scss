@@ -189,6 +189,7 @@
         }
 
         p {
+            overflow-wrap: break-word;
             @include font20(400);
 
             span {
@@ -198,7 +199,7 @@
                 background-position: 0px 50%;
                 color: $cpt-purple-3;
                 padding-left: 24px;
-                word-break: break-all;
+                overflow-wrap: break-word;
             }
         }
 

@@ -84,6 +84,30 @@ body {
 }
 
 
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+    scrollbar-width: auto;
+    scrollbar-color: $cpt-bg;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: $cpt-bg;
+    border-radius: 10px;
+    border: 0px solid #ffffff;
+}
+
+
+
 .dialog-bor-rad-round {
     .mdc-dialog__surface { 
         border-radius: 30px !important; 
