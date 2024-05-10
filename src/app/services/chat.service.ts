@@ -36,6 +36,12 @@ export class ChatService {
     // this.subChats();
 
     this.userSubscription = this.authService.currentUser$.subscribe(user => {
+      this.authService.generateOwnChatEvent.subscribe(() => {
+        if(this.authService.ownChatEventEmitted == false){
+        this.startNewPrivateChat({ members: [this.authService.uid], timestamp: Date.now() });
+        this.authService.ownChatEventEmitted = true
+        }
+      });
       if (user) {
         this.unsubPrivateChats = this.subPrivateChats(user.uid);
       }
@@ -312,6 +318,7 @@ export class ChatService {
 
   // start new chat
   async startNewPrivateChat(item: {}) { 
+    
     await addDoc(collection(this.firestore, 'chats'), item).catch(
         (err) => { console.error(err) }
       ).then(
