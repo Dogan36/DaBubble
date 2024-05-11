@@ -73,7 +73,6 @@ export class EventService {
 
   // PrivateChat Windows
 
-
     PrivateChatModus() {
       this.openPrivateChat(true);
       this.openChannel(false);
@@ -84,6 +83,44 @@ export class EventService {
         this.openWorkspace(false);
       }
     }
+
+
+  // ChannelChat Windows
+
+    ChannelModus() {
+      this.openChannel(true);
+      this.openPrivateChat(false);
+      this.openNewChat(false);
+    
+      if (window.innerWidth <= 792) {
+        this.openWorkspace(false);
+        this.openThread(false);
+      } else if(window.innerWidth > 792 && window.innerWidth <= 1440) {
+        this.openThread(false);
+      } else {
+        this.openThread(true);
+      }
+    }
+
+
+  // ChannelChat Windows
+
+    ThreadModus() {
+      this.openThread(true);
+      this.openPrivateChat(false);
+      this.openNewChat(false);
+      
+      
+      if (window.innerWidth <= 792) {
+        this.openWorkspace(false);
+        this.openChannel(false);
+      } else if(window.innerWidth > 792 && window.innerWidth <= 1440) {
+        this.openChannel(false);
+      } else {
+        this.openChannel(true);
+      }
+    }
+
 
 }
 

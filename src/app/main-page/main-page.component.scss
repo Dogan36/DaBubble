@@ -158,6 +158,93 @@ header {
             }
         }
 
+        .searchResults {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background-color: white;
+            border: 1px solid $cpt-line;
+            border-radius: 0 20px 20px 20px;
+            max-height: 520px;
+            margin-top: -8px;
+            padding: 20px 21px;
+            position: absolute;
+            left: 22px;
+            overflow-y: scroll;
+            width: 85%;
+            z-index: 9;
+
+            .user-list {
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+                gap: 8px;
+            }
+
+            .channels-list {
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+                gap: 8px;
+    
+                .channel {
+                    background-repeat: no-repeat;
+                    display: flex;
+                    align-items: center;
+                    background-image: url('./../../assets/img/icons/tag.svg');
+                    background-position: 15px 50%;
+                    height: 33px;
+                    padding: 0 8px 0 49px;
+                    // width: 100%;
+    
+                    h5 {
+                        font-weight: 400;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+    
+                    &:hover {
+                        color: $cpt-purple-3;
+                        cursor: pointer;
+                        background-image: url('./../../assets/img/icons/tag_pur.svg');
+                        border-radius: 20px;
+                        background-color: $cpt-bg;
+                    }
+
+                    @media (max-width: 432px) {
+                        background-position: 8px 50%;
+                        padding: 0 8px 0 36px;
+                    }
+                }
+            }
+
+            .message-list {
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+                gap: 8px;
+
+                .sgl-message {
+                    padding: 4px 16px;
+                    // width: 100%;
+
+                    &:hover {
+                        color: $cpt-purple-3;
+                        cursor: pointer;
+                        border-radius: 20px;
+                        background-color: $cpt-bg;
+                    }
+                }
+            }
+        }
+
+        @media (max-width: 1024px) {
+            h3 {
+                @include font18(700);
+            }
+        }
+
         @media (max-width: 544px) {
             display: none;
         }

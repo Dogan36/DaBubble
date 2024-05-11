@@ -16,11 +16,12 @@ import { ChannelService } from '../services/channel.service';
 import { SearchService } from '../services/search.service';
 import { FormsModule } from '@angular/forms';
 import { NgIf, NgFor } from '@angular/common';
+import { WorkspaceUserProfilComponent } from './shared/workspace-user-profil/workspace-user-profil.component';
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [NgIf, NgFor, FormsModule, WorkspaceMenuComponent, ChatBoardComponent, ThreadBoardComponent, MatSidenavModule, MatButtonModule, ChannelBoardComponent, NewMsgBoardComponent, MatDialogModule],
+  imports: [NgIf, NgFor, FormsModule, WorkspaceMenuComponent, ChatBoardComponent, ThreadBoardComponent, MatSidenavModule, MatButtonModule, ChannelBoardComponent, NewMsgBoardComponent, MatDialogModule, WorkspaceUserProfilComponent],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss'
 })
@@ -38,7 +39,7 @@ export class MainPageComponent {
   searchText: string = '';
 
 
-  constructor(private evtSvc: EventService, public dialog: MatDialog, public channelService: ChannelService) {
+  constructor(public evtSvc: EventService, public dialog: MatDialog, public channelService: ChannelService) {
     this.evtSvc.getThreadOpenStatus().subscribe(status => {
       this.threadOpen = status;
     });
@@ -104,15 +105,10 @@ export class MainPageComponent {
     if (window.innerWidth <= 792) {
       this.evtSvc.openWorkspace(false);
       this.evtSvc.openThread(false);
+    } else if(window.innerWidth > 792 && window.innerWidth <= 1440) {
+      this.evtSvc.openThread(false);
     } else {
       this.evtSvc.openThread(true);
-    }
-
-    if (window.innerWidth > 792 && window.innerWidth <= 1440) {
-      this.evtSvc.openChannel(true);
-      this.evtSvc.openPrivateChat(false);
-      this.evtSvc.openThread(false);
-      this.evtSvc.openNewChat(false);
     }
   }
 
@@ -144,4 +140,34 @@ export class MainPageComponent {
   openUserMenuDialog() {
     this.dialog.open(DialogUserMenuComponent, { position: { right: '24px', top: '80px' }, panelClass: ['dialog-bor-rad-corner', 'user-profil-menu'] });
   }
+
+
+
+  stopSearch() {
+    this.searchText = '';
+  }
+
+
+
+  onOpenChannel(channelRef:string) {
+    this.channelService.subSglChannelChats(channelRef);
+    this.channelService.setSelectedChannelIndex(channelRef);
+
+    this.evtSvc.ChannelModus();
+  }
+
+
+  openThreadOnSearch(channelRef:string, chatRef:string) {
+    this.channelService.subSglChannelChats(channelRef);
+    this.channelService.setSelectedChannelIndex(channelRef);
+
+    this.channelService.setSelChatIndex(chatRef);
+
+    console.log('So sieht die chtaId aus', chatRef);
+  }
+
+
+
+
+
 }

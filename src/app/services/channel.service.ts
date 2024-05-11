@@ -285,6 +285,7 @@ export class ChannelService {
   }
 
 
+
   setSelectedChannelIndex(channelRef: string) {
     const index = this.channels.findIndex(channel => channel.id === channelRef);
     console.log('Index of selectedChannel', index);
@@ -293,6 +294,20 @@ export class ChannelService {
       this.selectedChannel = index;
     }
   }
+
+
+  setSelChatIndex(chatRef: string) {
+    const index = this.selectedChannelChats.findIndex(chat => chat.chatId === chatRef);
+    console.log('Index of selChat', index);
+
+    // Im Moment wird hier noch nicht der richtige Index zurück gegeben! Index = - 1;
+    // selectedChannelChats ist noch nicht vollständig geladen, wenn schon setSelChatIndex aufgerufen wird!
+
+    if (index !== -1) {
+      this.selChatIndex = index;
+    }
+  }
+
 
 
   getTime(timestamp:number) {

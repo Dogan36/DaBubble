@@ -97,7 +97,9 @@ body {
 }
 
 *::-webkit-scrollbar-track {
-    background: #ffffff;
+    background: transparent;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 *::-webkit-scrollbar-thumb {
