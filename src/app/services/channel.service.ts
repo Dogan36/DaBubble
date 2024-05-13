@@ -77,8 +77,9 @@ export class ChannelService {
   }
 
 
-  subSglChannelChats(channelRef:string) {
+  subSglChannelChats(channelRef:string, chatRef = 'false') {
     this.selectedChannelChats = [];
+    console.log('So sehen die selChannelChats aus', this.selectedChannelChats);
     this.unsubSglChannelChats = onSnapshot(collection(this.firestore, `channels/${channelRef}/chats`), (listChats) => {
       
       listChats.forEach(chat => {
@@ -99,8 +100,15 @@ export class ChannelService {
             this.selectedChannelChats.splice(index, 1, this.setChatObj(this.colMessages, chat.id, chat.data()['timestamp']));
           }
           this.selectedChannelChats.sort((a, b) => a.timestamp - b.timestamp);
+
+          if(chatRef !== 'false') {
+            const index = this.selectedChannelChats.findIndex(chat => chat.chatId == chatRef);
+
+            if(index !== -1) 
+              this.selChatIndex = index;
+          }
         })
-      })
+      });
     })
   }
 
@@ -292,19 +300,6 @@ export class ChannelService {
 
     if (index !== -1) {
       this.selectedChannel = index;
-    }
-  }
-
-
-  setSelChatIndex(chatRef: string) {
-    const index = this.selectedChannelChats.findIndex(chat => chat.chatId === chatRef);
-    console.log('Index of selChat', index);
-
-    // Im Moment wird hier noch nicht der richtige Index zurück gegeben! Index = - 1;
-    // selectedChannelChats ist noch nicht vollständig geladen, wenn schon setSelChatIndex aufgerufen wird!
-
-    if (index !== -1) {
-      this.selChatIndex = index;
     }
   }
 

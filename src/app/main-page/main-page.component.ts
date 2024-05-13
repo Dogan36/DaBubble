@@ -158,16 +158,8 @@ export class MainPageComponent {
 
 
   openThreadOnSearch(channelRef:string, chatRef:string) {
-    this.channelService.subSglChannelChats(channelRef);
+    this.channelService.subSglChannelChats(channelRef, chatRef);
     this.channelService.setSelectedChannelIndex(channelRef);
-
-    this.channelService.setSelChatIndex(chatRef);
-
-    console.log('So sieht die chtaId aus', chatRef);
   }
-
-
-
-
 
 }

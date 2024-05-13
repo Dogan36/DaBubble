@@ -122,11 +122,12 @@
   </div>
 </div>
 
-<div class="hr-line"></div>
+<div class="hr-line" (click)="scrollToBottom()"></div>
 
 <div class="chat-field" #channelChatsContainer>
   @if(this.channelService.selectedChannelChats[0]) { @for(chat of
-  this.channelService.selectedChannelChats; track index; let index = $index) {
+  this.channelService.selectedChannelChats; track index; let index = $index; let
+  last = $last) {
   <!-- Date logic -->
   @if(chat.chatId === this.channelService.selectedChannelChats[0].chatId ||
   this.channelService.getDate(this.channelService.selectedChannelChats[index -
@@ -167,8 +168,8 @@
       this.channelService.sortSameReactions(chat.allMessages[0].reactions)
     "
     [uploadedFile]="chat.allMessages[0].uploadedFile"
-  ></app-message-left
-  >} @else if(chat.allMessages[0] && chat.allMessages[0].member) {
+  ></app-message-left>
+  } @else if(chat.allMessages[0] && chat.allMessages[0].member) {
   <app-message-right
     [onChannelBoard]="channelBoard"
     [member]="
@@ -196,7 +197,14 @@
     "
     [uploadedFile]="chat.allMessages[0].uploadedFile"
   ></app-message-right>
-  }}} @else if(this.channelService.selectedChannelChats.length === 0) {
+  }
+  <!-- <ng-container (lastElementLoaded)="(last)"></ng-container> -->
+  <!-- @if(last) {
+  {{ scrollToBottom() }}
+  }  -->
+  <!-- @if(last? scrollToBottom() : "" ) {} -->
+  <!-- {{ last ? scrollToBottom() : "" }} -->
+  }} @else if(this.channelService.selectedChannelChats.length === 0) {
   <div class="empty-channel-info">
     <h3
       *ngIf="this.channelService.channels[this.channelService.selectedChannel]"
