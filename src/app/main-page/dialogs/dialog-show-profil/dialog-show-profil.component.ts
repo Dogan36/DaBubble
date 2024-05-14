@@ -35,14 +35,17 @@ export class DialogShowProfilComponent {
 
     if(!this.chatService.searchForMemberInChats(this.data.profilRef)) {
 
-      this.chatService.startNewPrivateChat({members: [this.authService.uid, this.data.profilRef], timestamp: Date.now()},  'chats')
+      this.chatService.startNewPrivateChat({members: [this.authService.uid, this.data.profilRef], timestamp: Date.now()},  'chats');
     } else {
     this.chatService.selChatIndex = this.chatService.getSelChatIndex(this.data.profilRef);
+    this.chatService.selChatRef = this.chatService.privateChats[this.chatService.selChatIndex].chatId;
     this.chatService.currentChat = this.chatService.privateChats[this.chatService.selChatIndex];
+    this.chatService.getPrivateChatMessages(this.chatService.currentChat);
 
     this.evtSvc.PrivateChatModus();
     }
   }
+
 
 
 }

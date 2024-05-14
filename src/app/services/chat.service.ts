@@ -8,7 +8,6 @@ import { PrivateChat } from '../models/privateChat.class';
 import { EventService } from './event.service';
 
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -20,6 +19,7 @@ export class ChatService {
 
   currentChat: any;
   selChatIndex: number = 0;
+  selChatRef:string = '';
   
   private chatsSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   public chats$: Observable<any[]> = this.chatsSubject.asObservable();
@@ -32,6 +32,8 @@ export class ChatService {
 
   privateChats: PrivateChat[] = []
   private unsubPrivateChatMessages!: Function;
+
+  newChatStarted = false;
 
 
   constructor(private userService: UserService, private evtSvc: EventService) {
@@ -260,6 +262,9 @@ export class ChatService {
 
       });
       this.privateChats.sort((a, b) => b.timestamp - a.timestamp);
+      if(this.selChatRef) {
+        this.setSelChatIndex(this.selChatRef);
+      }
       console.log('Das sind alle meine Chats', this.privateChats);
     });
   }
@@ -325,7 +330,10 @@ export class ChatService {
       ).then(
         (docRef) => { 
           if (docRef) {
+            this.messages = [];
+            this.newChatStarted = true;
             this.selChatIndex = 0;
+            this.selChatRef = docRef.id;
             this.currentChat = this.privateChats[0];
             this.evtSvc.PrivateChatModus();
             // hier update Funktion um die ChatRef in den beiden Usern zu speichern!
@@ -344,22 +352,26 @@ export class ChatService {
         (err) => { console.error(err) }
       ).then(
       (docRef) => { 
+        if(this.newChatStarted) {
+          this.getPrivateChatMessages(this.currentChat);
+          this.newChatStarted = false;
+        }
         // console.log("Document written with ID: ", docRef)
       }
       ) 
       this.privateChats[this.selChatIndex].timestamp = Date.now();
-      
       await this.updateChat(this.privateChats[this.selChatIndex]);
   }
 
+  
 
   async updateChat(item: PrivateChat) {
     if(item.chatId) {
+      this.selChatRef = item.chatId;
       let docRef = doc(collection(this.firestore, 'chats'), item.chatId);
       await updateDoc(docRef, {members: item.members, timestamp: item.timestamp}).catch((err) => { console.log(err); });
     }
   }
-
 
 
   async updateMessage(message: Message) {
@@ -370,7 +382,6 @@ export class ChatService {
       await updateDoc(docRef, this.toJSONmessage(message)).catch((err) => { console.log(err); });
     }
   }
-
 
 
 // Eigentlich auch so im channelService, aber für besser Übersicht auch noch mal hier
@@ -437,6 +448,15 @@ export class ChatService {
         }
       }
       return 0;
+    }
+  }
+
+
+  setSelChatIndex(chatRef: string) {
+    const index = this.privateChats.findIndex(chat => chat.chatId === chatRef);
+
+    if (index !== -1) {
+      this.selChatIndex = index;
     }
   }
 

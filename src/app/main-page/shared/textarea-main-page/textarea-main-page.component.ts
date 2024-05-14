@@ -54,7 +54,7 @@ export class TextareaMainPageComponent {
           // an dieser Stelle noch docRef vergeben!
         ));
 
-        console.log(this.message)
+        // console.log(this.message)
         // Wenn mindestens eine Datei hochgeladen wurde oder die Nachricht nicht leer ist
         
         if (this.onChannelBoard) {

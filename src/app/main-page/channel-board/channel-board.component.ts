@@ -167,8 +167,8 @@ export class ChannelBoardComponent {
     }
 
 
-  setTextfieldStatus(event: boolean) {
-    this.textfieldOnUpload = event;
-  }
+    setTextfieldStatus(event: boolean) {
+      this.textfieldOnUpload = event;
+    }
 }
 
