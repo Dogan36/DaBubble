@@ -31,7 +31,7 @@
     <div (click)="loginWithGoogle()" class="google"><img src="./assets/img/icons/google.svg">Anmeldung mit Google</div>
     <div class="buttons-container">
         <button class="primaryButton" type="submit" [disabled]="myForm.invalid">Anmelden</button>
-        <button class="secondaryButton">Gäste-Login</button>
+        <button (click)="this.guestUserService.createGuestUser()" class="secondaryButton" type="button">Gäste-Login</button>
     </div>
 
 </form>

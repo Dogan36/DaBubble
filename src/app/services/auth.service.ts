@@ -45,14 +45,17 @@ export class AuthService {
     this.setPersistence();
     this.auth.onAuthStateChanged(user => {
       if (user) {
+        console.log(user)
         this.user = user
         this.uid = user.uid;
+        console.log(this.uid)
         const userDocRef = doc(this.firestore, 'users', this.uid);
         onSnapshot(userDocRef, (doc) => {
           if (!doc.exists()) {
             this.router.navigate(['/']);
           } else {
             this.currentUser = {...doc.data() } as UserType;
+            console.log(this.currentUser)
             this._currentUserSubject.next(this.currentUser);
           }
         }, (error) => {
@@ -89,6 +92,7 @@ export class AuthService {
   }
 
   async login(): Promise<void> {
+    console.log('loginCalled')
     try {
       await setPersistence(this.auth, browserSessionPersistence);
       await signInWithEmailAndPassword(this.auth, this.email, this.password);
@@ -213,6 +217,57 @@ export class AuthService {
       }, 1500);
     } catch (error) {
       console.error('Error logging out:', error);
+    }
+  }
+
+  async registerGuest(): Promise<string> {
+    try {
+      const randomNum = Math.floor(Math.random() * 10000); // Zufällige Zahl generieren
+      const email = `guest${randomNum}@guest.de`; // E-Mail-Adresse mit zufälliger Zahl erstellen
+      
+      const userCredential = await createUserWithEmailAndPassword(this.auth, email, '1234567');
+      const user = userCredential.user;
+      const userData: UserType = {
+        uid: user.uid,
+        name: 'Guest', // Name des Gastbenutzers
+        email: email, // E-Mail-Adresse des Gastbenutzers mit zufälliger Zahl
+        photoURL: './assets/img/profils/standardPic.svg', // Profilbild des Gastbenutzers (optional)
+        chatRefs: []
+      };
+  
+      await updateProfile(user, {
+        displayName: userData.name
+      });
+      await updateProfile(user, {
+        photoURL: userData.photoURL
+      });
+      const userDocRef = doc(this.firestore, 'users', user.uid);
+      await setDoc(userDocRef, userData);
+      this.overlayService.showOverlay('Konto erfolgreich erstellt!')
+      this.generateOwnChatEvent.emit();
+      this.joinStaringChannelsEvent.emit();
+      setTimeout(() => {
+        this.overlayService.hideOverlay();
+        this.router.navigate(['/start']);
+      }, 1500);
+      return user.uid; // Rückgabe der uid des registrierten Gastbenutzers
+    } catch (error) {
+      console.error('Error registering guest user:', error);
+      throw error;
+    }
+  }
+  
+  async loginGuest(guestUserId: string): Promise<void> {
+    console.log('loginGuestCalled')
+    try {
+      // Hier können Sie die Anmelde- oder Authentifizierungslogik für den Gastbenutzer implementieren
+      // Beispiel:
+      // await this.auth.signInWithUid(guestUserId);
+      // Da ich nicht weiß, wie die spezifische Anmelde- oder Authentifizierungslogik für Ihren Gastbenutzer aussieht,
+      // habe ich hier nur einen Platzhalterkommentar hinterlassen.
+    } catch (error) {
+      console.error('Error logging in guest user:', error);
+      throw error;
     }
   }
 

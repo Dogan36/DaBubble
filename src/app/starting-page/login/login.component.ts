@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { LoginService } from '../../services/login.service';
 import { OverlayService } from '../../services/overlay.service';
+import { GuestUserService } from '../../services/guest-user.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -17,6 +18,7 @@ export class LoginComponent {
   myForm: FormGroup;
   authService: AuthService = inject(AuthService);
   loginService: LoginService = inject(LoginService);
+  guestUserService: GuestUserService = inject(GuestUserService);
   loginError: string | null = null;
   constructor(private fb: FormBuilder, private renderer: Renderer2,
     private el: ElementRef, private overlayService:OverlayService) {
