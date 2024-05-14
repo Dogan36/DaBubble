@@ -24,6 +24,7 @@ export class AuthService {
   email: string = '';
   password: string = '';
   name: string = '';
+  createdAt: string = '';
   photoURL = './assets/img/profils/standardPic.svg';
   chatRefs: any;
   public ownChatEventEmitted: boolean = false;
@@ -48,14 +49,15 @@ export class AuthService {
         console.log(user)
         this.user = user
         this.uid = user.uid;
-        console.log(this.uid)
+        
         const userDocRef = doc(this.firestore, 'users', this.uid);
         onSnapshot(userDocRef, (doc) => {
           if (!doc.exists()) {
             this.router.navigate(['/']);
           } else {
+            this.router.navigate(['/start'])
             this.currentUser = {...doc.data() } as UserType;
-            console.log(this.currentUser)
+          
             this._currentUserSubject.next(this.currentUser);
           }
         }, (error) => {
@@ -87,7 +89,8 @@ export class AuthService {
       name: this.name,
       email: this.email,
       photoURL: this.photoURL,
-      chatRefs: this.uid
+      chatRefs: this.uid,
+      createdAt: this.createdAt
     };
   }
 
@@ -151,13 +154,15 @@ export class AuthService {
       .then((result) => {
         this.overlayService.showOverlay('Anmelden');
         const credential = GoogleAuthProvider.credentialFromResult(result);
+       
         if (credential) {
           const userData: UserType = {
             uid: result.user.uid,
             email: result.user.email || '',
             name: result.user.displayName || '',
             photoURL: result.user.photoURL || '',
-            chatRefs:[result.user.uid]
+            chatRefs:[result.user.uid],
+          createdAt:''
           };
           const userDocRef = doc(this.firestore, 'users', result.user.uid);
           //check if user  already exists in the database and create it if not
@@ -165,7 +170,7 @@ export class AuthService {
               if (!docSnapshot.exists()) {
                 setDoc(userDocRef, userData);
                 if (!this.ownChatEventEmitted) {
-                  console.log('emitted')
+               
                   this.generateOwnChatEvent.emit(); // Emitiere das Event
                   this.joinStaringChannelsEvent.emit(); // Emitiere das Event
                 }
@@ -227,12 +232,15 @@ export class AuthService {
       
       const userCredential = await createUserWithEmailAndPassword(this.auth, email, '1234567');
       const user = userCredential.user;
+      console.log(user)
       const userData: UserType = {
         uid: user.uid,
         name: 'Guest', // Name des Gastbenutzers
         email: email, // E-Mail-Adresse des Gastbenutzers mit zufälliger Zahl
         photoURL: './assets/img/profils/standardPic.svg', // Profilbild des Gastbenutzers (optional)
-        chatRefs: []
+        chatRefs: [],
+        createdAt: user.metadata?.creationTime
+
       };
   
       await updateProfile(user, {

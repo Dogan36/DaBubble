@@ -4,4 +4,5 @@ export type UserType = {
   email: string | null;
   photoURL: string | null;
   chatRefs: any;
+  createdAt: string | undefined
 }

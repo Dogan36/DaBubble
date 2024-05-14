@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Firestore, doc, getDoc } from '@angular/fire/firestore';
+import { Firestore, collection, deleteDoc, doc, getDoc, getDocs } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,6 +12,7 @@ export class GuestUserService {
   constructor(private firestore: Firestore, private authService: AuthService) { }
 
   async createGuestUser(): Promise<string> {
+    this.deleteOldGuests()
     let guestUserId = localStorage.getItem(this.GUEST_USER_KEY);
     if (!guestUserId) {
       // Wenn keine Gastbenutzer-ID im Local Storage vorhanden ist, generieren Sie eine neue
@@ -30,6 +32,7 @@ export class GuestUserService {
 
   async isGuestUserOnFirebase(guestUserId: string): Promise<boolean> {
     const userDocRef = doc(this.firestore, 'users', guestUserId);
+    console.log('user exists on firebase')
     const docSnapshot = await getDoc(userDocRef);
     return docSnapshot.exists();
   }
@@ -42,13 +45,38 @@ export class GuestUserService {
     });
   }
 
-  getGuestUserId(): string | null {
-    return localStorage.getItem(this.GUEST_USER_KEY);
-  }
+  private async deleteOldGuests(): Promise<void> {
+    console.log('deleteoldguestscalled');
+    const twentyFourHoursAgo = new Date(Date.now() - 2 * 60 * 1000); // Zeitpunkt vor 24 Stunden
+    console.log(twentyFourHoursAgo);
 
-  clearGuestUserId(): void {
-    localStorage.removeItem(this.GUEST_USER_KEY);
-  }
+    const querySnapshot = await getDocs(collection(this.firestore, 'users'));
+    const deletionPromises: Promise<void>[] = [];
+
+    querySnapshot.forEach((doc) => {
+        const userData = doc.data();
+    
+
+        // Konvertieren Sie das userData['createdAt']-Datum in ein Date-Objekt
+        const createdAtDate = new Date(userData['createdAt']);
+       
+        // Überprüfen, ob es sich um ein Gastkonto handelt und ob es vor mehr als 24 Stunden erstellt wurde
+        if (
+            userData?.['email']?.endsWith('@guest.de') &&
+            createdAtDate < twentyFourHoursAgo
+         
+        ) {
+          console.log(createdAtDate < twentyFourHoursAgo)
+            console.log('wird gelöscht');
+           // const deletionPromise = deleteDoc(doc.ref);
+           // deletionPromises.push(deletionPromise);
+        }
+    });
+
+    // Warten, bis alle Löschvorgänge abgeschlossen sind
+    await Promise.all(deletionPromises);
+}
+ 
 
 
 }
