@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { TextareaMainPageComponent } from '../shared/textarea-main-page/textarea-main-page.component';
 import { WorkspaceUserProfilComponent } from '../shared/workspace-user-profil/workspace-user-profil.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -25,6 +25,9 @@ export class ChatBoardComponent {
   textfieldOnUpload = false;
   privatTextarea = true;
 
+  @ViewChild('privateChatsContainer') privateChatsContainerRef?: ElementRef;
+
+
   constructor(public dialog: MatDialog, public userService: UserService, public chatService:ChatService, public authService: AuthService, public channelService: ChannelService) {}
 
 
@@ -40,6 +43,14 @@ export class ChatBoardComponent {
       }});
   }
 
+
+  scrollToBottom(): void {
+    if (this.privateChatsContainerRef) {
+      const containerElement = this.privateChatsContainerRef.nativeElement;
+      containerElement.scrollTop = containerElement.scrollHeight;
+      console.log('Die Höhe ist ', containerElement.scrollHeight);
+    }
+  }
 
 
   setTextfieldStatus(event: boolean) {

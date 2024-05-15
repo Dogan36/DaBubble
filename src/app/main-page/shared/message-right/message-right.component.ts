@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { EventService } from '../../../services/event.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -38,6 +38,8 @@ export class MessageRightComponent {
   @Input() memberRef: string = '';
   @Input() sortedReactions: {reactUser: string[], reactEmoji: string}[] = [];
   @Input() uploadedFile: string[] = [];
+
+  @Output() messageLoaded: EventEmitter<void> = new EventEmitter<void>();
   
   @ViewChild('aboveMenuTrigger') emojiMenuTrigger?: MatMenuTrigger;
 
@@ -46,6 +48,11 @@ export class MessageRightComponent {
 
 
   constructor(private evtSvc: EventService, public dialog: MatDialog, public channelService: ChannelService, public userService: UserService, public authService: AuthService, private chatService: ChatService) {}
+
+
+  ngAfterViewInit(): void {
+    this.messageLoaded.emit();
+  }
 
 
   onMouseOver(action:string) {

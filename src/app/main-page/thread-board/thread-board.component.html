@@ -11,11 +11,12 @@
 
 <div class="hr-line"></div>
 
-<div class="thread-field">
+<div class="thread-field" #threadChatsContainer>
   @if(this.channelService.selectedChannelChats[this.channelService.selChatIndex])
   { @for(message of
   this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages;
-  track index; let index = $index) {
+  track index; let index = $index; let last = $last) {
+
   <!-- Date logic -->
   @if(message.messageId ===
   this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[0].messageId
@@ -29,9 +30,11 @@
     [forDate]="this.channelService.getDate(message.timestamp)"
   ></app-time-separator>
   }}
+
   <!-- message left or right logic -->
-  @if(message.member !== this.authService.uid) {
+  @if(message.member !== this.authService.uid) { @if(last) {
   <app-message-left
+    (messageLoaded)="scrollToBottom()"
     [onThreadBoard]="threadBoard"
     [messageIndex]="index"
     [member]="
@@ -48,6 +51,43 @@
     [sortedReactions]="this.channelService.sortSameReactions(message.reactions)"
     [uploadedFile]="message.uploadedFile"
   ></app-message-left
+  >} @else {
+  <app-message-left
+    [onThreadBoard]="threadBoard"
+    [messageIndex]="index"
+    [member]="
+      this.userService.users[this.userService.getUsersData(message.member)].name
+    "
+    [message]="message.message"
+    [memberImg]="
+      this.userService.users[this.userService.getUsersData(message.member)]
+        .photoURL
+    "
+    [memberRef]="message.member"
+    [time]="this.channelService.getTime(message.timestamp)"
+    [selectedChatIndex]="this.channelService.selChatIndex"
+    [sortedReactions]="this.channelService.sortSameReactions(message.reactions)"
+    [uploadedFile]="message.uploadedFile"
+  ></app-message-left>
+  } } @else { @if(last) {
+  <app-message-right
+    (messageLoaded)="scrollToBottom()"
+    [onThreadBoard]="threadBoard"
+    [messageIndex]="index"
+    [member]="
+      this.userService.users[this.userService.getUsersData(message.member)].name
+    "
+    [message]="message.message"
+    [memberImg]="
+      this.userService.users[this.userService.getUsersData(message.member)]
+        .photoURL
+    "
+    [memberRef]="message.member"
+    [time]="this.channelService.getTime(message.timestamp)"
+    [selectedChatIndex]="this.channelService.selChatIndex"
+    [sortedReactions]="this.channelService.sortSameReactions(message.reactions)"
+    [uploadedFile]="message.uploadedFile"
+  ></app-message-right
   >} @else {
   <app-message-right
     [onThreadBoard]="threadBoard"
@@ -66,7 +106,8 @@
     [sortedReactions]="this.channelService.sortSameReactions(message.reactions)"
     [uploadedFile]="message.uploadedFile"
   ></app-message-right>
-  }
+  } }
+
   <!-- separator after first message -->
   @if(message.messageId ===
   this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[0].messageId
@@ -86,6 +127,7 @@
   </div>
   }}}
 </div>
+
 <app-textarea-main-page
   [onThreadBoard]="threadBoard"
   (TextfieldStatus)="setTextfieldStatus($event)"

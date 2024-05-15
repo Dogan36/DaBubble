@@ -26,7 +26,7 @@ export class ChannelService {
   colMessages: Message[] = []; // var to store all msg of one chat while subscribing the channel with its chats
 
   unsubChannels;
-  private unsubSglChannelChats!: Function;
+  unsubSglChannelChats!: Function;
 
   constructor(private authService: AuthService) {
     // this.authService.getCurrentUser().subscribe(user => {

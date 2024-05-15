@@ -58,6 +58,7 @@ export class WorkspaceMenuComponent {
 
 
   onOpenChannel(i:number, channelRef:string) {
+    this.channelService.unsubSglChannelChats();
     this.channelService.subSglChannelChats(channelRef);
     this.channelService.selectedChannel = i;
     this.openChannel.emit();
@@ -65,6 +66,9 @@ export class WorkspaceMenuComponent {
 
 
   onOpenPrivateChat(chat: any, index: number) {
+    if(this.chatService.unsubPrivateChatMessages) {
+      this.chatService.unsubPrivateChatMessages();
+    }
     this.chatService.currentChat = chat;
     this.chatService.selChatIndex = index;
     this.chatService.selChatRef = chat.chatRef;

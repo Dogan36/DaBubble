@@ -150,6 +150,7 @@ export class MainPageComponent {
 
 
   onOpenChannel(channelRef:string) {
+    this.channelService.unsubSglChannelChats();
     this.channelService.subSglChannelChats(channelRef);
     this.channelService.setSelectedChannelIndex(channelRef);
 

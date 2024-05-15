@@ -38,44 +38,7 @@ export class ChannelBoardComponent {
 
     
     constructor(public dialog: MatDialog, public channelService: ChannelService, private renderer: Renderer2, public userService: UserService, public authService: AuthService) {}
-
-
-    ngAfterViewInit(): void {
-      // setTimeout(() => {
-      //   if(this.lastElementLoaded === true) {
-
-      //     this.scrollToBottom();
-      //     console.log('Ja klappt');
-      //   }
-      // }, 2000);
-
-      // if(this.channelService.selectedChannelChats && this.channelService.selectedChannelChats.length > 0) {
-
-        // const lastChat = this.channelService.selectedChannelChats[this.channelService.selectedChannelChats.length - 1].chatId;
-
-
-        // if (this.channelChatsContainerRef?.nativeElement.lastElementChild.chatId === lastChat) {
-        // // Wenn das letzte Element geladen ist, rufe die scrollToBottom() Methode auf
-        // this.scrollToBottom();
-        // } else {
-        //     setTimeout(() => {
-        //       this.ngAfterViewInit();
-        //       console.log('Immer noch nicht gefunden');
-        //   }, 50);
-        // }
-      // } 
-    }
-
-
-  //   ngAfterViewInit(): void {
-  //     if (this.channelChatsContainerRef) {
-  //       const containerElement = this.channelChatsContainerRef.nativeElement;
-  //       this.renderer.listen(containerElement, 'load', () => {
-  //       this.scrollToBottom();
-  //     });
-  //   }
-  // }
-
+    
 
     openEditChannelDialog() {
       this.dialog.open(DialogEditChannelComponent, {panelClass: 'dialog-bor-rad-round'});

@@ -122,12 +122,13 @@
   </div>
 </div>
 
-<div class="hr-line" (click)="scrollToBottom()"></div>
+<div class="hr-line"></div>
 
 <div class="chat-field" #channelChatsContainer>
   @if(this.channelService.selectedChannelChats[0]) { @for(chat of
   this.channelService.selectedChannelChats; track index; let index = $index; let
   last = $last) {
+
   <!-- Date logic -->
   @if(chat.chatId === this.channelService.selectedChannelChats[0].chatId ||
   this.channelService.getDate(this.channelService.selectedChannelChats[index -
@@ -139,9 +140,39 @@
     [forDate]="this.channelService.getDate(chat.timestamp)"
   ></app-time-separator>
   }}
+
   <!-- message left or right logic -->
   @if(chat.allMessages[0] && chat.allMessages[0].member &&
-  chat.allMessages[0].member !== this.authService.uid) {
+  chat.allMessages[0].member !== this.authService.uid) { @if(last) {
+  <app-message-left
+    (messageLoaded)="scrollToBottom()"
+    [onChannelBoard]="channelBoard"
+    [member]="
+      this.userService.users[
+        this.userService.getUsersData(chat.allMessages[0].member)
+      ].name
+    "
+    [message]="chat.allMessages[0].message"
+    [memberImg]="
+      this.userService.users[
+        this.userService.getUsersData(chat.allMessages[0].member)
+      ].photoURL
+    "
+    [amountMessage]="chat.allMessages.length - 1"
+    [selectedChatIndex]="index"
+    [memberRef]="chat.allMessages[0].member"
+    [time]="this.channelService.getTime(chat.allMessages[0].timestamp)"
+    [timeLastMessage]="
+      this.channelService.getTime(
+        chat.allMessages[chat.allMessages.length - 1].timestamp
+      )
+    "
+    [sortedReactions]="
+      this.channelService.sortSameReactions(chat.allMessages[0].reactions)
+    "
+    [uploadedFile]="chat.allMessages[0].uploadedFile"
+  ></app-message-left
+  >} @else {
   <app-message-left
     [onChannelBoard]="channelBoard"
     [member]="
@@ -169,7 +200,36 @@
     "
     [uploadedFile]="chat.allMessages[0].uploadedFile"
   ></app-message-left>
-  } @else if(chat.allMessages[0] && chat.allMessages[0].member) {
+  }} @else if(chat.allMessages[0] && chat.allMessages[0].member) { @if(last) {
+  <app-message-right
+    (messageLoaded)="scrollToBottom()"
+    [onChannelBoard]="channelBoard"
+    [member]="
+      this.userService.users[
+        this.userService.getUsersData(chat.allMessages[0].member)
+      ].name
+    "
+    [message]="chat.allMessages[0].message"
+    [memberImg]="
+      this.userService.users[
+        this.userService.getUsersData(chat.allMessages[0].member)
+      ].photoURL
+    "
+    [amountMessage]="chat.allMessages.length - 1"
+    [selectedChatIndex]="index"
+    [memberRef]="chat.allMessages[0].member"
+    [time]="this.channelService.getTime(chat.allMessages[0].timestamp)"
+    [timeLastMessage]="
+      this.channelService.getTime(
+        chat.allMessages[chat.allMessages.length - 1].timestamp
+      )
+    "
+    [sortedReactions]="
+      this.channelService.sortSameReactions(chat.allMessages[0].reactions)
+    "
+    [uploadedFile]="chat.allMessages[0].uploadedFile"
+  ></app-message-right
+  >} @else {
   <app-message-right
     [onChannelBoard]="channelBoard"
     [member]="
@@ -197,14 +257,7 @@
     "
     [uploadedFile]="chat.allMessages[0].uploadedFile"
   ></app-message-right>
-  }
-  <!-- <ng-container (lastElementLoaded)="(last)"></ng-container> -->
-  <!-- @if(last) {
-  {{ scrollToBottom() }}
-  }  -->
-  <!-- @if(last? scrollToBottom() : "" ) {} -->
-  <!-- {{ last ? scrollToBottom() : "" }} -->
-  }} @else if(this.channelService.selectedChannelChats.length === 0) {
+  }} }} @else if(this.channelService.selectedChannelChats.length === 0) {
   <div class="empty-channel-info">
     <h3
       *ngIf="this.channelService.channels[this.channelService.selectedChannel]"
@@ -229,6 +282,7 @@
   </div>
   }
 </div>
+
 <app-textarea-main-page
   [onChannelBoard]="channelBoard"
   [textfieldOnUploadChannel]="textfieldOnUpload"

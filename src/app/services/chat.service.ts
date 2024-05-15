@@ -29,9 +29,9 @@ export class ChatService {
 
   private userSubscription: Subscription;
   unsubPrivateChats: any;
+  unsubPrivateChatMessages!: Function;
 
   privateChats: PrivateChat[] = []
-  private unsubPrivateChatMessages!: Function;
 
   newChatStarted = false;
 

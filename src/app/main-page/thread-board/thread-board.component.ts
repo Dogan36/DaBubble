@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { TextareaMainPageComponent } from '../shared/textarea-main-page/textarea-main-page.component';
 import { MessageLeftComponent } from '../shared/message-left/message-left.component';
 import { MessageRightComponent } from '../shared/message-right/message-right.component';
@@ -20,7 +20,10 @@ export class ThreadBoardComponent {
   threadBoard = true;
   textfieldOnUpload = false;
 
+  @ViewChild('threadChatsContainer') threadChatsContainerRef?: ElementRef;
+
   constructor(private evtSvc: EventService, public channelService: ChannelService, public userService: UserService, public authService: AuthService) {}
+
 
   onCloseThread() {
     this.evtSvc.openThread(false);
@@ -35,6 +38,15 @@ export class ThreadBoardComponent {
       this.evtSvc.openNewChat(false);
       this.evtSvc.openWorkspace(true);
     }
+  }
+
+
+  scrollToBottom(): void {
+    if (this.threadChatsContainerRef) {
+      const containerElement = this.threadChatsContainerRef.nativeElement;
+      containerElement.scrollTop = containerElement.scrollHeight;
+      console.log('Die Höhe ist ', containerElement.scrollHeight);
+      }
   }
 
 
