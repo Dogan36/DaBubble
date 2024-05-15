@@ -158,6 +158,16 @@ header {
             }
         }
 
+        .input-hint {
+            position: absolute;
+            left: 32px;
+            bottom: 64px;
+            background-color: transparent;
+            padding-left: 4px;
+            padding-right: 4px;
+            color: $cpt-error;
+        }
+
         .searchResults {
             display: flex;
             flex-direction: column;

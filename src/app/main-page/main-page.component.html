@@ -17,11 +17,17 @@
   }
 
   <div class="input-container">
+    @if(isInputFocused() && searchText.length < 3) {
+    <span class="input-hint">Bitte gib mindestens drei Buchstaben ein</span>
+    }
     <input
       [(ngModel)]="searchText"
       (input)="startSearch()"
       id="search-input"
       type="text"
+      [minLength]="3"
+      (focus)="setInputFocus(true)"
+      (blur)="setInputFocus(false)"
     />
     <img src="assets/img/icons/search.svg" alt="" />
 

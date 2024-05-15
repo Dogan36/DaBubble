@@ -38,7 +38,7 @@ export class ChannelBoardComponent {
 
     
     constructor(public dialog: MatDialog, public channelService: ChannelService, private renderer: Renderer2, public userService: UserService, public authService: AuthService) {}
-    
+
 
     openEditChannelDialog() {
       this.dialog.open(DialogEditChannelComponent, {panelClass: 'dialog-bor-rad-round'});
@@ -50,9 +50,13 @@ export class ChannelBoardComponent {
       if(dialog) {
         let wrapper = document.getElementById("dialog-wrapper");
         if(wrapper) {
-          dialog.style.left = (wrapper.offsetLeft - 308) + "px"; 
+          dialog.style.left = (wrapper.offsetLeft + wrapper.offsetWidth - dialog.offsetWidth - 512) + "px"; 
           dialog.style.top = (wrapper.offsetTop + wrapper.offsetHeight + 140) + "px";
           dialog.showModal();
+
+          if (window.innerWidth > 544 && window.innerWidth <= 792) {
+              dialog.style.top = (wrapper.offsetTop + wrapper.offsetHeight + 88) + "px";
+          }
 
           if (window.innerWidth <= 544) {
             dialog.style.left = ((window.innerWidth - dialog.offsetWidth) / 2) + "px";
@@ -86,6 +90,11 @@ export class ChannelBoardComponent {
     closeDialog(selDialog:string) {
       let dialog = <HTMLDialogElement>document.getElementById(selDialog);
       dialog.close();
+      let selectedMembersArray = this.searchMembersComponent?.selectedMembers;
+
+      if(selectedMembersArray && selectedMembersArray.length > 0 && this.searchMembersComponent) {
+        this.searchMembersComponent.selectedMembers = [];
+      }
 
       if(this.bodyClickListener) {
         this.bodyClickListener();

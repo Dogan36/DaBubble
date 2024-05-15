@@ -37,6 +37,8 @@ export class MainPageComponent {
   uid: string = ''
   currentUser: UserType | null = null;
   searchText: string = '';
+  inputFocus: boolean = false;
+
 
 
   constructor(public evtSvc: EventService, public dialog: MatDialog, public channelService: ChannelService) {
@@ -161,6 +163,16 @@ export class MainPageComponent {
   openThreadOnSearch(channelRef:string, chatRef:string) {
     this.channelService.subSglChannelChats(channelRef, chatRef);
     this.channelService.setSelectedChannelIndex(channelRef);
+  }
+
+
+
+  setInputFocus(value: boolean) {
+    this.inputFocus = value;
+  }
+
+  isInputFocused(): boolean {
+    return this.inputFocus;
   }
 
 }
