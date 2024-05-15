@@ -12,7 +12,6 @@ export class GuestUserService {
   constructor(private firestore: Firestore, private authService: AuthService) { }
 
   async createGuestUser(): Promise<string> {
-    this.deleteOldGuests()
     let guestUserId = localStorage.getItem(this.GUEST_USER_KEY);
     if (!guestUserId) {
       // Wenn keine Gastbenutzer-ID im Local Storage vorhanden ist, generieren Sie eine neue
@@ -39,7 +38,7 @@ export class GuestUserService {
 
  
 
-  private async deleteOldGuests(): Promise<void> {
+  public async deleteOldGuests(): Promise<void> {
     console.log('deleteoldguestscalled');
     const twentyFourHoursAgo = new Date(Date.now() - 2 * 60 * 1000); // Zeitpunkt vor 24 Stunden
     console.log(twentyFourHoursAgo);

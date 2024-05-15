@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { LoginService } from '../services/login.service';
 import { StartAnimationComponent } from './start-animation/start-animation.component';
-
+import { GuestUserService } from '../services/guest-user.service';
 
 
 @Component({
@@ -36,5 +36,9 @@ export class StartingPageComponent {
   constructor(public router: Router) { }
   authService: AuthService = inject(AuthService);
   loginService: LoginService = inject(LoginService);
- 
+ guestUserService: GuestUserService = inject(GuestUserService)
+
+ ngOnInit(){
+  this.guestUserService.deleteOldGuests()
+ }
 }
