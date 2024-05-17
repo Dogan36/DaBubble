@@ -46,9 +46,12 @@ export class ChatBoardComponent {
 
   scrollToBottom(): void {
     if (this.privateChatsContainerRef) {
-      const containerElement = this.privateChatsContainerRef.nativeElement;
+      const containerElement = this.privateChatsContainerRef?.nativeElement;
       containerElement.scrollTop = containerElement.scrollHeight;
-      console.log('Die Höhe ist ', containerElement.scrollHeight);
+    } else {
+      setTimeout(() => {
+        this.scrollToBottom();
+      }, 1);
     }
   }
 

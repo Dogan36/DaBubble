@@ -16,9 +16,7 @@
     <div class="uploaded-files">
       @if(this.fileUploadService.uploadedFiles[0] && textfieldOnUploadChannel ==
       true) {
-      <!-- <div *ngFor="let uploadedFile of uploadedFiles; let i = index"> -->
       <div class="file">
-        <!-- <span>{{ uploadedFile.file.name }}</span> -->
         <a
           href="{{ this.fileUploadService.uploadedFiles[0].downloadURL }}"
           target="_blank"
@@ -73,10 +71,46 @@
             [enableSearch]="false"
           ></emoji-mart>
         </mat-menu>
+        @if(onChannelBoard || onThreadBoard) {
         <div
           [style.pointer-events]="onNewMsgBoard ? 'none' : 'auto'"
           class="reaction-icon-at"
-        ></div>
+          [matMenuTriggerFor]="membersMenu"
+        >
+          <mat-menu #membersMenu="matMenu">
+            @if(this.channelService.channels[this.channelService.selectedChannel])
+            {
+            <div class="members-list-container">
+              @for (member of
+              this.channelService.channels[this.channelService.selectedChannel].members;
+              track member[0]; let index = $index) {
+              <app-workspace-user-profil
+                *ngIf="
+                  this.userService.users[this.userService.getUsersData(member)]
+                "
+                [userName]="
+                  this.userService.users[this.userService.getUsersData(member)]
+                    .name
+                "
+                [userImage]="
+                  this.userService.users[this.userService.getUsersData(member)]
+                    .photoURL
+                "
+                (click)="
+                  highlightUser(
+                    member,
+                    this.userService.users[
+                      this.userService.getUsersData(member)
+                    ].name
+                  )
+                "
+              ></app-workspace-user-profil>
+              }
+            </div>
+            }
+          </mat-menu>
+        </div>
+        }
       </div>
       <input
         class="icon-send"

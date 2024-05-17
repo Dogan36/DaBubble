@@ -9,11 +9,15 @@ import { EmojiComponent, EmojiEvent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { FileUploadService } from '../../../services/fileupload.service';
 import { NgFor } from '@angular/common';
 import { ChatService } from '../../../services/chat.service';
+import { WorkspaceUserProfilComponent } from '../workspace-user-profil/workspace-user-profil.component';
+import { UserService } from '../../../services/user.service';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-textarea-main-page',
   standalone: true,
-  imports: [FormsModule, PickerComponent, MatMenuModule, EmojiComponent, NgFor],
+  imports: [FormsModule, PickerComponent, MatMenuModule, EmojiComponent, NgFor, WorkspaceUserProfilComponent, CommonModule],
   templateUrl: './textarea-main-page.component.html',
   styleUrl: './textarea-main-page.component.scss'
 })
@@ -33,7 +37,7 @@ export class TextareaMainPageComponent {
   @Input() textfieldOnUploadChat:boolean = false;
   @Input() textfieldOnUploadThread:boolean = false;
 
-  constructor(private channelService: ChannelService, private authService: AuthService, public fileUploadService: FileUploadService, private chatService: ChatService) { 
+  constructor(public channelService: ChannelService, private authService: AuthService, public fileUploadService: FileUploadService, public chatService: ChatService, public userService: UserService) { 
     // this.uploadedFile = this.fileUploadService.getUploadedFiles();
   }
 
@@ -109,4 +113,11 @@ export class TextareaMainPageComponent {
   setTextfieldStatus(state: boolean) {
     this.TextfieldStatus.emit(state);
   }
+
+
+  highlightUser(memberRef: string, memberName: string) {
+    this.message.message = `@${memberName}`;
+  }
+
+  
 }

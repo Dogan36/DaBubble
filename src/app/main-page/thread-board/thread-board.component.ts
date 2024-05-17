@@ -42,8 +42,10 @@ export class ThreadBoardComponent {
 
 
   scrollToBottom(): void {
+    console.log('funktion wird aufgerufen');
+    console.log('So sieht Ref aus', this.threadChatsContainerRef)
     if (this.threadChatsContainerRef) {
-      const containerElement = this.threadChatsContainerRef.nativeElement;
+      const containerElement = this.threadChatsContainerRef?.nativeElement;
       containerElement.scrollTop = containerElement.scrollHeight;
       console.log('Die Höhe ist ', containerElement.scrollHeight);
       }
