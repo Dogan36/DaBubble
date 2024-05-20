@@ -232,7 +232,7 @@ export class AuthService {
       
       const userCredential = await createUserWithEmailAndPassword(this.auth, email, '1234567');
       const user = userCredential.user;
-      console.log(user)
+  
       const userData: UserType = {
         uid: user.uid,
         name: 'Guest', // Name des Gastbenutzers
@@ -266,17 +266,33 @@ export class AuthService {
   }
   
   async loginGuest(guestUserId: string): Promise<void> {
-    console.log('loginGuestCalled')
+    const email = await this.getEmailFromFirebase(guestUserId);
+    console.log(email)
     try {
-      // Hier können Sie die Anmelde- oder Authentifizierungslogik für den Gastbenutzer implementieren
-      // Beispiel:
-      // await this.auth.signInWithUid(guestUserId);
-      // Da ich nicht weiß, wie die spezifische Anmelde- oder Authentifizierungslogik für Ihren Gastbenutzer aussieht,
-      // habe ich hier nur einen Platzhalterkommentar hinterlassen.
+      await setPersistence(this.auth, browserSessionPersistence);
+      await signInWithEmailAndPassword(this.auth, email, '1234567');
+      this.overlayService.showOverlay('Anmelden')
+      setTimeout(() => {
+        this.overlayService.hideOverlay();
+      }, 1500);
+
+      this.router.navigate(['/start']);
+
     } catch (error) {
-      console.error('Error logging in guest user:', error);
+      console.log(error)
       throw error;
     }
   }
+
+  private async getEmailFromFirebase(userId: string): Promise<string> {
+    const userDocRef = doc(this.firestore, 'users', userId);
+    const docSnapshot = await getDoc(userDocRef);
+    if (docSnapshot.exists()) {
+        const userData = docSnapshot.data();
+        return userData['email'];
+    } else {
+        throw new Error('User document not found in Firestore');
+    }
+}
 
 }

@@ -216,7 +216,7 @@ export class ChatService {
       const chatRef = doc(this.firestore, 'chats', chat.chatRef); // Erstellung der Referenz auf das Chat-Dokument
     const messagesCollectionRef = collection(chatRef, 'messages'); // Erstellung der Referenz auf die Subsammlung "messages" innerhalb des Chats
 
-    console.log("Nachrichtensammlungs-Referenz:", messagesCollectionRef); // Überprüfung der erstellten Referenz auf die Nachrichtensammlung
+   
 
     const unsubscribe = onSnapshot(messagesCollectionRef, querySnapshot => {
 
@@ -265,7 +265,7 @@ export class ChatService {
       if(this.selChatRef) {
         this.setSelChatIndex(this.selChatRef);
       }
-      console.log('Das sind alle meine Chats', this.privateChats);
+    
     });
   }
 

@@ -56,6 +56,7 @@ export class ChannelService {
       list.forEach(element => {
         this.allChannels.push(this.setChannelObject(element.data(), element.id),);
       })
+      console.log(this.allChannels)
 
       // Besser wo anders aufrufen!
       this.filterChannelsOfUser(); 
