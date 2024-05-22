@@ -22,7 +22,6 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    // justify-content: end;
     overflow-y: scroll;
     padding: 12px 0 0 0;
 
@@ -59,12 +58,10 @@
 
             span {
                 color: $cpt-purple-3;
-                // width: 136px; // display flex; just. center;
 
                 &:hover {
                     cursor: pointer;
                     overflow-wrap: break-word;
-                    // font-weight: 600;
                 }
             }
         }

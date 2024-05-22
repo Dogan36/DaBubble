@@ -20,7 +20,6 @@
           <span class="edit-user-text">Bearbeiten</span>
         </div>
       </div>
-      <!-- <h4>Aktiv</h4> -->
     </div>
     <div class="profil-email-container">
       <h4>E-Mail-Adresse</h4>
@@ -42,6 +41,8 @@
   @if(editProfilOpen) {<mat-dialog-actions>
     <button class="btn-white" mat-dialog-close (click)="closeEditProfil()">
       Abbrechen</button
-    ><button (click)="updateInfo()">Speichern</button> </mat-dialog-actions
+    ><button (click)="updateInfo(); closeEditProfil()" mat-dialog-close>
+      Speichern
+    </button> </mat-dialog-actions
   >}
 </div>

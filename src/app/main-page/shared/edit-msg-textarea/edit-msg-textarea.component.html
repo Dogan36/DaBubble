@@ -34,15 +34,9 @@
         </mat-menu>
       </div>
       <div class="right-btn-container" [class.edit-btn-thread]="onThreadBoard">
-        <!-- @if(onChannelBoard === true) { -->
         <button (click)="cancleUpdateMsg($event)">Abbrechen</button>
-        <!-- } @else {
-        <button><div class="close-icon"></div></button>
-        } -->
         <input class="save-btn" type="submit" value="Speichern" />
       </div>
     </div>
   </form>
 </div>
-<!-- Warum einmal Abbrechen mit close Funktion und einmal nur x? -->
-<!-- für Channel Board mit Abbrechen und für Thread Board mit X, allerdings auch für private Chat und sieht auch nicht so gut aus! -->

@@ -22,7 +22,7 @@ export class WorkspaceMenuComponent {
 
   channelListOpen = true;
   messageListOpen = true;
-  chats: any[] = []; // Hier werden die Chats gespeichert
+  chats: any[] = [];
   @Output() openChannel = new EventEmitter<void>();
   @Output() openPrivateChat = new EventEmitter<void>();
   @Output() openNewChat = new EventEmitter<void>();
@@ -39,7 +39,6 @@ export class WorkspaceMenuComponent {
   }
   
   ngOnDestroy() {
-    // Beenden Sie das Abonnement, um Speicherlecks zu vermeiden
     this.chatSubscription?.unsubscribe();
   }
 
@@ -73,9 +72,7 @@ export class WorkspaceMenuComponent {
     this.chatService.selChatIndex = index;
     this.chatService.selChatRef = chat.chatRef;
     this.chatService.getPrivateChatMessages(chat);
-    // console.log( this.chatService.currentChat);
     this.openPrivateChat.emit();
-    // this.chatService.getChatMessages(chat);
   }
 
 

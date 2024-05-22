@@ -1,0 +1,994 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>dabubble documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">dabubble documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  DialogEditChannelComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/main-page/dialogs/dialog-edit-channel/dialog-edit-channel.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-dialog-edit-channel</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>MatDialogContent</code>
+                            <code>MatDialogActions</code>
+                            <code>MatDialogClose</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./dialog-edit-channel.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./dialog-edit-channel.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#channel" >channel</a>
+                            </li>
+                            <li>
+                                <a href="#channelData" >channelData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#channelService" >channelService</a>
+                            </li>
+                            <li>
+                                <a href="#editNameOpen" >editNameOpen</a>
+                            </li>
+                            <li>
+                                <a href="#editTextOpen" >editTextOpen</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#userService" >userService</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#closeChanges" >closeChanges</a>
+                            </li>
+                            <li>
+                                <a href="#leaveChannel" >leaveChannel</a>
+                            </li>
+                            <li>
+                                <a href="#openChangesName" >openChangesName</a>
+                            </li>
+                            <li>
+                                <a href="#openChangesText" >openChangesText</a>
+                            </li>
+                            <li>
+                                <a href="#saveChanges" >saveChanges</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(channelService: <a href="../injectables/ChannelService.html" target="_self">ChannelService</a>, authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, userService: <a href="../injectables/UserService.html" target="_self">UserService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/main-page/dialogs/dialog-edit-channel/dialog-edit-channel.component.ts:25</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>channelService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ChannelService.html" target="_self" >ChannelService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeChanges"></a>
+                    <span class="name">
+                        <span ><b>closeChanges</b></span>
+                        <a href="#closeChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeChanges()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="39"
+                                    class="link-to-prism">src/app/main-page/dialogs/dialog-edit-channel/dialog-edit-channel.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="leaveChannel"></a>
+                    <span class="name">
+                        <span ><b>leaveChannel</b></span>
+                        <a href="#leaveChannel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>leaveChannel()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="60"
+                                    class="link-to-prism">src/app/main-page/dialogs/dialog-edit-channel/dialog-edit-channel.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openChangesName"></a>
+                    <span class="name">
+                        <span ><b>openChangesName</b></span>
+                        <a href="#openChangesName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openChangesName()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="31"
+                                    class="link-to-prism">src/app/main-page/dialogs/dialog-edit-channel/dialog-edit-channel.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openChangesText"></a>
+                    <span class="name">
+                        <span ><b>openChangesText</b></span>
+                        <a href="#openChangesText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openChangesText()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="35"
+                                    class="link-to-prism">src/app/main-page/dialogs/dialog-edit-channel/dialog-edit-channel.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveChanges"></a>
+                    <span class="name">
+                        <span ><b>saveChanges</b></span>
+                        <a href="#saveChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>saveChanges(field: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="45"
+                                    class="link-to-prism">src/app/main-page/dialogs/dialog-edit-channel/dialog-edit-channel.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>field</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="channel"></a>
+                    <span class="name">
+                        <span ><b>channel</b></span>
+                        <a href="#channel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Channel.html" target="_self" >Channel</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/main-page/dialogs/dialog-edit-channel/dialog-edit-channel.component.ts:25</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="channelData"></a>
+                    <span class="name">
+                        <span ><b>channelData</b></span>
+                        <a href="#channelData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.channelService.channels[this.channelService.selectedChannel]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/main-page/dialogs/dialog-edit-channel/dialog-edit-channel.component.ts:24</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="channelService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>channelService</b></span>
+                        <a href="#channelService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/ChannelService.html" target="_self" >ChannelService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/main-page/dialogs/dialog-edit-channel/dialog-edit-channel.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editNameOpen"></a>
+                    <span class="name">
+                        <span ><b>editNameOpen</b></span>
+                        <a href="#editNameOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/main-page/dialogs/dialog-edit-channel/dialog-edit-channel.component.ts:22</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editTextOpen"></a>
+                    <span class="name">
+                        <span ><b>editTextOpen</b></span>
+                        <a href="#editTextOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/main-page/dialogs/dialog-edit-channel/dialog-edit-channel.component.ts:23</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>userService</b></span>
+                        <a href="#userService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/main-page/dialogs/dialog-edit-channel/dialog-edit-channel.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import {
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
+} from &#x27;@angular/material/dialog&#x27;;
+import { ChannelService } from &#x27;../../../services/channel.service&#x27;;
+import { Channel } from &#x27;../../../models/channel.class&#x27;;
+import { AuthService } from &#x27;../../../services/auth.service&#x27;;
+import { UserService } from &#x27;../../../services/user.service&#x27;;
+
+
+@Component({
+  selector: &#x27;app-dialog-edit-channel&#x27;,
+  standalone: true,
+  imports: [MatDialogContent, MatDialogActions, MatDialogClose],
+  templateUrl: &#x27;./dialog-edit-channel.component.html&#x27;,
+  styleUrl: &#x27;./dialog-edit-channel.component.scss&#x27;
+})
+export class DialogEditChannelComponent {
+
+  editNameOpen &#x3D; false;
+  editTextOpen &#x3D; false;
+  channelData &#x3D; this.channelService.channels[this.channelService.selectedChannel];
+  channel: Channel;
+
+  constructor(public channelService: ChannelService, private authService: AuthService, public userService: UserService ) {
+    this.channel &#x3D; Object.assign({}, this.channelService.channels[this.channelService.selectedChannel]);
+  }
+
+  openChangesName() {
+    this.editNameOpen &#x3D; true;
+  }
+
+  openChangesText() {
+    this.editTextOpen &#x3D; true;
+  }
+
+  closeChanges() {
+    this.editNameOpen &#x3D; false;
+    this.editTextOpen &#x3D; false;
+  }
+  
+
+  saveChanges(field:string) {
+    let changedName &#x3D; &lt;HTMLInputElement&gt;document.getElementById(&#x27;channelName&#x27;);
+    let changedText &#x3D; &lt;HTMLInputElement&gt;document.getElementById(&#x27;description&#x27;);
+
+    
+    if(field &#x3D;&#x3D; &#x27;name&#x27;) {
+      this.channel.name &#x3D; changedName.value;
+    } else if(field &#x3D;&#x3D; &#x27;text&#x27;) {
+      this.channel.description &#x3D; changedText.value;
+    }
+    
+    this.channelService.updateChannel(this.channel);
+  }
+
+
+  leaveChannel() {
+    if(this.authService.uid) {
+      let index &#x3D; this.channel.members?.indexOf(this.authService.uid)
+      
+      if(index) {
+        this.channel.members?.splice(index, 1);
+        this.channelService.updateChannel(this.channel);
+      }
+    }
+  }
+
+  
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;dialog-content&quot;&gt;
+  &lt;div class&#x3D;&quot;dialog-title&quot;&gt;
+    &lt;div class&#x3D;&quot;title-channel-chat&quot;&gt;
+      &lt;h3&gt;
+        {{ channelData.name }}
+      &lt;/h3&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;close-icon&quot; mat-dialog-close (click)&#x3D;&quot;closeChanges()&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;mat-dialog-content class&#x3D;&quot;dialog-content&quot;&gt;
+    &lt;div class&#x3D;&quot;flx-col&quot; [class.changeStatus]&#x3D;&quot;!editNameOpen&quot;&gt;
+      &lt;div class&#x3D;&quot;label-container&quot;&gt;
+        &lt;label for&#x3D;&quot;channelName&quot;&gt;Channel-Name&lt;/label&gt;@if(!editNameOpen) {
+        &lt;div&gt;
+          &lt;div class&#x3D;&quot;edit-icon&quot; (click)&#x3D;&quot;openChangesName()&quot;&gt;&lt;/div&gt;
+          &lt;span (click)&#x3D;&quot;openChangesName()&quot;&gt;Bearbeiten&lt;/span&gt;
+        &lt;/div&gt;
+        } @if(editNameOpen) {
+        &lt;div&gt;
+          &lt;div class&#x3D;&quot;save-icon&quot; (click)&#x3D;&quot;saveChanges(&#x27;name&#x27;)&quot;&gt;&lt;/div&gt;
+          &lt;span (click)&#x3D;&quot;saveChanges(&#x27;name&#x27;)&quot;&gt;Speichern&lt;/span&gt;
+        &lt;/div&gt;
+        }
+      &lt;/div&gt;
+      @if(!editNameOpen) {
+      &lt;p&gt;
+        {{ channelData.name }}
+      &lt;/p&gt;
+      } @if(editNameOpen) {&lt;input
+        value&#x3D;&quot;{{ channelData.name }}&quot;
+        type&#x3D;&quot;text&quot;
+        name&#x3D;&quot;&quot;
+        id&#x3D;&quot;channelName&quot;
+        placeholder&#x3D;&quot;# z.B. Kooperationsprojekte&quot;
+      /&gt;}
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;flx-col&quot; [class.changeStatus]&#x3D;&quot;!editTextOpen&quot;&gt;
+      &lt;div class&#x3D;&quot;label-container&quot;&gt;
+        &lt;label for&#x3D;&quot;description&quot;&gt;Beschreibung&lt;/label&gt; @if(!editTextOpen) {
+        &lt;div&gt;
+          &lt;div class&#x3D;&quot;edit-icon&quot; (click)&#x3D;&quot;openChangesText()&quot;&gt;&lt;/div&gt;
+          &lt;span (click)&#x3D;&quot;openChangesText()&quot;&gt;Bearbeiten&lt;/span&gt;
+        &lt;/div&gt;
+        } @if(editTextOpen) {
+        &lt;div&gt;
+          &lt;div class&#x3D;&quot;save-icon&quot; (click)&#x3D;&quot;saveChanges(&#x27;text&#x27;)&quot;&gt;&lt;/div&gt;
+          &lt;span (click)&#x3D;&quot;saveChanges(&#x27;text&#x27;)&quot;&gt;Speichern&lt;/span&gt;
+        &lt;/div&gt;
+        }
+      &lt;/div&gt;
+      @if(!editTextOpen) {
+      &lt;p&gt;
+        {{ channelData.description }}
+      &lt;/p&gt;
+      } @if(editTextOpen) {&lt;input
+        value&#x3D;&quot;{{ channelData.description }}&quot;
+        type&#x3D;&quot;text&quot;
+        name&#x3D;&quot;&quot;
+        id&#x3D;&quot;description&quot;
+        placeholder&#x3D;&quot;Dein Text hier&quot;
+        required
+      /&gt;}
+      &lt;hr /&gt;
+      &lt;h5&gt;Erstellt von&lt;/h5&gt;
+      &lt;h3&gt;
+        {{
+          this.userService.users[
+            this.userService.getUsersData(this.channelData.creator)
+          ].name
+        }}
+      &lt;/h3&gt;
+    &lt;/div&gt;
+  &lt;/mat-dialog-content&gt;
+  &lt;mat-dialog-actions&gt;
+    &lt;button (click)&#x3D;&quot;leaveChannel()&quot;&gt;Channel verlassen&lt;/button&gt;
+  &lt;/mat-dialog-actions&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="dialog-content">  <div class="dialog-title">    <div class="title-channel-chat">      <h3>        {{ channelData.name }}      </h3>    </div>    <div class="close-icon" mat-dialog-close (click)="closeChanges()"></div>  </div>  <mat-dialog-content class="dialog-content">    <div class="flx-col" [class.changeStatus]="!editNameOpen">      <div class="label-container">        <label for="channelName">Channel-Name</label>@if(!editNameOpen) {        <div>          <div class="edit-icon" (click)="openChangesName()"></div>          <span (click)="openChangesName()">Bearbeiten</span>        </div>        } @if(editNameOpen) {        <div>          <div class="save-icon" (click)="saveChanges(\'name\')"></div>          <span (click)="saveChanges(\'name\')">Speichern</span>        </div>        }      </div>      @if(!editNameOpen) {      <p>        {{ channelData.name }}      </p>      } @if(editNameOpen) {<input        value="{{ channelData.name }}"        type="text"        name=""        id="channelName"        placeholder="# z.B. Kooperationsprojekte"      />}    </div>    <div class="flx-col" [class.changeStatus]="!editTextOpen">      <div class="label-container">        <label for="description">Beschreibung</label> @if(!editTextOpen) {        <div>          <div class="edit-icon" (click)="openChangesText()"></div>          <span (click)="openChangesText()">Bearbeiten</span>        </div>        } @if(editTextOpen) {        <div>          <div class="save-icon" (click)="saveChanges(\'text\')"></div>          <span (click)="saveChanges(\'text\')">Speichern</span>        </div>        }      </div>      @if(!editTextOpen) {      <p>        {{ channelData.description }}      </p>      } @if(editTextOpen) {<input        value="{{ channelData.description }}"        type="text"        name=""        id="description"        placeholder="Dein Text hier"        required      />}      <hr />      <h5>Erstellt von</h5>      <h3>        {{          this.userService.users[            this.userService.getUsersData(this.channelData.creator)          ].name        }}      </h3>    </div>  </mat-dialog-content>  <mat-dialog-actions>    <button (click)="leaveChannel()">Channel verlassen</button>  </mat-dialog-actions></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ChannelBoardComponent', 'selector': 'app-channel-board'},{'name': 'ChatBoardComponent', 'selector': 'app-chat-board'},{'name': 'ConfirmationOverlayComponent', 'selector': 'app-confirmation-overlay'},{'name': 'DialogAddChannelComponent', 'selector': 'app-dialog-add-channel'},{'name': 'DialogEditChannelComponent', 'selector': 'app-dialog-edit-channel'},{'name': 'DialogShowProfilComponent', 'selector': 'app-dialog-show-profil'},{'name': 'DialogUserMenuComponent', 'selector': 'app-dialog-user-menu'},{'name': 'DialogUserProfilComponent', 'selector': 'app-dialog-user-profil'},{'name': 'EditMsgTextareaComponent', 'selector': 'app-edit-msg-textarea'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'ImprintComponent', 'selector': 'app-imprint'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MainPageComponent', 'selector': 'app-main-page'},{'name': 'MessageLeftComponent', 'selector': 'app-message-left'},{'name': 'MessageRightComponent', 'selector': 'app-message-right'},{'name': 'NewMsgBoardComponent', 'selector': 'app-new-msg-board'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'SearchInputComponent', 'selector': 'app-search-input'},{'name': 'SearchMemberInputComponent', 'selector': 'app-search-member-input'},{'name': 'SignupComponent', 'selector': 'app-signup'},{'name': 'SignuppictureComponent', 'selector': 'app-signuppicture'},{'name': 'StartAnimationComponent', 'selector': 'app-start-animation'},{'name': 'StartingPageComponent', 'selector': 'app-starting-page'},{'name': 'TextareaMainPageComponent', 'selector': 'app-textarea-main-page'},{'name': 'ThreadBoardComponent', 'selector': 'app-thread-board'},{'name': 'TimeSeparatorComponent', 'selector': 'app-time-separator'},{'name': 'UploadFormComponent', 'selector': 'app-upload-form'},{'name': 'WorkspaceMenuComponent', 'selector': 'app-workspace-menu'},{'name': 'WorkspaceUserProfilComponent', 'selector': 'app-workspace-user-profil'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'DialogEditChannelComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'DialogEditChannelComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

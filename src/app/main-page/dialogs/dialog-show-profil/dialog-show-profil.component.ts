@@ -1,8 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import {
-  MatDialog,
   MAT_DIALOG_DATA,
-  MatDialogRef,
   MatDialogTitle,
   MatDialogContent,
   MatDialogActions,
@@ -32,7 +30,6 @@ export class DialogShowProfilComponent {
 
 
   startPrivateChat() {
-
     if(!this.chatService.searchForMemberInChats(this.data.profilRef)) {
 
       if(this.chatService.unsubPrivateChatMessages) {

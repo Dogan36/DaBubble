@@ -52,12 +52,6 @@
           (click)="stopSearch()"
         ></app-workspace-user-profil
         >}
-        <!-- <ul>
-          <li *ngFor="let user of this.searchService.foundUsers">
-            <p>{{ user.name }}</p> -->
-        <!-- Weitere Benutzerinformationen anzeigen, wenn nötig -->
-        <!-- </li>
-        </ul> -->
       </div>
 
       <div
@@ -71,12 +65,6 @@
           <h5>{{ channel.name }}</h5>
         </div>
         }
-        <!-- <ul>
-          <li *ngFor="let channel of this.searchService.foundChannelNames">
-            <p>{{ channel.name }}</p> -->
-        <!-- Weitere Kanalinformationen anzeigen, wenn nötig -->
-        <!-- </li>
-        </ul> -->
       </div>
 
       <div
@@ -84,10 +72,6 @@
         class="message-list"
       >
         <h3>Gefundene Nachrichten:</h3>
-        <!-- <ul> -->
-        <!-- <ng-container
-            *ngFor="let message of this.searchService.foundMessages"
-          > -->
         @for(message of this.searchService.foundMessages; track message) {
         <div
           class="sgl-message"
@@ -101,8 +85,6 @@
           <p>{{ this.searchService.getMessageText(message.message) }}</p>
         </div>
         }
-        <!-- </ng-container> -->
-        <!-- </ul> -->
       </div>
     </div>
   </div>

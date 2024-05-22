@@ -54,6 +54,7 @@
     }
 }
 
+
 .edit-user-info-container {
     display: flex;
     flex-direction: column;
@@ -74,10 +75,12 @@
     }
 }
 
+
 label {
     @include font18(700);
     color: black;
 }
+
 
 input {
     border: 1px solid $cpt-line;
@@ -93,6 +96,7 @@ input {
         border: 1px solid $cpt-purple-1;
     }
 }
+
 
 mat-dialog-actions {
     display: flex;

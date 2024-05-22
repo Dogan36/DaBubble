@@ -35,7 +35,7 @@ export class WorkspaceUserProfilComponent {
         profilEmail: memberData.email,
         profilImg: memberData.photoURL,
       }});
-  } 
+    } 
   }
 
 

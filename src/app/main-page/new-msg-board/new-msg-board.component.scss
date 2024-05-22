@@ -21,13 +21,10 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    // justify-content: end;
     padding: 12px 0 0 0;
     overflow-y: scroll;
 
     &:first-child {
         margin-top: auto !important;
     }
-
-    // noch nicht beste Lösung!
 }

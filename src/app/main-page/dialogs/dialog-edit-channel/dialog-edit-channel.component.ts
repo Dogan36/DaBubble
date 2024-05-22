@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
 import {
-  MatDialog,
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-  MatDialogTitle,
   MatDialogContent,
   MatDialogActions,
   MatDialogClose,
@@ -35,6 +31,7 @@ export class DialogEditChannelComponent {
   openChangesName() {
     this.editNameOpen = true;
   }
+
   openChangesText() {
     this.editTextOpen = true;
   }
@@ -44,6 +41,7 @@ export class DialogEditChannelComponent {
     this.editTextOpen = false;
   }
   
+
   saveChanges(field:string) {
     let changedName = <HTMLInputElement>document.getElementById('channelName');
     let changedText = <HTMLInputElement>document.getElementById('description');
@@ -58,8 +56,8 @@ export class DialogEditChannelComponent {
     this.channelService.updateChannel(this.channel);
   }
 
+
   leaveChannel() {
-    // evtl. Zugriff auf user id verbessern
     if(this.authService.uid) {
       let index = this.channel.members?.indexOf(this.authService.uid)
       
@@ -69,4 +67,6 @@ export class DialogEditChannelComponent {
       }
     }
   }
+
+  
 }

@@ -22,8 +22,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './textarea-main-page.component.scss'
 })
 export class TextareaMainPageComponent {
-  // uploadedFiles: { file: File, docRef: any, downloadURL: string }[] = [];
-  // uploadedFile: { file: File, docRef: any, downloadURL: string }[] = [];
 
   message: Message = new Message();
 
@@ -38,7 +36,6 @@ export class TextareaMainPageComponent {
   @Input() textfieldOnUploadThread:boolean = false;
 
   constructor(public channelService: ChannelService, private authService: AuthService, public fileUploadService: FileUploadService, public chatService: ChatService, public userService: UserService) { 
-    // this.uploadedFile = this.fileUploadService.getUploadedFiles();
   }
 
 
@@ -46,20 +43,11 @@ export class TextareaMainPageComponent {
     if (this.fileUploadService.uploadedFiles.length > 0 || this.message.message.trim() !== '') { 
       this.message.member = this.authService.uid;
       this.message.timestamp = Date.now();
-  
-     
-      // this.message.uploadedFiles = this.uploadedFiles.map(fileInfo => ({
-      //     name: fileInfo.file.name,
-      //     downloadURL: fileInfo.downloadURL
-      //   }));
 
       this.fileUploadService.uploadedFiles.map(fileInfo => (
         this.message.uploadedFile = [fileInfo.file.name, fileInfo.downloadURL]
           // an dieser Stelle noch docRef vergeben!
         ));
-
-        // console.log(this.message)
-        // Wenn mindestens eine Datei hochgeladen wurde oder die Nachricht nicht leer ist
         
         if (this.onChannelBoard) {
           this.channelService.startNewChat({ timestamp: this.message.timestamp }, this.channelService.toJSONmessage(this.message));
@@ -72,14 +60,11 @@ export class TextareaMainPageComponent {
             this.chatService.addMessageToPrivateChat(this.chatService.toJSONmessage(this.message), this.chatService.privateChats[this.chatService.selChatIndex].chatId); 
         }
 
-        // Zurücksetzen des Formulars
         ngForm.resetForm();
         
-        // Leeren der hochgeladenen Dateien
         if(this.fileUploadService.uploadedFiles) {
           this.fileUploadService.uploadedFiles = [];
         }
-        // this.uploadedFile = [];
         this.setTextfieldStatus(false);
      
     } else {
@@ -87,9 +72,6 @@ export class TextareaMainPageComponent {
     }
   }
 
-//  deleteFile(index: number) {
-//     this.fileUploadService.deleteFile(index);
-//   }
 
   deleteFile() {
     this.fileUploadService.deleteFile();
@@ -107,7 +89,7 @@ export class TextareaMainPageComponent {
   addEmoji($event: EmojiEvent) {
       if($event.emoji.native)
       this.message.message += $event.emoji.native;
-      }
+  }
 
 
   setTextfieldStatus(state: boolean) {

@@ -43,9 +43,7 @@ export class ChannelService {
     this.unsubChannels = this.subChannelsList();
   }
 
-  
-  
-  // Im Moment wird this.filterChannelsOfUser(); jedes mal aufgerufen wenn sich Daten ändern. Daher eher ungünstig in der subChannelsList() function
+
   subChannelsList() {
     // const q = query(collection(this.firestore, 'channels'), where('members', 'array-contains', this.uid));
     return onSnapshot(collection(this.firestore, 'channels'), (list) => {
@@ -58,7 +56,6 @@ export class ChannelService {
       })
       console.log(this.allChannels)
 
-      // Besser wo anders aufrufen!
       this.filterChannelsOfUser(); 
       if(this.channels.length !== 0 ) {
         this.subSglChannelChats(this.channels[0].id);
@@ -161,9 +158,7 @@ export class ChannelService {
   async addChannel(item: {}, colId: "channels") {
     await addDoc(collection(this.firestore, colId), item).catch(
         (err) => { console.error(err) }
-      ).then(
-      (docRef) => { console.log("Document written with ID: ", docRef)}
-      ) 
+      );
   }
 
 
@@ -175,7 +170,6 @@ export class ChannelService {
       ).then(
         (docRef) => { 
           if (docRef) {
-            console.log("Document written with ID: ", docRef);
             this.addMessageToChat(message, docRef.id);
           } else {
             console.error("Failed to get document reference.");
@@ -191,12 +185,7 @@ export class ChannelService {
 
     await addDoc(collection(this.firestore, `channels/${channelRef}/chats/${chatRef}/messages`), message).catch(
         (err) => { console.error(err) }
-      ).then(
-      (docRef) => { 
-        // console.log("Document written with ID: ", docRef)
-        console.log('So sieht die Message aus', message);
-      }
-      ) 
+      );
   }
 
   
@@ -259,7 +248,6 @@ export class ChannelService {
   }
 
 
-// In der user stroy eigentlich nicht vorgesehen
   async deleteChannel(docId: string) {
     let docRef = doc(collection(this.firestore, 'channels'), docId);
     await deleteDoc(docRef).catch(
@@ -294,7 +282,6 @@ export class ChannelService {
   }
 
 
-
   setSelectedChannelIndex(channelRef: string) {
     const index = this.channels.findIndex(channel => channel.id === channelRef);
     console.log('Index of selectedChannel', index);
@@ -303,7 +290,6 @@ export class ChannelService {
       this.selectedChannel = index;
     }
   }
-
 
 
   getTime(timestamp:number) {
@@ -350,7 +336,6 @@ export class ChannelService {
   }
 
 
-
   sortSameReactions(reactions: { reactUser: string, reactEmoji: string }[]) {
     const sortedReactions: {reactUser: string[], reactEmoji: string}[] = [];
 
@@ -375,7 +360,6 @@ export class ChannelService {
 
 
   joinStartingChannels() {
-
     const indexE = this.allChannels.findIndex(channel => channel.id === 'AdmWvjOG986xrhB0qWUP');
     const indexA = this.allChannels.findIndex(channel => channel.id === 'CyYgkUT5csUtrJ88cBCv');
     const indexO = this.allChannels.findIndex(channel => channel.id === 'wD8QfT5LVsfatMkctXgN');
@@ -406,35 +390,4 @@ export class ChannelService {
 
 // wD8QfT5LVsfatMkctXgN - Office-team
 
-
-
-
-  // toJSONmessage(obj:any) {
-  //   if(obj.reactions.length > 0 && obj.uploadedFile) {
-  //     return {
-  //       message: obj.message || '',
-  //       member: obj.member,
-  //       reactions: this.toJSONreactions(obj) || [],
-  //       timestamp: obj.timestamp,
-  //       uploadedFile: obj.uploadedFile || []
-  //   }} else if(obj.reactions.length > 0 && obj.uploadedFile.length === 0) {
-  //     return {
-  //       message: obj.message || '',
-  //       member: obj.member,
-  //       reactions: this.toJSONreactions(obj) || [],
-  //       timestamp: obj.timestamp,
-  //   }} else if(obj.reactions.length === 0 && obj.uploadedFile.length > 0) {
-  //     return {
-  //       message: obj.message || '',
-  //       member: obj.member,
-  //       timestamp: obj.timestamp,
-  //       uploadedFile: obj.uploadedFile || []
-  //   }} else {
-  //     return {
-  //       message: obj.message || '',
-  //       member: obj.member,
-  //       timestamp: obj.timestamp,
-  //     }
-  //   }
-  // }
 

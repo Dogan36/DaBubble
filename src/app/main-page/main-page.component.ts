@@ -40,7 +40,6 @@ export class MainPageComponent {
   inputFocus: boolean = false;
 
 
-
   constructor(public evtSvc: EventService, public dialog: MatDialog, public channelService: ChannelService) {
     this.evtSvc.getThreadOpenStatus().subscribe(status => {
       this.threadOpen = status;
@@ -99,6 +98,7 @@ export class MainPageComponent {
     }
   }
 
+
   openChanel() {
     this.evtSvc.openChannel(true);
     this.evtSvc.openPrivateChat(false);
@@ -114,6 +114,7 @@ export class MainPageComponent {
     }
   }
 
+
   openPrivateChat() {
     this.evtSvc.openChannel(false);
     this.evtSvc.openPrivateChat(true);
@@ -124,6 +125,7 @@ export class MainPageComponent {
       this.evtSvc.openWorkspace(false);
     }
   }
+
 
   openWorkspace() {
     if (window.innerWidth <= 792) {
@@ -144,11 +146,9 @@ export class MainPageComponent {
   }
 
 
-
   stopSearch() {
     this.searchText = '';
   }
-
 
 
   onOpenChannel(channelRef:string) {
@@ -166,10 +166,10 @@ export class MainPageComponent {
   }
 
 
-
   setInputFocus(value: boolean) {
     this.inputFocus = value;
   }
+
 
   isInputFocused(): boolean {
     return this.inputFocus;

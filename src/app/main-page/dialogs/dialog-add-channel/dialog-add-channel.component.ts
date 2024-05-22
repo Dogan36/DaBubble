@@ -1,9 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
-  MatDialog,
-  MAT_DIALOG_DATA,
-  MatDialogRef,
   MatDialogTitle,
   MatDialogContent,
   MatDialogActions,
@@ -78,4 +75,7 @@ export class DialogAddChannelComponent {
         }
       } 
   }
+
+
+  
 }

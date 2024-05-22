@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
 import {
   MatDialog,
-  MAT_DIALOG_DATA,
   MatDialogRef,
-  MatDialogTitle,
   MatDialogContent,
   MatDialogActions,
-  MatDialogClose,
 } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogUserProfilComponent } from '../dialog-user-profil/dialog-user-profil.component';

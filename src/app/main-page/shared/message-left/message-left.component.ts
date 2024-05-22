@@ -75,6 +75,7 @@ export class MessageLeftComponent {
     }
   }
 
+
   setChatIndex(chatIndex:number) {
     if(this.onChannelBoard === true) {
       this.channelService.selChatIndex = chatIndex;
@@ -95,7 +96,6 @@ export class MessageLeftComponent {
 
 
   addEmoji($event: EmojiEvent) {
-
     if($event.emoji && $event.emoji.colons && this.authService.uid) {
 
     let messageObj;
@@ -159,4 +159,6 @@ export class MessageLeftComponent {
         }
     }
   }
+
+  
 }

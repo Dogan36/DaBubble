@@ -1,0 +1,1759 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>dabubble documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">dabubble documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  MessageLeftComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/main-page/shared/message-left/message-left.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-message-left</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>MatDialogModule</code>
+                            <code>PickerComponent</code>
+                            <code>MatMenuModule</code>
+                            <code>EmojiComponent</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./message-left.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./message-left.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#authService" >authService</a>
+                            </li>
+                            <li>
+                                <a href="#containerHovered" >containerHovered</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialog" >dialog</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Optional</span>
+                                <a href="#emojiMenuTrigger" >emojiMenuTrigger</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#userService" >userService</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addEmoji" >addEmoji</a>
+                            </li>
+                            <li>
+                                <a href="#addOrRemoveEmoji" >addOrRemoveEmoji</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                <a href="#onMouseOver" >onMouseOver</a>
+                            </li>
+                            <li>
+                                <a href="#onOpenThread" >onOpenThread</a>
+                            </li>
+                            <li>
+                                <a href="#openShowProfilDialog" >openShowProfilDialog</a>
+                            </li>
+                            <li>
+                                <a href="#setChatIndex" >setChatIndex</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#amountMessage" >amountMessage</a>
+                            </li>
+                            <li>
+                                <a href="#member" >member</a>
+                            </li>
+                            <li>
+                                <a href="#memberImg" >memberImg</a>
+                            </li>
+                            <li>
+                                <a href="#memberRef" >memberRef</a>
+                            </li>
+                            <li>
+                                <a href="#message" >message</a>
+                            </li>
+                            <li>
+                                <a href="#messageIndex" >messageIndex</a>
+                            </li>
+                            <li>
+                                <a href="#onChannelBoard" >onChannelBoard</a>
+                            </li>
+                            <li>
+                                <a href="#onPrivateChat" >onPrivateChat</a>
+                            </li>
+                            <li>
+                                <a href="#onThreadBoard" >onThreadBoard</a>
+                            </li>
+                            <li>
+                                <a href="#selectedChatIndex" >selectedChatIndex</a>
+                            </li>
+                            <li>
+                                <a href="#sortedReactions" >sortedReactions</a>
+                            </li>
+                            <li>
+                                <a href="#time" >time</a>
+                            </li>
+                            <li>
+                                <a href="#timeLastMessage" >timeLastMessage</a>
+                            </li>
+                            <li>
+                                <a href="#uploadedFile" >uploadedFile</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#messageLoaded" >messageLoaded</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(evtSvc: <a href="../injectables/EventService.html" target="_self">EventService</a>, dialog: MatDialog, channelService: <a href="../injectables/ChannelService.html" target="_self">ChannelService</a>, userService: <a href="../injectables/UserService.html" target="_self">UserService</a>, authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, chatService: <a href="../injectables/ChatService.html" target="_self">ChatService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:45</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>evtSvc</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/EventService.html" target="_self" >EventService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>channelService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ChannelService.html" target="_self" >ChannelService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>chatService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ChatService.html" target="_self" >ChatService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="amountMessage"></a>
+                        <b>amountMessage</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:33</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="member"></a>
+                        <b>member</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:30</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="memberImg"></a>
+                        <b>memberImg</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:32</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="memberRef"></a>
+                        <b>memberRef</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:37</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="message"></a>
+                        <b>message</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:31</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="messageIndex"></a>
+                        <b>messageIndex</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:29</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onChannelBoard"></a>
+                        <b>onChannelBoard</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:26</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onPrivateChat"></a>
+                        <b>onPrivateChat</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:27</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onThreadBoard"></a>
+                        <b>onThreadBoard</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:28</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectedChatIndex"></a>
+                        <b>selectedChatIndex</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:36</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="sortedReactions"></a>
+                        <b>sortedReactions</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:38</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="time"></a>
+                        <b>time</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:34</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="timeLastMessage"></a>
+                        <b>timeLastMessage</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:35</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="uploadedFile"></a>
+                        <b>uploadedFile</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:39</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="messageLoaded"></a>
+                        <b>messageLoaded</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter&lt;void&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:41</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addEmoji"></a>
+                    <span class="name">
+                        <span ><b>addEmoji</b></span>
+                        <a href="#addEmoji"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addEmoji($event: EmojiEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="98"
+                                    class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:98</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>$event</td>
+                                            <td>
+                                                        <code>EmojiEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addOrRemoveEmoji"></a>
+                    <span class="name">
+                        <span ><b>addOrRemoveEmoji</b></span>
+                        <a href="#addOrRemoveEmoji"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addOrRemoveEmoji(reactEmoji: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="129"
+                                    class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:129</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>reactEmoji</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <span ><b>ngAfterViewInit</b></span>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="51"
+                                    class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onMouseOver"></a>
+                    <span class="name">
+                        <span ><b>onMouseOver</b></span>
+                        <a href="#onMouseOver"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onMouseOver(action: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="56"
+                                    class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>action</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onOpenThread"></a>
+                    <span class="name">
+                        <span ><b>onOpenThread</b></span>
+                        <a href="#onOpenThread"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onOpenThread()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="68"
+                                    class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openShowProfilDialog"></a>
+                    <span class="name">
+                        <span ><b>openShowProfilDialog</b></span>
+                        <a href="#openShowProfilDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openShowProfilDialog()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="86"
+                                    class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setChatIndex"></a>
+                    <span class="name">
+                        <span ><b>setChatIndex</b></span>
+                        <a href="#setChatIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setChatIndex(chatIndex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="79"
+                                    class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:79</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>chatIndex</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>authService</b></span>
+                        <a href="#authService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="containerHovered"></a>
+                    <span class="name">
+                        <span ><b>containerHovered</b></span>
+                        <a href="#containerHovered"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialog"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>dialog</b></span>
+                        <a href="#dialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MatDialog</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="emojiMenuTrigger"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Optional</span>
+                        <span ><b>emojiMenuTrigger</b></span>
+                        <a href="#emojiMenuTrigger"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MatMenuTrigger</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;aboveMenuTrigger&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>userService</b></span>
+                        <a href="#userService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/main-page/shared/message-left/message-left.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input, ViewChild, Output,EventEmitter } from &#x27;@angular/core&#x27;;
+import { EventService } from &#x27;../../../services/event.service&#x27;;
+import { MatDialog } from &#x27;@angular/material/dialog&#x27;;
+import { MatDialogModule } from &#x27;@angular/material/dialog&#x27;;
+import { DialogShowProfilComponent } from &#x27;../../dialogs/dialog-show-profil/dialog-show-profil.component&#x27;;
+import { ChannelService } from &#x27;../../../services/channel.service&#x27;;
+import { UserService } from &#x27;../../../services/user.service&#x27;;
+import { PickerComponent } from &#x27;@ctrl/ngx-emoji-mart&#x27;;
+import { MatMenuModule, MatMenuTrigger } from &#x27;@angular/material/menu&#x27;;
+import { EmojiComponent, EmojiEvent } from &#x27;@ctrl/ngx-emoji-mart/ngx-emoji&#x27;;
+import { Message } from &#x27;../../../models/message.class&#x27;;
+import { AuthService } from &#x27;../../../services/auth.service&#x27;;
+import { Reaction } from &#x27;../../../models/reaction.class&#x27;;
+import { ChatService } from &#x27;../../../services/chat.service&#x27;;
+
+
+@Component({
+  selector: &#x27;app-message-left&#x27;,
+  standalone: true,
+  imports: [MatDialogModule, PickerComponent, MatMenuModule, EmojiComponent],
+  templateUrl: &#x27;./message-left.component.html&#x27;,
+  styleUrl: &#x27;./message-left.component.scss&#x27;
+})
+export class MessageLeftComponent {
+
+  @Input() onChannelBoard: boolean &#x3D; false;
+  @Input() onPrivateChat: boolean &#x3D; false;
+  @Input() onThreadBoard: boolean &#x3D; false;
+  @Input() messageIndex: number &#x3D; 0;
+  @Input() member: string &#x3D; &#x27;&#x27;;
+  @Input() message: string &#x3D; &#x27;&#x27;;
+  @Input() memberImg: string &#x3D; &#x27;&#x27;;
+  @Input() amountMessage: number &#x3D; 0;
+  @Input() time: string &#x3D; &#x27;&#x27;;
+  @Input() timeLastMessage: string &#x3D; &#x27;&#x27;;
+  @Input() selectedChatIndex: number &#x3D; 0;
+  @Input() memberRef: string &#x3D; &#x27;&#x27;;
+  @Input() sortedReactions: {reactUser: string[], reactEmoji: string}[] &#x3D; [];
+  @Input() uploadedFile: string[] &#x3D; [];
+
+  @Output() messageLoaded: EventEmitter&lt;void&gt; &#x3D; new EventEmitter&lt;void&gt;();
+
+  @ViewChild(&#x27;aboveMenuTrigger&#x27;) emojiMenuTrigger?: MatMenuTrigger;
+
+  containerHovered: boolean &#x3D; false;
+
+
+  constructor(private evtSvc: EventService, public dialog: MatDialog, private channelService: ChannelService, public userService: UserService, public authService: AuthService, private chatService: ChatService) {}
+
+
+  ngAfterViewInit(): void {
+    this.messageLoaded.emit();
+  }
+
+
+  onMouseOver(action:string) {
+    if (this.emojiMenuTrigger &amp;&amp; this.emojiMenuTrigger.menuOpen) {
+    } else {
+      if(action &#x3D;&#x3D;&#x3D; &#x27;enter&#x27;) {
+        this.containerHovered &#x3D; true;
+      } else if(action &#x3D;&#x3D;&#x3D; &#x27;leave&#x27;) {
+        this.containerHovered &#x3D; false;
+      }
+    }
+  }
+
+
+  onOpenThread() {
+    if(this.onChannelBoard &#x3D;&#x3D;&#x3D; true) {
+      this.evtSvc.openThread(true);
+
+      if (window.innerWidth &lt;&#x3D; 1440) { 
+        this.evtSvc.openChannel(false);
+      }
+    }
+  }
+
+
+  setChatIndex(chatIndex:number) {
+    if(this.onChannelBoard &#x3D;&#x3D;&#x3D; true) {
+      this.channelService.selChatIndex &#x3D; chatIndex;
+    }
+  }
+
+
+  openShowProfilDialog() {
+    let memberData &#x3D; this.userService.users[this.userService.getUsersData(this.memberRef)];
+    
+    this.dialog.open(DialogShowProfilComponent, {panelClass: [&#x27;dialog-bor-rad-round&#x27;, &#x27;user-profil-popup&#x27;], data: {
+        profilName: memberData.name,
+        profilRef: memberData.id,
+        profilEmail: memberData.email,
+        profilImg: memberData.photoURL,
+      }});
+  }
+
+
+  addEmoji($event: EmojiEvent) {
+    if($event.emoji &amp;&amp; $event.emoji.colons &amp;&amp; this.authService.uid) {
+
+    let messageObj;
+    if(this.onPrivateChat &#x3D;&#x3D;&#x3D; false) {
+      messageObj &#x3D; Object.assign({}, this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[this.messageIndex]);
+    } else {
+      messageObj &#x3D; this.chatService.messages[this.messageIndex];
+    }
+
+      let newReaction: Reaction &#x3D; {
+        reactUser: this.authService.uid, 
+        reactEmoji: $event.emoji.colons
+      }
+
+      const index &#x3D; messageObj.reactions.findIndex(reaction &#x3D;&gt;
+        reaction.reactUser &#x3D;&#x3D;&#x3D; newReaction.reactUser &amp;&amp; reaction.reactEmoji &#x3D;&#x3D;&#x3D; newReaction.reactEmoji
+      );
+
+      if(index &#x3D;&#x3D;&#x3D; -1) {
+        messageObj.reactions.push(newReaction);
+        if(this.onPrivateChat &#x3D;&#x3D;&#x3D; false) {
+          this.channelService.updateMessage(messageObj);
+        } else {
+          this.chatService.updateMessage(messageObj);
+        }
+      }
+    }
+  }
+
+
+  addOrRemoveEmoji(reactEmoji: string) {
+    let messageObj; 
+    if(this.onPrivateChat &#x3D;&#x3D;&#x3D; false) {
+      messageObj &#x3D; Object.assign({}, this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[this.messageIndex]);
+    } else {
+      messageObj &#x3D; this.chatService.messages[this.messageIndex];
+    }
+
+    let newReaction: Reaction &#x3D; {
+        reactUser: this.authService.uid, 
+        reactEmoji: reactEmoji
+      }
+
+    const index &#x3D; messageObj.reactions.findIndex(reaction &#x3D;&gt;
+        reaction.reactUser &#x3D;&#x3D;&#x3D; newReaction.reactUser &amp;&amp; reaction.reactEmoji &#x3D;&#x3D;&#x3D; newReaction.reactEmoji
+      );
+
+    if(index &#x3D;&#x3D;&#x3D; -1) {
+        messageObj.reactions.push(newReaction);
+        if(this.onPrivateChat &#x3D;&#x3D;&#x3D; false) {
+          this.channelService.updateMessage(messageObj);
+        } else {
+          this.chatService.updateMessage(messageObj);
+        }
+    } else {
+        messageObj.reactions.splice(index, 1);
+        if(this.onPrivateChat &#x3D;&#x3D;&#x3D; false) {
+          this.channelService.updateMessage(messageObj);
+        } else {
+          this.chatService.updateMessage(messageObj);
+        }
+    }
+  }
+
+  
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div
+  class&#x3D;&quot;message-left&quot;
+  (mouseenter)&#x3D;&quot;onMouseOver(&#x27;enter&#x27;)&quot;
+  (mouseleave)&#x3D;&quot;onMouseOver(&#x27;leave&#x27;)&quot;
+&gt;
+  &lt;div&gt;
+    &lt;img [src]&#x3D;&quot;memberImg&quot; alt&#x3D;&quot;&quot; (click)&#x3D;&quot;openShowProfilDialog()&quot; /&gt;
+  &lt;/div&gt;
+  &lt;div class&#x3D;&quot;message-container&quot;&gt;
+    &lt;div class&#x3D;&quot;user-name-time&quot;&gt;
+      &lt;h5 (click)&#x3D;&quot;openShowProfilDialog()&quot;&gt;{{ member }}&lt;/h5&gt;
+      &lt;span&gt;{{ time }} Uhr&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div
+      class&#x3D;&quot;user-msg&quot;
+      (click)&#x3D;&quot;setChatIndex(selectedChatIndex); onOpenThread()&quot;
+    &gt;
+      @if(uploadedFile.length &gt; 0) {
+      &lt;a href&#x3D;&quot;{{ uploadedFile[1] }}&quot; target&#x3D;&quot;_blank&quot;&gt;{{ uploadedFile[0] }}&lt;/a&gt;
+      }
+      &lt;p&gt;{{ message }}&lt;/p&gt;
+    &lt;/div&gt;
+    @if(sortedReactions.length &gt; 0) {
+    &lt;div class&#x3D;&quot;reactions-container&quot;&gt;
+      &lt;div
+        class&#x3D;&quot;add-reaction&quot;
+        (click)&#x3D;&quot;setChatIndex(selectedChatIndex)&quot;
+        [matMenuTriggerFor]&#x3D;&quot;aboveMenu&quot;
+      &gt;&lt;/div&gt;
+      &lt;div class&#x3D;&quot;reactions-list&quot;&gt;
+        @for(emojiObj of sortedReactions; track emojiObj) {
+        &lt;div
+          class&#x3D;&quot;sgl-reaction-container&quot;
+          (click)&#x3D;&quot;
+            setChatIndex(selectedChatIndex);
+            addOrRemoveEmoji(emojiObj.reactEmoji)
+          &quot;
+        &gt;
+          &lt;div class&#x3D;&quot;emoji-info-container&quot;&gt;
+            &lt;ngx-emoji emoji&#x3D;&quot;{{ emojiObj.reactEmoji }}&quot;&gt;&lt;/ngx-emoji&gt;
+            @for(user of emojiObj.reactUser; track user) { @if(user &#x3D;&#x3D;&#x3D;
+            this.authService.uid &amp;&amp; emojiObj.reactUser.length &#x3D;&#x3D;&#x3D; 1) {
+            &lt;span class&#x3D;&quot;react-user-name&quot;&gt;Du&lt;/span&gt;
+            &lt;span&gt;hast reagiert&lt;/span&gt;
+            } @else if(user &#x3D;&#x3D;&#x3D; this.authService.uid) {
+            &lt;span class&#x3D;&quot;react-user-name&quot;&gt;Du&lt;/span&gt;
+            } @else {
+            &lt;span class&#x3D;&quot;react-user-name&quot;&gt;{{
+              this.userService.users[this.userService.getUsersData(user)].name
+            }}&lt;/span&gt;
+            }
+            &lt;!-- @if(emojiObj.reactUser.length &#x3D;&#x3D;&#x3D; 2) {
+            &lt;span class&#x3D;&quot;react-user-name&quot;&gt;und&lt;/span&gt;
+            } @else if(emojiObj.reactUser.length &gt; 2) {
+            &lt;span class&#x3D;&quot;react-user-name&quot;&gt;, &lt;/span&gt;
+            }  --&gt;
+            } @if(emojiObj.reactUser.length &#x3D;&#x3D;&#x3D; 1 &amp;&amp; emojiObj.reactUser[0] !&#x3D;&#x3D;
+            this.authService.uid) {
+            &lt;span&gt;hat reagiert&lt;/span&gt;
+            } @else if(emojiObj.reactUser.length &gt; 1) {
+            &lt;span&gt;haben reagiert&lt;/span&gt;
+            }
+          &lt;/div&gt;
+          &lt;ngx-emoji emoji&#x3D;&quot;{{ emojiObj.reactEmoji }}&quot;&gt;&lt;/ngx-emoji&gt;
+          &lt;span&gt;{{ emojiObj.reactUser.length }}&lt;/span&gt;
+        &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    &lt;/div&gt;
+    } @if(onChannelBoard &amp;&amp; amountMessage !&#x3D;&#x3D; 0) {
+    &lt;div class&#x3D;&quot;answer-info-container&quot;&gt;
+      &lt;p (click)&#x3D;&quot;setChatIndex(selectedChatIndex); onOpenThread()&quot;&gt;
+        {{ amountMessage }} Antworten
+      &lt;/p&gt;
+      &lt;span&gt;Letzte Antwort {{ timeLastMessage }}&lt;/span&gt;
+    &lt;/div&gt;
+    } @if (containerHovered) {
+    &lt;div
+      (click)&#x3D;&quot;setChatIndex(selectedChatIndex)&quot;
+      class&#x3D;&quot;add-reaction-container&quot;
+      [matMenuTriggerFor]&#x3D;&quot;aboveMenu&quot;
+      #aboveMenuTrigger&#x3D;&quot;matMenuTrigger&quot;
+    &gt;&lt;/div&gt;
+    }
+    &lt;mat-menu #aboveMenu&#x3D;&quot;matMenu&quot; yPosition&#x3D;&quot;above&quot; xPosition&#x3D;&quot;before&quot;&gt;
+      &lt;emoji-mart
+        (emojiClick)&#x3D;&quot;addEmoji($event)&quot;
+        emoji&#x3D;&quot;point_up&quot;
+        [enableSearch]&#x3D;&quot;false&quot;
+      &gt;&lt;/emoji-mart&gt;
+    &lt;/mat-menu&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div  class="message-left"  (mouseenter)="onMouseOver(\'enter\')"  (mouseleave)="onMouseOver(\'leave\')">  <div>    <img [src]="memberImg" alt="" (click)="openShowProfilDialog()" />  </div>  <div class="message-container">    <div class="user-name-time">      <h5 (click)="openShowProfilDialog()">{{ member }}</h5>      <span>{{ time }} Uhr</span>    </div>    <div      class="user-msg"      (click)="setChatIndex(selectedChatIndex); onOpenThread()"    >      @if(uploadedFile.length > 0) {      <a href="{{ uploadedFile[1] }}" target="_blank">{{ uploadedFile[0] }}</a>      }      <p>{{ message }}</p>    </div>    @if(sortedReactions.length > 0) {    <div class="reactions-container">      <div        class="add-reaction"        (click)="setChatIndex(selectedChatIndex)"        [matMenuTriggerFor]="aboveMenu"      ></div>      <div class="reactions-list">        @for(emojiObj of sortedReactions; track emojiObj) {        <div          class="sgl-reaction-container"          (click)="            setChatIndex(selectedChatIndex);            addOrRemoveEmoji(emojiObj.reactEmoji)          "        >          <div class="emoji-info-container">            <ngx-emoji emoji="{{ emojiObj.reactEmoji }}"></ngx-emoji>            @for(user of emojiObj.reactUser; track user) { @if(user ===            this.authService.uid && emojiObj.reactUser.length === 1) {            <span class="react-user-name">Du</span>            <span>hast reagiert</span>            } @else if(user === this.authService.uid) {            <span class="react-user-name">Du</span>            } @else {            <span class="react-user-name">{{              this.userService.users[this.userService.getUsersData(user)].name            }}</span>            }            <!-- @if(emojiObj.reactUser.length === 2) {            <span class="react-user-name">und</span>            } @else if(emojiObj.reactUser.length > 2) {            <span class="react-user-name">, </span>            }  -->            } @if(emojiObj.reactUser.length === 1 && emojiObj.reactUser[0] !==            this.authService.uid) {            <span>hat reagiert</span>            } @else if(emojiObj.reactUser.length > 1) {            <span>haben reagiert</span>            }          </div>          <ngx-emoji emoji="{{ emojiObj.reactEmoji }}"></ngx-emoji>          <span>{{ emojiObj.reactUser.length }}</span>        </div>        }      </div>    </div>    } @if(onChannelBoard && amountMessage !== 0) {    <div class="answer-info-container">      <p (click)="setChatIndex(selectedChatIndex); onOpenThread()">        {{ amountMessage }} Antworten      </p>      <span>Letzte Antwort {{ timeLastMessage }}</span>    </div>    } @if (containerHovered) {    <div      (click)="setChatIndex(selectedChatIndex)"      class="add-reaction-container"      [matMenuTriggerFor]="aboveMenu"      #aboveMenuTrigger="matMenuTrigger"    ></div>    }    <mat-menu #aboveMenu="matMenu" yPosition="above" xPosition="before">      <emoji-mart        (emojiClick)="addEmoji($event)"        emoji="point_up"        [enableSearch]="false"      ></emoji-mart>    </mat-menu>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ChannelBoardComponent', 'selector': 'app-channel-board'},{'name': 'ChatBoardComponent', 'selector': 'app-chat-board'},{'name': 'ConfirmationOverlayComponent', 'selector': 'app-confirmation-overlay'},{'name': 'DialogAddChannelComponent', 'selector': 'app-dialog-add-channel'},{'name': 'DialogEditChannelComponent', 'selector': 'app-dialog-edit-channel'},{'name': 'DialogShowProfilComponent', 'selector': 'app-dialog-show-profil'},{'name': 'DialogUserMenuComponent', 'selector': 'app-dialog-user-menu'},{'name': 'DialogUserProfilComponent', 'selector': 'app-dialog-user-profil'},{'name': 'EditMsgTextareaComponent', 'selector': 'app-edit-msg-textarea'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'ImprintComponent', 'selector': 'app-imprint'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MainPageComponent', 'selector': 'app-main-page'},{'name': 'MessageLeftComponent', 'selector': 'app-message-left'},{'name': 'MessageRightComponent', 'selector': 'app-message-right'},{'name': 'NewMsgBoardComponent', 'selector': 'app-new-msg-board'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'SearchInputComponent', 'selector': 'app-search-input'},{'name': 'SearchMemberInputComponent', 'selector': 'app-search-member-input'},{'name': 'SignupComponent', 'selector': 'app-signup'},{'name': 'SignuppictureComponent', 'selector': 'app-signuppicture'},{'name': 'StartAnimationComponent', 'selector': 'app-start-animation'},{'name': 'StartingPageComponent', 'selector': 'app-starting-page'},{'name': 'TextareaMainPageComponent', 'selector': 'app-textarea-main-page'},{'name': 'ThreadBoardComponent', 'selector': 'app-thread-board'},{'name': 'TimeSeparatorComponent', 'selector': 'app-time-separator'},{'name': 'UploadFormComponent', 'selector': 'app-upload-form'},{'name': 'WorkspaceMenuComponent', 'selector': 'app-workspace-menu'},{'name': 'WorkspaceUserProfilComponent', 'selector': 'app-workspace-user-profil'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'MessageLeftComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'MessageLeftComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

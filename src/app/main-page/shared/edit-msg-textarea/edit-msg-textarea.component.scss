@@ -96,25 +96,15 @@
                 }
             }
 
-            // Auch schon für breitere Auflösungen
             @media (max-width: 544px) {
                 flex-direction: column-reverse;
             }
         }
 
-        // Auch schon für breitere Auflösungen
         @media (max-width: 544px) {
             align-items: end;
         }
     }
-
-    // .edit-btn-thread {
-    //     flex-direction: column-reverse;
-    // }
-
-    // .edit-msg-con-thread {
-    //     align-items: end;
-    // }
 
 
     @container (max-width: 344px) {
@@ -127,15 +117,4 @@
         }
     }
 
-    // .close-icon {
-    //     background-image: url('./../../../../assets/img/icons/close_pur_24.svg');
-    //     background-repeat: no-repeat;
-    //     background-position: center;
-    //     height: 24px;
-    //     width: 24px;
-
-    //     &:hover {
-    //         cursor: pointer;
-    //     }
-    // }
 }

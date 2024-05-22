@@ -7,7 +7,6 @@
     align-items: center;
     justify-content: space-between;
     padding: 32px 30px;
-    // padding: 25px 45px; eigentlich anderes Padding als Threads
 
     .title-channel-chat {
         display: flex;
@@ -155,14 +154,8 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    // justify-content: end;
     padding: 12px 0 0 0;
     overflow-y: scroll;
-
-    // &:first-child {
-    //     margin-top: auto !important;
-    // }
-    // noch nicht beste Lösung!
 
     .empty-channel-info {
         display: flex;

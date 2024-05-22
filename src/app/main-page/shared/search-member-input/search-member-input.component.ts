@@ -31,11 +31,10 @@ export class SearchMemberInputComponent {
     if(inputFiled) {
       inputFiled.value = '';
     }
-    this.searchText = ''; // funktioniert noch nicht richitg. Pipe stört diese funktinalität!
+    this.searchText = '';
   }
 
 
-  // diese Funktion ist wahrscheinlich überflüssig (Wurde vorher gebraucht um vom Namen auf die User Date zu kommen)
   getUserData(userName:string) {
     let index = this.userService.users.findIndex(obj => obj.name === userName);
 
@@ -56,30 +55,5 @@ export class SearchMemberInputComponent {
     }
   }
 
-
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   if (changes['searchText']) {
-  //     this.openDialog();
-  //   }
-  //   console.log('funktioniert auch schon mal')
-  //   // if (changes['searchText'] && changes['searchText'].currentValue && changes['searchText'].currentValue.trim() !== '') {
-  //   //   this.openDialog();
-  //   //   console.log('funktioniert auch schon mal')
-  //   // }
-  // }
-
-  // ngDoCheck(): void {
-  //   if (this.searchText && this.searchText.trim() !== '') {
-  //     this.openDialog();
-  //     console.log('Jap')
-  //   }
-  // }
-
-  // openDialog() {
-  //   let dialog = <HTMLDialogElement>document.getElementById('searched-user-dialog');
-
-  //   dialog.show();
-  //   console.log('function works');
-  // }
 
 }
