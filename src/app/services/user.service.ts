@@ -23,7 +23,7 @@ export class UserService {
   }
 
   ngOnInit() {
-    console.log('Users are ', this.users);
+    // console.log('Users are ', this.users);
   }
 
   subUsersList() {

@@ -231,7 +231,7 @@ export class ChatService {
         this.messages.push(this.setMessageObj(doc.data(), doc.id));
       });
 
-      console.log("Empfangene Nachrichten:", this.messages); // Ausgabe der empfangenen Nachrichten
+      // console.log("Empfangene Nachrichten:", this.messages); // Ausgabe der empfangenen Nachrichten
     }, error => {
       console.error("Fehler beim Abonnieren von Nachrichten:", error); // Fehlerbehandlung beim Abonnieren von Nachrichten
     });

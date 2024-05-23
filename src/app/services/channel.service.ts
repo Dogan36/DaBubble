@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { Message } from '../models/message.class';
 import { Chat } from '../models/chat.class';
 import { UserService } from './user.service';
+import { Subscription } from 'rxjs';
 
 
 @Injectable({
@@ -27,6 +28,7 @@ export class ChannelService {
 
   unsubChannels;
   unsubSglChannelChats!: Function;
+  private userSubscription: Subscription;
 
   constructor(private authService: AuthService) {
     // this.authService.getCurrentUser().subscribe(user => {
@@ -34,6 +36,15 @@ export class ChannelService {
     //     this.uid = user.uid;
     //   }
     // });
+    this.userSubscription = this.authService.currentUser$.subscribe(user => {
+      if (this.unsubChannels) {
+        this.unsubChannels();
+      }
+      if (user) {
+        this.unsubChannels = this.subChannelsList();
+      }
+    });
+
     this.authService.generateOwnChatEvent.subscribe(() => {
       if(this.authService.joinStartingChannelsEventEmitted == false){
       this.joinStartingChannels();
@@ -54,7 +65,6 @@ export class ChannelService {
       list.forEach(element => {
         this.allChannels.push(this.setChannelObject(element.data(), element.id),);
       })
-      console.log(this.allChannels)
 
       this.filterChannelsOfUser(); 
       if(this.channels.length !== 0 ) {
@@ -77,7 +87,6 @@ export class ChannelService {
 
   subSglChannelChats(channelRef:string, chatRef = 'false') {
     this.selectedChannelChats = [];
-    console.log('So sehen die selChannelChats aus', this.selectedChannelChats);
     this.unsubSglChannelChats = onSnapshot(collection(this.firestore, `channels/${channelRef}/chats`), (listChats) => {
       
       listChats.forEach(chat => {
@@ -284,7 +293,6 @@ export class ChannelService {
 
   setSelectedChannelIndex(channelRef: string) {
     const index = this.channels.findIndex(channel => channel.id === channelRef);
-    console.log('Index of selectedChannel', index);
 
     if (index !== -1) {
       this.selectedChannel = index;
@@ -333,6 +341,9 @@ export class ChannelService {
     if (this.unsubSglChannelChats) {
         this.unsubSglChannelChats();
     }
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
   }
 
 
@@ -379,8 +390,6 @@ export class ChannelService {
       channel.members.push(this.authService.uid);
       this.updateChannel(channel);
     }
-
-    console.log('joinStartingChannelsCalled')
   }
 }
 

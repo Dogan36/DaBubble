@@ -8,6 +8,7 @@ import { ChannelService } from '../../../services/channel.service';
 import { Channel } from '../../../models/channel.class';
 import { AuthService } from '../../../services/auth.service';
 import { UserService } from '../../../services/user.service';
+import { EventService } from '../../../services/event.service';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class DialogEditChannelComponent {
   channelData = this.channelService.channels[this.channelService.selectedChannel];
   channel: Channel;
 
-  constructor(public channelService: ChannelService, private authService: AuthService, public userService: UserService ) {
+  constructor(public channelService: ChannelService, private authService: AuthService, public userService: UserService, private evSc: EventService ) {
     this.channel = Object.assign({}, this.channelService.channels[this.channelService.selectedChannel]);
   }
 
@@ -59,13 +60,19 @@ export class DialogEditChannelComponent {
 
   leaveChannel() {
     if(this.authService.uid) {
-      let index = this.channel.members?.indexOf(this.authService.uid)
+      let index = this.channel.members?.indexOf(this.authService.uid);
       
-      if(index) {
+      if(index !== -1) {
         this.channel.members?.splice(index, 1);
         this.channelService.updateChannel(this.channel);
+
+        this.channelService.unsubSglChannelChats();
+        this.channelService.selectedChannel = 0;
+        let newSelChannel = this.channelService.channels[this.channelService.selectedChannel];
+        this.channelService.subSglChannelChats(newSelChannel.id);
+        this.evSc.ChannelModus();
+        }
       }
-    }
   }
 
   
