@@ -48,3 +48,6 @@ Thumbs.db
 
 # API keys
 *.config.ts
+
+# Documentation
+/documentation
