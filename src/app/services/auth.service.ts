@@ -55,7 +55,7 @@ export class AuthService {
           if (!doc.exists()) {
             this.router.navigate(['/']);
           } else {
-            this.router.navigate(['/start'])
+            this.router.navigate(['/home'])
             this.currentUser = {...doc.data() } as UserType;
           
             this._currentUserSubject.next(this.currentUser);
@@ -104,7 +104,7 @@ export class AuthService {
         this.overlayService.hideOverlay();
       }, 1500);
 
-      this.router.navigate(['/start']);
+      this.router.navigate(['/home']);
 
     } catch (error) {
       console.log(error)
@@ -133,7 +133,7 @@ export class AuthService {
       this.overlayService.showOverlay('Konto erfolgreich erstellt!')
       setTimeout(() => {
         this.overlayService.hideOverlay();
-        this.router.navigate(['/start']);
+        this.router.navigate(['/home']);
       }, 1500);
     } catch (error) {
       throw error;
@@ -178,7 +178,7 @@ export class AuthService {
           );
           this
           this._currentUserSubject.next(userData); // Aktualisieren Sie currentUser im BehaviorSubject
-          this.router.navigate(['/start']);
+          this.router.navigate(['/home']);
           setTimeout(() => {
             this.overlayService.hideOverlay();
           }, 1500);
@@ -256,7 +256,7 @@ export class AuthService {
       this.joinStaringChannelsEvent.emit();
       setTimeout(() => {
         this.overlayService.hideOverlay();
-        this.router.navigate(['/start']);
+        this.router.navigate(['/home']);
       }, 1500);
       return user.uid; // Rückgabe der uid des registrierten Gastbenutzers
     } catch (error) {
@@ -276,7 +276,7 @@ export class AuthService {
         this.overlayService.hideOverlay();
       }, 1500);
 
-      this.router.navigate(['/start']);
+      this.router.navigate(['/home']);
 
     } catch (error) {
       console.log(error)
