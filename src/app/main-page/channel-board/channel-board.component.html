@@ -130,8 +130,7 @@
   last = $last) {
 
   <!-- Date logic -->
-  @if(chat.allMessages.length > 0) { @if(chat.chatId ===
-  this.channelService.selectedChannelChats[0].chatId ||
+  @if(chat.chatId === this.channelService.selectedChannelChats[0].chatId ||
   this.channelService.getDate(this.channelService.selectedChannelChats[index -
   1].timestamp) !== this.channelService.getDate(chat.timestamp)) {
   @if(this.channelService.isToday(chat.timestamp)) {
@@ -140,7 +139,7 @@
   <app-time-separator
     [forDate]="this.channelService.getDate(chat.timestamp)"
   ></app-time-separator>
-  }}}
+  }}
 
   <!-- message left or right logic -->
   @if(chat.allMessages[0] && chat.allMessages[0].member &&
