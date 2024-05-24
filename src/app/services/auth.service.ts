@@ -266,9 +266,9 @@ export class AuthService {
   }
   
   async loginGuest(guestUserId: string): Promise<void> {
-    const email = await this.getEmailFromFirebase(guestUserId);
-    console.log(email)
+  
     try {
+      const email = await this.getEmailFromFirebase(guestUserId);
       await setPersistence(this.auth, browserSessionPersistence);
       await signInWithEmailAndPassword(this.auth, email, '1234567');
       this.overlayService.showOverlay('Anmelden')
@@ -291,7 +291,7 @@ export class AuthService {
         const userData = docSnapshot.data();
         return userData['email'];
     } else {
-        throw new Error('User document not found in Firestore');
+      return ''
     }
 }
 

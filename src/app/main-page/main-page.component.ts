@@ -15,13 +15,13 @@ import { UserType } from '../types/user.class';
 import { ChannelService } from '../services/channel.service';
 import { SearchService } from '../services/search.service';
 import { FormsModule } from '@angular/forms';
-import { NgIf, NgFor } from '@angular/common';
+import { NgIf, NgFor, NgStyle } from '@angular/common';
 import { WorkspaceUserProfilComponent } from './shared/workspace-user-profil/workspace-user-profil.component';
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [NgIf, NgFor, FormsModule, WorkspaceMenuComponent, ChatBoardComponent, ThreadBoardComponent, MatSidenavModule, MatButtonModule, ChannelBoardComponent, NewMsgBoardComponent, MatDialogModule, WorkspaceUserProfilComponent],
+  imports: [NgIf, NgFor, NgStyle,FormsModule, WorkspaceMenuComponent, ChatBoardComponent, ThreadBoardComponent, MatSidenavModule, MatButtonModule, ChannelBoardComponent, NewMsgBoardComponent, MatDialogModule, WorkspaceUserProfilComponent],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss'
 })
@@ -38,7 +38,7 @@ export class MainPageComponent {
   currentUser: UserType | null = null;
   searchText: string = '';
   inputFocus: boolean = false;
-
+  imageLoaded = false;
 
   constructor(public evtSvc: EventService, public dialog: MatDialog, public channelService: ChannelService) {
     this.evtSvc.getThreadOpenStatus().subscribe(status => {

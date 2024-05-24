@@ -93,10 +93,15 @@
     <h2 (click)="openUserMenuDialog()">
       {{ this.authService.currentUser?.name }}
     </h2>
-    <img *ngIf="this.authService.currentUser?.photoURL" 
-      [src]="this.authService.currentUser?.photoURL  || 'src/assets/img/profils/standardPic.svg'" alt=" "
-      (click)="openUserMenuDialog()"
-    />
+    <img *ngIf="this.authService.currentUser?.photoURL || 'src/app/assets/img/profils/standardPic.svg'"
+    [src]="this.authService.currentUser?.photoURL || 'src/app/assets/img/profils/standardPic.svg'"
+    alt=""
+    (click)="openUserMenuDialog()"
+    [ngStyle]="{ 'display': imageLoaded ? 'block' : 'none', 'background-color': '#f0f0f0' }"
+    (error)="imageLoaded = false"
+    (load)="imageLoaded = true"
+/>
+    
     <div class="drop-down-icon" (click)="openUserMenuDialog()"></div>
   </div>
 </header>

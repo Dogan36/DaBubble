@@ -13,7 +13,6 @@ export class GuestUserService {
 
   async createGuestUser(): Promise<string> {
     let guestUserId = localStorage.getItem(this.GUEST_USER_KEY);
-    if (guestUserId) { this.authService.loginGuest(guestUserId) }
     if (!guestUserId) {
       // Wenn keine Gastbenutzer-ID im Local Storage vorhanden ist, generieren Sie eine neue
       guestUserId = await this.authService.registerGuest();
@@ -21,6 +20,7 @@ export class GuestUserService {
     } else {
       // Überprüfen, ob der Gastbenutzer noch auf Firebase vorhanden ist
       const isGuestUserExisting = await this.isGuestUserOnFirebase(guestUserId);
+      if (guestUserId && isGuestUserExisting) { this.authService.loginGuest(guestUserId) }
       if (!isGuestUserExisting) {
         // Wenn der Gastbenutzer nicht auf Firebase vorhanden ist, registrieren Sie ihn erneut
         guestUserId = await this.authService.registerGuest();
