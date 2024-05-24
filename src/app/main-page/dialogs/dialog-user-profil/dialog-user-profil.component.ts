@@ -37,7 +37,6 @@ export class DialogUserProfilComponent {
   }
 
   updateInfo() {
-    console.log(this.email)
-    this.authService.updateInfo(this.displayName, this.email)
+    this.authService.updateInfo(this.displayName, this.email);
   }
 }
