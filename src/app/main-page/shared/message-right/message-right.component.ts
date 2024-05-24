@@ -121,7 +121,6 @@ export class MessageRightComponent {
           this.channelService.updateMessage(messageObj);
         } else {
           this.chatService.updateMessage(messageObj);
-          console.log('Emoji added', messageObj);
         }
       }
     }

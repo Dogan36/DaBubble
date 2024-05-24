@@ -26,8 +26,6 @@ export class WorkspaceUserProfilComponent {
     if(this.userId && this.onWorkspace !== true) {
 
     let memberData = this.userService.users[this.userService.getUsersData(memberId)];
-
-    console.log('this is the member', memberId);
     
     this.dialog.open(DialogShowProfilComponent, {panelClass: ['dialog-bor-rad-round', 'user-profil-popup'], data: {
         profilName: memberData.name,

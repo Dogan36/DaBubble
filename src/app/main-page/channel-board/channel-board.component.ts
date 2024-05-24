@@ -134,7 +134,6 @@ export class ChannelBoardComponent {
       if (this.channelChatsContainerRef) {
         const containerElement = this.channelChatsContainerRef.nativeElement;
         containerElement.scrollTop = containerElement.scrollHeight;
-        console.log('Die Höhe ist ', containerElement.scrollHeight);
       }
     }
 

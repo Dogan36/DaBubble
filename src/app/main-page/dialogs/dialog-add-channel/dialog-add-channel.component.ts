@@ -38,13 +38,11 @@ export class DialogAddChannelComponent {
 
   toggleInput(checked: boolean) {
     this.selectMerbersOpen = checked;
-    console.log('selectMemberOpen is ', this.selectMerbersOpen)
   }
 
   saveChannel() {
 
     this.setMembers();
-    console.log('Current channel is', this.channel);
     this.channel.creator = this.authService.uid;
 
     this.channelService.addChannel(this.channelService.toJSON(this.channel), 'channels');
