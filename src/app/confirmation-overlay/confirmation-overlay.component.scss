@@ -25,6 +25,12 @@
     color:white;
     font-size: 36px;
     animation: slideIn 0.5s ease forwards; /* Hier wird die Animation definiert */
+    @media (max-width: 768px) {
+        flex-wrap: wrap;
+        padding: 20px;
+        font-size: 28px;
+        line-height: 27px;
+    }
 }
 
 .error {

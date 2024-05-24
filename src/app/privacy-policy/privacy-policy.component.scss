@@ -59,7 +59,16 @@ h1{
     word-wrap: break-word;
 }
 
+h2{
+    margin: 0;
+    word-wrap: break-word;
+}
+
 p{
     font-size: 20px;
     margin: 0;
+}
+
+a{
+    word-wrap: break-word;
 }

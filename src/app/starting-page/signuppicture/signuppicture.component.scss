@@ -33,6 +33,10 @@ margin-bottom: 44px;
             background-color: black;
         }
     }
+    @media (max-width: 768px) {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 }
 
 .ownPicture{

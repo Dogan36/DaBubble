@@ -137,7 +137,9 @@ h1 {
     margin-top: 0;
 text-align: center;
     line-height: clamp(49.68px, 5.2vh, 55.2px);
-
+    @media (max-width: 1250px) {
+        flex-wrap: wrap;
+    }
 }
 
 h2 {
