@@ -58,8 +58,10 @@ export class DialogAddChannelComponent {
     if(allMembers && allMembers.checked == true) {
       for (let i = 0; i < this.userService.users.length; i++) {
         const user = this.userService.users[i];
-        
-        this.channel.members?.push(user.id);
+
+        if(user.name !== "Guest") {
+          this.channel.members?.push(user.id);
+        }
       }} else if(selectedMembers && selectedMembers.checked == true) {
         if(selectedMembersArray) {
           for (let i = 0; i < selectedMembersArray.length; i++) {

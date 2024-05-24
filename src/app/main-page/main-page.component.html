@@ -31,7 +31,7 @@
     />
     <img src="assets/img/icons/search.svg" alt="" />
 
-    <div class="searchResults" *ngIf="searchText.length > 0">
+    <div class="searchResults" *ngIf="searchText.length > 2">
       <div
         *ngIf="
           this.searchService.foundUsers.length === 0 &&
@@ -47,7 +47,9 @@
         @for (user of this.searchService.foundUsers; track user.id) {
         <app-workspace-user-profil
           [userName]="user.name"
-          [userImage]="user.photoURL || 'src/assets/img/profils/standardPic.svg'"
+          [userImage]="
+            user.photoURL || 'src/assets/img/profils/standardPic.svg'
+          "
           [userId]="user.id"
           (click)="stopSearch()"
         ></app-workspace-user-profil
@@ -93,15 +95,25 @@
     <h2 (click)="openUserMenuDialog()">
       {{ this.authService.currentUser?.name }}
     </h2>
-    <img *ngIf="this.authService.currentUser?.photoURL || 'src/assets/img/profils/standardPic.svg'"
-    [src]="this.authService.currentUser?.photoURL || 'src/assets/img/profils/standardPic.svg'"
-    alt=""
-    (click)="openUserMenuDialog()"
-    [ngStyle]="{ 'display': imageLoaded ? 'block' : 'none', 'background-color': '#f0f0f0' }"
-    (error)="imageLoaded = false"
-    (load)="imageLoaded = true"
-/>
-    
+    <img
+      *ngIf="
+        this.authService.currentUser?.photoURL ||
+        'src/assets/img/profils/standardPic.svg'
+      "
+      [src]="
+        this.authService.currentUser?.photoURL ||
+        'src/assets/img/profils/standardPic.svg'
+      "
+      alt=""
+      (click)="openUserMenuDialog()"
+      [ngStyle]="{
+        display: imageLoaded ? 'block' : 'none',
+        'background-color': '#f0f0f0'
+      }"
+      (error)="imageLoaded = false"
+      (load)="imageLoaded = true"
+    />
+
     <div class="drop-down-icon" (click)="openUserMenuDialog()"></div>
   </div>
 </header>

@@ -125,12 +125,13 @@
 <div class="hr-line"></div>
 
 <div class="chat-field" #channelChatsContainer>
-  @if(this.channelService.selectedChannelChats[0]) { @for(chat of
+  @if(this.channelService.selectedChannelChats.length > 0) { @for(chat of
   this.channelService.selectedChannelChats; track index; let index = $index; let
   last = $last) {
 
   <!-- Date logic -->
-  @if(chat.chatId === this.channelService.selectedChannelChats[0].chatId ||
+  @if(chat.allMessages.length > 0) { @if(chat.chatId ===
+  this.channelService.selectedChannelChats[0].chatId ||
   this.channelService.getDate(this.channelService.selectedChannelChats[index -
   1].timestamp) !== this.channelService.getDate(chat.timestamp)) {
   @if(this.channelService.isToday(chat.timestamp)) {
@@ -139,7 +140,7 @@
   <app-time-separator
     [forDate]="this.channelService.getDate(chat.timestamp)"
   ></app-time-separator>
-  }}
+  }}}
 
   <!-- message left or right logic -->
   @if(chat.allMessages[0] && chat.allMessages[0].member &&
@@ -257,7 +258,7 @@
     "
     [uploadedFile]="chat.allMessages[0].uploadedFile"
   ></app-message-right>
-  }} }} @else if(this.channelService.selectedChannelChats.length === 0) {
+  }} }} @else if(this.channelService.selectedChannelChats.length === 0 ) {
   <div class="empty-channel-info">
     <h3
       *ngIf="this.channelService.channels[this.channelService.selectedChannel]"

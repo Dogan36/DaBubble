@@ -18,7 +18,8 @@ export class InputFilterPipe implements PipeTransform {
     return items.filter(it => {
       const nameIncludesSearchText = it['name'] && it['name'].toLocaleLowerCase().includes(searchText);
       const emailIncludesSearchText = it['email'] && it['email'].toLocaleLowerCase().includes(searchText);
-      return nameIncludesSearchText || emailIncludesSearchText;
+      const isGuest = it['name'] && it['name'].toLocaleLowerCase().includes('guest');
+      return (nameIncludesSearchText || emailIncludesSearchText) && !isGuest;
     });
   }
 }
