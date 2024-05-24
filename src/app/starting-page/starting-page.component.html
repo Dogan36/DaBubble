@@ -1,12 +1,8 @@
 <div class="main-section">
-
-  
     <div *ngIf="this.loginService.showLogin" class="neuHier">
-        <p>Neu be DABubble?</p>
+        <p>Neu bei DABubble?</p>
         <p (click)="this.loginService.toggleSignUp()">Konto erstellen</p>
     </div>
-
-
     <app-login *ngIf="loginService.showLogin"></app-login>
     <app-signup *ngIf="loginService.showSignUp"></app-signup>
     <app-signuppicture *ngIf="loginService.showSignUpPicture"></app-signuppicture>

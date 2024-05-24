@@ -2,7 +2,7 @@
 
 .background {
     position: absolute;
-    height: 5000px;
+    height: 100%;
     width: 100vw;
     background: linear-gradient(1.46deg, #313AE6 1.22%, #797EF3 98.76%);
     top: 0;
@@ -33,14 +33,14 @@
     transition: all 1s;
     @media (max-width: 768px) {
         height: 70px;
-        width: 245px;
+        width: 255px;
     }
     &.moveOnTop {
       transform: translate(0, 0);
       top: 7%;
       left: 5%;
       height: 70px;
-      width: 243px;
+      width: 255px;
       @media (max-width: 768px) {
         left: 50%;
         transform: translate(-50%);
