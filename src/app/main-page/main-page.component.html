@@ -47,7 +47,7 @@
         @for (user of this.searchService.foundUsers; track user.id) {
         <app-workspace-user-profil
           [userName]="user.name"
-          [userImage]="user.photoURL"
+          [userImage]="user.photoURL || 'src/assets/img/profils/standardPic.svg'"
           [userId]="user.id"
           (click)="stopSearch()"
         ></app-workspace-user-profil
@@ -93,9 +93,8 @@
     <h2 (click)="openUserMenuDialog()">
       {{ this.authService.currentUser?.name }}
     </h2>
-    <img
-      [src]="this.authService.currentUser?.photoURL"
-      alt=""
+    <img *ngIf="this.authService.currentUser?.photoURL" 
+      [src]="this.authService.currentUser?.photoURL  || 'src/assets/img/profils/standardPic.svg'" alt=" "
       (click)="openUserMenuDialog()"
     />
     <div class="drop-down-icon" (click)="openUserMenuDialog()"></div>

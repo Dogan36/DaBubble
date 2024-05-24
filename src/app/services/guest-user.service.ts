@@ -31,10 +31,14 @@ export class GuestUserService {
   }
 
   async isGuestUserOnFirebase(guestUserId: string): Promise<boolean> {
-    const userDocRef = doc(this.firestore, 'users', guestUserId);
-    console.log('user exists on firebase')
-    const docSnapshot = await getDoc(userDocRef);
-    return docSnapshot.exists();
+    try {
+      const userDocRef = doc(this.firestore, 'users', guestUserId);
+      const docSnapshot = await getDoc(userDocRef);
+      return docSnapshot.exists();
+    } catch (error) {
+      
+      return false;
+    }
   }
 
 

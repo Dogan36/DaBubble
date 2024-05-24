@@ -3,11 +3,11 @@ import { MatDialog } from '@angular/material/dialog';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogShowProfilComponent } from '../../dialogs/dialog-show-profil/dialog-show-profil.component';
 import { UserService } from '../../../services/user.service';
-
+import { NgIf } from '@angular/common';
 @Component({
   selector: 'app-workspace-user-profil',
   standalone: true,
-  imports: [MatDialogModule, ],
+  imports: [MatDialogModule, NgIf ],
   templateUrl: './workspace-user-profil.component.html',
   styleUrl: './workspace-user-profil.component.scss'
 })
