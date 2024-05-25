@@ -97,13 +97,13 @@
     </h2>
     <img
       *ngIf="
-        this.authService.currentUser?.photoURL ||
-        'src/assets/img/profils/standardPic.svg'
+        this.authService.currentUser?.photoURL
       "
       [src]="
         this.authService.currentUser?.photoURL ||
         'src/assets/img/profils/standardPic.svg'
       "
+       (error)="this.authService.handleImageError()"
       alt=""
       (click)="openUserMenuDialog()"
       [ngStyle]="{

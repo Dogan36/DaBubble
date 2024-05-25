@@ -45,7 +45,7 @@ export class GuestUserService {
 
   public async deleteOldGuests(): Promise<void> {
 
-    const twentyFourHoursAgo = new Date(Date.now() - 2 * 60 * 1000); // Zeitpunkt vor 24 Stunden
+    const twentyFourHoursAgo = new Date(Date.now() - 0.1 * 60 * 1000); // Zeitpunkt vor 24 Stunden
 
 
     const querySnapshot = await getDocs(collection(this.firestore, 'users'));

@@ -38,7 +38,9 @@ export class ChatService {
 
   constructor(private userService: UserService, private evtSvc: EventService) {
     // this.subChats();
-
+    this.authService.logoutEvent.subscribe(() => {
+      this.clearChats();
+    });
     this.userSubscription = this.authService.currentUser$.subscribe(user => {
       this.authService.generateOwnChatEvent.subscribe(() => {
         if(this.authService.ownChatEventEmitted == false){
@@ -52,6 +54,9 @@ export class ChatService {
     });
   }
 
+  clearChats() {
+    this.privateChats = [];
+  }
 
   ngOnDestory() {
     this.authService.ownChatEventEmitted=false

@@ -28,6 +28,7 @@
             this.userService.users[this.userService.getUsersData(member)]
               .photoURL
           "
+           (error)="this.userService.handleImageError(member)"
           alt=""
         />
         }}

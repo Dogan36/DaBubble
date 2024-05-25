@@ -38,6 +38,10 @@ export class UserService {
     });
   }
 
+  handleImageError(member:any) {
+    this.users[this.getUsersData(member)].photoURL = this.authService.photoURL;
+  }
+
   /*subCurrentUser() {
     console.log(this.authService.currentUser?.uid);
     if (this.authService.currentUser?.uid) {

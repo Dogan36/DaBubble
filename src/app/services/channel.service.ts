@@ -32,6 +32,9 @@ export class ChannelService {
   private userSubscription: Subscription;
 
   constructor(private authService: AuthService) {
+    this.authService.logoutEvent.subscribe(() => {
+      this.clearChannels();
+    });
     // this.authService.getCurrentUser().subscribe(user => {
     //   if (user) {
     //     this.uid = user.uid;
@@ -55,6 +58,13 @@ export class ChannelService {
     this.unsubChannels = this.subChannelsList();
   }
 
+  clearChannels() {
+    this.allChannels = [];
+    this.channels = [];
+    this.selectedChannel = -1
+    this.selectedChannelChats = [];
+    // Du kannst hier weitere Bereinigungen vornehmen, falls erforderlich
+  }
 
   subChannelsList() {
     // const q = query(collection(this.firestore, 'channels'), where('members', 'array-contains', this.uid));

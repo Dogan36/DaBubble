@@ -93,7 +93,9 @@ export class AuthService {
       createdAt: this.createdAt
     };
   }
-
+  handleImageError(){
+    this.user.photoURL = './assets/img/profils/standardPic.svg'
+  }
   async login(): Promise<void> {
     console.log('loginCalled')
     try {
@@ -214,7 +216,11 @@ export class AuthService {
 
   async logout(): Promise<void> {
     try {
+      this._currentUserSubject.next(null); 
+      this.currentUser = null
       this.logoutEvent.emit();
+      this.ownChatEventEmitted = false;
+      this.joinStartingChannelsEventEmitted = false;
       this.overlayService.showOverlay('Abmelden')
       await signOut(this.auth);
       setTimeout(() => {
@@ -252,6 +258,7 @@ export class AuthService {
       const userDocRef = doc(this.firestore, 'users', user.uid);
       await setDoc(userDocRef, userData);
       this.overlayService.showOverlay('Konto erfolgreich erstellt!')
+      console.log(this.ownChatEventEmitted)
       this.generateOwnChatEvent.emit();
       this.joinStaringChannelsEvent.emit();
       setTimeout(() => {

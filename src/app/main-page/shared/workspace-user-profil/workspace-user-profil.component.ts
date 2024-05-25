@@ -4,6 +4,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { DialogShowProfilComponent } from '../../dialogs/dialog-show-profil/dialog-show-profil.component';
 import { UserService } from '../../../services/user.service';
 import { NgIf } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'app-workspace-user-profil',
   standalone: true,
@@ -19,7 +20,7 @@ export class WorkspaceUserProfilComponent {
   @Input() ownChat: boolean = false;
   @Input() onWorkspace: boolean = false;
 
-  constructor(public dialog: MatDialog, private userService: UserService) {}
+  constructor(public dialog: MatDialog, private userService: UserService, public authService: AuthService) {}
 
 
   openShowProfilDialog(memberId: string) {
