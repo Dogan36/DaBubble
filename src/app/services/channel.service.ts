@@ -25,6 +25,7 @@ export class ChannelService {
   selChatIndex: number = 0; // selected chat of all chats (index)
   
   colMessages: Message[] = []; // var to store all msg of one chat while subscribing the channel with its chats
+  newAddedChannelRef = "";
 
   unsubChannels;
   unsubSglChannelChats!: Function;
@@ -167,6 +168,14 @@ export class ChannelService {
   async addChannel(item: {}, colId: "channels") {
     await addDoc(collection(this.firestore, colId), item).catch(
         (err) => { console.error(err) }
+      ).then(
+        (docRef) => { 
+          if (docRef) {
+            this.newAddedChannelRef = docRef.id;
+          } else {
+            console.error("Failed to get document reference.");
+          }
+        } 
       );
   }
 

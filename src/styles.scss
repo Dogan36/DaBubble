@@ -90,11 +90,19 @@ body {
 * {
     scrollbar-width: auto;
     scrollbar-color: $cpt-bg;
+
+    @media (max-width: 432px) {
+        scrollbar-width: none;
+    }
 }
 
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
     width: 6px;
+
+    @media (max-width: 432px) {
+        display: none;
+    }
 }
 
 *::-webkit-scrollbar-track {

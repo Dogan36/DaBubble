@@ -22,7 +22,7 @@ export class DialogEditChannelComponent {
 
   editNameOpen = false;
   editTextOpen = false;
-  channelData = this.channelService.channels[this.channelService.selectedChannel];
+  public channelData = this.channelService.channels[this.channelService.selectedChannel];
   channel: Channel;
 
   constructor(public channelService: ChannelService, private authService: AuthService, public userService: UserService, private evSc: EventService ) {

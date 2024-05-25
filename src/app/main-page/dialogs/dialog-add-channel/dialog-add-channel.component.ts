@@ -11,6 +11,7 @@ import { ChannelService } from '../../../services/channel.service';
 import { UserService } from '../../../services/user.service';
 import { SearchMemberInputComponent } from '../../shared/search-member-input/search-member-input.component';
 import { AuthService } from '../../../services/auth.service';
+import { EventService } from '../../../services/event.service';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class DialogAddChannelComponent {
   selectMerbersOpen = false;
 
 
-  constructor(private channelService: ChannelService, private userService: UserService, private authService: AuthService){}
+  constructor(private channelService: ChannelService, private userService: UserService, private authService: AuthService, private evSc: EventService){}
 
   openAddMembers() {
     this.addMembersOpen = true;
@@ -40,12 +41,18 @@ export class DialogAddChannelComponent {
     this.selectMerbersOpen = checked;
   }
 
-  saveChannel() {
-
+  async saveChannel() {
     this.setMembers();
     this.channel.creator = this.authService.uid;
 
-    this.channelService.addChannel(this.channelService.toJSON(this.channel), 'channels');
+    await this.channelService.addChannel(this.channelService.toJSON(this.channel), 'channels');
+
+    if(this.channelService.newAddedChannelRef !== "") {
+      this.channelService.unsubSglChannelChats();
+      this.channelService.subSglChannelChats(this.channelService.newAddedChannelRef);
+      this.evSc.ChannelModus();
+      this.channelService.setSelectedChannelIndex(this.channelService.newAddedChannelRef);
+    }
   }
 
 
