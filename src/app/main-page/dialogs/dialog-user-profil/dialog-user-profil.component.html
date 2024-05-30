@@ -9,7 +9,10 @@
   </div>
   <mat-dialog-content class="dialog-content">
     <div class="profil-img">
-      <img [src]="this.authService.currentUser?.photoURL" />
+      <img [src]="this.pictureService.selectedPicture || this.authService.currentUser?.photoURL" />
+      @if(editProfilOpen){
+      <div (click)="this.openChooseImg()" class="edit"></div>
+      }
     </div>
     @if(!editProfilOpen) {
     <div class="profil-name-container">

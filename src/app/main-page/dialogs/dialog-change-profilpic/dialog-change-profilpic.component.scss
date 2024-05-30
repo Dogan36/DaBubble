@@ -1,0 +1,76 @@
+@import "./../../../starting-page/starting-page.component.scss";
+
+.dialog-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+  
+    padding: clamp(10px, 5vh, 50px) clamp(20px, 5vw, 60px);
+    @media (max-width: 1250px) {
+        margin-top: 8vh;
+    }
+}
+
+.arrow_back{
+    top:40px;
+    left: 20px;
+}
+
+.choosenPicture {
+    height: 168px;
+    width: 168px;
+    border-radius: 100%;
+    overflow: hidden;
+    align-self: center;
+    img{
+        height: 100%;
+    }
+
+}
+
+.standardPictures {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 12px;
+margin-bottom: 44px;
+    div {
+        height: 72px;
+        width: 72px;
+        padding: 4px;
+        border-radius: 100%;
+        cursor: pointer;
+        display: flex;
+        object-fit: cover;
+
+        &:hover {
+            background-color: #E6E6E6;
+        }
+        &:active{
+            background-color: black;
+        }
+    }
+    @media (max-width: 768px) {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+.ownPicture{
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    justify-content: flex-start;
+    margin-bottom: 21px;
+    p{
+        margin: 0;
+    }
+}
+
+.buttonContainer{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}

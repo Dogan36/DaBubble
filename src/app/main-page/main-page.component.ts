@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { NgIf, NgFor, NgStyle } from '@angular/common';
 import { WorkspaceUserProfilComponent } from './shared/workspace-user-profil/workspace-user-profil.component';
 
+
 @Component({
   selector: 'app-main-page',
   standalone: true,

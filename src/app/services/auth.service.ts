@@ -142,12 +142,14 @@ export class AuthService {
     }
   }
 
-  async updateInfo(name: string, email: string) {
+  async updateInfo(name: string, email: string, picture:string) {
 
     const userDocRef = doc(this.firestore, 'users', this.currentUser.uid);
     await updateEmail(this.user, email);
     await updateDoc(userDocRef, { email: email, name: name });
-
+    if(this.photoURL !== ''){
+    await updateDoc(userDocRef, {photoURL:picture });
+  }
   };
 
 

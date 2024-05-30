@@ -1,0 +1,22 @@
+<div class="dialog-content">
+    <h1>Wähle deinen Avatar</h1>
+    <div class="choosenPicture">
+        <img [src]="this.changePictureService.currentPicture">
+    </div>
+    <h2>{{this.authService.name}}</h2>
+    <p class="formDescription">Aus der Liste wählen</p>
+    <div class="standardPictures">
+        <div (click)="this.changePictureService.selectPicture(picture)" *ngFor="let picture of this.changePictureService.pictures, let i=index">
+            <img [src]="picture">
+        </div>
+    </div>
+    <div (click)="this.changePictureService.toggleOwnPicture()" class="ownPicture">
+        <p>eigenes Bild verwenden</p>
+        <button class="secondaryButton">Datei hochladen</button>
+    </div>
+    <div mat-dialog-close class="arrow_back"></div>
+    <div class="buttonContainer">
+        <button mat-dialog-close [disabled]="!this.changePictureService.pictureSelected" class="primaryButton" (click)="this.changePictureService.safeSelectedPicture()">Weiter</button>
+    </div>
+    
+  </div>
