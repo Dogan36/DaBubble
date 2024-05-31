@@ -21,13 +21,10 @@ export class WorkspaceUserProfilComponent {
   @Input() onWorkspace: boolean = false;
 
   constructor(public dialog: MatDialog, private userService: UserService, public authService: AuthService) {}
-
-
+  
   openShowProfilDialog(memberId: string) {
     if(this.userId && this.onWorkspace !== true) {
-
     let memberData = this.userService.users[this.userService.getUsersData(memberId)];
-    
     this.dialog.open(DialogShowProfilComponent, {panelClass: ['dialog-bor-rad-round', 'user-profil-popup'], data: {
         profilName: memberData.name,
         profilRef: memberData.id,
@@ -36,7 +33,4 @@ export class WorkspaceUserProfilComponent {
       }});
     } 
   }
-
-
-  
 }

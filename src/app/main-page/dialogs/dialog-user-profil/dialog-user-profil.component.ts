@@ -20,9 +20,7 @@ import { ChangePictureService } from '../../../services/change-picture.service';
   styleUrl: './dialog-user-profil.component.scss'
 })
 export class DialogUserProfilComponent {
-  constructor(public authService: AuthService, public dialog: MatDialog, public pictureService: ChangePictureService) {
-
-  }
+  constructor(public authService: AuthService, public dialog: MatDialog, public pictureService: ChangePictureService) { }
 
   editProfilOpen = false;
   displayName: string = '';
@@ -32,21 +30,17 @@ export class DialogUserProfilComponent {
     this.editProfilOpen = true;
     this.displayName = this.authService.currentUser?.name || '';
     this.email = this.authService.currentUser?.email || '';
-
   }
 
+  closeEditProfil() {
+    this.editProfilOpen = false;
+  }
 
-closeEditProfil() {
-  this.editProfilOpen = false;
-}
+  updateInfo() {
+    this.authService.updateInfo(this.displayName, this.email);
+  }
 
-updateInfo() {
-  this.authService.updateInfo(this.displayName, this.email);
-}
-
-openChooseImg() {
-  this.dialog.open(DialogChangeProfilpicComponent, { position: { right: '24px', top: '80px' }, panelClass: ['dialog-bor-rad-corner', 'user-profil-menu'] });
-}
-
-
+  openChooseImg() {
+    this.dialog.open(DialogChangeProfilpicComponent, { position: { right: '24px', top: '80px' }, panelClass: ['dialog-bor-rad-corner', 'user-profil-menu'] });
+  }
 }

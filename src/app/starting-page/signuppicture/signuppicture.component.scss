@@ -5,7 +5,8 @@
     width: 168px;
     border-radius: 100%;
     overflow: hidden;
-    img{
+
+    img {
         height: 100%;
     }
 
@@ -16,7 +17,8 @@
     width: 100%;
     align-items: center;
     gap: 12px;
-margin-bottom: 44px;
+    margin-bottom: 44px;
+
     div {
         height: 72px;
         width: 72px;
@@ -29,29 +31,32 @@ margin-bottom: 44px;
         &:hover {
             background-color: #E6E6E6;
         }
-        &:active{
+
+        &:active {
             background-color: black;
         }
     }
+
     @media (max-width: 768px) {
         flex-wrap: wrap;
         justify-content: center;
     }
 }
 
-.ownPicture{
+.ownPicture {
     display: flex;
     align-items: center;
     gap: 24px;
     width: 100%;
     justify-content: flex-start;
     margin-bottom: 21px;
-    p{
+
+    p {
         margin: 0;
     }
 }
 
-.buttonContainer{
+.buttonContainer {
     width: 100%;
     display: flex;
     justify-content: end;

@@ -29,8 +29,7 @@ export class DialogAddChannelComponent {
   addMembersOpen = false;
   selectMerbersOpen = false;
 
-
-  constructor(private channelService: ChannelService, private userService: UserService, private authService: AuthService, private evSc: EventService){}
+  constructor(private channelService: ChannelService, private userService: UserService, private authService: AuthService, private evSc: EventService) { }
 
   openAddMembers() {
     this.addMembersOpen = true;
@@ -44,10 +43,8 @@ export class DialogAddChannelComponent {
   async saveChannel() {
     this.setMembers();
     this.channel.creator = this.authService.uid;
-
     await this.channelService.addChannel(this.channelService.toJSON(this.channel), 'channels');
-
-    if(this.channelService.newAddedChannelRef !== "") {
+    if (this.channelService.newAddedChannelRef !== "") {
       this.channelService.unsubSglChannelChats();
       this.channelService.subSglChannelChats(this.channelService.newAddedChannelRef);
       this.evSc.ChannelModus();
@@ -55,34 +52,29 @@ export class DialogAddChannelComponent {
     }
   }
 
-
   setMembers() {
     let allMembers = <HTMLInputElement>document.getElementById('all-members');
     let selectedMembers = <HTMLInputElement>document.getElementById('selected-members');
     let selectedMembersArray = this.searchMembersComponent?.selectedMembers;
     this.channel.members = [];
-
-    if(allMembers && allMembers.checked == true) {
+    if (allMembers && allMembers.checked == true) {
       for (let i = 0; i < this.userService.users.length; i++) {
         const user = this.userService.users[i];
-
-        if(user.name !== "Guest") {
+        if (user.name !== "Guest") {
           this.channel.members?.push(user.id);
         }
-      }} else if(selectedMembers && selectedMembers.checked == true) {
-        if(selectedMembersArray) {
-          for (let i = 0; i < selectedMembersArray.length; i++) {
-            const selectedMember = selectedMembersArray[i];
-            this.channel.members.push(selectedMember.id);
-          }
-          this.channel.members.push(this.authService.uid);
-          selectedMembersArray = [];
-        } else {
-            this.channel.members = [this.authService.uid];
+      }
+    } else if (selectedMembers && selectedMembers.checked == true) {
+      if (selectedMembersArray) {
+        for (let i = 0; i < selectedMembersArray.length; i++) {
+          const selectedMember = selectedMembersArray[i];
+          this.channel.members.push(selectedMember.id);
         }
-      } 
+        this.channel.members.push(this.authService.uid);
+        selectedMembersArray = [];
+      } else {
+        this.channel.members = [this.authService.uid];
+      }
+    }
   }
-
-
-  
 }

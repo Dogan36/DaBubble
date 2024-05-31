@@ -14,17 +14,15 @@ export class ForgotPasswordComponent {
   myForm: FormGroup;
   authService: AuthService = inject(AuthService);
   loginService: LoginService = inject(LoginService)
+  email: string = ''
   constructor(private fb: FormBuilder, private renderer: Renderer2,
-    private el: ElementRef,){
-
-    
+    private el: ElementRef,) {
     this.myForm = this.fb.group({
       email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
     });
   }
-  email:string =''
+  
   onSubmit() {
-   
     if (this.myForm.valid) {
       this.email = this.myForm.value['email'];
       this.authService.sendPasswortReset(this.email)

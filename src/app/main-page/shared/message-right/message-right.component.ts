@@ -14,7 +14,6 @@ import { Reaction } from '../../../models/reaction.class';
 import { EditMsgTextareaComponent } from '../edit-msg-textarea/edit-msg-textarea.component';
 import { ChatService } from '../../../services/chat.service';
 
-
 @Component({
   selector: 'app-message-right',
   standalone: true,
@@ -23,7 +22,6 @@ import { ChatService } from '../../../services/chat.service';
   styleUrl: './message-right.component.scss'
 })
 export class MessageRightComponent {
-
   @Input() onChannelBoard: boolean = false;
   @Input() onPrivateChat: boolean = false;
   @Input() onThreadBoard: boolean = false;
@@ -46,14 +44,11 @@ export class MessageRightComponent {
   containerHovered: boolean = false;
   editMessageState: boolean = false;
 
-
   constructor(private evtSvc: EventService, public dialog: MatDialog, public channelService: ChannelService, public userService: UserService, public authService: AuthService, private chatService: ChatService) {}
-
 
   ngAfterViewInit(): void {
     this.messageLoaded.emit();
   }
-
 
   onMouseOver(action:string) {
     if (this.emojiMenuTrigger && this.emojiMenuTrigger.menuOpen) {
@@ -66,11 +61,9 @@ export class MessageRightComponent {
     }
   }
 
-
   onOpenThread() {
     if(this.onChannelBoard === true) {
       this.evtSvc.openThread(true);
-
       if (window.innerWidth <= 1440) { 
         this.evtSvc.openChannel(false);
       }
@@ -85,7 +78,6 @@ export class MessageRightComponent {
 
   openShowProfilDialog() {
     let memberData = this.userService.users[this.userService.getUsersData(this.memberRef)];
-
     this.dialog.open(DialogShowProfilComponent, {panelClass: ['dialog-bor-rad-round', 'user-profil-popup'], data: {
         profilName: memberData.name,
         profilRef: memberData.id,
@@ -94,23 +86,18 @@ export class MessageRightComponent {
       }});
   }
 
-
   addEmoji($event: EmojiEvent) {
-
     if($event.emoji && $event.emoji.colons && this.authService.uid) {
-
       let messageObj;
       if(this.onPrivateChat === false) {
         messageObj = Object.assign({}, this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[this.messageIndex]);
       } else {
         messageObj = this.chatService.messages[this.messageIndex];
       }
-
       let newReaction: Reaction = {
         reactUser: this.authService.uid, 
         reactEmoji: $event.emoji.colons
       }
-
       const index = messageObj.reactions.findIndex(reaction =>
         reaction.reactUser === newReaction.reactUser && reaction.reactEmoji === newReaction.reactEmoji
       );
@@ -126,7 +113,6 @@ export class MessageRightComponent {
     }
   }
 
-
   addOrRemoveEmoji(reactEmoji: string) {
     let messageObj;
     if(this.onPrivateChat === false) {
@@ -134,16 +120,13 @@ export class MessageRightComponent {
     } else {
       messageObj = this.chatService.messages[this.messageIndex];
     }
-
     let newReaction: Reaction = {
         reactUser: this.authService.uid, 
         reactEmoji: reactEmoji
       }
-
     const index = messageObj.reactions.findIndex(reaction =>
         reaction.reactUser === newReaction.reactUser && reaction.reactEmoji === newReaction.reactEmoji
       );
-
     if(index === -1) {
         messageObj.reactions.push(newReaction);
         if(this.onPrivateChat === false) {
@@ -160,7 +143,6 @@ export class MessageRightComponent {
         }
     }
   }
-
 
   editMessage() {
     this.editMessageState = true;

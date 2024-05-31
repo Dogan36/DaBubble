@@ -22,10 +22,6 @@ export class UserService {
     // this.unsubCurrentUser = this.subCurrentUser();
   }
 
-  ngOnInit() {
-    // console.log('Users are ', this.users);
-  }
-
   subUsersList() {
     return onSnapshot(collection(this.firestore, 'users'), (list) => {
       this.users = [];
@@ -38,7 +34,7 @@ export class UserService {
     });
   }
 
-  handleImageError(member:any) {
+  handleImageError(member: any) {
     this.users[this.getUsersData(member)].photoURL = this.authService.photoURL;
   }
 
@@ -52,7 +48,6 @@ export class UserService {
     };
   } */
 
-
   setUserObject(obj: any, id: string) {
     return {
       id: id,
@@ -63,24 +58,19 @@ export class UserService {
     };
   }
 
-
   ngonDestroy() {
     this.unsubUsers();
   }
-
 
   getUsersData(id: string) {
     let index = this.users.findIndex(obj => obj.id === id);
     return index;
   }
-  
 
   filterCurrentUser() {
     if (this.users) {
-
       for (let i = 0; i < this.users.length; i++) {
         const element = this.users[i];
-
         if (this.authService.uid) {
           if (element.id === this.authService.uid) {
             this.currentUserData = element;
@@ -90,18 +80,15 @@ export class UserService {
         }
       }
     }
-
   }
-
 
   getPartnerId(members: string[]) {
-      let index = members.indexOf(this.authService.uid);
-      if(index === 0) {
-        return members[1];
-      } else {
-        return members[0]
-      }
+    let index = members.indexOf(this.authService.uid);
+    if (index === 0) {
+      return members[1];
+    } else {
+      return members[0]
+    }
   }
-
 
 }

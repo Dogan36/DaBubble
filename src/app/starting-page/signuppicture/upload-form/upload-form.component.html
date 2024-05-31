@@ -3,13 +3,13 @@
     <div (click)="loginService.toggleOwnPicture()" class="arrow_back"></div>
     <h1>Profilfoto</h1>
     <div class="imageContainer">
-    <img width="120" height="120" [src]="croppedImage || authService.photoURL" />
-    <div (click)="inputfield.click(); this.isUploaded=false" class="edit"></div>
-</div>
+        <img width="120" height="120" [src]="croppedImage || authService.photoURL" />
+        <div (click)="inputfield.click(); this.isUploaded=false" class="edit"></div>
+    </div>
     <input type="file" #inputfield hidden (change)="fileChangeEvent($event)">
-    <button [disabled]="isUploading" *ngIf="!(croppedImage == '' || isUploaded)" (click)="upload()" class="primaryButton">Hochladen</button>
-    
-<image-cropper *ngIf="!(isUploaded)"  [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1/1" format="png"
-        (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded($event)" (cropperReady)="cropperReady()"
-        (loadImageFailed)="loadImageFailed()"></image-cropper>
+    <button [disabled]="isUploading" *ngIf="!(croppedImage == '' || isUploaded)" (click)="upload()"
+        class="primaryButton">Hochladen</button>
+    <image-cropper *ngIf="!(isUploaded)" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+        [aspectRatio]="1/1" format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded($event)"
+        (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
 </div>

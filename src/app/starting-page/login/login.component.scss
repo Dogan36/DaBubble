@@ -14,7 +14,6 @@
     outline: none;
     border: none;
     margin-bottom: clamp(17px, 2.5vh, 34px);
-
     transition: all 100ms ease-out;
 
     &:hover {
@@ -30,10 +29,7 @@
     display: flex;
     align-items: center;
     height: clamp(20px, 5vh, 30px);
-
     margin-bottom: clamp(20px, 5vh, 43px);
-
-
 }
 
 .line {

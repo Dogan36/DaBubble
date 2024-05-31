@@ -10,7 +10,6 @@ import { BehaviorSubject } from 'rxjs';
 export class SearchService {
 
   constructor() {
-
   }
   private userService: UserService = inject(UserService)
   private firestore: Firestore = inject(Firestore);
@@ -25,7 +24,6 @@ export class SearchService {
     this.foundUsers = this.searchUsers(searchText)
     this.foundChannelNames = this.searchChannelNames(searchText)
     this.foundMessages = await this.searchChannelMessages(searchText)
-console.log(this.foundMessages)
   }
 
   searchUsers(searchText: string) {
@@ -33,7 +31,6 @@ console.log(this.foundMessages)
     const foundUsers = this.userService.users.filter(user => user.name.toLowerCase().includes(queryText));
     console.log(foundUsers)
     return foundUsers;
-
   }
 
   searchChannelNames(searchText: string) {
@@ -48,48 +45,41 @@ console.log(this.foundMessages)
     const currentUserID = this.authService.uid;
     const channels = this.channelService.channels;
     const foundMessages: any[] = [];
-
     const promises = channels.map(async channel => {
-        const channelId = channel.id;
-        const chatCollectionRef = collection(this.firestore, `channels/${channelId}/chats`);
-        const chatQuerySnapshot = await getDocs(chatCollectionRef);
-        
-        const chatPromises = chatQuerySnapshot.docs.map(async chatDoc => {
-            const chatId = chatDoc.id;
-            const messageCollectionRef = collection(this.firestore, `channels/${channelId}/chats/${chatId}/messages`);
-            const messageQuerySnapshot = await getDocs(messageCollectionRef);
-
-            messageQuerySnapshot.forEach(messageDoc => {
-                const messageData = messageDoc.data();
-                if (messageData['message'].toLowerCase().includes(queryText)) {
-                    foundMessages.push({
-                        channel: channelId,
-                        chat: chatId,
-                        message: messageData
-                    });
-                }
+      const channelId = channel.id;
+      const chatCollectionRef = collection(this.firestore, `channels/${channelId}/chats`);
+      const chatQuerySnapshot = await getDocs(chatCollectionRef);
+      const chatPromises = chatQuerySnapshot.docs.map(async chatDoc => {
+        const chatId = chatDoc.id;
+        const messageCollectionRef = collection(this.firestore, `channels/${channelId}/chats/${chatId}/messages`);
+        const messageQuerySnapshot = await getDocs(messageCollectionRef);
+        messageQuerySnapshot.forEach(messageDoc => {
+          const messageData = messageDoc.data();
+          if (messageData['message'].toLowerCase().includes(queryText)) {
+            foundMessages.push({
+              channel: channelId,
+              chat: chatId,
+              message: messageData
             });
+          }
         });
-
-        await Promise.all(chatPromises);
+      });
+      await Promise.all(chatPromises);
     });
-
     await Promise.all(promises);
-
-  
     return foundMessages;
-}
+  }
 
-getMessageText(message: any): string {
-  if (typeof message === 'string') {
+  getMessageText(message: any): string {
+    if (typeof message === 'string') {
       // Wenn die Nachricht bereits eine Zeichenkette ist, gib sie direkt zurück
       return message;
-  } else if (message && message.hasOwnProperty('message')) {
+    } else if (message && message.hasOwnProperty('message')) {
       // Wenn die Nachricht ein Objekt ist und die 'message'-Eigenschaft hat, gib den Wert dieser Eigenschaft zurück
       return message.message;
-  } else {
+    } else {
       // Andernfalls gib einfach eine leere Zeichenkette zurück oder eine Meldung, dass der Nachrichtentyp nicht unterstützt wird
       return '';
+    }
   }
-}
 }

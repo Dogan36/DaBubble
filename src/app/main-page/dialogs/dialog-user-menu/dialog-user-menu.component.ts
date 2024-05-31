@@ -20,7 +20,6 @@ export class DialogUserMenuComponent {
   dialogRef: MatDialogRef<DialogUserMenuComponent> | undefined;
   constructor(public dialog: MatDialog, public authService: AuthService) { }
 
-
   openUserProfilDialog() {
     if (window.innerWidth > 544) {
         this.dialog.open(DialogUserProfilComponent, { position: { right: '24px', top: '80px' }, panelClass: 'dialog-bor-rad-corner' });
@@ -28,7 +27,6 @@ export class DialogUserMenuComponent {
         this.dialog.open(DialogUserProfilComponent, { panelClass: ['dialog-bor-rad-corner', 'user-profil-popup'] });
     }
   }
-
 
   closeDialog(){
     this.dialog.closeAll(); 

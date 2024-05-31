@@ -21,9 +21,7 @@ export class SearchMemberInputComponent {
 
   constructor(public userService: UserService, public channelService: ChannelService) {}
 
-
   addUserAsMember(userObj: User) {
-
     if(!this.checkIfUserIsAleadyAdded(userObj)) {
       this.selectedMembers.push(userObj);
     }
@@ -34,18 +32,14 @@ export class SearchMemberInputComponent {
     this.searchText = '';
   }
 
-
   getUserData(userName:string) {
     let index = this.userService.users.findIndex(obj => obj.name === userName);
-
     return index
   }
-
 
   removeUser(i:number) {
     this.selectedMembers.splice(i, 1);
   }
-
 
   checkIfUserIsAleadyAdded(userObj:User) {
     if(this.selectedMembers.findIndex(obj => obj.id === userObj.id) >= 0) {
@@ -54,6 +48,4 @@ export class SearchMemberInputComponent {
       return false
     }
   }
-
-
 }

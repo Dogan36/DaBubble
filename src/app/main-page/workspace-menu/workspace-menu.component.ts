@@ -10,7 +10,6 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { SearchInputComponent } from '../shared/search-input/search-input.component';
 
-
 @Component({
   selector: 'app-workspace-menu',
   standalone: true,
@@ -19,7 +18,6 @@ import { SearchInputComponent } from '../shared/search-input/search-input.compon
   styleUrl: './workspace-menu.component.scss'
 })
 export class WorkspaceMenuComponent {
-
   channelListOpen = true;
   messageListOpen = true;
   chats: any[] = [];
@@ -27,7 +25,6 @@ export class WorkspaceMenuComponent {
   @Output() openPrivateChat = new EventEmitter<void>();
   @Output() openNewChat = new EventEmitter<void>();
   private chatSubscription: Subscription | undefined;
-
 
   constructor(public dialog: MatDialog, public usersService: UserService, public channelService: ChannelService, public chatService: ChatService, public authService: AuthService) {}
 
@@ -49,11 +46,9 @@ export class WorkspaceMenuComponent {
     this.messageListOpen = !this.messageListOpen;
   }
 
-
   onOpenNewChat() {
     this.openNewChat.emit();
   }
-
 
   onOpenChannel(i:number, channelRef:string) {
     this.channelService.unsubSglChannelChats();
@@ -61,7 +56,6 @@ export class WorkspaceMenuComponent {
     this.channelService.selectedChannel = i;
     this.openChannel.emit();
   }
-
 
   onOpenPrivateChat(chat: any, index: number) {
     if(this.chatService.unsubPrivateChatMessages) {
@@ -74,14 +68,10 @@ export class WorkspaceMenuComponent {
     this.openPrivateChat.emit();
   }
 
-
   /**
    * Opens AddChannelDialog by click
    */
   openAddChannelDialog() {
     this.dialog.open(DialogAddChannelComponent, {panelClass: 'dialog-bor-rad-round'});
   }
-
 }
-
-

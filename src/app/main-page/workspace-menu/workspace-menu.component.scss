@@ -79,6 +79,7 @@ app-search-input {
     display: flex;
     align-items: center;
     gap: 15px;
+
     .drop-down-icon {
         background-image: url('./../../../assets/img/icons/arrow_drop_down.svg');
         background-position: center;
@@ -104,6 +105,7 @@ app-search-input {
     .workspace-subtitle-icon-ch {
         background-image: url('./../../../assets/img/icons/workspaces.svg');
     }
+
     .workspace-subtitle-icon-mes {
         background-image: url('./../../../assets/img/icons/account_circle.svg');
     }
@@ -111,12 +113,15 @@ app-search-input {
     &:hover {
         cursor: pointer;
         color: $cpt-purple-3;
+
         .drop-down-icon {
             background-image: url('./../../../assets/img/icons/arrow_drop_down_pur.svg');
         }
+
         .workspace-subtitle-icon-ch {
             background-image: url('./../../../assets/img/icons/workspaces_pur.svg');
         }
+
         .workspace-subtitle-icon-mes {
             background-image: url('./../../../assets/img/icons/account_circle_pur.svg');
         }
@@ -127,14 +132,14 @@ app-search-input {
     }
 }
 
-
 .channels-list {
     display: flex;
     flex-direction: column;
     gap: 13px;
     padding: 0 30px;
 
-    .add-channel, .channel {
+    .add-channel,
+    .channel {
         background-repeat: no-repeat;
 
         h5 {
@@ -157,7 +162,7 @@ app-search-input {
         background-position: 15px 50%;
         height: 33px;
         padding: 0 8px 0 49px;
-        
+
         &:hover {
             background-image: url('./../../../assets/img/icons/tag_pur.svg');
             border-radius: 20px;
@@ -171,7 +176,7 @@ app-search-input {
         padding: 0 0 0 34px;
         margin-left: 15px;
         margin-top: 12px;
-        
+
         &:hover {
             background-image: url('./../../../assets/img/icons/add_circle_pur.svg');
         }
@@ -208,7 +213,6 @@ app-search-input {
         right: 0px;
     }
 }
-
 
 .transform-icon {
     transform: rotate(270deg);

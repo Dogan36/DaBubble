@@ -5,8 +5,6 @@ import { AuthService } from '../../services/auth.service';
 import { LoginService } from '../../services/login.service';
 import { RouterLink } from '@angular/router';
 
-
-
 @Component({
   selector: 'app-signup',
   standalone: true,
@@ -35,10 +33,9 @@ export class SignupComponent {
     this.authService.email = this.email;
     this.authService.password = this.password;
     this.authService.name = this.name;
-
   }
+
   onSubmit(event: Event) {
-   
     if (this.myForm.valid) {
       this.email = this.myForm.value['email'];
       this.password = this.myForm.value['password'];
@@ -47,9 +44,6 @@ export class SignupComponent {
       this.loginService.toggleToPicture();
     }
   }
-
-
-
 
   get emailError() {
     const emailControl = this.myForm.get('email');

@@ -10,11 +10,10 @@ import { NgClass } from '@angular/common';
   styleUrl: './start-animation.component.scss'
 })
 
-
 export class StartAnimationComponent implements OnInit {
   isAnimatedOnce: boolean = false;
-   
-  constructor(private renderer: Renderer2) {}
+
+  constructor(private renderer: Renderer2) { }
 
   ngOnInit() {
     this.setBodyOverflowHidden(true);
@@ -23,9 +22,9 @@ export class StartAnimationComponent implements OnInit {
 
   startAnimation() {
     setTimeout(() => this.animateStage1(), 1000);
-    setTimeout(() => this.animateStage2(), 3000); 
-    setTimeout(() => this.animateStage3(), 5000); 
-    setTimeout(() => this.animateStage4(), 6000); 
+    setTimeout(() => this.animateStage2(), 3000);
+    setTimeout(() => this.animateStage3(), 5000);
+    setTimeout(() => this.animateStage4(), 6000);
   }
 
   animateStage1() {
@@ -34,7 +33,7 @@ export class StartAnimationComponent implements OnInit {
       if (imgContainer) {
         this.renderer.addClass(imgContainer, 'left');
       }
-    } 
+    }
   }
 
   animateStage2() {
@@ -43,7 +42,7 @@ export class StartAnimationComponent implements OnInit {
       if (textContainerP) {
         this.renderer.addClass(textContainerP, 'right');
       }
-    } 
+    }
   }
 
   animateStage3() {
@@ -53,7 +52,7 @@ export class StartAnimationComponent implements OnInit {
       const textContainer = document.querySelector('.text-container');
       const textContainerP = document.querySelector('.text-container p');
       const background = document.querySelector('.background');
-      
+
       if (logoContainer) {
         this.renderer.addClass(logoContainer, 'moveOnTop');
       }
@@ -69,18 +68,18 @@ export class StartAnimationComponent implements OnInit {
       if (background) {
         this.renderer.addClass(background, 'opacity');
       }
-    } 
+    }
   }
 
   animateStage4() {
     this.setBodyOverflowHidden(false);
-   
+
     if (typeof document !== 'undefined') {
       const background = document.querySelector('.background');
       if (background) {
         this.renderer.addClass(background, 'd-none');
       }
-    } 
+    }
   }
 
   setBodyOverflowHidden(hidden: boolean) {
@@ -90,6 +89,6 @@ export class StartAnimationComponent implements OnInit {
       } else {
         this.renderer.removeStyle(document.body, 'overflow');
       }
-    } 
+    }
   }
 }

@@ -1,126 +1,136 @@
 @import "./../starting-page.component.scss";
 
 .background {
-    position: absolute;
-    height: 100%;
-    width: 100vw;
-    background: linear-gradient(1.46deg, #313AE6 1.22%, #797EF3 98.76%);
-    top: 0;
-    left: 0;
-    z-index: 2;
-    opacity: 1;
-    transition: opacity 1s ease;
-    &.opacity {
-      opacity: 0;
-    }
-    &.d-none {
-      display: none;
-    }
-  }
-  
-  .logo-container {
-    position: absolute;
-    top: 50vh;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 3;
-    width: 730px;
+  position: absolute;
+  height: 100%;
+  width: 100vw;
+  background: linear-gradient(1.46deg, #313AE6 1.22%, #797EF3 98.76%);
+  top: 0;
+  left: 0;
+  z-index: 2;
+  opacity: 1;
+  transition: opacity 1s ease;
 
-    height: 184px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 1s;
-    @media (max-width: 768px) {
-        height: 70px;
-        width: 255px;
-    }
-    &.moveOnTop {
-      transform: translate(0, 0);
-      top: 7%;
-      left: 5%;
-      height: 70px;
-      width: 255px;
-      @media (max-width: 768px) {
-        left: 50%;
-        transform: translate(-50%);
-        top: 3%;
-    }
-    }
-  }
-  
-  .img-container {
-    position: absolute;
-    height: 100%;
-    width: 184px;
-    left: 50%;
-    transform: translate(-50%);
-    z-index: 2;
-    transition: all 1s;
-    &.left {
-      left: calc(0% + 93px) !important;
-    }
-    &.width {
-      width: 70px;
-      left: calc(0% + 38px) !important;
-    }
-    @media (max-width: 768px) {
-        width: 70px;
-        &.left {
-            left: calc(0% + 35px) !important;
-          }
-    }
-  }
-  
-  .logo-container img {
-    height: 100%;
-    width: auto;
-  }
-  
-  .text-container {
-    position: absolute;
-    right: 0;
-    height: 100%;
-    width: calc(100% - 184px);
-    overflow: hidden;
-    transition: all 1s;
-    @media (max-width: 768px) {
-        width: calc(100% - 70px);
-     }
-    &.text-container-width {
-      width: calc(100% - 70px);
-    }
-  }
-  
-  .text-container p {
-    position: absolute;
-    white-space: nowrap;
-    top: 50%;
-    transform: translateY(-50%);
-    color: white;
-    font-size: 114px;
-    font-weight: bold;
-    right: 600px;
-    transition: all 1s;
-    &.right {
-      right: 0% !important;
-    }
-    &.fontSize {
-      color: black !important;
-      font-size: 36px !important;
-    }
-    @media (max-width: 768px) {
-       font-size: 36px; 
-    }
-
-  }
-  
-  .opacity {
+  &.opacity {
     opacity: 0;
   }
-  
-  .d-none {
+
+  &.d-none {
     display: none;
   }
+}
 
-  
+.logo-container {
+  position: absolute;
+  top: 50vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  width: 745px;
+  height: 184px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 1s;
+
+  @media (max-width: 768px) {
+    height: 70px;
+    width: 255px;
+  }
+
+  &.moveOnTop {
+    transform: translate(0, 0);
+    top: 7%;
+    left: 5%;
+    height: 70px;
+    width: 255px;
+
+    @media (max-width: 768px) {
+      left: 50%;
+      transform: translate(-50%);
+      top: 3%;
+    }
+  }
+}
+
+.img-container {
+  position: absolute;
+  height: 100%;
+  width: 184px;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 2;
+  transition: all 1s;
+
+  &.left {
+    left: calc(0% + 93px) !important;
+  }
+
+  &.width {
+    width: 70px;
+    left: calc(0% + 38px) !important;
+  }
+
+  @media (max-width: 768px) {
+    width: 70px;
+
+    &.left {
+      left: calc(0% + 35px) !important;
+    }
+  }
+}
+
+.logo-container img {
+  height: 100%;
+  width: auto;
+}
+
+.text-container {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: calc(100% - 184px);
+  overflow: hidden;
+  transition: all 1s;
+
+  @media (max-width: 768px) {
+    width: calc(100% - 70px);
+  }
+
+  &.text-container-width {
+    width: calc(100% - 70px);
+  }
+}
+
+.text-container p {
+  position: absolute;
+  white-space: nowrap;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  font-size: 114px;
+  font-weight: bold;
+  right: 600px;
+  transition: all 1s;
+
+  &.right {
+    right: 0% !important;
+  }
+
+  &.fontSize {
+    color: black !important;
+    font-size: 36px !important;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 36px;
+  }
+}
+
+.opacity {
+  opacity: 0;
+}
+
+.d-none {
+  display: none;
+}

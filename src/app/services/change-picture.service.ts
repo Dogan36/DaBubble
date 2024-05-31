@@ -6,10 +6,9 @@ import { MatDialog } from '@angular/material/dialog';
   providedIn: 'root'
 })
 export class ChangePictureService {
-
-  constructor(public authService: AuthService, public dialog:MatDialog) { }
-  currentPicture: string  = this.authService.currentUser.photoURL
-  selectedPicture: string =''
+  constructor(public authService: AuthService, public dialog: MatDialog) { }
+  currentPicture: string = this.authService.currentUser.photoURL
+  selectedPicture: string = ''
   pictureSelected: boolean = false
   pictures = [
     "./../../../assets/img/profils/avatar_1.svg",
@@ -19,16 +18,13 @@ export class ChangePictureService {
     "./../../../assets/img/profils/avatar_5.svg",
     "./../../../assets/img/profils/avatar_6.svg"];
 
- 
-
   selectPicture(i: string) {
     this.currentPicture = i;
     this.pictureSelected = true;
   }
 
   safeSelectedPicture() {
-this.authService.updatePicture(this.currentPicture)
+    this.authService.updatePicture(this.currentPicture)
   }
- 
 }
 

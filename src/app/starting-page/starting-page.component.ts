@@ -12,7 +12,6 @@ import { LoginService } from '../services/login.service';
 import { StartAnimationComponent } from './start-animation/start-animation.component';
 import { GuestUserService } from '../services/guest-user.service';
 
-
 @Component({
   selector: 'app-starting-page',
   standalone: true,
@@ -32,13 +31,12 @@ import { GuestUserService } from '../services/guest-user.service';
 })
 
 export class StartingPageComponent {
-
   constructor(public router: Router) { }
   authService: AuthService = inject(AuthService);
   loginService: LoginService = inject(LoginService);
- guestUserService: GuestUserService = inject(GuestUserService)
+  guestUserService: GuestUserService = inject(GuestUserService)
 
- ngOnInit(){
-  this.guestUserService.deleteOldGuests()
- }
+  ngOnInit() {
+    this.guestUserService.deleteOldGuests()
+  }
 }

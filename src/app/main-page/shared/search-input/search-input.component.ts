@@ -23,36 +23,28 @@ export class SearchInputComponent {
 
   constructor(public userService: UserService, public channelService: ChannelService, private evtSvc: EventService) {}
 
-
   startSearch() {
     if (this.inputText.includes('@')) {
       this.searchText = this.inputText.replace('@', '');
       this.searchUser = true;
-
     } else if (this.inputText.includes('#')) {
       this.searchText = this.inputText.replace('#', '');
       this.searchChannel = true;
-
     } else {
         this.searchChannel = false;
         this.searchUser = false;
-
     }
   }
-
 
   onOpenChannel(channelRef:string) {
     this.channelService.unsubSglChannelChats();
     this.channelService.subSglChannelChats(channelRef);
     this.channelService.setSelectedChannelIndex(channelRef);
-
     this.evtSvc.ChannelModus();
   }
-
 
   stopSearch() {
     this.searchText = '';
     this.inputText = '';
   }
-
 }

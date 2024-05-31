@@ -8,7 +8,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './time-separator.component.scss'
 })
 export class TimeSeparatorComponent {
-
   @Input() forDate: string = '';
-
 }

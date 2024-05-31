@@ -27,14 +27,10 @@ export class ChatBoardComponent {
 
   @ViewChild('privateChatsContainer') privateChatsContainerRef?: ElementRef;
 
-
   constructor(public dialog: MatDialog, public userService: UserService, public chatService:ChatService, public authService: AuthService, public channelService: ChannelService) {}
 
-
   openShowProfilDialog(memberId: string) {
-
     let memberData = this.userService.users[this.userService.getUsersData(memberId)];
-    
     this.dialog.open(DialogShowProfilComponent, {panelClass: ['dialog-bor-rad-round', 'user-profil-popup'], data: {
         profilName: memberData.name,
         profilRef: memberData.id,
@@ -42,7 +38,6 @@ export class ChatBoardComponent {
         profilImg: memberData.photoURL,
       }});
   }
-
 
   scrollToBottom(): void {
     if (this.privateChatsContainerRef) {
@@ -54,7 +49,6 @@ export class ChatBoardComponent {
       }, 1);
     }
   }
-
 
   setTextfieldStatus(event: boolean) {
     this.textfieldOnUpload = event;

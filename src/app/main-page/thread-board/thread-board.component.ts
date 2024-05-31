@@ -24,14 +24,11 @@ export class ThreadBoardComponent {
 
   constructor(private evtSvc: EventService, public channelService: ChannelService, public userService: UserService, public authService: AuthService) {}
 
-
   onCloseThread() {
     this.evtSvc.openThread(false);
-
     if (window.innerWidth > 792 && window.innerWidth <= 1440) {
       this.evtSvc.openChannel(true);
     }
-
     if (window.innerWidth <= 792) {
       this.evtSvc.openChannel(false);
       this.evtSvc.openPrivateChat(false);
@@ -40,14 +37,12 @@ export class ThreadBoardComponent {
     }
   }
 
-
   scrollToBottom(): void {
     if (this.threadChatsContainerRef) {
       const containerElement = this.threadChatsContainerRef?.nativeElement;
       containerElement.scrollTop = containerElement.scrollHeight;
       }
   }
-
 
   setTextfieldStatus(event: boolean) {
     this.textfieldOnUpload = event;

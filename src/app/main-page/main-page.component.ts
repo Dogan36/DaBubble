@@ -18,7 +18,6 @@ import { FormsModule } from '@angular/forms';
 import { NgIf, NgFor, NgStyle } from '@angular/common';
 import { WorkspaceUserProfilComponent } from './shared/workspace-user-profil/workspace-user-profil.component';
 
-
 @Component({
   selector: 'app-main-page',
   standalone: true,
@@ -27,7 +26,6 @@ import { WorkspaceUserProfilComponent } from './shared/workspace-user-profil/wor
   styleUrl: './main-page.component.scss'
 })
 export class MainPageComponent {
-
   authService: AuthService = inject(AuthService);
   searchService: SearchService = inject(SearchService);
   workspaceOpen = true;
@@ -59,7 +57,6 @@ export class MainPageComponent {
     });
   }
 
-
   ngOnInit() {
     if (window.innerWidth > 792 && window.innerWidth <= 1440) {
       this.evtSvc.openChannel(true);
@@ -75,18 +72,15 @@ export class MainPageComponent {
     }
   }
 
-
   startSearch() {
     if (this.searchText && this.searchText.length >= 3) {
       this.searchService.startSearch(this.searchText);
     }
   }
 
-
   toggleSideNav() {
     this.workspaceOpen = !this.workspaceOpen;
   }
-
 
   openNewChat() {
     this.evtSvc.openChannel(false);
@@ -99,12 +93,11 @@ export class MainPageComponent {
     }
   }
 
-
   openChanel() {
     this.evtSvc.openChannel(true);
     this.evtSvc.openPrivateChat(false);
     this.evtSvc.openNewChat(false);
-    
+  
     if (window.innerWidth <= 792) {
       this.evtSvc.openWorkspace(false);
       this.evtSvc.openThread(false);
@@ -115,18 +108,15 @@ export class MainPageComponent {
     }
   }
 
-
   openPrivateChat() {
     this.evtSvc.openChannel(false);
     this.evtSvc.openPrivateChat(true);
     this.evtSvc.openNewChat(false);
     this.evtSvc.openThread(false);
-
     if (window.innerWidth <= 792) {
       this.evtSvc.openWorkspace(false);
     }
   }
-
 
   openWorkspace() {
     if (window.innerWidth <= 792) {
@@ -138,7 +128,6 @@ export class MainPageComponent {
     }
   }
 
-
   /**
    * Opens UserMenuDialog by click
    */
@@ -146,34 +135,27 @@ export class MainPageComponent {
     this.dialog.open(DialogUserMenuComponent, { position: { right: '24px', top: '80px' }, panelClass: ['dialog-bor-rad-corner', 'user-profil-menu'] });
   }
 
-
   stopSearch() {
     this.searchText = '';
   }
-
 
   onOpenChannel(channelRef:string) {
     this.channelService.unsubSglChannelChats();
     this.channelService.subSglChannelChats(channelRef);
     this.channelService.setSelectedChannelIndex(channelRef);
-
     this.evtSvc.ChannelModus();
   }
-
 
   openThreadOnSearch(channelRef:string, chatRef:string) {
     this.channelService.subSglChannelChats(channelRef, chatRef);
     this.channelService.setSelectedChannelIndex(channelRef);
   }
 
-
   setInputFocus(value: boolean) {
     this.inputFocus = value;
   }
 
-
   isInputFocused(): boolean {
     return this.inputFocus;
   }
-
 }

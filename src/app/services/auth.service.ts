@@ -8,18 +8,14 @@ import { OverlayService } from './overlay.service';
 import { setPersistence } from '@firebase/auth';
 import { LoginService } from './login.service';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-
   private _currentUserSubject: BehaviorSubject<UserType | null> = new BehaviorSubject<UserType | null>(null);
   currentUser$ = this._currentUserSubject.asObservable();
   currentUser: any;
-  user:any
+  user: any
   uid: string = '';
   email: string = '';
   password: string = '';
@@ -30,34 +26,30 @@ export class AuthService {
   public ownChatEventEmitted: boolean = false;
   public joinStartingChannelsEventEmitted: boolean = false;
   registerError: string = ''
-
   provider = new GoogleAuthProvider();
   public logoutEvent: EventEmitter<void> = new EventEmitter<void>();
   public generateOwnChatEvent: EventEmitter<void> = new EventEmitter<void>();
   public joinStaringChannelsEvent: EventEmitter<void> = new EventEmitter<void>();
-  
-  constructor( 
+
+  constructor(
     private overlayService: OverlayService,
     private loginService: LoginService,
     public auth: Auth,
     private firestore: Firestore,
     private router: Router,
-    ){
+  ) {
     this.setPersistence();
     this.auth.onAuthStateChanged(user => {
       if (user) {
-        console.log(user)
         this.user = user
         this.uid = user.uid;
-        
         const userDocRef = doc(this.firestore, 'users', this.uid);
         onSnapshot(userDocRef, (doc) => {
           if (!doc.exists()) {
             this.router.navigate(['/']);
           } else {
             this.router.navigate(['/home'])
-            this.currentUser = {...doc.data() } as UserType;
-          
+            this.currentUser = { ...doc.data() } as UserType;
             this._currentUserSubject.next(this.currentUser);
           }
         }, (error) => {
@@ -66,14 +58,12 @@ export class AuthService {
         });
       } else {
         this._currentUserSubject.next(null);
-        if(this.router.url !== '/reset-password'){   this.router.navigate(['/']);}
-     
+        if (this.router.url !== '/reset-password') { this.router.navigate(['/']); }
       }
     });
   }
 
   private setPersistence(): void {
- 
     // Setzen der Persistenzoption auf "local"
     setPersistence(this.auth, browserSessionPersistence)
       .then(() => {
@@ -93,11 +83,12 @@ export class AuthService {
       createdAt: this.createdAt
     };
   }
-  handleImageError(){
+
+  handleImageError() {
     this.user.photoURL = './assets/img/profils/standardPic.svg'
   }
+
   async login(): Promise<void> {
-    console.log('loginCalled')
     try {
       await setPersistence(this.auth, browserSessionPersistence);
       await signInWithEmailAndPassword(this.auth, this.email, this.password);
@@ -105,9 +96,7 @@ export class AuthService {
       setTimeout(() => {
         this.overlayService.hideOverlay();
       }, 1500);
-
       this.router.navigate(['/home']);
-
     } catch (error) {
       console.log(error)
       throw error;
@@ -128,8 +117,8 @@ export class AuthService {
       const userObject: UserType = this.createUserObject();
       const userDocRef = doc(this.firestore, 'users', user.uid);
       await setDoc(userDocRef, userObject);
-        this.generateOwnChatEvent.emit(); // Emitiere das Event
-        this.joinStaringChannelsEvent.emit(); // Emitiere das Event
+      this.generateOwnChatEvent.emit(); // Emitiere das Event
+      this.joinStaringChannelsEvent.emit(); // Emitiere das Event
       this.loginService.toggleLogin
       //erst ab hier zulassen dass  die Registrierung fertig ist und der user weiterleitet wird
       this.overlayService.showOverlay('Konto erfolgreich erstellt!')
@@ -152,7 +141,6 @@ export class AuthService {
         this.overlayService.hideOverlay();
       }, 1500);
     } catch (error) {
-    
       this.overlayService.showOverlayError('Fehler beim Aktualisieren der Daten');
       setTimeout(() => {
         this.overlayService.hideOverlay();
@@ -160,45 +148,41 @@ export class AuthService {
     }
   }
 
-  async updatePicture(picture:string) {
+  async updatePicture(picture: string) {
     const userDocRef = doc(this.firestore, 'users', this.currentUser.uid);
-    await updateDoc(userDocRef, {photoURL:picture});
+    await updateDoc(userDocRef, { photoURL: picture });
     this.overlayService.showOverlay('Foto erfolgreich geändert')
     setTimeout(() => {
       this.overlayService.hideOverlay();
-   
     }, 1500);
   };
-
 
   loginWithGoogle() {
     signInWithPopup(this.auth, new GoogleAuthProvider())
       .then((result) => {
         this.overlayService.showOverlay('Anmelden');
         const credential = GoogleAuthProvider.credentialFromResult(result);
-       
         if (credential) {
           const userData: UserType = {
             uid: result.user.uid,
             email: result.user.email || '',
             name: result.user.displayName || '',
             photoURL: result.user.photoURL || '',
-            chatRefs:[result.user.uid],
-          createdAt:''
+            chatRefs: [result.user.uid],
+            createdAt: ''
           };
           const userDocRef = doc(this.firestore, 'users', result.user.uid);
           //check if user  already exists in the database and create it if not
           getDoc(userDocRef).then((docSnapshot) => {
-              if (!docSnapshot.exists()) {
-                setDoc(userDocRef, userData);
-                if (!this.ownChatEventEmitted) {
-               
-                  this.generateOwnChatEvent.emit(); // Emitiere das Event
-                  this.joinStaringChannelsEvent.emit(); // Emitiere das Event
-                }
-              }}
+            if (!docSnapshot.exists()) {
+              setDoc(userDocRef, userData);
+              if (!this.ownChatEventEmitted) {
+                this.generateOwnChatEvent.emit(); // Emitiere das Event
+                this.joinStaringChannelsEvent.emit(); // Emitiere das Event
+              }
+            }
+          }
           );
-          this
           this._currentUserSubject.next(userData); // Aktualisieren Sie currentUser im BehaviorSubject
           this.router.navigate(['/home']);
           setTimeout(() => {
@@ -233,10 +217,9 @@ export class AuthService {
       });
   }
 
-
   async logout(): Promise<void> {
     try {
-      this._currentUserSubject.next(null); 
+      this._currentUserSubject.next(null);
       this.currentUser = null
       this.logoutEvent.emit();
       this.ownChatEventEmitted = false;
@@ -255,10 +238,8 @@ export class AuthService {
     try {
       const randomNum = Math.floor(Math.random() * 10000); // Zufällige Zahl generieren
       const email = `guest${randomNum}@guest.de`; // E-Mail-Adresse mit zufälliger Zahl erstellen
-      
       const userCredential = await createUserWithEmailAndPassword(this.auth, email, '1234567');
       const user = userCredential.user;
-  
       const userData: UserType = {
         uid: user.uid,
         name: 'Guest', // Name des Gastbenutzers
@@ -266,9 +247,8 @@ export class AuthService {
         photoURL: './assets/img/profils/standardPic.svg', // Profilbild des Gastbenutzers (optional)
         chatRefs: [],
         createdAt: user.metadata?.creationTime
-
       };
-  
+
       await updateProfile(user, {
         displayName: userData.name
       });
@@ -278,7 +258,6 @@ export class AuthService {
       const userDocRef = doc(this.firestore, 'users', user.uid);
       await setDoc(userDocRef, userData);
       this.overlayService.showOverlay('Konto erfolgreich erstellt!')
-      console.log(this.ownChatEventEmitted)
       this.generateOwnChatEvent.emit();
       this.joinStaringChannelsEvent.emit();
       setTimeout(() => {
@@ -291,9 +270,8 @@ export class AuthService {
       throw error;
     }
   }
-  
+
   async loginGuest(guestUserId: string): Promise<void> {
-  
     try {
       const email = await this.getEmailFromFirebase(guestUserId);
       await setPersistence(this.auth, browserSessionPersistence);
@@ -302,9 +280,7 @@ export class AuthService {
       setTimeout(() => {
         this.overlayService.hideOverlay();
       }, 1500);
-
       this.router.navigate(['/home']);
-
     } catch (error) {
       console.log(error)
       throw error;
@@ -315,11 +291,10 @@ export class AuthService {
     const userDocRef = doc(this.firestore, 'users', userId);
     const docSnapshot = await getDoc(userDocRef);
     if (docSnapshot.exists()) {
-        const userData = docSnapshot.data();
-        return userData['email'];
+      const userData = docSnapshot.data();
+      return userData['email'];
     } else {
       return ''
     }
-}
-
+  }
 }

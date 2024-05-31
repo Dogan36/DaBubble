@@ -19,17 +19,14 @@ export class ResetPasswordComponent {
   resetPasswordService: ResetPasswordService = inject(ResetPasswordService);
   constructor(private fb: FormBuilder, private renderer: Renderer2,
     private el: ElementRef, public router: Router) {
-
-
     this.myForm = this.fb.group({
-
       password: ['', [Validators.required, Validators.minLength(7)]],
       passwordRepeat: ['', Validators.required]
     });
   }
   password: string = ''
-  onSubmit() {
 
+  onSubmit() {
     if (this.myForm.valid) {
       this.password = this.myForm.value['password'];
       this.resetPasswordService.handleResetPassword()
@@ -59,7 +56,6 @@ export class ResetPasswordComponent {
   validatePasswordRepeat() {
     const passwordControl = this.myForm.get('password');
     const passwordRepeatControl = this.myForm.get('passwordRepeat');
-
     if (passwordControl && passwordRepeatControl && passwordControl.value !== passwordRepeatControl.value) {
       // Setze das entsprechende Formularfeld auf "berührt", damit Fehler angezeigt werden können
       passwordRepeatControl.markAsTouched();

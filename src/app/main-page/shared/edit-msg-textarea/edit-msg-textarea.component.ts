@@ -15,7 +15,6 @@ import { ChatService } from '../../../services/chat.service';
   styleUrl: './edit-msg-textarea.component.scss'
 })
 export class EditMsgTextareaComponent {
-
   @Input() messageIndex: number = 0;
   @Input() message: string = '';
   @Input() onChannelBoard: boolean = false;
@@ -25,9 +24,7 @@ export class EditMsgTextareaComponent {
 
   @Output() closeEditMsg = new EventEmitter<boolean>();
 
-
   constructor(public channelService: ChannelService, private chatService: ChatService) {}
-
 
   updateMessage(ngForm: NgForm) {
     let messageObj;
@@ -36,17 +33,14 @@ export class EditMsgTextareaComponent {
     } else {
       messageObj = this.chatService.messages[this.messageIndex];
     }
-
     if (ngForm.valid && this.message.trim() !== '') {
       messageObj.message = this.message;
       messageObj.uploadedFile = this.uploadedFile;
-
       if(this.onPrivateChat !== true) {
         this.channelService.updateMessage(messageObj);
       } else {
         this.chatService.updateMessage(messageObj);
       }
-
       ngForm.resetForm();
       this.closeEditMsg.emit(false);
     } else {
@@ -54,10 +48,8 @@ export class EditMsgTextareaComponent {
     }
   }
 
-
   cancleUpdateMsg(event: Event) {
     event.preventDefault()
-
     this.closeEditMsg.emit(false);
   }
 
@@ -68,7 +60,6 @@ export class EditMsgTextareaComponent {
 
   deleteFile() {
     // mit der docRef file vom Storage löschen!
-
     this.uploadedFile = [];
   }
 }

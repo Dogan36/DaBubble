@@ -23,11 +23,9 @@ export class SignuppictureComponent {
     "./../../../assets/img/profils/avatar_4.svg",
     "./../../../assets/img/profils/avatar_5.svg",
     "./../../../assets/img/profils/avatar_6.svg"];
-  constructor(private fb: FormBuilder, private renderer: Renderer2, public authService: AuthService, private router: Router, public overlayService: OverlayService, public loginService:LoginService) {
+  constructor(private fb: FormBuilder, private renderer: Renderer2, public authService: AuthService, private router: Router, public overlayService: OverlayService, public loginService: LoginService) {
     this.authService = authService;
-    
     this.router = router;
-    
     this.signupForm = this.fb.group({
       // Definieren Sie hier Ihre Formularsteuerelemente
     });
@@ -38,7 +36,7 @@ export class SignuppictureComponent {
       this.signingIn = true;
       await this.authService.register();
       this.signingIn = false;
-this.loginService.toggleLogin()
+      this.loginService.toggleLogin()
     } catch (error: any) {
       if (error.code === 'auth/email-already-in-use') {
         this.overlayService.showOverlayError('E-Mail bereits vergeben');
@@ -51,7 +49,7 @@ this.loginService.toggleLogin()
     }
   }
 
-  selectPicture(i:string){
+  selectPicture(i: string) {
     this.authService.photoURL = i
   }
 }

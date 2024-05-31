@@ -1,7 +1,6 @@
 <form class="form" [formGroup]="myForm" (ngSubmit)="onSubmit()" false>
     <h1>Anmeldung</h1>
     <p class="formDescription">Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</p>
-
     <label for="email" class="inputField email" [class.borderPur]="myForm.get('email')?.touched && emailError">
         <div class="icon"></div>
         <input formControlName="email" class="input" id="email" type="text" placeholder="beispielname@email.com">
@@ -9,7 +8,6 @@
     <div class="error-container">
         <span class="error-message" *ngIf="myForm.get('email')?.touched && emailError">{{ emailError }}</span>
     </div>
-
     <label for="password" class="inputField password"
         [class.borderPur]="myForm.get('password')?.touched && passwordError">
         <div class="icon"></div>
@@ -21,9 +19,7 @@
     <div class="error-container" *ngIf="loginError">
         <span class="error-message">{{ loginError }}</span>
     </div>
-
     <div (click)="this.loginService.toggleResetPasswort()" class="forgotPassword">Passwort vergessen?</div>
-
     <div class="seperator">
         <div class="line"></div>
         <div class="oder">ODER</div>
@@ -31,7 +27,7 @@
     <div (click)="loginWithGoogle()" class="google"><img src="./assets/img/icons/google.svg">Anmeldung mit Google</div>
     <div class="buttons-container">
         <button class="primaryButton" type="submit" [disabled]="myForm.invalid">Anmelden</button>
-        <button (click)="this.guestUserService.createGuestUser()" class="secondaryButton" type="button">Gäste-Login</button>
+        <button (click)="this.guestUserService.createGuestUser()" class="secondaryButton"
+            type="button">Gäste-Login</button>
     </div>
-
 </form>

@@ -13,7 +13,6 @@ import { AuthService } from '../../../services/auth.service';
 import { Reaction } from '../../../models/reaction.class';
 import { ChatService } from '../../../services/chat.service';
 
-
 @Component({
   selector: 'app-message-left',
   standalone: true,
@@ -44,14 +43,11 @@ export class MessageLeftComponent {
 
   containerHovered: boolean = false;
 
-
   constructor(private evtSvc: EventService, public dialog: MatDialog, private channelService: ChannelService, public userService: UserService, public authService: AuthService, private chatService: ChatService) {}
-
 
   ngAfterViewInit(): void {
     this.messageLoaded.emit();
   }
-
 
   onMouseOver(action:string) {
     if (this.emojiMenuTrigger && this.emojiMenuTrigger.menuOpen) {
@@ -64,17 +60,14 @@ export class MessageLeftComponent {
     }
   }
 
-
   onOpenThread() {
     if(this.onChannelBoard === true) {
       this.evtSvc.openThread(true);
-
       if (window.innerWidth <= 1440) { 
         this.evtSvc.openChannel(false);
       }
     }
   }
-
 
   setChatIndex(chatIndex:number) {
     if(this.onChannelBoard === true) {
@@ -82,10 +75,8 @@ export class MessageLeftComponent {
     }
   }
 
-
   openShowProfilDialog() {
-    let memberData = this.userService.users[this.userService.getUsersData(this.memberRef)];
-    
+    let memberData = this.userService.users[this.userService.getUsersData(this.memberRef)];   
     this.dialog.open(DialogShowProfilComponent, {panelClass: ['dialog-bor-rad-round', 'user-profil-popup'], data: {
         profilName: memberData.name,
         profilRef: memberData.id,
@@ -94,10 +85,8 @@ export class MessageLeftComponent {
       }});
   }
 
-
   addEmoji($event: EmojiEvent) {
     if($event.emoji && $event.emoji.colons && this.authService.uid) {
-
     let messageObj;
     if(this.onPrivateChat === false) {
       messageObj = Object.assign({}, this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[this.messageIndex]);
@@ -124,7 +113,6 @@ export class MessageLeftComponent {
       }
     }
   }
-
 
   addOrRemoveEmoji(reactEmoji: string) {
     let messageObj; 
@@ -159,6 +147,4 @@ export class MessageLeftComponent {
         }
     }
   }
-
-  
 }

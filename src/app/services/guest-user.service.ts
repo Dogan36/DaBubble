@@ -36,25 +36,18 @@ export class GuestUserService {
       const docSnapshot = await getDoc(userDocRef);
       return docSnapshot.exists();
     } catch (error) {
-      
+    
       return false;
     }
   }
 
-
-
   public async deleteOldGuests(): Promise<void> {
-
-    const twentyFourHoursAgo = new Date(Date.now() - 0.1 * 60 * 1000); // Zeitpunkt vor 24 Stunden
-
-
+    const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
     const querySnapshot = await getDocs(collection(this.firestore, 'users'));
     const deletionPromises: Promise<void>[] = [];
-
     querySnapshot.forEach(async (doc) => {
       const userData = doc.data();
       const userId = doc.id;
-
       const createdAtDate = new Date(userData['createdAt']);
       if (
         userData?.['email']?.endsWith('@guest.de') &&
@@ -62,7 +55,6 @@ export class GuestUserService {
       ) {
         console.log(createdAtDate < twentyFourHoursAgo)
         console.log('wird gelöscht');
-
         // Löschen der Kanäle, die von diesem Benutzer erstellt wurden
         await this.deleteChannelsByUser(userId); // Aufruf der Methode innerhalb der forEach-Schleife
         await this.deleteReactionsByUser(userId)
@@ -73,68 +65,54 @@ export class GuestUserService {
         deletionPromises.push(deletionPromise);
       }
     });
-
     // Warten, bis alle Löschvorgänge abgeschlossen sind
     await Promise.all(deletionPromises);
   }
 
   private async deleteChannelsByUser(userId: string): Promise<void> {
     const querySnapshot = await getDocs(query(collection(this.firestore, 'channels'), where('creator', '==', userId)));
-
     const deletionPromises: Promise<void>[] = [];
-
     querySnapshot.forEach((doc) => {
       const deletionPromise = deleteDoc(doc.ref);
       deletionPromises.push(deletionPromise);
     });
-
     // Warten, bis alle Löschvorgänge abgeschlossen sind
     await Promise.all(deletionPromises);
   }
 
   private async deleteChatsByUser(userId: string): Promise<void> {
     const querySnapshot = await getDocs(query(collection(this.firestore, 'chats'), where('members', 'array-contains', userId)));
-
     const deletionPromises: Promise<void>[] = [];
-
     querySnapshot.forEach((doc) => {
       const deletionPromise = deleteDoc(doc.ref);
       deletionPromises.push(deletionPromise);
     });
-
     // Warten, bis alle Löschvorgänge abgeschlossen sind
     await Promise.all(deletionPromises);
   }
 
   private async removeUserFromChannels(userId: string): Promise<void> {
     const querySnapshot = await getDocs(query(collection(this.firestore, 'channels'), where('members', 'array-contains', userId)));
-
     const updatePromises: Promise<void>[] = [];
-
     querySnapshot.forEach((doc) => {
       const channelRef = doc.ref;
       const members = doc.data()['members'].filter((memberId: string) => memberId !== userId); // Entfernen Sie die Benutzer-ID aus dem Array
       const updatePromise = updateDoc(channelRef, { members }); // Aktualisieren Sie das Dokument, um die Benutzer-ID zu entfernen
       updatePromises.push(updatePromise);
     });
-
     // Warten, bis alle Aktualisierungsvorgänge abgeschlossen sind
     await Promise.all(updatePromises);
   }
 
   private async deleteMessagesByUser(userId: string): Promise<void> {
     const querySnapshot = await getDocs(query(collection(this.firestore, 'channels'), where('members', 'array-contains', userId)));
-
     const deletionPromises: Promise<void>[] = [];
-
     querySnapshot.forEach(async (doc) => {
       const channelId = doc.id;
       const chatQuerySnapshot = await getDocs(collection(this.firestore, `channels/${channelId}/chats`));
-
       chatQuerySnapshot.forEach(async (chatDoc) => {
         const messagesCollection = collection(this.firestore, `channels/${channelId}/chats/${chatDoc.id}/messages`);
         const messageQuerySnapshot = await getDocs(query(messagesCollection, where('member', '==', userId)));
-
         messageQuerySnapshot.forEach((messageDoc) => {
           const deletionPromise = deleteDoc(messageDoc.ref);
           deletionPromises.push(deletionPromise);
@@ -148,17 +126,13 @@ export class GuestUserService {
 
   private async deleteReactionsByUser(userId: string): Promise<void> {
     const querySnapshot = await getDocs(query(collection(this.firestore, 'channels'), where('members', 'array-contains', userId)));
-
     const deletionPromises: Promise<void>[] = [];
-
     querySnapshot.forEach(async (doc) => {
       const channelId = doc.id;
       const chatQuerySnapshot = await getDocs(collection(this.firestore, `channels/${channelId}/chats`));
-
       chatQuerySnapshot.forEach(async (chatDoc) => {
         const messagesCollection = collection(this.firestore, `channels/${channelId}/chats/${chatDoc.id}/messages`);
         const messageQuerySnapshot = await getDocs(messagesCollection);
-
         messageQuerySnapshot.forEach(async (messageDoc) => {
           const messageData = messageDoc.data();
           if (messageData['reactions']) {
@@ -169,9 +143,7 @@ export class GuestUserService {
         });
       });
     });
-
     // Warten, bis alle Löschvorgänge abgeschlossen sind
     await Promise.all(deletionPromises);
   }
-
 }
