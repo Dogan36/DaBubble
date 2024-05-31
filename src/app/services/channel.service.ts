@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, onSnapshot, collection, addDoc, doc, updateDoc, deleteDoc, query, where } from '@angular/fire/firestore';
+import { Firestore, onSnapshot, collection, addDoc, doc, updateDoc, deleteDoc, query, where, getDocs } from '@angular/fire/firestore';
 import { Channel } from '../models/channel.class';
 import { AuthService } from './auth.service';
 import { Message } from '../models/message.class';
@@ -147,6 +147,11 @@ export class ChannelService {
     } else {
       return [];
     }
+  }
+  async isChannelNameTaken(name: string): Promise<boolean> {
+    const q = query(collection(this.firestore, 'channels'), where('name', '==', name));
+    const querySnapshot = await getDocs(q);
+    return !querySnapshot.empty;
   }
 
   async addChannel(item: {}, colId: "channels") {

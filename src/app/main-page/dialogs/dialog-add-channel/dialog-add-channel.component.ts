@@ -12,12 +12,13 @@ import { UserService } from '../../../services/user.service';
 import { SearchMemberInputComponent } from '../../shared/search-member-input/search-member-input.component';
 import { AuthService } from '../../../services/auth.service';
 import { EventService } from '../../../services/event.service';
+import { NgClass, NgIf } from '@angular/common';
 
 
 @Component({
   selector: 'app-dialog-add-channel',
   standalone: true,
-  imports: [FormsModule, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, SearchMemberInputComponent],
+  imports: [FormsModule, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, SearchMemberInputComponent, NgClass, NgIf],
   templateUrl: './dialog-add-channel.component.html',
   styleUrl: './dialog-add-channel.component.scss'
 })
@@ -28,19 +29,25 @@ export class DialogAddChannelComponent {
   channel: Channel = new Channel();
   addMembersOpen = false;
   selectMerbersOpen = false;
-
+  channelNameTaken = false;
   constructor(private channelService: ChannelService, private userService: UserService, private authService: AuthService, private evSc: EventService) { }
 
-  openAddMembers() {
-    this.addMembersOpen = true;
+  async openAddMembers() {
+    if (await this.channelService.isChannelNameTaken(this.channel.name)) {
+      this.channelNameTaken = true;
+      return;
+    } else {
+      this.channelNameTaken = false;
+      this.addMembersOpen = true;
+    }
   }
-
 
   toggleInput(checked: boolean) {
     this.selectMerbersOpen = checked;
   }
 
   async saveChannel() {
+   
     this.setMembers();
     this.channel.creator = this.authService.uid;
     await this.channelService.addChannel(this.channelService.toJSON(this.channel), 'channels');

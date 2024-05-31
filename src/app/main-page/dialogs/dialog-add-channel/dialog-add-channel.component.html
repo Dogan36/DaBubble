@@ -27,6 +27,9 @@
       @if(channelName.invalid && channelName.touched) {
       <span class="input-hint">Bitte vergebe einen Channel Namen</span>
       }
+      @if(this.channelNameTaken) {
+        <span class="input-hint">Channel Name bereits vergeben</span>
+        }
     </div>
     <label for="description">Beschreibung <span>(optional)</span></label
     ><input
