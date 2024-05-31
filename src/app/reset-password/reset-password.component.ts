@@ -28,8 +28,16 @@ export class ResetPasswordComponent {
 
   onSubmit() {
     if (this.myForm.valid) {
-      this.password = this.myForm.value['password'];
-      this.resetPasswordService.handleResetPassword()
+      const newPassword = this.myForm.value['password'];
+      this.resetPasswordService.handleResetPassword(newPassword)
+        .then(() => {
+          // Handle success, e.g., navigate to the login page
+          this.router.navigate(['/login']);
+        })
+        .catch(error => {
+          // Handle error
+          console.error(error);
+        });
     }
   }
 

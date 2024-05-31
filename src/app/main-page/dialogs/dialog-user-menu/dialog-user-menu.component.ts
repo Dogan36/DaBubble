@@ -22,13 +22,13 @@ export class DialogUserMenuComponent {
 
   openUserProfilDialog() {
     if (window.innerWidth > 544) {
-        this.dialog.open(DialogUserProfilComponent, { position: { right: '24px', top: '80px' }, panelClass: 'dialog-bor-rad-corner' });
+      this.dialog.open(DialogUserProfilComponent, { position: { right: '24px', top: '80px' }, panelClass: 'dialog-bor-rad-corner' });
     } else if (window.innerWidth <= 544) {
-        this.dialog.open(DialogUserProfilComponent, { panelClass: ['dialog-bor-rad-corner', 'user-profil-popup'] });
+      this.dialog.open(DialogUserProfilComponent, { panelClass: ['dialog-bor-rad-corner', 'user-profil-popup'] });
     }
   }
 
-  closeDialog(){
-    this.dialog.closeAll(); 
+  closeDialog() {
+    this.dialog.closeAll();
   }
 }

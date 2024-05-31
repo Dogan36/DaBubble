@@ -211,9 +211,10 @@ export class AuthService {
         }, 1500);
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
+        this.overlayService.showOverlayError('E-Mail-Adresse unbekannt')
+        setTimeout(() => {
+          this.overlayService.hideOverlay();
+        }, 1500);
       });
   }
 

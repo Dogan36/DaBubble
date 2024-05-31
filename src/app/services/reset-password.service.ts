@@ -7,39 +7,36 @@ import { Firestore } from '@angular/fire/firestore';
   providedIn: 'root'
 })
 export class ResetPasswordService {
-
   private authService = inject(AuthService);
   private actionCode: string;
 
   constructor() {
     this.actionCode = this.getParameterByName('oobCode') || '';
-    console.log(this.actionCode)
   }
 
   private getParameterByName(name: string, url = window.location.href) {
-    console.log(url);
     name = name.replace(/[[]]/g, "\\$&");
     const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
       results = regex.exec(url);
-      console.log(results);
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
   }
 
-  public handleResetPassword() {
-    console.log('test')
+  public async handleResetPassword(newPassword: string): Promise<void> {
     if (this.actionCode) {
-      verifyPasswordResetCode(this.authService.auth, this.actionCode).then((email) => {
-        const accountEmail = email;
-        console.log(email)
-        // TODO: Show the reset screen with the user's email and ask the user for the new password.
-        const newPassword = "...";
-
-        // Save the new password.
-
-      });
+      try {
+        const email = await verifyPasswordResetCode(this.authService.auth, this.actionCode);
+        console.log(`Resetting password for ${email}`);
+        await confirmPasswordReset(this.authService.auth, this.actionCode, newPassword);
+        console.log('Password has been reset successfully.');
+      } catch (error) {
+        console.error('Error resetting password:', error);
+        throw error;
+      }
+    } else {
+      console.error('No action code provided.');
+      throw new Error('No action code provided.');
     }
   }
-  
 }

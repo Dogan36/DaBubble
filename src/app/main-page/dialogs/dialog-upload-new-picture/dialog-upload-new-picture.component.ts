@@ -25,7 +25,7 @@ export class DialogUploadNewPictureComponent {
   croppedImage: any = '';
 
   constructor(public dialog: MatDialog,
-    private sanitizer: DomSanitizer,  private dialogRef: MatDialogRef<DialogUploadNewPictureComponent>
+    private sanitizer: DomSanitizer, private dialogRef: MatDialogRef<DialogUploadNewPictureComponent>
   ) {
   }
 
@@ -63,7 +63,7 @@ export class DialogUploadNewPictureComponent {
     this.dialog.open(DialogChangeProfilpicComponent, { position: { right: '24px', top: '80px' }, panelClass: ['dialog-bor-rad-corner', 'user-profil-menu'] });
   }
 
-  closeUploadImg(){
+  closeUploadImg() {
     this.dialog.closeAll()
   }
 

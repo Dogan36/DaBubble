@@ -1,21 +1,18 @@
 <div class="title-container">
-  <span class="thread-title"
-    ><h3>Thread</h3>
+  <span class="thread-title">
+    <h3>Thread</h3>
     <span>{{
       this.channelService.channels[this.channelService.selectedChannel].name
-    }}</span></span
-  >
+      }}</span>
+  </span>
   <div class="close-icon" (click)="onCloseThread()"></div>
 </div>
-
 <div class="hr-line"></div>
-
 <div class="thread-field" #threadChatsContainer>
   @if(this.channelService.selectedChannelChats[this.channelService.selChatIndex])
   { @for(message of
   this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages;
   track index; let index = $index; let last = $last) {
-
   <!-- Date logic -->
   @if(message.messageId ===
   this.channelService.selectedChannelChats[this.channelService.selChatIndex].allMessages[0].messageId
@@ -25,86 +22,48 @@
   @if(this.channelService.isToday(message.timestamp)) {
   <app-time-separator [forDate]="'Heute'"></app-time-separator>
   } @else {
-  <app-time-separator
-    [forDate]="this.channelService.getDate(message.timestamp)"
-  ></app-time-separator>
+  <app-time-separator [forDate]="this.channelService.getDate(message.timestamp)"></app-time-separator>
   }}
 
   <!-- message left or right logic -->
   @if(message.member !== this.authService.uid) { @if(last) {
-  <app-message-left
-    (messageLoaded)="scrollToBottom()"
-    [onThreadBoard]="threadBoard"
-    [messageIndex]="index"
-    [member]="
+  <app-message-left (messageLoaded)="scrollToBottom()" [onThreadBoard]="threadBoard" [messageIndex]="index" [member]="
       this.userService.users[this.userService.getUsersData(message.member)].name
-    "
-    [message]="message.message"
-    [memberImg]="
+    " [message]="message.message" [memberImg]="
       this.userService.users[this.userService.getUsersData(message.member)]
         .photoURL
-    "
-    [memberRef]="message.member"
-    [time]="this.channelService.getTime(message.timestamp)"
+    " [memberRef]="message.member" [time]="this.channelService.getTime(message.timestamp)"
     [selectedChatIndex]="this.channelService.selChatIndex"
     [sortedReactions]="this.channelService.sortSameReactions(message.reactions)"
-    [uploadedFile]="message.uploadedFile"
-  ></app-message-left
-  >} @else {
-  <app-message-left
-    [onThreadBoard]="threadBoard"
-    [messageIndex]="index"
-    [member]="
+    [uploadedFile]="message.uploadedFile"></app-message-left>} @else {
+  <app-message-left [onThreadBoard]="threadBoard" [messageIndex]="index" [member]="
       this.userService.users[this.userService.getUsersData(message.member)].name
-    "
-    [message]="message.message"
-    [memberImg]="
+    " [message]="message.message" [memberImg]="
       this.userService.users[this.userService.getUsersData(message.member)]
         .photoURL
-    "
-    [memberRef]="message.member"
-    [time]="this.channelService.getTime(message.timestamp)"
+    " [memberRef]="message.member" [time]="this.channelService.getTime(message.timestamp)"
     [selectedChatIndex]="this.channelService.selChatIndex"
     [sortedReactions]="this.channelService.sortSameReactions(message.reactions)"
-    [uploadedFile]="message.uploadedFile"
-  ></app-message-left>
+    [uploadedFile]="message.uploadedFile"></app-message-left>
   } } @else { @if(last) {
-  <app-message-right
-    (messageLoaded)="scrollToBottom()"
-    [onThreadBoard]="threadBoard"
-    [messageIndex]="index"
-    [member]="
+  <app-message-right (messageLoaded)="scrollToBottom()" [onThreadBoard]="threadBoard" [messageIndex]="index" [member]="
       this.userService.users[this.userService.getUsersData(message.member)].name
-    "
-    [message]="message.message"
-    [memberImg]="
+    " [message]="message.message" [memberImg]="
       this.userService.users[this.userService.getUsersData(message.member)]
         .photoURL
-    "
-    [memberRef]="message.member"
-    [time]="this.channelService.getTime(message.timestamp)"
+    " [memberRef]="message.member" [time]="this.channelService.getTime(message.timestamp)"
     [selectedChatIndex]="this.channelService.selChatIndex"
     [sortedReactions]="this.channelService.sortSameReactions(message.reactions)"
-    [uploadedFile]="message.uploadedFile"
-  ></app-message-right
-  >} @else {
-  <app-message-right
-    [onThreadBoard]="threadBoard"
-    [messageIndex]="index"
-    [member]="
+    [uploadedFile]="message.uploadedFile"></app-message-right>} @else {
+  <app-message-right [onThreadBoard]="threadBoard" [messageIndex]="index" [member]="
       this.userService.users[this.userService.getUsersData(message.member)].name
-    "
-    [message]="message.message"
-    [memberImg]="
+    " [message]="message.message" [memberImg]="
       this.userService.users[this.userService.getUsersData(message.member)]
         .photoURL
-    "
-    [memberRef]="message.member"
-    [time]="this.channelService.getTime(message.timestamp)"
+    " [memberRef]="message.member" [time]="this.channelService.getTime(message.timestamp)"
     [selectedChatIndex]="this.channelService.selChatIndex"
     [sortedReactions]="this.channelService.sortSameReactions(message.reactions)"
-    [uploadedFile]="message.uploadedFile"
-  ></app-message-right>
+    [uploadedFile]="message.uploadedFile"></app-message-right>
   } }
 
   <!-- separator after first message -->
@@ -116,9 +75,9 @@
   <div class="thread-answers-sep">
     <p>
       {{
-        this.channelService.selectedChannelChats[
-          this.channelService.selChatIndex
-        ].allMessages.length - 1
+      this.channelService.selectedChannelChats[
+      this.channelService.selChatIndex
+      ].allMessages.length - 1
       }}
       Antworten
     </p>
@@ -127,8 +86,5 @@
   }}}
 </div>
 
-<app-textarea-main-page
-  [onThreadBoard]="threadBoard"
-  (TextfieldStatus)="setTextfieldStatus($event)"
-  [textfieldOnUploadThread]="textfieldOnUpload"
-></app-textarea-main-page>
+<app-textarea-main-page [onThreadBoard]="threadBoard" (TextfieldStatus)="setTextfieldStatus($event)"
+  [textfieldOnUploadThread]="textfieldOnUpload"></app-textarea-main-page>
