@@ -11,7 +11,7 @@
     <div class="profil-img">
       <img [src]="this.pictureService.selectedPicture || this.authService.currentUser?.photoURL" />
       @if(editProfilOpen){
-      <div (click)="this.openChooseImg()" class="edit"></div>
+      <div mat-dialog-close (click)="this.openChooseImg()" class="edit"></div>
       }
     </div>
     @if(!editProfilOpen) {

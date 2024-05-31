@@ -41,12 +41,12 @@ closeEditProfil() {
 }
 
 updateInfo() {
-
-  this.picture = this.pictureService.selectedPicture
-  this.authService.updateInfo(this.displayName, this.email, this.picture);
+  this.authService.updateInfo(this.displayName, this.email);
 }
 
 openChooseImg() {
   this.dialog.open(DialogChangeProfilpicComponent, { position: { right: '24px', top: '80px' }, panelClass: ['dialog-bor-rad-corner', 'user-profil-menu'] });
 }
+
+
 }

@@ -1,5 +1,5 @@
 <mat-dialog-actions>
-  <button (click)="openUserProfilDialog()">Profil</button>
+  <button mat-dialog-close (click)="openUserProfilDialog()">Profil</button>
   <button (click)="this.authService.logout(); this.closeDialog()">
     Log out
   </button>

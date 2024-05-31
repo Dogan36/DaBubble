@@ -7,12 +7,12 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { HammerModule } from '@angular/platform-browser';
 import { NgIf } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-
-
+import { MatDialog, MatDialogRef, MatDialogActions } from '@angular/material/dialog';
+import { DialogChangeProfilpicComponent } from '../dialog-change-profilpic/dialog-change-profilpic.component';
 @Component({
   selector: 'app-dialog-upload-new-picture',
   standalone: true,
-  imports: [ImageCropperModule, NgIf, HammerModule, MatProgressBarModule],
+  imports: [ImageCropperModule, NgIf, HammerModule, MatProgressBarModule, MatDialogActions],
   templateUrl: './dialog-upload-new-picture.component.html',
   styleUrl: './dialog-upload-new-picture.component.scss'
 })
@@ -24,8 +24,8 @@ export class DialogUploadNewPictureComponent {
   imageChangedEvent: any = '';
   croppedImage: any = '';
 
-  constructor(
-    private sanitizer: DomSanitizer
+  constructor(public dialog: MatDialog,
+    private sanitizer: DomSanitizer,  private dialogRef: MatDialogRef<DialogUploadNewPictureComponent>
   ) {
   }
 
@@ -59,7 +59,13 @@ export class DialogUploadNewPictureComponent {
   isUploading: boolean = false;
   isUploaded: boolean = false;
 
+  openChooseImg() {
+    this.dialog.open(DialogChangeProfilpicComponent, { position: { right: '24px', top: '80px' }, panelClass: ['dialog-bor-rad-corner', 'user-profil-menu'] });
+  }
 
+  closeUploadImg(){
+    this.dialog.closeAll()
+  }
 
   upload() {
     fetch(this.croppedImage.changingThisBreaksApplicationSecurity)
@@ -71,9 +77,9 @@ export class DialogUploadNewPictureComponent {
           this.isUploaded = true;
           // Zuweisung der photoURL-Eigenschaft nach Abschluss des Uploads
           getDownloadURL(snapshot.ref).then((downloadURL) => {
-            this.authService.photoURL = downloadURL;
+            this.authService.updatePicture(downloadURL)
+            this.dialogRef.close();
           });
-
         }).catch((error) => {
           console.error("Fehler beim Hochladen des Bildes:", error);
           this.isUploading = false;

@@ -1,13 +1,13 @@
 <mat-progress-bar *ngIf="isUploading" mode="indeterminate"></mat-progress-bar>
 <div class="form">
-    <div matDialogClose class="arrow_back"></div>
+    <div mat-dialog-close (click)="closeUploadImg(); openChooseImg()" class="arrow_back"></div>
     <h1>Profilfoto</h1>
     <div class="imageContainer">
-    <img width="120" height="120" [src]="croppedImage || authService.photoURL" />
+    <img width="120" height="120" [src]="croppedImage || this.authService.currentUser.photoURL" />
     <div (click)="inputfield.click(); this.isUploaded=false" class="edit"></div>
 </div>
     <input type="file" #inputfield hidden (change)="fileChangeEvent($event)">
-    <button [disabled]="isUploading" *ngIf="!(croppedImage == '' || isUploaded)" (click)="upload()" class="primaryButton">Hochladen</button>
+    <button [disabled]="isUploading" *ngIf="!(croppedImage == '' || isUploaded)" (click)="upload()" class="primaryButton">Speichern</button>
     
 <image-cropper *ngIf="!(isUploaded)"  [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1/1" format="png"
         (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded($event)" (cropperReady)="cropperReady()"

@@ -1,0 +1,61 @@
+@import "./../../../starting-page/starting-page.component.scss";
+
+.form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+  
+    padding: clamp(10px, 5vh, 50px) clamp(20px, 5vw, 60px);
+    overflow: scroll;
+}
+
+.arrow_back{
+    top: 40px;
+    left: 20px;
+}
+
+.imageContainer{
+    position: relative;
+}
+
+img{
+    height: 200px;
+    width: 200px;
+    margin-bottom: 40px;
+    border-radius: 100%;
+    
+}
+
+.edit{
+position: absolute;
+height: 50px;
+width: 50px;
+border-radius: 100%;
+background-image: url(./../../../../assets/img/icons/edit_white.svg);
+background-position: center;
+background-repeat: no-repeat;
+display: flex;
+justify-content: center;
+align-items: center;
+bottom: 45px;
+right: 0px;
+background-color: $cpt-purple-1;
+cursor: pointer;
+&:hover {
+    background-color: $cpt-purple-3
+}
+
+&:active {
+    background-color: $cpt-purple-1;
+}
+}
+
+mat-progress-bar{
+    margin-bottom: 20px;
+}
+
+image-cropper{
+    max-width: 300px;
+    max-height: 300px;
+}

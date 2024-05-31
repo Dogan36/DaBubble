@@ -142,14 +142,32 @@ export class AuthService {
     }
   }
 
-  async updateInfo(name: string, email: string, picture:string) {
-
+  async updateInfo(name: string, email: string) {
     const userDocRef = doc(this.firestore, 'users', this.currentUser.uid);
-    await updateEmail(this.user, email);
-    await updateDoc(userDocRef, { email: email, name: name });
-    if(this.photoURL !== ''){
-    await updateDoc(userDocRef, {photoURL:picture });
+    try {
+      await updateEmail(this.user, email);
+      await updateDoc(userDocRef, { email: email, name: name });
+      this.overlayService.showOverlay('Daten erfolgreich geändert');
+      setTimeout(() => {
+        this.overlayService.hideOverlay();
+      }, 1500);
+    } catch (error) {
+    
+      this.overlayService.showOverlayError('Fehler beim Aktualisieren der Daten');
+      setTimeout(() => {
+        this.overlayService.hideOverlay();
+      }, 1500);
+    }
   }
+
+  async updatePicture(picture:string) {
+    const userDocRef = doc(this.firestore, 'users', this.currentUser.uid);
+    await updateDoc(userDocRef, {photoURL:picture});
+    this.overlayService.showOverlay('Foto erfolgreich geändert')
+    setTimeout(() => {
+      this.overlayService.hideOverlay();
+   
+    }, 1500);
   };
 
 

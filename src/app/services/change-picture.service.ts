@@ -22,15 +22,13 @@ export class ChangePictureService {
  
 
   selectPicture(i: string) {
-    this.currentPicture = i
+    this.currentPicture = i;
+    this.pictureSelected = true;
   }
 
   safeSelectedPicture() {
-this.selectedPicture = this.currentPicture
+this.authService.updatePicture(this.currentPicture)
   }
  
-  toggleOwnPicture() {
-    this.dialog.open(DialogUploadNewPictureComponent, { position: { right: '24px', top: '80px' }, panelClass: ['dialog-bor-rad-corner', 'user-profil-menu'] });
-  }
 }
 

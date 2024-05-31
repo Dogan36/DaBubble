@@ -7,9 +7,6 @@
     background-color: white;
   
     padding: clamp(10px, 5vh, 50px) clamp(20px, 5vw, 60px);
-    @media (max-width: 1250px) {
-        margin-top: 8vh;
-    }
 }
 
 .arrow_back{
