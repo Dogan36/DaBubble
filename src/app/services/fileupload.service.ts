@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable, deleteObject } from "firebase/storage";
-
+import { OverlayService } from './overlay.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +14,7 @@ export class FileUploadService {
   private storageRef = ref(this.storage, this.randomPath);
   private isUploading: boolean = false;
 
-  constructor() { }
+  constructor(private overlayService:OverlayService) { }
 
   chooseFile() {
     if (this.uploadedFiles.length === 0) {
@@ -39,19 +39,41 @@ export class FileUploadService {
     }
   }
 
+  private async isFileSizeValid(file: File): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      const fileSizeLimit = 500 * 1024; // 500 KB in Bytes umwandeln
+      if (file.size > fileSizeLimit) {
+        this.overlayService.showOverlayError('Dateigröße von 500kb überschritten')
+        setTimeout(() => {
+          this.overlayService.hideOverlay();
+        }, 1500);
+        reject('Die Dateigröße überschreitet das Limit von 500 KB.');
+      } else {
+        resolve(true);
+      }
+    });
+  }
+
   private async uploadFiles() {
     if (this.filesToUpload.length === 0 || this.isUploading) return;
     this.isUploading = true;
     const uploadTasks = this.filesToUpload.map(async (file) => {
-      const childRef = ref(this.storageRef, file.name);
-      const snapshot = await uploadBytesResumable(childRef, file);
-      const downloadURL = await getDownloadURL(snapshot.ref);
-      this.uploadedFiles.push({ file, docRef: snapshot.ref, downloadURL });
+      try {
+        if (await this.isFileSizeValid(file)) {
+          const childRef = ref(this.storageRef, file.name);
+          const snapshot = await uploadBytesResumable(childRef, file);
+          const downloadURL = await getDownloadURL(snapshot.ref);
+          this.uploadedFiles.push({ file, docRef: snapshot.ref, downloadURL });
+        } else {
+          console.error(`Datei ${file.name} überschreitet das Größenlimit.`);
+        }
+      } catch (error) {
+        console.error(`Fehler beim Hochladen der Datei ${file.name}:`, error);
+      }
     });
     try {
       await Promise.all(uploadTasks);
       // Alle Dateien erfolgreich hochgeladen
-     
     } catch (error) {
       // Fehler beim Hochladen der Dateien
     } finally {
