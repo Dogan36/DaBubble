@@ -58,6 +58,7 @@ export class MainPageComponent {
   }
 
   ngOnInit() {
+    if (typeof window !== 'undefined') {
     if (window.innerWidth > 792 && window.innerWidth <= 1440) {
       this.evtSvc.openChannel(true);
       this.evtSvc.openPrivateChat(false);
@@ -71,6 +72,7 @@ export class MainPageComponent {
       this.evtSvc.openNewChat(false);
     }
   }
+}
 
   startSearch() {
     if (this.searchText && this.searchText.length >= 3) {
