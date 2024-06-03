@@ -1,6 +1,6 @@
 import { Component, OnInit, Renderer2, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { NgClass } from '@angular/common';
-
+import { AnimationStateService } from '../../services/animation-state.service';
 
 @Component({
   selector: 'app-start-animation',
@@ -13,14 +13,23 @@ import { NgClass } from '@angular/common';
 export class StartAnimationComponent implements OnInit {
   isAnimatedOnce: boolean = false;
 
-  constructor(private renderer: Renderer2) { }
+  constructor(private renderer: Renderer2, private animationStateService: AnimationStateService) { }
 
   ngOnInit() {
-    this.setBodyOverflowHidden(true);
-    this.startAnimation();
+    if (this.animationStateService.animatedOnce) {
+      console.log(this.animationStateService.animatedOnce)
+      this.setFinalState();
+    }
+    else {
+      console.log(this.animationStateService.animatedOnce)
+      this.setBodyOverflowHidden(true);
+      this.startAnimation();
+      this.animationStateService.animatedOnce=true
+    }
   }
 
   startAnimation() {
+    console.log('startAnimation called')
     setTimeout(() => this.animateStage1(), 1000);
     setTimeout(() => this.animateStage2(), 3000);
     setTimeout(() => this.animateStage3(), 5000);
@@ -28,6 +37,7 @@ export class StartAnimationComponent implements OnInit {
   }
 
   animateStage1() {
+    console.log('stage1called')
     if (typeof document !== 'undefined') {
       const imgContainer = document.querySelector('.img-container');
       if (imgContainer) {
@@ -37,6 +47,7 @@ export class StartAnimationComponent implements OnInit {
   }
 
   animateStage2() {
+    console.log('stage2called')
     if (typeof document !== 'undefined') {
       const textContainerP = document.querySelector('.text-container p');
       if (textContainerP) {
@@ -46,6 +57,7 @@ export class StartAnimationComponent implements OnInit {
   }
 
   animateStage3() {
+    console.log('stage3called')
     if (typeof document !== 'undefined') {
       const logoContainer = document.querySelector('.logo-container');
       const imgContainer = document.querySelector('.img-container');
@@ -72,6 +84,7 @@ export class StartAnimationComponent implements OnInit {
   }
 
   animateStage4() {
+    console.log('stage4called')
     this.setBodyOverflowHidden(false);
 
     if (typeof document !== 'undefined') {
@@ -91,4 +104,17 @@ export class StartAnimationComponent implements OnInit {
       }
     }
   }
+
+  setFinalState() {
+    const logoContainer = document.querySelector('.logo-container');
+    const background = document.querySelector('.background');
+    const finalLogo = document.querySelector('.finalLogo');
+    this.renderer.addClass(background, 'd-none');
+    this.renderer.addClass(logoContainer, 'd-none');
+    this.renderer.removeClass(finalLogo, 'd-none');
+  }
+
+  
+
+ 
 }

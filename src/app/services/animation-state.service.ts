@@ -4,13 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AnimationStateService {
-  private animatedOnce: boolean = false;
+  public animatedOnce: boolean = false;
 
-  get isAnimatedOnce(): boolean {
-    return this.animatedOnce;
-  }
-
-  set isAnimatedOnce(value: boolean) {
-    this.animatedOnce = value;
-  }
 }

@@ -131,6 +131,30 @@
   opacity: 0;
 }
 
+
+
+.finalLogo{
+  position: absolute;
+  top: 11%;
+    left: 16%;
+    height: 70px;
+    width: 255px;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+
+    @media (max-width: 768px) {
+      left: 50%;
+      transform: translate(-50%);
+      top: 3%;
+    }
+  
+}
+
 .d-none {
   display: none;
 }
