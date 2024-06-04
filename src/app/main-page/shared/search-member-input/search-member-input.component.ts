@@ -18,18 +18,32 @@ export class SearchMemberInputComponent {
 
   searchText = '';
   selectedMembers: User[] = [];
+  userIsAlreadyAdded = false;
+  userIsAlreadyMember = false;
+
 
   constructor(public userService: UserService, public channelService: ChannelService) {}
 
   addUserAsMember(userObj: User) {
-    if(!this.checkIfUserIsAleadyAdded(userObj)) {
-      this.selectedMembers.push(userObj);
+    if(!this.checkIfUserIsAleadyMember(userObj)) {
+      if(!this.checkIfUserIsAleadyAdded(userObj)) {
+        this.selectedMembers.push(userObj);
+      } else {
+        this.userIsAlreadyAdded = true;
+      }
+    } else {
+      this.userIsAlreadyMember = true;
     }
     let inputFiled = document.getElementById('search-user-input') as HTMLInputElement;
     if(inputFiled) {
       inputFiled.value = '';
     }
     this.searchText = '';
+
+    setTimeout(() => {
+      this.userIsAlreadyAdded = false;
+      this.userIsAlreadyMember = false;
+    }, 2000);
   }
 
   getUserData(userName:string) {
@@ -43,6 +57,15 @@ export class SearchMemberInputComponent {
 
   checkIfUserIsAleadyAdded(userObj:User) {
     if(this.selectedMembers.findIndex(obj => obj.id === userObj.id) >= 0) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  checkIfUserIsAleadyMember(userObj:User) {
+    let channel = this.channelService.channels[this.channelService.selectedChannel];
+    if(channel.members.indexOf(userObj.id) >= 0) {
       return true
     } else {
       return false

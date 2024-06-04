@@ -29,5 +29,9 @@
     <p>Niemand gefunden</p>
     }
   </div>
+  } @if(userIsAlreadyAdded === true) {
+  <span class="hint">User ist bereits hinzugefügt</span>
+  } @if(userIsAlreadyMember === true) {
+  <span class="hint">User ist bereits Mitglied</span>
   }
 </div>

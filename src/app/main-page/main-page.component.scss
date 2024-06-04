@@ -161,7 +161,8 @@ header {
         .input-hint {
             position: absolute;
             left: 32px;
-            bottom: 64px;
+            top: -12px;
+            // bottom: 64px;
             background-color: transparent;
             padding-left: 4px;
             padding-right: 4px;
