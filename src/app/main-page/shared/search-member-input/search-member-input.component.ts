@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { InputFilterPipe } from '../../../pipes/input-filter.pipe';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -21,6 +21,7 @@ export class SearchMemberInputComponent {
   userIsAlreadyAdded = false;
   userIsAlreadyMember = false;
 
+  @Input() onCreateNewChannel: boolean = false;
 
   constructor(public userService: UserService, public channelService: ChannelService) {}
 
@@ -64,11 +65,15 @@ export class SearchMemberInputComponent {
   }
 
   checkIfUserIsAleadyMember(userObj:User) {
-    let channel = this.channelService.channels[this.channelService.selectedChannel];
-    if(channel.members.indexOf(userObj.id) >= 0) {
-      return true
+    if(this.onCreateNewChannel) {
+      return false;
     } else {
-      return false
+      let channel = this.channelService.channels[this.channelService.selectedChannel];
+      if(channel.members.indexOf(userObj.id) >= 0) {
+        return true
+      } else {
+        return false
+      }
     }
   }
 }

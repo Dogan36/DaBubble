@@ -65,11 +65,15 @@ export class DialogAddChannelComponent {
     let selectedMembersArray = this.searchMembersComponent?.selectedMembers;
     this.channel.members = [];
     if (allMembers && allMembers.checked == true) {
-      for (let i = 0; i < this.userService.users.length; i++) {
-        const user = this.userService.users[i];
-        if (user.name !== "Guest") {
-          this.channel.members?.push(user.id);
+      const searchId = 'QYPtvwBXDrriklmXFZIb';
+      const index = this.channelService.allChannels.findIndex(user => user.id === searchId);
+
+      if(index >= 0) {
+        for (let i = 0; i < this.channelService.allChannels[index].members.length; i++) {
+          const member = this.channelService.allChannels[index].members[i];
+          this.channel.members?.push(member);
         }
+        this.channel.members.push(this.authService.uid);
       }
     } else if (selectedMembers && selectedMembers.checked == true) {
       if (selectedMembersArray) {

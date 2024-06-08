@@ -17,68 +17,101 @@
   }
 
   <div class="input-container">
-    @if(isInputFocused() && searchText.length < 3) { <span class="input-hint">Bitte gib mindestens drei Buchstaben
-      ein</span>
-      }
-      <input [(ngModel)]="searchText" (input)="startSearch()" id="search-input" type="text" [minLength]="3"
-        (focus)="setInputFocus(true)" (blur)="setInputFocus(false)" />
-      <img src="assets/img/icons/search.svg" alt="" />
+    @if(isInputFocused() && searchText.length < 3) {
+    <span class="input-hint">Bitte gib mindestens drei Buchstaben ein</span>
+    }
+    <input
+      [(ngModel)]="searchText"
+      (input)="startSearch()"
+      id="search-input"
+      type="text"
+      [minLength]="3"
+      (focus)="setInputFocus(true)"
+      (blur)="setInputFocus(false)"
+      placeholder="Code learning durchsuchen"
+    />
+    <img src="assets/img/icons/search.svg" alt="" />
 
-      <div class="searchResults" *ngIf="searchText.length > 2">
-        <div *ngIf="
+    <div class="searchResults" *ngIf="searchText.length > 2">
+      <div
+        *ngIf="
           this.searchService.foundUsers.length === 0 &&
           this.searchService.foundChannelNames.length === 0 &&
           this.searchService.foundMessages.length === 0
-        ">
-          <p>Keine Ergebnisse gefunden.</p>
-        </div>
+        "
+      >
+        <p>Keine Ergebnisse gefunden.</p>
+      </div>
 
-        <div *ngIf="this.searchService.foundUsers.length > 0" class="user-list">
-          <h3>Gefundene Benutzer:</h3>
-          @for (user of this.searchService.foundUsers; track user.id) {
-          <app-workspace-user-profil [userName]="user.name" [userImage]="
+      <div *ngIf="this.searchService.foundUsers.length > 0" class="user-list">
+        <h3>Gefundene Benutzer:</h3>
+        @for (user of this.searchService.foundUsers; track user.id) {
+        <app-workspace-user-profil
+          [userName]="user.name"
+          [userImage]="
             user.photoURL || 'src/assets/img/profils/standardPic.svg'
-          " [userId]="user.id" (click)="stopSearch()"></app-workspace-user-profil>}
-        </div>
+          "
+          [userId]="user.id"
+          (click)="stopSearch()"
+        ></app-workspace-user-profil
+        >}
+      </div>
 
-        <div *ngIf="this.searchService.foundChannelNames.length > 0" class="channels-list">
-          <h3>Gefundene Kanäle:</h3>
-          @for(channel of this.searchService.foundChannelNames; track channel.id)
-          {
-          <div class="channel" (click)="onOpenChannel(channel.id); stopSearch()">
-            <h5>{{ channel.name }}</h5>
-          </div>
-          }
+      <div
+        *ngIf="this.searchService.foundChannelNames.length > 0"
+        class="channels-list"
+      >
+        <h3>Gefundene Kanäle:</h3>
+        @for(channel of this.searchService.foundChannelNames; track channel.id)
+        {
+        <div class="channel" (click)="onOpenChannel(channel.id); stopSearch()">
+          <h5>{{ channel.name }}</h5>
         </div>
+        }
+      </div>
 
-        <div *ngIf="this.searchService.foundMessages.length > 0" class="message-list">
-          <h3>Gefundene Nachrichten:</h3>
-          @for(message of this.searchService.foundMessages; track message) {
-          <div class="sgl-message" *ngIf="message.message" (click)="
+      <div
+        *ngIf="this.searchService.foundMessages.length > 0"
+        class="message-list"
+      >
+        <h3>Gefundene Nachrichten:</h3>
+        @for(message of this.searchService.foundMessages; track message) {
+        <div
+          class="sgl-message"
+          *ngIf="message.message"
+          (click)="
             openThreadOnSearch(message.channel, message.chat);
             this.evtSvc.ThreadModus();
             stopSearch()
-          ">
-            <p>{{ this.searchService.getMessageText(message.message) }}</p>
-          </div>
-          }
+          "
+        >
+          <p>{{ this.searchService.getMessageText(message.message) }}</p>
         </div>
+        }
       </div>
+    </div>
   </div>
 
   <div class="user-menu">
     <h2 (click)="openUserMenuDialog()">
       {{ this.authService.currentUser?.name }}
     </h2>
-    <img *ngIf="
-        this.authService.currentUser?.photoURL
-      " [src]="
+    <img
+      *ngIf="this.authService.currentUser?.photoURL"
+      [src]="
         this.authService.currentUser?.photoURL ||
         'src/assets/img/profils/standardPic.svg'
-      " (error)="this.authService.handleImageError()" alt="" (click)="openUserMenuDialog()" [ngStyle]="{
+      "
+      (error)="this.authService.handleImageError()"
+      alt=""
+      (click)="openUserMenuDialog()"
+      [ngStyle]="{
         display: imageLoaded ? 'block' : 'none',
         'background-color': '#f0f0f0'
-      }" (error)="imageLoaded = false" (load)="imageLoaded = true" />
+      }"
+      (error)="imageLoaded = false"
+      (load)="imageLoaded = true"
+    />
 
     <div class="drop-down-icon" (click)="openUserMenuDialog()"></div>
   </div>
@@ -96,8 +129,11 @@
     <div class="menu-btn-op"></div>
   </div>
   } @if(workspaceOpen) {
-  <app-workspace-menu (openNewChat)="openNewChat()" (openChannel)="openChanel()"
-    (openPrivateChat)="openPrivateChat()"></app-workspace-menu>
+  <app-workspace-menu
+    (openNewChat)="openNewChat()"
+    (openChannel)="openChanel()"
+    (openPrivateChat)="openPrivateChat()"
+  ></app-workspace-menu>
   } @if(newChatOpen === true) {<app-new-msg-board></app-new-msg-board>}
   @if(channelChatOpen) {
   <app-channel-board></app-channel-board>

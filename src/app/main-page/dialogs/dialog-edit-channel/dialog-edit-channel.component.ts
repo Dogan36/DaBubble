@@ -47,8 +47,10 @@ export class DialogEditChannelComponent {
     let changedText = <HTMLInputElement>document.getElementById('description');
     if (field == 'name') {
       this.channel.name = changedName.value;
+      this.editNameOpen = false;
     } else if (field == 'text') {
       this.channel.description = changedText.value;
+      this.editTextOpen = false;
     }
     this.channelService.updateChannel(this.channel);
   }
