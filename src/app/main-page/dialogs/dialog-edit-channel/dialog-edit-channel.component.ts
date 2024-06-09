@@ -24,24 +24,42 @@ export class DialogEditChannelComponent {
   public channelData = this.channelService.channels[this.channelService.selectedChannel];
   channel: Channel;
 
+
   constructor(public channelService: ChannelService, private authService: AuthService, public userService: UserService, private evSc: EventService) {
     this.channel = Object.assign({}, this.channelService.channels[this.channelService.selectedChannel]);
   }
 
+
+  /**
+   * Sets editNameOpen varibale. Edit name window will be displayed
+   */
   openChangesName() {
     this.editNameOpen = true;
   }
 
+
+  /**
+   * Sets editTextOpen variable. Edit text window will be displayed
+   */
   openChangesText() {
     this.editTextOpen = true;
   }
 
+
+  /**
+   * Sets both variables to false again. Both windows will not be displayed anymore
+   */
   closeChanges() {
     this.editNameOpen = false;
     this.editTextOpen = false;
   }
 
 
+  /**
+   * Saves changes to the channels name or text and sets the window according
+   * 
+   * @param field - string, to show which input field was edited
+   */
   saveChanges(field: string) {
     let changedName = <HTMLInputElement>document.getElementById('channelName');
     let changedText = <HTMLInputElement>document.getElementById('description');
@@ -55,6 +73,10 @@ export class DialogEditChannelComponent {
     this.channelService.updateChannel(this.channel);
   }
 
+
+  /**
+   * Removes signed user form channel
+   */
   leaveChannel() {
     if (this.authService.uid) {
       let index = this.channel.members?.indexOf(this.authService.uid);

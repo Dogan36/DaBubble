@@ -53,8 +53,8 @@ export class GuestUserService {
         userData?.['email']?.endsWith('@guest.de') &&
         createdAtDate < twentyFourHoursAgo
       ) {
-        console.log(createdAtDate < twentyFourHoursAgo)
-        console.log('wird gelöscht');
+        // console.log(createdAtDate < twentyFourHoursAgo)
+        // console.log('wird gelöscht');
         // Löschen der Kanäle, die von diesem Benutzer erstellt wurden
         await this.deleteChannelsByUser(userId); // Aufruf der Methode innerhalb der forEach-Schleife
         await this.deleteReactionsByUser(userId)

@@ -36,6 +36,12 @@ export class TextareaMainPageComponent {
   constructor(public channelService: ChannelService, private authService: AuthService, public fileUploadService: FileUploadService, public chatService: ChatService, public userService: UserService) {
   }
 
+
+/**
+ * First message object is defined and than depending on boolean variables 'onChannelBoard', 'onThreadBoard' or 'onPrivatTextarea' saved on diffrent documents on firebase. At the end ngForm is reseted.
+ * 
+ * @param ngForm 
+ */
   submitMessage(ngForm: NgForm) {
     if (this.fileUploadService.uploadedFiles.length > 0 || this.message.message.trim() !== '') {
       this.message.member = this.authService.uid;
@@ -66,11 +72,22 @@ export class TextareaMainPageComponent {
     }
   }
 
+
+  /**
+   * deleteFile function is called on fileUploadService and setTextfieldStatus is set to false again
+   */
   deleteFile() {
     this.fileUploadService.deleteFile();
     this.setTextfieldStatus(false);
   }
 
+
+  /**
+   * If KeyboardEvent is triggerd, submitMessage function is called
+   * 
+   * @param event - KeyboardEvent
+   * @param ngForm 
+   */
   onEnterKeyPressed(event: Event, ngForm: NgForm) {
     if (!(event as KeyboardEvent).shiftKey && (event as KeyboardEvent).key === 'Enter') {
       event.preventDefault();
@@ -78,15 +95,35 @@ export class TextareaMainPageComponent {
     }
   }
 
+
+  /**
+   * $event.emoji.native is added to message object
+   * 
+   * @param $event 
+   */
   addEmoji($event: EmojiEvent) {
-    if ($event.emoji.native)
-      this.message.message += $event.emoji.native;
+    if ($event.emoji.native) {
+        this.message.message = (this.message.message ?? '') + $event.emoji.native;
+    }
   }
 
+
+  /**
+   * funciton emits a boolean to parent element
+   * 
+   * @param state 
+   */
   setTextfieldStatus(state: boolean) {
     this.TextfieldStatus.emit(state);
   }
 
+
+  /**
+   * memberName string is added to message object 
+   * 
+   * @param memberRef 
+   * @param memberName 
+   */
   highlightUser(memberRef: string, memberName: string) {
     this.message.message = `@${memberName}`;
   }

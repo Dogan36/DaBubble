@@ -64,10 +64,6 @@
             padding: 15px;
             // word-break: break-all;
             overflow-wrap: break-word;
-
-            &:hover {
-                cursor: pointer;
-            }
         }
 
         .reactions-container {
@@ -209,6 +205,7 @@
                 
                 &:hover {
                     background-image: url('./../../../../assets/img/icons/option_pur.svg');
+                    cursor: pointer;
                     
                     .edit-msg-btn {
                         display: block;
@@ -261,6 +258,13 @@
 
         @media (max-width: 544px) {
             padding: 10px 16px;
+        }
+    }
+
+
+    .user-msg-on-channel {
+        &:hover {
+            cursor: pointer;
         }
     }
 

@@ -27,8 +27,15 @@ export class ChatBoardComponent {
 
   @ViewChild('privateChatsContainer') privateChatsContainerRef?: ElementRef;
 
+
   constructor(public dialog: MatDialog, public userService: UserService, public chatService:ChatService, public authService: AuthService, public channelService: ChannelService) {}
 
+
+  /**
+   * Opens dialog which shows user info
+   * 
+   * @param memberId - sting, member Id
+   */
   openShowProfilDialog(memberId: string) {
     let memberData = this.userService.users[this.userService.getUsersData(memberId)];
     this.dialog.open(DialogShowProfilComponent, {panelClass: ['dialog-bor-rad-round', 'user-profil-popup'], data: {
@@ -39,6 +46,10 @@ export class ChatBoardComponent {
       }});
   }
 
+
+  /**
+   * Scrolls container depending on containerElement height
+   */
   scrollToBottom(): void {
     if (this.privateChatsContainerRef) {
       const containerElement = this.privateChatsContainerRef?.nativeElement;
@@ -50,6 +61,12 @@ export class ChatBoardComponent {
     }
   }
 
+
+  /**
+   * Sets if file upload is on this textfield
+   * 
+   * @param event - boolean
+   */
   setTextfieldStatus(event: boolean) {
     this.textfieldOnUpload = event;
   }

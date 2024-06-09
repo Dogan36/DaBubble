@@ -26,30 +26,58 @@ export class WorkspaceMenuComponent {
   @Output() openNewChat = new EventEmitter<void>();
   private chatSubscription: Subscription | undefined;
 
+
   constructor(public dialog: MatDialog, public usersService: UserService, public channelService: ChannelService, public chatService: ChatService, public authService: AuthService) {}
 
+
+  /**
+   * Starts a subscription of chats$ and defines this.chats
+   */
   ngOnInit() {
     this.chatSubscription = this.chatService.chats$.subscribe(chats => {
       this.chats = chats;
     });
   }
   
+
+  /**
+   * On destroy chatSubscription is unsubscribed
+   */
   ngOnDestroy() {
     this.chatSubscription?.unsubscribe();
   }
 
+
+  /**
+   * toggels channelListOpen boolean variable
+   */
   toggleChannelList() {
     this.channelListOpen = !this.channelListOpen;
   }
 
+
+  /**
+   * toggels messageListOpen boolean variable
+   */
   toggleMessageList() {
     this.messageListOpen = !this.messageListOpen;
   }
 
+
+  /**
+   * Emits to parent element
+   */
   onOpenNewChat() {
     this.openNewChat.emit();
   }
 
+
+  /**
+   * Unsubscribes old chats and subscribes selected channel chats and calls parent element to open channel board with selected channel
+   * 
+   * @param i - index of selected channel
+   * @param channelRef - selected channel documents ref
+   */
   onOpenChannel(i:number, channelRef:string) {
     this.channelService.unsubSglChannelChats();
     this.channelService.subSglChannelChats(channelRef);
@@ -57,6 +85,13 @@ export class WorkspaceMenuComponent {
     this.openChannel.emit();
   }
 
+
+  /**
+   * Unsubscribes old private chat and subscribes selected chat and calls parent element to open chat board with selected chat
+   * 
+   * @param chat - selected chat object
+   * @param index - index of selected chat form chats array
+   */
   onOpenPrivateChat(chat: any, index: number) {
     if(this.chatService.unsubPrivateChatMessages) {
       this.chatService.unsubPrivateChatMessages();

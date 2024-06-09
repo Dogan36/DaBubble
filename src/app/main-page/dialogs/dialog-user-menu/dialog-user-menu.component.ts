@@ -18,8 +18,14 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class DialogUserMenuComponent {
   dialogRef: MatDialogRef<DialogUserMenuComponent> | undefined;
+
+
   constructor(public dialog: MatDialog, public authService: AuthService) { }
 
+
+  /**
+   * Opens dialog on click
+   */
   openUserProfilDialog() {
     if (window.innerWidth > 544) {
       this.dialog.open(DialogUserProfilComponent, { position: { right: '24px', top: '80px' }, panelClass: 'dialog-bor-rad-corner' });
@@ -28,6 +34,10 @@ export class DialogUserMenuComponent {
     }
   }
 
+
+  /**
+   * Closes dialog on click
+   */
   closeDialog() {
     this.dialog.closeAll();
   }

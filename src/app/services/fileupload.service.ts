@@ -104,7 +104,7 @@ export class FileUploadService {
       await deleteObject(fileToDelete.docRef);
       // this.uploadedFiles.splice(fileIndex, 1);
       this.uploadedFiles.splice(0, 1);
-      console.log(this.uploadFiles);
+      // console.log(this.uploadFiles);
     } catch (error) {
       console.error('Fehler beim Löschen der Datei:', error);
     }

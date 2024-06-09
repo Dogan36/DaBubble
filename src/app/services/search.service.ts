@@ -29,14 +29,14 @@ export class SearchService {
   searchUsers(searchText: string) {
     const queryText = searchText.toLowerCase();
     const foundUsers = this.userService.users.filter(user => user.name.toLowerCase().includes(queryText));
-    console.log(foundUsers)
+    // console.log(foundUsers)
     return foundUsers;
   }
 
   searchChannelNames(searchText: string) {
     const queryText = searchText.toLowerCase();
     const foundChannels = this.channelService.channels.filter(channel => channel.name.toLowerCase().includes(queryText));
-    console.log(foundChannels)
+    // console.log(foundChannels)
     return foundChannels;
   }
 

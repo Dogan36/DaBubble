@@ -51,6 +51,10 @@
                 background-repeat: no-repeat;
                 height: 40px;
                 width: 40px;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
             }
 
             .reaction-icon-plus {
@@ -93,6 +97,7 @@
 
             &:hover {
                 background-image: url('./../../../../assets/img/icons/send_hov.svg');
+                cursor: pointer;
             }
 
             &:disabled {

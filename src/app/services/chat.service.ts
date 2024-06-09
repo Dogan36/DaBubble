@@ -34,6 +34,7 @@ export class ChatService {
 
   newChatStarted = false;
 
+
   constructor(private userService: UserService, private evtSvc: EventService) {
     // this.subChats();
     this.authService.logoutEvent.subscribe(() => {
@@ -52,10 +53,18 @@ export class ChatService {
     });
   }
 
+
+  /**
+   * Sets privateChats variable to []
+   */
   clearChats() {
     this.privateChats = [];
   }
 
+
+  /**
+   * Unsubscribes subscription
+   */
   ngOnDestory() {
     this.authService.ownChatEventEmitted = false
     this.unsubscribeChats()
@@ -66,43 +75,6 @@ export class ChatService {
     this.unsubPrivateChatMessages();
   }
 
-  // private subChats(): Subscription {
-  //   return this.authService.currentUser$.subscribe(user => {
-  //     if (!this.initialized) {
-  //     if (user) {
-  //       try {
-  //         this.fetchChats(user);
-  //         this.authService.logoutEvent.subscribe(() => {
-  //           this.unsubscribeChats();
-  //         });
-  //         this.initialized=true
-  //       } catch (error) {
-  //         console.error("Error fetching chats:", error);
-  //       }
-  //     }}
-  //   });
-  // }
-
-  // async fetchChats(user: any) {
-  //   const userDocRef = doc(this.firestore, 'users', user.uid);
-  //   const userSnapshot = await getDoc(userDocRef);
-
-  //   if (userSnapshot.exists()) {
-  //     const userData = userSnapshot.data();
-  //     const chatRefs = userData['chatRefs'];
-
-  //     if (chatRefs && chatRefs.length > 0) {
-  //       const chatPromises = chatRefs.map(async (chatRef: string) => {
-  //         await this.processChat(chatRef, user.uid);
-  //       });
-
-  //       await Promise.all(chatPromises);
-
-  //       // Sortiere die Chats basierend auf dem Zeitstempel der letzten Nachricht
-  //       this.sortChatsByLastMessageTimestamp();
-  //     }
-  //   }
-  // }
 
   async processChat(chatRef: string, currentUserUid: string) {
     const chatDocRef = doc(this.firestore, 'chats', chatRef);
@@ -137,6 +109,7 @@ export class ChatService {
     }
   }
 
+
   async getOtherMemberData(chatRef: string, currentUserUid: string): Promise<any> {
     const chatDocRef = doc(this.firestore, 'chats', chatRef);
     const chatSnapshot = await getDoc(chatDocRef);
@@ -155,6 +128,7 @@ export class ChatService {
     return null; // Rückgabe, falls keine Daten gefunden wurden
   }
 
+
   async isReadByCurrentUser(chatRef: string, currentUserUid: string): Promise<boolean> {
     const chatDocRef = doc(this.firestore, 'chats', chatRef); // Annahme: Die Chats sind unter 'chats' gespeichert
     const chatSnapshot = await getDoc(chatDocRef);
@@ -167,16 +141,6 @@ export class ChatService {
     }
   }
 
-  // async getMessageLastTimestamp(chatRef: string): Promise<number> {
-  //   const chatMessagesRef = collection(this.firestore, `chats/${chatRef}/messages`);
-  //   const querySnapshot = await getDocs(query(chatMessagesRef, orderBy('timestamp', 'desc'), limit(1)));
-  //   if (!querySnapshot.empty) {
-  //     const lastMessageDoc = querySnapshot.docs[0];
-  //     const lastMessageData = lastMessageDoc.data();
-  //     return lastMessageData['timestamp'] || 0;
-  //   }
-  //   return 0; // Rückgabe eines Standardzeitstempels, wenn keine Nachrichten vorhanden sind
-  // }
 
   sortChatsByLastMessageTimestamp() {
     const sortedChats = this.chatsSubject.value.slice().sort((a, b) => {
@@ -185,15 +149,18 @@ export class ChatService {
     this.chatsSubject.next(sortedChats);
   }
 
+
   unsubscribeChats() {
     if (this.unsubChats) {
       this.unsubChats.unsubscribe();
     }
   }
 
+
   getChats() {
     return this.chats$;
   }
+
 
   getChatMessages(chat: any) {
     this.messages = [];
@@ -219,6 +186,13 @@ export class ChatService {
     };
   }
 
+
+  /**
+   * Subscribes all private chats of signed user and defines privateChats array
+   * 
+   * @param userId - signed user document ref
+   * @returns 
+   */
   subPrivateChats(userId: string) {
     const q = query(collection(this.firestore, 'chats'), where('members', 'array-contains', userId));
     return onSnapshot(q, (list) => {
@@ -233,6 +207,12 @@ export class ChatService {
     });
   }
 
+
+  /**
+   * Subscribes selected chat messages, defines messages array and sorts them by time
+   * 
+   * @param chat - selected private chat object
+   */
   getPrivateChatMessages(chat: any) {
     this.unsubPrivateChatMessages = onSnapshot(collection(this.firestore, `chats/${chat.chatId}/messages`), (listMessages) => {
       this.messages = [];
@@ -243,7 +223,13 @@ export class ChatService {
     })
   }
 
-  // Eigentlich auch so im channelService, aber für besser Übersicht auch noch mal hier
+  /**
+   * Sets simple object based on message element data - dop
+   * 
+   * @param obj - single message element data
+   * @param id - single message element document id
+   * @returns - message object
+   */
   setMessageObj(obj: any, id: string): Message {
     return {
       messageId: id,
@@ -255,7 +241,13 @@ export class ChatService {
     };
   }
 
-  // Eigentlich auch so im channelService, aber für besser Übersicht auch noch mal hier
+
+  /**
+   * Sets reactionsArray with simple reaction objects - dop
+   * 
+   * @param obj - array of strings
+   * @returns 
+   */
   setReactions(obj: any) {
     if (obj.reactions) {
       let reactionsArray = [];
@@ -276,7 +268,13 @@ export class ChatService {
     }
   }
 
-  // start new chat
+
+  /**
+   * Adds new chat document to collection and sets variables to open private chat window with new chat
+   * 
+   * @param item - private chat object
+   * @param colId - string, collection id f.e. 'chats'
+   */
   async startNewPrivateChat(item: {}, colId: string) {
     await addDoc(collection(this.firestore, colId), item).catch(
       (err) => { console.error(err) }
@@ -297,6 +295,13 @@ export class ChatService {
     )
   }
 
+
+  /**
+   * Adds message document to selected chat 
+   * 
+   * @param message - message object
+   * @param chatRef - selected chat document ref
+   */
   async addMessageToPrivateChat(message: {}, chatRef: string) {
     // let chatRef = this.privateChats[this.selChatIndex].chatId;
     await addDoc(collection(this.firestore, `chats/${chatRef}/messages`), message).catch(
@@ -314,6 +319,12 @@ export class ChatService {
     await this.updateChat(this.privateChats[this.selChatIndex]);
   }
 
+
+  /**
+   * Updates private chats document, mostly because of a the new timestamp
+   * 
+   * @param item - selected pirvate chat object
+   */
   async updateChat(item: PrivateChat) {
     if (item.chatId) {
       this.selChatRef = item.chatId;
@@ -322,6 +333,12 @@ export class ChatService {
     }
   }
 
+
+  /**
+   * Updates selected and changed message
+   * 
+   * @param message - selected message object
+   */
   async updateMessage(message: Message) {
     let chatRef = this.privateChats[this.selChatIndex].chatId;
     if (message.messageId) {
@@ -330,7 +347,13 @@ export class ChatService {
     }
   }
 
-  // Eigentlich auch so im channelService, aber für besser Übersicht auch noch mal hier
+
+  /**
+   * Sets simple JSON object without id - dop
+   * 
+   * @param obj - message object
+   * @returns 
+   */
   toJSONmessage(obj: any) {
     if (obj.reactions.length > 0) {
       return {
@@ -350,7 +373,13 @@ export class ChatService {
     }
   }
 
-  // Eigentlich auch so im channelService, aber für besser Übersicht auch noch mal hier
+
+  /**
+   * Sets reactionsArray array with reaction strings - dop
+   * 
+   * @param obj - message object
+   * @returns 
+   */
   toJSONreactions(obj: any) {
     let reactionsArray = [];
     for (let i = 0; i < obj.reactions.length; i++) {
@@ -360,6 +389,13 @@ export class ChatService {
     return reactionsArray;
   }
 
+
+  /**
+   * Checks if memberId is included in privateChats members
+   * 
+   * @param memberId - member document ref
+   * @returns 
+   */
   searchForMemberInChats(memberId: string) {
     for (let i = 0; i < this.privateChats.length; i++) {
       const chat = this.privateChats[i];
@@ -370,6 +406,13 @@ export class ChatService {
     return false;
   }
 
+
+  /**
+   * Retruns index of selected members chat within privateChats
+   * 
+   * @param memberId - member document ref
+   * @returns 
+   */
   getSelChatIndex(memberId: string) {
     if (memberId !== this.authService.uid) {
       for (let i = 0; i < this.privateChats.length; i++) {
@@ -390,6 +433,12 @@ export class ChatService {
     }
   }
 
+
+  /**
+   * Sets selChatIndex variable 
+   * 
+   * @param chatRef - selected chat document ref
+   */
   setSelChatIndex(chatRef: string) {
     const index = this.privateChats.findIndex(chat => chat.chatId === chatRef);
     if (index !== -1) {

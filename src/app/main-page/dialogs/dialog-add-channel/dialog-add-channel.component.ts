@@ -30,8 +30,16 @@ export class DialogAddChannelComponent {
   addMembersOpen = false;
   selectMerbersOpen = false;
   channelNameTaken = false;
+
+
   constructor(private channelService: ChannelService, private userService: UserService, private authService: AuthService, private evSc: EventService) { }
 
+
+  /**
+   * Sets addMembersOpen variable
+   * 
+   * @returns - boolean
+   */
   async openAddMembers() {
     if (await this.channelService.isChannelNameTaken(this.channel.name)) {
       this.channelNameTaken = true;
@@ -42,12 +50,21 @@ export class DialogAddChannelComponent {
     }
   }
 
+
+  /**
+   * Sets selectMerbersOpen variable
+   * 
+   * @param checked - boolean
+   */
   toggleInput(checked: boolean) {
     this.selectMerbersOpen = checked;
   }
 
+
+  /**
+   * Saves new channel and opens it
+   */
   async saveChannel() {
-   
     this.setMembers();
     this.channel.creator = this.authService.uid;
     await this.channelService.addChannel(this.channelService.toJSON(this.channel), 'channels');
@@ -59,6 +76,10 @@ export class DialogAddChannelComponent {
     }
   }
 
+
+  /**
+   * Sets members for new channel
+   */
   setMembers() {
     let allMembers = <HTMLInputElement>document.getElementById('all-members');
     let selectedMembers = <HTMLInputElement>document.getElementById('selected-members');

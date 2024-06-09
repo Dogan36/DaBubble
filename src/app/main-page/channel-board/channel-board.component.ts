@@ -31,15 +31,25 @@ export class ChannelBoardComponent {
   private bodyClickListener?: () => void;
   channelData = this.channelService.channels[this.channelService.selectedChannel];
   chatsData = this.channelService.selectedChannelChats;
-  // channelTextarea = true;
   textfieldOnUpload = false;
+
 
   constructor(public dialog: MatDialog, public channelService: ChannelService, private renderer: Renderer2, public userService: UserService, public authService: AuthService) { }
 
+
+  /**
+   * Opens dialog window on click
+   */
   openEditChannelDialog() {
     this.dialog.open(DialogEditChannelComponent, { panelClass: 'dialog-bor-rad-round' });
   }
 
+
+  /**
+   * Opens dialog window (modal) on click. 
+   * 
+   * @param selDialog - string, shows which dialog was choosen
+   */
   openChannelMembersDialog(selDialog: string) {
     let dialog = <HTMLDialogElement>document.getElementById(selDialog);
     if (dialog) {
@@ -61,6 +71,12 @@ export class ChannelBoardComponent {
     }, 100);
   }
 
+
+  /**
+   * Help function - closes dialog when document was clicked
+   * 
+   * @param dialog - HTMLDialogElement
+   */
   closeDialogOnClickDok(dialog: HTMLDialogElement) {
     this.bodyClickListener = this.renderer.listen(document.body, 'click', (event) => {
       const dialogDimensions = dialog.getBoundingClientRect()
@@ -78,6 +94,12 @@ export class ChannelBoardComponent {
     });
   }
 
+
+  /**
+   * Closes dialog on click
+   * 
+   * @param selDialog - string, shows which dialog was choosen
+   */
   closeDialog(selDialog: string) {
     let dialog = <HTMLDialogElement>document.getElementById(selDialog);
     dialog.close();
@@ -92,6 +114,10 @@ export class ChannelBoardComponent {
     }
   }
 
+
+  /**
+   * Adds selected members to channel members and closes dialog
+   */
   addMembersToChannel() {
     let selectedMembersArray = this.searchMembersComponent?.selectedMembers;
     let channel = Object.assign({}, this.channelService.channels[this.channelService.selectedChannel]);
@@ -109,6 +135,14 @@ export class ChannelBoardComponent {
     this.closeDialog('dialog-add-members');
   }
 
+
+  /**
+   * Checks if user.id is already inside selected channel.members
+   * 
+   * @param userObj - Choosen user object
+   * @param channel - selected channel object
+   * @returns - boolean
+   */
   checkIfUserIsAleadyAdded(userObj: User, channel: Channel) {
     if (channel.members.indexOf(userObj.id) >= 0) {
       return true
@@ -117,6 +151,10 @@ export class ChannelBoardComponent {
     }
   }
 
+
+  /**
+   * Scrolls container depending on containerElement height
+   */
   scrollToBottom(): void {
     if (this.channelChatsContainerRef) {
       const containerElement = this.channelChatsContainerRef.nativeElement;
@@ -124,6 +162,12 @@ export class ChannelBoardComponent {
     }
   }
 
+  
+  /**
+   * Sets if file upload is on this textfield
+   * 
+   * @param event - boolean
+   */
   setTextfieldStatus(event: boolean) {
     this.textfieldOnUpload = event;
   }

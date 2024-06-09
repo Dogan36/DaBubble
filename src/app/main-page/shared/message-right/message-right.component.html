@@ -12,6 +12,7 @@
     <div
       class="user-msg"
       (click)="setChatIndex(selectedChatIndex); onOpenThread()"
+      [ngClass]="{ 'user-msg-on-channel': onChannelBoard === true }"
     >
       @if(uploadedFile.length > 0) {
       <a href="{{ uploadedFile[1] }}" target="_blank">{{ uploadedFile[0] }}</a>

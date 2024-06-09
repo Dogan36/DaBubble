@@ -17,11 +17,18 @@ export class UserService {
   unsubUsers;
   //unsubCurrentUser;
 
+
   constructor(private authService: AuthService) {
     this.unsubUsers = this.subUsersList();
     // this.unsubCurrentUser = this.subCurrentUser();
   }
 
+
+  /**
+   * Subscribes users collection and defines users array with user objects
+   * 
+   * @returns 
+   */
   subUsersList() {
     return onSnapshot(collection(this.firestore, 'users'), (list) => {
       this.users = [];
@@ -34,6 +41,7 @@ export class UserService {
     });
   }
 
+  
   handleImageError(member: any) {
     this.users[this.getUsersData(member)].photoURL = this.authService.photoURL;
   }
@@ -48,6 +56,14 @@ export class UserService {
     };
   } */
 
+
+  /**
+   * Sets simple user object
+   * 
+   * @param obj - single user element data
+   * @param id - single user element id
+   * @returns 
+   */
   setUserObject(obj: any, id: string) {
     return {
       id: id,
@@ -58,15 +74,32 @@ export class UserService {
     };
   }
 
+
+  /**
+   * Unsubscribes on destroy
+   */
   ngonDestroy() {
     this.unsubUsers();
   }
 
+
+  /**
+   * Sets index of selected user from users array
+   * 
+   * @param id - user document ref
+   * @returns 
+   */
   getUsersData(id: string) {
     let index = this.users.findIndex(obj => obj.id === id);
     return index;
   }
 
+
+  /**
+   * Sets currentUserData variabel with signed user data
+   * 
+   * @returns 
+   */
   filterCurrentUser() {
     if (this.users) {
       for (let i = 0; i < this.users.length; i++) {
@@ -82,6 +115,13 @@ export class UserService {
     }
   }
 
+
+  /**
+   * Checks which index this.authService.uid has within members array and returns the other members object
+   * 
+   * @param members - array of selected chat members
+   * @returns 
+   */
   getPartnerId(members: string[]) {
     let index = members.indexOf(this.authService.uid);
     if (index === 0) {
@@ -90,5 +130,4 @@ export class UserService {
       return members[0]
     }
   }
-
 }

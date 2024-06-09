@@ -22,8 +22,13 @@ export class ThreadBoardComponent {
 
   @ViewChild('threadChatsContainer') threadChatsContainerRef?: ElementRef;
 
+
   constructor(private evtSvc: EventService, public channelService: ChannelService, public userService: UserService, public authService: AuthService) {}
 
+
+  /**
+   * Calls several functions on event Service to open thread window
+   */
   onCloseThread() {
     this.evtSvc.openThread(false);
     if (window.innerWidth > 792 && window.innerWidth <= 1440) {
@@ -37,6 +42,10 @@ export class ThreadBoardComponent {
     }
   }
 
+
+  /**
+   * Scrolls container depending on containerElement height
+   */
   scrollToBottom(): void {
     if (this.threadChatsContainerRef) {
       const containerElement = this.threadChatsContainerRef?.nativeElement;
@@ -44,6 +53,12 @@ export class ThreadBoardComponent {
       }
   }
 
+
+  /**
+   * Sets if file upload is on this textfield
+   * 
+   * @param event 
+   */
   setTextfieldStatus(event: boolean) {
     this.textfieldOnUpload = event;
   }

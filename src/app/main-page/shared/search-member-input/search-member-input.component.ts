@@ -23,8 +23,15 @@ export class SearchMemberInputComponent {
 
   @Input() onCreateNewChannel: boolean = false;
 
+
   constructor(public userService: UserService, public channelService: ChannelService) {}
 
+
+  /**
+   * Checks if object is already added. If not, object will be added to selectedMembers variable and at the end everything is put back to default.
+   * 
+   * @param userObj - selected member
+   */
   addUserAsMember(userObj: User) {
     if(!this.checkIfUserIsAleadyMember(userObj)) {
       if(!this.checkIfUserIsAleadyAdded(userObj)) {
@@ -47,15 +54,35 @@ export class SearchMemberInputComponent {
     }, 2000);
   }
 
+
+  /**
+   * Gets index of user inside users array
+   * 
+   * @param userName - selected user name
+   * @returns 
+   */
   getUserData(userName:string) {
     let index = this.userService.users.findIndex(obj => obj.name === userName);
     return index
   }
 
+
+  /**
+   * Removes user object form selectedMembers array
+   * 
+   * @param i - index of selected user within selectedMembers variable
+   */
   removeUser(i:number) {
     this.selectedMembers.splice(i, 1);
   }
 
+
+  /**
+   * Checks if selected user object is in selectedMembers array
+   * 
+   * @param userObj - selected user object
+   * @returns - boolean
+   */
   checkIfUserIsAleadyAdded(userObj:User) {
     if(this.selectedMembers.findIndex(obj => obj.id === userObj.id) >= 0) {
       return true
@@ -64,6 +91,13 @@ export class SearchMemberInputComponent {
     }
   }
 
+
+  /**
+   * Checks first if new Channel is created, if not, selected user object is checked in members of the selected channel.
+   * 
+   * @param userObj - selected user object
+   * @returns 
+   */
   checkIfUserIsAleadyMember(userObj:User) {
     if(this.onCreateNewChannel) {
       return false;

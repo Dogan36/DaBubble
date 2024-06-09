@@ -21,8 +21,13 @@ export class SearchInputComponent {
   searchChannel = false;
   searchUser = false;
 
+
   constructor(public userService: UserService, public channelService: ChannelService, private evtSvc: EventService) {}
 
+
+  /**
+   * Sets searchChannel or searchUser variable and searchText varibale, which will than show all matching resluts due to the pipe in the for loop
+   */
   startSearch() {
     if (this.inputText.includes('@')) {
       this.searchText = this.inputText.replace('@', '');
@@ -36,6 +41,12 @@ export class SearchInputComponent {
     }
   }
 
+
+  /**
+   * Opens channel borad and subscribes the right channel
+   * 
+   * @param channelRef - channel Id
+   */
   onOpenChannel(channelRef:string) {
     this.channelService.unsubSglChannelChats();
     this.channelService.subSglChannelChats(channelRef);
@@ -43,6 +54,10 @@ export class SearchInputComponent {
     this.evtSvc.ChannelModus();
   }
 
+
+  /**
+   * Sets searchText and inputText variabel to ''. 'searched-users-list-container' div will noch be displayed
+   */
   stopSearch() {
     this.searchText = '';
     this.inputText = '';

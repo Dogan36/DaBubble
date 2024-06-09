@@ -1,4 +1,5 @@
 import { Component, Input, ViewChild, Output,EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { EventService } from '../../../services/event.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -16,7 +17,7 @@ import { ChatService } from '../../../services/chat.service';
 @Component({
   selector: 'app-message-left',
   standalone: true,
-  imports: [MatDialogModule, PickerComponent, MatMenuModule, EmojiComponent],
+  imports: [MatDialogModule, PickerComponent, MatMenuModule, EmojiComponent, CommonModule],
   templateUrl: './message-left.component.html',
   styleUrl: './message-left.component.scss'
 })
@@ -43,12 +44,23 @@ export class MessageLeftComponent {
 
   containerHovered: boolean = false;
 
+
   constructor(private evtSvc: EventService, public dialog: MatDialog, private channelService: ChannelService, public userService: UserService, public authService: AuthService, private chatService: ChatService) {}
 
+
+  /**
+   * Signals parent element that message was loaded and triggers an event
+   */
   ngAfterViewInit(): void {
     this.messageLoaded.emit();
   }
 
+
+  /**
+   * Sets containerHovered varibale and shows or hides hovered info container
+   * 
+   * @param action - string, to display which event was triggered
+   */
   onMouseOver(action:string) {
     if (this.emojiMenuTrigger && this.emojiMenuTrigger.menuOpen) {
     } else {
@@ -60,6 +72,10 @@ export class MessageLeftComponent {
     }
   }
 
+
+  /**
+   * Opens thread window on click
+   */
   onOpenThread() {
     if(this.onChannelBoard === true) {
       this.evtSvc.openThread(true);
@@ -69,12 +85,22 @@ export class MessageLeftComponent {
     }
   }
 
+
+  /**
+   * Sets selChatIndex variabel in channelService. 
+   * 
+   * @param chatIndex - Index of selected chat, which is the input variabel 'selectedChatIndex' and given down by parent element
+   */
   setChatIndex(chatIndex:number) {
     if(this.onChannelBoard === true) {
       this.channelService.selChatIndex = chatIndex;
     }
   }
 
+
+  /**
+   * Opens dialog window
+   */
   openShowProfilDialog() {
     let memberData = this.userService.users[this.userService.getUsersData(this.memberRef)];   
     this.dialog.open(DialogShowProfilComponent, {panelClass: ['dialog-bor-rad-round', 'user-profil-popup'], data: {
@@ -85,6 +111,12 @@ export class MessageLeftComponent {
       }});
   }
 
+
+  /**
+   * Adds emoji to message by creating a Reaction object and checks if reaction exists already by user. Than updates message
+   * 
+   * @param $event 
+   */
   addEmoji($event: EmojiEvent) {
     if($event.emoji && $event.emoji.colons && this.authService.uid) {
     let messageObj;
@@ -114,6 +146,12 @@ export class MessageLeftComponent {
     }
   }
 
+
+  /**
+   * Adds or removes emoji to message by creating a Reaction object and checks if reaction exists already by user. Than updates message
+   * 
+   * @param reactEmoji - string, clicked emoji name under message
+   */
   addOrRemoveEmoji(reactEmoji: string) {
     let messageObj; 
     if(this.onPrivateChat === false) {

@@ -5,6 +5,14 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true
 })
 export class InputFilterPipe implements PipeTransform {
+
+  /**
+   * First items and searchText are checked if they have values. Than items are checked if searchText is included inside items and returns all included items
+   * 
+   * @param items - array of objects
+   * @param searchText - input value
+   * @returns 
+   */
     transform(items: any[], searchText: string): any[] {
     if (!items) {
       return [];

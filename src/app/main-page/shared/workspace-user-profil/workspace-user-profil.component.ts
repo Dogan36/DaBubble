@@ -20,8 +20,15 @@ export class WorkspaceUserProfilComponent {
   @Input() ownChat: boolean = false;
   @Input() onWorkspace: boolean = false;
 
+
   constructor(public dialog: MatDialog, private userService: UserService, public authService: AuthService) {}
   
+
+  /**
+   * Opens dialog with selected members data
+   * 
+   * @param memberId - member document ref
+   */
   openShowProfilDialog(memberId: string) {
     if(this.userId && this.onWorkspace !== true) {
     let memberData = this.userService.users[this.userService.getUsersData(memberId)];

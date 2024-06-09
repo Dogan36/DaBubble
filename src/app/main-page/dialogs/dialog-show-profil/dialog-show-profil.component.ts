@@ -28,6 +28,10 @@ export class DialogShowProfilComponent {
     profilImg: string,
   }) { }
 
+
+  /**
+   * Creates new chat with selected member and opens it. If chat exists already than chat is just opend
+   */
   startPrivateChat() {
     if (!this.chatService.searchForMemberInChats(this.data.profilRef)) {
       if (this.chatService.unsubPrivateChatMessages) {

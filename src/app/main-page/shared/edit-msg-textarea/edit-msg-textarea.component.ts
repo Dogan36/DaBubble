@@ -26,6 +26,12 @@ export class EditMsgTextareaComponent {
 
   constructor(public channelService: ChannelService, private chatService: ChatService) {}
 
+
+  /**
+   * Saves changes to a message and closes edit window
+   * 
+   * @param ngForm 
+   */
   updateMessage(ngForm: NgForm) {
     let messageObj;
     if(this.onPrivateChat !== true) {
@@ -48,16 +54,32 @@ export class EditMsgTextareaComponent {
     }
   }
 
+
+  /**
+   * Signals parent element to close edit message window
+   * 
+   * @param event 
+   */
   cancleUpdateMsg(event: Event) {
     event.preventDefault()
     this.closeEditMsg.emit(false);
   }
 
+
+  /**
+   * Adds selected emoji
+   * 
+   * @param $event 
+   */
   addEmoji($event: EmojiEvent) {
     if($event.emoji.native)
     this.message += $event.emoji.native;
   }
 
+
+/**
+ * Sets uploadedFile to [] and deletes it within the message
+ */
   deleteFile() {
     // mit der docRef file vom Storage löschen!
     this.uploadedFile = [];

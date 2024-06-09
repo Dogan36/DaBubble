@@ -57,33 +57,49 @@ export class MainPageComponent {
     });
   }
 
+
+  /**
+   * Calls diffrent event Service functions to open or close diffrent elements based on window width
+   */
   ngOnInit() {
     if (typeof window !== 'undefined') {
-    if (window.innerWidth > 792 && window.innerWidth <= 1440) {
-      this.evtSvc.openChannel(true);
-      this.evtSvc.openPrivateChat(false);
-      this.evtSvc.openThread(false);
-      this.evtSvc.openNewChat(false);
-    }
-    if (window.innerWidth <= 792) {
-      this.evtSvc.openChannel(false);
-      this.evtSvc.openPrivateChat(false);
-      this.evtSvc.openThread(false);
-      this.evtSvc.openNewChat(false);
+      if (window.innerWidth > 792 && window.innerWidth <= 1440) {
+        this.evtSvc.openChannel(true);
+        this.evtSvc.openPrivateChat(false);
+        this.evtSvc.openThread(false);
+        this.evtSvc.openNewChat(false);
+      }
+      if (window.innerWidth <= 792) {
+        this.evtSvc.openChannel(false);
+        this.evtSvc.openPrivateChat(false);
+        this.evtSvc.openThread(false);
+        this.evtSvc.openNewChat(false);
+      }
     }
   }
-}
 
+
+  /**
+   * Calls startSearch function based on searchText variable
+   */
   startSearch() {
     if (this.searchText && this.searchText.length >= 3) {
       this.searchService.startSearch(this.searchText);
     }
   }
 
+
+  /**
+   * Toggles workspaceOpen boolean variable
+   */
   toggleSideNav() {
     this.workspaceOpen = !this.workspaceOpen;
   }
 
+
+  /**
+   * Calls diffrent event Service functions to open new Chat board
+   */
   openNewChat() {
     this.evtSvc.openChannel(false);
     this.evtSvc.openPrivateChat(false);
@@ -95,6 +111,10 @@ export class MainPageComponent {
     }
   }
 
+
+  /**
+   * Calls diffrent event Service functions to open channel board
+   */
   openChanel() {
     this.evtSvc.openChannel(true);
     this.evtSvc.openPrivateChat(false);
@@ -110,6 +130,10 @@ export class MainPageComponent {
     }
   }
 
+
+  /**
+   * Calls diffrent event Service functions to open private Chat board
+   */
   openPrivateChat() {
     this.evtSvc.openChannel(false);
     this.evtSvc.openPrivateChat(true);
@@ -120,6 +144,10 @@ export class MainPageComponent {
     }
   }
 
+  
+  /**
+   * Calls diffrent event Service functions to open workspace board
+   */
   openWorkspace() {
     if (window.innerWidth <= 792) {
       this.evtSvc.openChannel(false);
@@ -130,17 +158,28 @@ export class MainPageComponent {
     }
   }
 
+
   /**
-   * Opens UserMenuDialog by click
+   * Opens UserMenuDialog on click
    */
   openUserMenuDialog() {
     this.dialog.open(DialogUserMenuComponent, { position: { right: '24px', top: '80px' }, panelClass: ['dialog-bor-rad-corner', 'user-profil-menu'] });
   }
 
+
+  /**
+   * Sets searchText variable to ''
+   */
   stopSearch() {
     this.searchText = '';
   }
 
+
+  /**
+   * Subscribes selected channel and calls event service to open channel board with selected channel
+   * 
+   * @param channelRef - selected channel document ref
+   */
   onOpenChannel(channelRef:string) {
     this.channelService.unsubSglChannelChats();
     this.channelService.subSglChannelChats(channelRef);
@@ -148,15 +187,34 @@ export class MainPageComponent {
     this.evtSvc.ChannelModus();
   }
 
+
+  /**
+   * Subscribes selected channel chat and calls setSelectedChannelIndex
+   * 
+   * @param channelRef - selected channel document ref
+   * @param chatRef - selected channel chat document ref
+   */
   openThreadOnSearch(channelRef:string, chatRef:string) {
     this.channelService.subSglChannelChats(channelRef, chatRef);
     this.channelService.setSelectedChannelIndex(channelRef);
   }
 
+
+  /**
+   * Sets inputFocus variable
+   * 
+   * @param value 
+   */
   setInputFocus(value: boolean) {
     this.inputFocus = value;
   }
 
+
+  /**
+   * returns inputFocus boolean value
+   * 
+   * @returns 
+   */
   isInputFocused(): boolean {
     return this.inputFocus;
   }
