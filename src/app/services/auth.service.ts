@@ -63,6 +63,9 @@ export class AuthService {
     });
   }
 
+  /**
+   * This function sets the persistence for the session
+   */
   private setPersistence(): void {
     // Setzen der Persistenzoption auf "local"
     setPersistence(this.auth, browserSessionPersistence)
@@ -73,6 +76,10 @@ export class AuthService {
       });
   }
 
+  /**
+   * This function creates an User Type
+   * @returns UserType
+   */
   private createUserObject(): UserType {
     return {
       uid: this.uid,
@@ -84,10 +91,17 @@ export class AuthService {
     };
   }
 
+  /**
+   * This function handles an Image Error
+   */
   handleImageError() {
     this.user.photoURL = './assets/img/profils/standardPic.svg'
   }
 
+
+/**
+ * This function logs the user into the page
+ */
   async login(): Promise<void> {
     try {
       await setPersistence(this.auth, browserSessionPersistence);
@@ -103,6 +117,9 @@ export class AuthService {
     }
   }
 
+  /**
+   * This function registers a new user
+   */
   async register(): Promise<void> {
     try {
       const userCredential = await createUserWithEmailAndPassword(this.auth, this.email, this.password);
@@ -131,6 +148,11 @@ export class AuthService {
     }
   }
 
+  /**
+   * This function updates the info of the user in firebase
+   * @param name {String} This is the name the user has entered
+   * @param email {String} This is the email the user has entered
+   */
   async updateInfo(name: string, email: string) {
     const userDocRef = doc(this.firestore, 'users', this.currentUser.uid);
     try {
@@ -148,6 +170,11 @@ export class AuthService {
     }
   }
 
+    /**
+   * This function updates the picture of the user in firebase
+   * @param picture {String} This is the Url of the picture the user has choosen
+
+   */
   async updatePicture(picture: string) {
     const userDocRef = doc(this.firestore, 'users', this.currentUser.uid);
     await updateDoc(userDocRef, { photoURL: picture });
@@ -157,6 +184,10 @@ export class AuthService {
     }, 1500);
   };
 
+
+  /**
+   * This function registers or logs the user in using GoogleAuth
+   */
   loginWithGoogle() {
     signInWithPopup(this.auth, new GoogleAuthProvider())
       .then((result) => {
@@ -201,6 +232,11 @@ export class AuthService {
       });
   }
 
+  /**
+   * This function sends an email with an link to the user to the reset password page
+   * 
+   * @param email {String} This is the email of the user 
+   */
   sendPasswortReset(email: string) {
     sendPasswordResetEmail(this.auth, email)
       .then(() => {
@@ -218,6 +254,10 @@ export class AuthService {
       });
   }
 
+
+  /**
+   * This function logs the user out
+   */
   async logout(): Promise<void> {
     try {
       this._currentUserSubject.next(null);
@@ -235,6 +275,11 @@ export class AuthService {
     }
   }
 
+  /**
+   * This function registers a new GuestUser
+   * 
+   * @returns Uid of the guestUser
+   */
   async registerGuest(): Promise<string> {
     try {
       const randomNum = Math.floor(Math.random() * 10000); // Zufällige Zahl generieren
@@ -272,6 +317,11 @@ export class AuthService {
     }
   }
 
+  /**
+   * This function logs the guest user in
+   * 
+   * @param guestUserId {String} This is the Uid of the guest user
+   */
   async loginGuest(guestUserId: string): Promise<void> {
     try {
       const email = await this.getEmailFromFirebase(guestUserId);
@@ -288,6 +338,11 @@ export class AuthService {
     }
   }
 
+  /**
+   * This function gets the email adress of an user
+   * @param userId {String} this ist the uid of the user
+   * @returns email of the user
+   */
   private async getEmailFromFirebase(userId: string): Promise<string> {
     const userDocRef = doc(this.firestore, 'users', userId);
     const docSnapshot = await getDoc(userDocRef);

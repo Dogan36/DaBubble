@@ -28,6 +28,9 @@ export class LoginComponent {
     });
   }
 
+  /**
+   * This function calles saveVariables() and login()
+   */
   async onSubmit() {
     this.saveVariables();
     try {
@@ -38,12 +41,17 @@ export class LoginComponent {
     }
   }
 
-
+/**
+   * This function saves the variables of the login field and calles login()
+   */
   async saveVariables() {
     this.authService.email = this.myForm.value['email'];
     this.authService.password = this.myForm.value['password'];
     ;
   }
+  /**
+   * This function checks if and which error the value of the email input has
+   */
   get emailError() {
     const emailControl = this.myForm.get('email');
     const value = emailControl?.value as string;
@@ -56,6 +64,9 @@ export class LoginComponent {
     return '';
   }
 
+  /**
+   * This function checks if and which error the value of the password input has
+   */
   get passwordError() {
     const passwordControl = this.myForm.get('password');
     if (passwordControl?.hasError('required')) {
@@ -64,6 +75,9 @@ export class LoginComponent {
     return '';
   }
 
+  /**
+   * This function calles loginWihtGoogle from authService
+   */
   loginWithGoogle() {
     this.authService.loginWithGoogle()
   }

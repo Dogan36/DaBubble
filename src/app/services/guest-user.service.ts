@@ -11,6 +11,10 @@ export class GuestUserService {
 
   constructor(private firestore: Firestore, private authService: AuthService) { }
 
+  /**
+   * This function checks if an guest user key is safed in localStorage, or in firebase and calles registerGuest or loginGuest
+   * @returns the uid of the guest
+   */
   async createGuestUser(): Promise<string> {
     let guestUserId = localStorage.getItem(this.GUEST_USER_KEY);
     if (!guestUserId) {
@@ -30,17 +34,25 @@ export class GuestUserService {
     return guestUserId;
   }
 
+  /**
+   * This function checkes if the guestUser is on firebase
+   * @param guestUserId {String} This is the Uid of the guest user
+   * @returns boolean
+   */
   async isGuestUserOnFirebase(guestUserId: string): Promise<boolean> {
     try {
       const userDocRef = doc(this.firestore, 'users', guestUserId);
       const docSnapshot = await getDoc(userDocRef);
       return docSnapshot.exists();
     } catch (error) {
-    
+
       return false;
     }
   }
 
+  /**
+   * This function deletes guest users and every changes they made after 24 hours
+   */
   public async deleteOldGuests(): Promise<void> {
     const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
     const querySnapshot = await getDocs(collection(this.firestore, 'users'));
@@ -69,6 +81,11 @@ export class GuestUserService {
     await Promise.all(deletionPromises);
   }
 
+  /**
+   * This function deletes all channels the guest user has created
+   * 
+   * @param userId {String} This is the Uid of the guest user
+   */
   private async deleteChannelsByUser(userId: string): Promise<void> {
     const querySnapshot = await getDocs(query(collection(this.firestore, 'channels'), where('creator', '==', userId)));
     const deletionPromises: Promise<void>[] = [];
@@ -80,6 +97,11 @@ export class GuestUserService {
     await Promise.all(deletionPromises);
   }
 
+  /**
+   * This function deletes all private chats of the guest user
+   * 
+   * @param userId {String} This is the Uid of the guest user
+   */
   private async deleteChatsByUser(userId: string): Promise<void> {
     const querySnapshot = await getDocs(query(collection(this.firestore, 'chats'), where('members', 'array-contains', userId)));
     const deletionPromises: Promise<void>[] = [];
@@ -91,6 +113,11 @@ export class GuestUserService {
     await Promise.all(deletionPromises);
   }
 
+  /**
+   * This function removes the guest user from all channels
+   * 
+   * @param userId {String} This is the Uid of the guest user
+   */
   private async removeUserFromChannels(userId: string): Promise<void> {
     const querySnapshot = await getDocs(query(collection(this.firestore, 'channels'), where('members', 'array-contains', userId)));
     const updatePromises: Promise<void>[] = [];
@@ -104,6 +131,11 @@ export class GuestUserService {
     await Promise.all(updatePromises);
   }
 
+  /**
+   * This function deletes all messages written by the guest user
+   * 
+   * @param userId {String} This is the Uid of the guest user
+   */
   private async deleteMessagesByUser(userId: string): Promise<void> {
     const querySnapshot = await getDocs(query(collection(this.firestore, 'channels'), where('members', 'array-contains', userId)));
     const deletionPromises: Promise<void>[] = [];
@@ -124,6 +156,11 @@ export class GuestUserService {
     await Promise.all(deletionPromises);
   }
 
+  /**
+   * This function deletes all reactions made by the guest user
+   * 
+   * @param userId {String} This is the Uid of the guest user
+   */
   private async deleteReactionsByUser(userId: string): Promise<void> {
     const querySnapshot = await getDocs(query(collection(this.firestore, 'channels'), where('members', 'array-contains', userId)));
     const deletionPromises: Promise<void>[] = [];

@@ -31,6 +31,9 @@ export class SignuppictureComponent {
     });
   }
 
+  /**
+   * This function sets signingIn to true, calles register from authService, and calles showOverlayError if email is already in use
+   */
   async register() {
     try {
       this.signingIn = true;
@@ -49,6 +52,11 @@ export class SignuppictureComponent {
     }
   }
 
+  /**
+   * This function sets the photoUrl in authService to the seleceted picture
+   * 
+   * @param i {String} Url of selected picture
+   */
   selectPicture(i: string) {
     this.authService.photoURL = i
   }

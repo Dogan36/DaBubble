@@ -14,6 +14,12 @@ export class ResetPasswordService {
     this.actionCode = this.getParameterByName('oobCode') || '';
   }
 
+  /**
+   * This function gets parametes of the url
+   *
+   * @param url {String} This is the url with the parametes
+   * @returns decoded Uri component
+   */
   private getParameterByName(name: string, url = window.location.href) {
     name = name.replace(/[[]]/g, "\\$&");
     const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
@@ -23,13 +29,15 @@ export class ResetPasswordService {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
   }
 
+  /**
+   * This function saves the new password
+   * @param newPassword {String} This is the new password
+   */
   public async handleResetPassword(newPassword: string): Promise<void> {
     if (this.actionCode) {
       try {
         const email = await verifyPasswordResetCode(this.authService.auth, this.actionCode);
-        console.log(`Resetting password for ${email}`);
         await confirmPasswordReset(this.authService.auth, this.actionCode, newPassword);
-        console.log('Password has been reset successfully.');
       } catch (error) {
         console.error('Error resetting password:', error);
         throw error;

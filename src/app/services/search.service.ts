@@ -20,12 +20,22 @@ export class SearchService {
   foundMessages: any = []
   private channelListLoaded$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  /**
+   * This function starts the search
+   * 
+   * @param searchText {String} This is the text the user has entered
+   */
   async startSearch(searchText: string) {
     this.foundUsers = this.searchUsers(searchText)
     this.foundChannelNames = this.searchChannelNames(searchText)
     this.foundMessages = await this.searchChannelMessages(searchText)
   }
 
+  /**
+   * This function searches users 
+   * @param searchText {String} This is the text the user has entered
+   * @returns the users that has been found
+   */
   searchUsers(searchText: string) {
     const queryText = searchText.toLowerCase();
     const foundUsers = this.userService.users.filter(user => user.name.toLowerCase().includes(queryText));
@@ -33,6 +43,11 @@ export class SearchService {
     return foundUsers;
   }
 
+  /**
+   * This function searches channels 
+   * @param searchText {String} This is the text the user has entered
+   * @returns the channels that has been found
+   */
   searchChannelNames(searchText: string) {
     const queryText = searchText.toLowerCase();
     const foundChannels = this.channelService.channels.filter(channel => channel.name.toLowerCase().includes(queryText));
@@ -40,6 +55,11 @@ export class SearchService {
     return foundChannels;
   }
 
+  /**
+   * This function searches messages inside channels
+   * @param searchText {String} This is the text the user has entered
+   * @returns the messages that has been found
+   */
   async searchChannelMessages(searchText: string) {
     const queryText = searchText.toLowerCase();
     const currentUserID = this.authService.uid;
@@ -70,6 +90,11 @@ export class SearchService {
     return foundMessages;
   }
 
+  /**
+   * This function returns the message
+   * @param message {String} this ist the message
+   * @returns message or message.message
+   */
   getMessageText(message: any): string {
     if (typeof message === 'string') {
       // Wenn die Nachricht bereits eine Zeichenkette ist, gib sie direkt zurück

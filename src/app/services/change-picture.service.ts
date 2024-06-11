@@ -18,11 +18,18 @@ export class ChangePictureService {
     "./../../../assets/img/profils/avatar_5.svg",
     "./../../../assets/img/profils/avatar_6.svg"];
 
+    /**
+     * This function sets the seleceted picture of the user
+     * @param i {String} This is the url of the selected picture
+     */
   selectPicture(i: string) {
     this.currentPicture = i;
     this.pictureSelected = true;
   }
 
+  /**
+   * This function safes the seleceted picture
+   */
   safeSelectedPicture() {
     this.authService.updatePicture(this.currentPicture)
   }

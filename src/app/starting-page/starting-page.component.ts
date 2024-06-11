@@ -36,6 +36,9 @@ export class StartingPageComponent {
   loginService: LoginService = inject(LoginService);
   guestUserService: GuestUserService = inject(GuestUserService)
 
+  /**
+   * This function calles deleteOldGuest from guestUserService
+   */
   ngOnInit() {
     this.guestUserService.deleteOldGuests()
   }

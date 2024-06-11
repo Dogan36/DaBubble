@@ -16,6 +16,9 @@ export class FileUploadService {
 
   constructor(private overlayService:OverlayService) { }
 
+  /**
+   * This function lets the user choose the file he wants to upload
+   */
   chooseFile() {
     if (this.uploadedFiles.length === 0) {
       const fileInput = document.createElement('input');
@@ -39,6 +42,12 @@ export class FileUploadService {
     }
   }
 
+  /**
+   * This function checks if the size of the file is valid
+   * 
+   * @param file {File} This is the file to be checked
+   * @returns boolean
+   */
   private async isFileSizeValid(file: File): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       const fileSizeLimit = 500 * 1024; // 500 KB in Bytes umwandeln
@@ -54,6 +63,9 @@ export class FileUploadService {
     });
   }
 
+  /**
+   * This function uploads the choosen files to firebase
+   */
   private async uploadFiles() {
     if (this.filesToUpload.length === 0 || this.isUploading) return;
     this.isUploading = true;
@@ -81,6 +93,7 @@ export class FileUploadService {
     }
   }
 
+
   getUploadedFiles(): { file: File, docRef: any, downloadURL: string }[] {
     return this.uploadedFiles;
   }
@@ -97,6 +110,9 @@ export class FileUploadService {
   //   }
   // }
 
+  /**
+   * This function deletes files from firebase
+   */
   async deleteFile() {
     const fileToDelete = this.uploadedFiles[0];
     if (!fileToDelete) return; // Überprüfen, ob das Index valide ist

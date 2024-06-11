@@ -22,6 +22,9 @@ export class ForgotPasswordComponent {
     });
   }
   
+  /**
+   * This function checks if the form is valid an calles sendPasswordReset()
+   */
   onSubmit() {
     if (this.myForm.valid) {
       this.email = this.myForm.value['email'];
@@ -29,6 +32,9 @@ export class ForgotPasswordComponent {
     }
   }
 
+  /**
+   * This function checks if and which error the value of the email input has
+   */
   get emailError() {
     const emailControl = this.myForm.get('email');
     const value = emailControl?.value as string;

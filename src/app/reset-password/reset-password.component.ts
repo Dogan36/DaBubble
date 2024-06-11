@@ -25,7 +25,9 @@ export class ResetPasswordComponent {
     });
   }
   password: string = ''
-
+/**
+ * This function saves new password and navigates to login page
+ */
   onSubmit() {
     if (this.myForm.valid) {
       const newPassword = this.myForm.value['password'];
@@ -41,6 +43,10 @@ export class ResetPasswordComponent {
     }
   }
 
+/**
+ * This funcion returns error messages if when password input is empty or hasn't the minimum length
+ */
+
   get passwordError() {
     const passwordControl = this.myForm.get('password');
     if (passwordControl?.hasError('required')) {
@@ -52,6 +58,10 @@ export class ResetPasswordComponent {
     return '';
   }
 
+/**
+ * This function returns error message if passwords are not the same
+ */
+
   get passwordRepeatError() {
     const passwordControl = this.myForm.get('password');
     const passwordRepeatControl = this.myForm.get('passwordRepeat');
@@ -61,6 +71,9 @@ export class ResetPasswordComponent {
     return '';
   }
 
+  /**
+   * This function markes the passwordRepeat input as touched
+   */
   validatePasswordRepeat() {
     const passwordControl = this.myForm.get('password');
     const passwordRepeatControl = this.myForm.get('passwordRepeat');

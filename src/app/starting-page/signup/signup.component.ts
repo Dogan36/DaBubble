@@ -29,6 +29,9 @@ export class SignupComponent {
   password: string = '';
   name: string = '';
 
+  /**
+   * This function saves the variables
+   */
   saveVariables() {
     this.authService.email = this.email;
     this.authService.password = this.password;
@@ -45,6 +48,9 @@ export class SignupComponent {
     }
   }
 
+  /**
+   * This function checks if and which error the value of the email input has
+   */
   get emailError() {
     const emailControl = this.myForm.get('email');
     const value = emailControl?.value as string;
@@ -57,6 +63,9 @@ export class SignupComponent {
     return '';
   }
 
+  /**
+   * This function checks if and which error the value of the password input has
+   */
   get passwordError() {
     const passwordControl = this.myForm.get('password');
     if (passwordControl?.hasError('required')) {
@@ -68,6 +77,9 @@ export class SignupComponent {
     return '';
   }
 
+  /**
+   * This function checks if and which error the value of the name input has
+   */
   get nameError() {
     const nameControl = this.myForm.get('name');
     if (nameControl?.hasError('required')) {
