@@ -13,7 +13,8 @@ import { Message } from '../../../models/message.class';
 import { AuthService } from '../../../services/auth.service';
 import { Reaction } from '../../../models/reaction.class';
 import { ChatService } from '../../../services/chat.service';
-
+import { FormatUrlsService } from '../../../services/format-urls.service';
+import { SafeHtml } from '@angular/platform-browser';
 @Component({
   selector: 'app-message-left',
   standalone: true,
@@ -37,7 +38,7 @@ export class MessageLeftComponent {
   @Input() memberRef: string = '';
   @Input() sortedReactions: {reactUser: string[], reactEmoji: string}[] = [];
   @Input() uploadedFile: string[] = [];
-
+  sanitizedMessage: SafeHtml | undefined;
   @Output() messageLoaded: EventEmitter<void> = new EventEmitter<void>();
 
   @ViewChild('aboveMenuTrigger') emojiMenuTrigger?: MatMenuTrigger;
@@ -45,9 +46,11 @@ export class MessageLeftComponent {
   containerHovered: boolean = false;
 
 
-  constructor(private evtSvc: EventService, public dialog: MatDialog, private channelService: ChannelService, public userService: UserService, public authService: AuthService, private chatService: ChatService) {}
+  constructor(private evtSvc: EventService, public dialog: MatDialog, private channelService: ChannelService, public userService: UserService, public authService: AuthService, private chatService: ChatService, public urlService: FormatUrlsService) {}
 
-
+  ngOnInit() {
+    this.sanitizedMessage = this.urlService.formatUrls(this.message);
+  }
   /**
    * Signals parent element that message was loaded and triggers an event
    */

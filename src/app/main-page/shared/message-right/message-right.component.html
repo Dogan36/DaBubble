@@ -17,7 +17,7 @@
       @if(uploadedFile.length > 0) {
       <a href="{{ uploadedFile[1] }}" target="_blank">{{ uploadedFile[0] }}</a>
       }
-      <p>{{ message }}</p>
+      <p [innerHtml]="sanitizedMessage"></p>
     </div>
 
     <!-- reactions under msg -->
